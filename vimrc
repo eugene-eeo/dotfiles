@@ -8,14 +8,11 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'croaker/mustang-vim'
 Bundle 'sjl/gundo.vim'
-Bundle 'minibufexpl.vim'
 Bundle 'wting/rust.vim'
 
-Bundle 'vydark'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'twerth/ir_black'
 Bundle 'morhetz/gruvbox'
-Bundle 'noah/vim256-color'
 
 Bundle 'CSApprox'
 Bundle 'kien/ctrlp.vim'
@@ -55,13 +52,19 @@ set shiftwidth=4
 set softtabstop=4
 syntax on
 
+for prefix in ['i', 'n', 'v']
+    for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+        exe prefix . "noremap " . key . " <Nop>"
+    endfor
+endfor
+
 if has('gui_running')
     colo mustang
     hi! Normal  guibg=#181818
     hi! NonText guibg=#181818
     hi! clear SignColumn
 
-    set guifont=Letter\ Gothic:h11
+    set guifont=Letter\ Gothic:h12
     set guicursor+=a:blinkon0
     set guioptions-=r
     set guioptions-=L
@@ -105,13 +108,13 @@ hi! link pythonDocTest2 Function
 hi Cursorline   guibg=#101010
 hi CursorLineNr guibg=#101010 guifg=#FFFFFF
 
-autocmd VIMEnter * NERDTree
-autocmd VIMEnter * wincmd p
-
 " Enable .md file extension as markdown
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.rs set filetype=rust
 au BufRead,BufNewFile *.lambda set syntax=lambda
+
+map <Leader>n <esc>:tabprevious<CR>
+map <Leader>m <esc>:tabnext<CR>
 
 nnoremap <F2> :set invpaste paste?<CR>
 nnoremap <F4> :bnext<CR>
@@ -121,7 +124,6 @@ nnoremap <F8> :TagbarToggle<CR>
 
 " shortcuts
 nnoremap <leader>w :w<CR>
-nnoremap <leader>n :NERDTree<CR>
 
 vnoremap < <gv
 vnoremap > >gv
