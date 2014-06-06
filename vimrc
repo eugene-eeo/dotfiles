@@ -10,6 +10,7 @@ Bundle 'croaker/mustang-vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'wting/rust.vim'
 
+Bundle 'flazz/vim-colorschemes'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'twerth/ir_black'
 Bundle 'morhetz/gruvbox'
@@ -26,7 +27,6 @@ Bundle 'scrooloose/syntastic'
 
 filetype plugin indent on
 set t_Co=256
-set cursorline
 set backspace=2
 
 set laststatus=2
@@ -43,31 +43,38 @@ set splitright
 set backup
 set backupdir=~/tmp
 set writebackup
-set fillchars+=vert:\ 
+set fillchars=
 set nowrap
 
 set tabstop=8
 set expandtab
 set shiftwidth=4
 set softtabstop=4
+set background=dark
 syntax on
 
-for prefix in ['i', 'n', 'v']
-    for key in ['<Up>', '<Down>', '<Left>', '<Right>']
-        exe prefix . "noremap " . key . " <Nop>"
-    endfor
-endfor
+" Show whitespace in red
+" MUST be inserted BEFORE the colorscheme command
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertLeave * match ExtraWhitespace /\s\+$/
 
+" Unbind the cursor keys in insert, normal and visual modes.
+"for prefix in ['i', 'n', 'v']
+"  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+"    exe prefix . "noremap " . key . " <Nop>"
+"  endfor
+"endfor
+
+colo mustang
 if has('gui_running')
-    colo mustang
     hi! Normal  guibg=#181818
-    hi! NonText guibg=#181818
-    hi! clear SignColumn
+    hi! link NonText Normal
 
     set guifont=Letter\ Gothic:h12
     set guicursor+=a:blinkon0
     set guioptions-=r
     set guioptions-=L
+    set cursorline
 else
     set background=dark
     colo grb4
@@ -75,7 +82,6 @@ endif
 
 hi! clear SignColumn
 let python_highlight_all=1
-let mapleader=","
 
 " GITGUTTER
 let g:gitgutter_map_keys = 0
@@ -91,6 +97,9 @@ let g:gundo_close_on_revert=1
 let g:NERDTreeIgnore = ['\.pyc$','__pycache__$']
 let g:NERDTreeStatusline = ''
 
+" CTRL-P
+set wildignore+=*.pyc
+
 " SYNTASTIC
 let g:syntastic_enable_signs=1
 let g:syntastic_python_python_exec = 'python3'
@@ -102,28 +111,32 @@ let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
+" YouCompleteMe
+let g:ycm_filetype_blacklist = {'markdown':1, 'tagbar':1, 'djangohtml':1}
+
 hi! link pythonDocTest  Function
 hi! link pythonDocTest2 Function
 
 hi Cursorline   guibg=#101010
 hi CursorLineNr guibg=#101010 guifg=#FFFFFF
 
+" KEY BINDINGS
+let mapleader=","
+
 " Enable .md file extension as markdown
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.rs set filetype=rust
 au BufRead,BufNewFile *.lambda set syntax=lambda
 
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>m <esc>:tabnext<CR>
+map <Leader>n <esc>:tabp<CR>
+map <Leader>m <esc>:tabn<CR>
+map <F5> <esc>:tabclose<CR>
+vnoremap <Leader>s :sort<CR>
 
 nnoremap <F2> :set invpaste paste?<CR>
-nnoremap <F4> :bnext<CR>
-nnoremap <F5> :bp<bar>sp<bar>bn<bar>bd<CR>
 nnoremap <F6> :GundoToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
-
-" shortcuts
-nnoremap <leader>w :w<CR>
+nnoremap <Leader>w :w<CR>
 
 vnoremap < <gv
 vnoremap > >gv
