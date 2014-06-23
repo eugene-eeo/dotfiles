@@ -13,6 +13,6 @@ at 13pt.
 `bashrc` settings are to customize the prompt and `$PATH`,
 most of them were stolen from/inspired by `mistsuhiko`'s
 [bashrc](https://github.com/mitsuhiko/dotfiles/blob/master/bash/bashrc),
-and I just took the color for keywords form the mustang color
+and I just took the color for keywords from the mustang color
 scheme and used it everywhere. It gives my terminal a _heroku_
 like look.
