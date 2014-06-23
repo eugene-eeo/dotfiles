@@ -10,7 +10,8 @@ Bundle 'croaker/mustang-vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'wting/rust.vim'
 
-Bundle 'flazz/vim-colorschemes'
+Bundle 'tpope/vim-fugitive'
+Bundle 'mitsuhiko/fruity-vim-colorscheme'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'twerth/ir_black'
 Bundle 'morhetz/gruvbox'
@@ -51,6 +52,7 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 set background=dark
+set statusline=[%l,%v]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 syntax on
 
 " Show whitespace in red
@@ -70,7 +72,7 @@ if has('gui_running')
     hi! Normal  guibg=#181818
     hi! link NonText Normal
 
-    set guifont=Letter\ Gothic:h12
+    set guifont=Consolas:h13
     set guicursor+=a:blinkon0
     set guioptions-=r
     set guioptions-=L
