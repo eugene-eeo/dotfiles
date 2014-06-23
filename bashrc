@@ -3,7 +3,7 @@
 BOLD=$(tput bold)
 RED=$(tput bold; tput setaf 1)
 YELLOW=$(tput bold ; tput setaf 3)
-GREEN=$(tput setaf 2)
+GREEN=$(tput setaf 148)
 BLUE=$(tput setaf 4)
 LIGHT_GRAY=$(tput setaf 7)
 WHITE=$(tput bold ; tput setaf 7)
@@ -35,7 +35,7 @@ eeojun_virtualenv() {
 }
 
 eeojun_vcprompt() {
-    vcprompt -f "[$PRIMARY%b%m%u$RESET_COLOR] "
+    vcprompt -f "[$PRIMARY%b$GREEN%m%u$RESET_COLOR] "
 }
 
 eeojun_lastcommandfailed() {
