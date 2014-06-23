@@ -11,7 +11,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'wting/rust.vim'
 
 Bundle 'tpope/vim-fugitive'
-Bundle 'mitsuhiko/fruity-vim-colorscheme'
+Bundle 'jeetsukumaran/vim-nefertiti'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'twerth/ir_black'
 Bundle 'morhetz/gruvbox'
@@ -67,10 +67,9 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 "  endfor
 "endfor
 
-colo mustang
 if has('gui_running')
+    colo mustang
     hi! Normal  guibg=#181818
-    hi! link NonText Normal
 
     set guifont=Consolas:h13
     set guicursor+=a:blinkon0
@@ -78,11 +77,18 @@ if has('gui_running')
     set guioptions-=L
     set cursorline
 else
-    set background=dark
     colo grb4
+    set background=dark
+    colo mustang
+
+    hi! LineNR ctermbg=234
+    hi! Normal ctermbg=233
+    hi! Statusline ctermbg=234
 endif
 
 hi! clear SignColumn
+hi! link NonText Normal
+
 let python_highlight_all=1
 
 " GITGUTTER
@@ -119,6 +125,37 @@ let g:ycm_filetype_blacklist = {'markdown':1, 'tagbar':1, 'djangohtml':1}
 hi! link pythonDocTest  Function
 hi! link pythonDocTest2 Function
 
+function! UpdatePythonHighlight()
+    syn keyword pythonBuiltinObj    True False Ellipsis None NotImplemented
+    syn keyword pythonSelfObject    self
+
+    syn region pythonString matchgroup=pythonStringDelimiter start="'"  end="'"  skip=+\\\\\|\\'\|\\$+ keepend excludenl contains=pythonEscape,pythonEscapeError,@Spell
+    syn region pythonString matchgroup=pythonStringDelimiter start=+"+	end=+"+  skip=+\\\\\|\\"\|\\$+ keepend excludenl contains=pythonEscape,pythonEscapeError,@Spell
+
+    syn region pythonUniString matchgroup=pythonStringDelimiter start=+[uU]'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonEscape,pythonUniEscape,pythonEscapeError,pythonUniEscapeError,@Spell
+    syn region pythonUniString matchgroup=pythonStringDelimiter start=+[uU]"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonEscape,pythonUniEscape,pythonEscapeError,pythonUniEscapeError,@Spell
+    syn region pythonRawString matchgroup=pythonStringDelimiter	start=+[rR]'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonRawEscape,@Spell
+    syn region pythonRawString matchgroup=pythonStringDelimiter	start=+[rR]"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonRawEscape,@Spell
+    syn region pythonUniRawString matchgroup=pythonStringDelimiter start=+[uU][rR]'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonRawEscape,pythonUniRawEscape,pythonUniRawEscapeError,@Spell
+    syn region pythonUniRawString matchgroup=pythonStringDelimiter start=+[uU][rR]"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonRawEscape,pythonUniRawEscape,pythonUniRawEscapeError,@Spell
+
+    hi pythonStringDelimiter ctermfg=240 guifg=#888888
+    hi pythonFormatting      ctermfg=106 guifg=#a0a300
+    hi customEscape          ctermfg=154 guifg=#c2c742
+
+    hi link pythonStrFormat     pythonFormatting
+    hi link pythonStrFormatting pythonFormatting
+    hi link pythonStrTemplate   pythonFormatting
+
+    hi link pythonEscape        customEscape
+
+    hi link pythonBuiltinObj    Identifier
+    hi link pythonDecorator     Statement
+    hi link pythonSelfObject    Statement
+    hi link pythonFuncName      PreProc
+    hi link pythonSuperclass    PreProc
+endfunction
+
 hi Cursorline   guibg=#101010
 hi CursorLineNr guibg=#101010 guifg=#FFFFFF
 
@@ -129,6 +166,7 @@ let mapleader=","
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.rs set filetype=rust
 au BufRead,BufNewFile *.lambda set syntax=lambda
+au BufRead,BufNewFile *.py call UpdatePythonHighlight()
 
 map <Leader>n <esc>:tabp<CR>
 map <Leader>m <esc>:tabn<CR>
