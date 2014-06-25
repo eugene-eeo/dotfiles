@@ -11,7 +11,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'wting/rust.vim'
 
 Bundle 'tpope/vim-fugitive'
-Bundle 'jeetsukumaran/vim-nefertiti'
+Bundle 'noahfrederick/vim-hemisu'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'twerth/ir_black'
 Bundle 'morhetz/gruvbox'
@@ -71,13 +71,12 @@ if has('gui_running')
     colo mustang
     hi! Normal  guibg=#181818
 
-    set guifont=Consolas:h13
+    set guifont=Monaco:h12
     set guicursor+=a:blinkon0
     set guioptions-=r
     set guioptions-=L
     set cursorline
 else
-    colo grb4
     set background=dark
     colo mustang
 
@@ -129,17 +128,7 @@ function! UpdatePythonHighlight()
     syn keyword pythonBuiltinObj    True False Ellipsis None NotImplemented
     syn keyword pythonSelfObject    self
 
-    syn region pythonString matchgroup=pythonStringDelimiter start="'"  end="'"  skip=+\\\\\|\\'\|\\$+ keepend excludenl contains=pythonEscape,pythonEscapeError,@Spell
-    syn region pythonString matchgroup=pythonStringDelimiter start=+"+	end=+"+  skip=+\\\\\|\\"\|\\$+ keepend excludenl contains=pythonEscape,pythonEscapeError,@Spell
-
-    syn region pythonUniString matchgroup=pythonStringDelimiter start=+[uU]'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonEscape,pythonUniEscape,pythonEscapeError,pythonUniEscapeError,@Spell
-    syn region pythonUniString matchgroup=pythonStringDelimiter start=+[uU]"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonEscape,pythonUniEscape,pythonEscapeError,pythonUniEscapeError,@Spell
-    syn region pythonRawString matchgroup=pythonStringDelimiter	start=+[rR]'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonRawEscape,@Spell
-    syn region pythonRawString matchgroup=pythonStringDelimiter	start=+[rR]"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonRawEscape,@Spell
-    syn region pythonUniRawString matchgroup=pythonStringDelimiter start=+[uU][rR]'+ skip=+\\\\\|\\'\|\\$+ excludenl end=+'+ end=+$+ keepend contains=pythonRawEscape,pythonUniRawEscape,pythonUniRawEscapeError,@Spell
-    syn region pythonUniRawString matchgroup=pythonStringDelimiter start=+[uU][rR]"+ skip=+\\\\\|\\"\|\\$+ excludenl end=+"+ end=+$+ keepend contains=pythonRawEscape,pythonUniRawEscape,pythonUniRawEscapeError,@Spell
-
-    hi pythonStringDelimiter ctermfg=240 guifg=#888888
+    "hi pythonStringDelimiter ctermfg=240 guifg=#888888
     hi pythonFormatting      ctermfg=106 guifg=#a0a300
     hi customEscape          ctermfg=154 guifg=#c2c742
 

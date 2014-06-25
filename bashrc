@@ -4,7 +4,6 @@ BOLD=$(tput bold)
 RED=$(tput bold; tput setaf 1)
 YELLOW=$(tput bold ; tput setaf 3)
 GREEN=$(tput setaf 148)
-BLUE=$(tput setaf 4)
 LIGHT_GRAY=$(tput setaf 7)
 WHITE=$(tput bold ; tput setaf 7)
 RESET_COLOR=$(tput sgr0)
@@ -16,22 +15,28 @@ else
     PRIMARY=$(tput setaf 103)
 fi
 
+prompt_char() {
+    git branch >/dev/null 2>/dev/null && echo '±' && return
+    hg root >/dev/null 2>/dev/null && echo '☿' && return
+    echo '○'
+}
+
 eeojun_virtualenv() {
-  if [ x$VIRTUAL_ENV != x ]; then
-    if [[ $VIRTUAL_ENV == *.virtualenvs/* ]]; then
-      ENV_NAME=`basename "${VIRTUAL_ENV}"`
-    else
-      folder=`dirname "${VIRTUAL_ENV}"`
-      ENV_NAME=`basename "$folder"`
+    if [ x$VIRTUAL_ENV != x ]; then
+        if [[ $VIRTUAL_ENV == *.virtualenvs/* ]]; then
+            ENV_NAME=`basename "${VIRTUAL_ENV}"`
+        else
+            folder=`dirname "${VIRTUAL_ENV}"`
+            ENV_NAME=`basename "$folder"`
+        fi
+        echo -n "{$PRIMARY"
+        echo -n $ENV_NAME
+        echo -n $'\033[00m} '
+        # Shell title
+        echo -n $'\033]0;venv:'
+        echo -n $ENV_NAME
+        echo -n $'\007'
     fi
-    echo -n "{$PRIMARY"
-    echo -n $ENV_NAME
-    echo -n $'\033[00m} '
-    # Shell title
-    echo -n $'\033]0;venv:'
-    echo -n $ENV_NAME
-    echo -n $'\007'
-  fi
 }
 
 eeojun_vcprompt() {
@@ -39,7 +44,7 @@ eeojun_vcprompt() {
 }
 
 eeojun_lastcommandfailed() {
-    local lc="$BASH_COMMAND" rc=$?
+    local rc=$?
     if [ $rc != 0 ]; then
         echo -n "$PRIMARY[!]$RESET_COLOR last command exited with:"
         echo "$PRIMARY $rc$RESET_COLOR"
@@ -52,6 +57,10 @@ export PS1=$PROMPT_COMPONENT
 export PROMPT_COMMAND="eeojun_lastcommandfailed && eeojun_virtualenv && eeojun_vcprompt"
 export PS2="$PRIMARY> $RESET_COLOR"
 
+export TERM=xterm-256color
+export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
+export CLICOLOR=1
+export EDITOR=vim
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export VIRTUALENV_DISTRIBUTE=1
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
@@ -68,3 +77,4 @@ export PATH="/usr/local/heroku/bin:$PATH"
 # added by travis gem
 [ -f /Users/eeojun/.travis/travis.sh ] && source /Users/eeojun/.travis/travis.sh
 
+alias tree='tree -F -I "*.pyc"'
