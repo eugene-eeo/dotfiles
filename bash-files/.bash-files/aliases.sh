@@ -2,8 +2,9 @@ alias tree='tree -F -C -I "*.pyc|__pycache__"'
 alias tk='toolkit'
 alias ls='ls -G'
 
-pushd_to_devnull() {
-    pushd $1 > /dev/null
+cd() {
+    pushd $@ > /dev/null
+    echo -e "\033[1;30m`pwd`\033[0m"
 }
 
-alias cd=pushd_to_devnull
+alias venv='basename $VIRTUAL_ENV'
