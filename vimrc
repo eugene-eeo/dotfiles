@@ -10,8 +10,8 @@ Bundle 'croaker/mustang-vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'wting/rust.vim'
 
+Bundle 'fholgado/minibufexpl.vim'
 Bundle 'tpope/vim-fugitive'
-Bundle 'noahfrederick/vim-hemisu'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'twerth/ir_black'
 Bundle 'morhetz/gruvbox'
@@ -44,7 +44,7 @@ set splitright
 set backup
 set backupdir=~/tmp
 set writebackup
-set fillchars=
+set fillchars+=stl:\ ,stlnc:\ "
 set nowrap
 
 set tabstop=8
@@ -52,7 +52,6 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 set background=dark
-set statusline=[%l,%v]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 syntax on
 
 " Show whitespace in red
@@ -67,6 +66,35 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 "  endfor
 "endfor
 
+function! GetMode()
+    redraw
+    let l:mode = mode()
+
+    if     mode ==# "n"  | return "N"
+    elseif mode ==# "i"  | return "I"
+    elseif mode ==# "R"  | return "R"
+    elseif mode ==# "v"  | return "V"
+    elseif mode ==# "V"  | return "V-LINE"
+    elseif mode ==# ""   | return "V-BLOCK"
+    else                 | return l:mode
+    endif
+endfunction
+
+function! GetFiletype()
+    let l:filetype = &filetype
+    if filetype ==# "" | return "txt"
+    else               | return l:filetype
+    endif
+endfunction
+
+function! GetFilename()
+    let l:filename = bufname("%")
+    if l:filename ==# ""
+        return ""
+    endif
+    return l:filename
+endfunction
+
 if has('gui_running')
     colo mustang
     hi! Normal  guibg=#181818
@@ -80,10 +108,17 @@ else
     set background=dark
     colo mustang
 
-    hi! LineNR ctermbg=234
+    hi! LineNR ctermbg=233
     hi! Normal ctermbg=233
-    hi! Statusline ctermbg=234
 endif
+
+hi! Statusline ctermbg=234 guibg=#1c1c1c
+hi! StatuslineNC ctermbg=234 ctermfg=234 guifg=#1c1c1c guibg=#1c1c1c
+
+hi StatusLinePath ctermbg=234 ctermfg=230 guibg=#1c1c1c guifg=#ffffdf
+hi StatusLineMode ctermbg=234 ctermfg=103 guibg=#1c1c1c guifg=#8787af
+hi StatusLineNumber ctermbg=234 ctermfg=148 guibg=#1c1c1c guifg=#afd700
+set statusline=%#StatusLineMode#%{GetMode()}%*\ >>\ %#StatusLinePathc#%{GetFilename()}%*%m\ %=<\ %#StatusLineMode#%{GetFiletype()}%*\ <<\ \ %#StatusLineNumber#%l:%c%*\ \ \ 
 
 hi! clear SignColumn
 hi! link NonText Normal
@@ -102,7 +137,7 @@ let g:gundo_close_on_revert=1
 
 " NERDTREE
 let g:NERDTreeIgnore = ['\.pyc$','__pycache__$']
-let g:NERDTreeStatusline = ''
+let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 
 " CTRL-P
 set wildignore+=*.pyc
@@ -123,14 +158,13 @@ let g:ycm_filetype_blacklist = {'markdown':1, 'tagbar':1, 'djangohtml':1}
 
 hi! link pythonDocTest  Function
 hi! link pythonDocTest2 Function
+hi! link MBEVisibleActiveNormal Statement
 
-function! UpdatePythonHighlight()
+function! UpdatePythonHighlighting()
     syn keyword pythonBuiltinObj    True False Ellipsis None NotImplemented
     syn keyword pythonSelfObject    self
 
     "hi pythonStringDelimiter ctermfg=240 guifg=#888888
-    hi pythonFormatting      ctermfg=106 guifg=#a0a300
-    hi customEscape          ctermfg=154 guifg=#c2c742
 
     hi link pythonStrFormat     pythonFormatting
     hi link pythonStrFormatting pythonFormatting
@@ -145,6 +179,9 @@ function! UpdatePythonHighlight()
     hi link pythonSuperclass    PreProc
 endfunction
 
+hi pythonFormatting      ctermfg=106 guifg=#a0a300
+hi customEscape          ctermfg=154 guifg=#c2c742
+
 hi Cursorline   guibg=#101010
 hi CursorLineNr guibg=#101010 guifg=#FFFFFF
 
@@ -155,11 +192,11 @@ let mapleader=","
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.rs set filetype=rust
 au BufRead,BufNewFile *.lambda set syntax=lambda
-au BufRead,BufNewFile *.py call UpdatePythonHighlight()
+au BufRead,BufNewFile *.py call UpdatePythonHighlighting()
 
-map <Leader>n <esc>:tabp<CR>
-map <Leader>m <esc>:tabn<CR>
-map <F5> <esc>:tabclose<CR>
+map <Leader>n <esc>:bprev<CR>
+map <Leader>m <esc>:bnext<CR>
+map <F5> <esc>:bw<CR>
 vnoremap <Leader>s :sort<CR>
 
 nnoremap <F2> :set invpaste paste?<CR>
