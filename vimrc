@@ -10,6 +10,7 @@ Bundle 'croaker/mustang-vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'wting/rust.vim'
 Bundle 'junegunn/seoul256.vim'
+Bundle 'w0ng/vim-hybrid'
 
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'tpope/vim-fugitive'

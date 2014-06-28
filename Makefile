@@ -24,6 +24,7 @@ apply:
 	cp ./vimrc     $(VIMRC)
 	cp ./bashrc    $(BASHRC)
 	cp ./gitconfig $(GITCONFIG)
+	brew bundle
 
 .SUFFIXES:
 	MAKEFLAGS += -r
