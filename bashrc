@@ -5,7 +5,7 @@ source ~/.bash-files/aliases.sh
 source ~/.bash-files/config.sh
 source ~/.bash-files/exports.sh
 
-tput setaf 107
+tput setaf 221
 echo '    __      __              __                               '
 echo '   /  \    /  \ ___________|  | _________ ____  __ __  ____  '
 echo '   \   \/\/   _/ __ \_  __ |  |/ \___   _/ __ \|  |  \/ ___\ '

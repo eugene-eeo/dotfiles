@@ -2,10 +2,15 @@ if [ `id -u` == '0' ]; then
     echo -e '\033[31mYou are in sudo mode!\033[0m'
 fi
 
-GREEN="\[\033[38;5;107m\]"
+BACKGROUND="\[\033[48;5;236m\]"
+GREEN="\[\033[38;5;192m\]"
+ORANGE="\[\033[38;5;208m\]"
+YELLOW="\[\033[38;5;221m\]"
 GREY="\[\033[38;5;241m\]"
 RESET="\[\033[0m\]"
 
-export PS1="${GREEN}\u@\h ${GREY}>${RESET} "
-export PS2="$PRIMARY> $RESET_COLOR"
+VCPROMPT="\`vcprompt -f '$BACKGROUND $YELLOW%b$ORANGE%m%u $RESET '\`"
+
+export PS1="$VCPROMPT\w $YELLOW>>$RESET "
+export PS2="${GREEN}> ${RESET}"
 

@@ -9,6 +9,7 @@ Bundle 'gmarik/vundle'
 Bundle 'croaker/mustang-vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'wting/rust.vim'
+Bundle 'junegunn/seoul256.vim'
 
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'tpope/vim-fugitive'
@@ -99,7 +100,7 @@ if has('gui_running')
     colo mustang
     hi! Normal  guibg=#181818
 
-    set guifont=Source\ Code\ Pro:h12
+    set guifont=Monaco:h12
     set guicursor+=a:blinkon0
     set guioptions-=r
     set guioptions-=L
@@ -115,9 +116,6 @@ endif
 hi! Statusline ctermbg=234 guibg=#1c1c1c
 hi! StatuslineNC ctermbg=234 ctermfg=234 guifg=#1c1c1c guibg=#1c1c1c
 
-hi StatusLinePath ctermbg=234 ctermfg=230 guibg=#1c1c1c guifg=#ffffdf
-hi StatusLineMode ctermbg=234 ctermfg=103 guibg=#1c1c1c guifg=#8787af
-hi StatusLineNumber ctermbg=234 ctermfg=148 guibg=#1c1c1c guifg=#afd700
 set statusline=%#StatusLineMode#%{GetMode()}%*\ >>\ %#StatusLinePathc#%{GetFilename()}%*%m\ %=<\ %#StatusLineMode#%{GetFiletype()}%*\ <<\ \ %#StatusLineNumber#%l:%c%*\ \ \ 
 
 hi! clear SignColumn
