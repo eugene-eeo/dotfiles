@@ -11,6 +11,6 @@ RESET="\[\033[0m\]"
 
 VCPROMPT="\`vcprompt -f '$BACKGROUND $YELLOW%b$ORANGE%m%u $RESET '\`"
 
-export PS1="$VCPROMPT\w $YELLOW>>$RESET "
+export PS1="$VCPROMPT$GREY[ $RESET\w $GREY]$YELLOW\$$RESET "
 export PS2="${GREEN}> ${RESET}"
 
