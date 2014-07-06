@@ -6,10 +6,10 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
+Bundle 'hdima/python-syntax'
 Bundle 'croaker/mustang-vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'wting/rust.vim'
-Bundle 'junegunn/seoul256.vim'
 Bundle 'w0ng/vim-hybrid'
 
 Bundle 'fholgado/minibufexpl.vim'
@@ -101,7 +101,7 @@ if has('gui_running')
     colo mustang
     hi! Normal  guibg=#181818
 
-    set guifont=Monaco:h12
+    set guifont=Consolas:h13
     set guicursor+=a:blinkon0
     set guioptions-=r
     set guioptions-=L
@@ -159,6 +159,8 @@ hi! link pythonDocTest  Function
 hi! link pythonDocTest2 Function
 hi! link MBEVisibleActiveNormal Statement
 
+hi pythonFormatting      ctermfg=106 guifg=#a0a300
+
 function! UpdatePythonHighlighting()
     syn keyword pythonBuiltinObj    True False Ellipsis None NotImplemented
     syn keyword pythonSelfObject    self
@@ -193,9 +195,10 @@ au BufRead,BufNewFile *.rs set filetype=rust
 au BufRead,BufNewFile *.lambda set syntax=lambda
 au BufRead,BufNewFile *.py call UpdatePythonHighlighting()
 
+map <Leader>d <esc>:NERDTree<CR>
 map <Leader>n <esc>:bprev<CR>
 map <Leader>m <esc>:bnext<CR>
-map <F5> <esc>:bw<CR>
+map <F5> <esc>:MBEbw<CR>
 vnoremap <Leader>s :sort<CR>
 
 nnoremap <F2> :set invpaste paste?<CR>

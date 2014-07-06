@@ -13,3 +13,10 @@ venv() {
         basename $VIRTUAL_ENV
     fi
 }
+
+todo() {
+    local contents=`cat '~/.todo.md'`
+    if [[ $? == 0 ]]; then
+        echo $contents
+    fi
+}
