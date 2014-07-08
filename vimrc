@@ -176,7 +176,7 @@ function! UpdatePythonHighlighting()
     hi link pythonBuiltinObj    Identifier
     hi link pythonDecorator     Statement
     hi link pythonSelfObject    Statement
-    hi link pythonFuncName      PreProc
+    hi link pythonFuncName      Function
     hi link pythonSuperclass    PreProc
 endfunction
 
