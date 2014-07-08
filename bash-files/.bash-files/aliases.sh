@@ -5,6 +5,7 @@ alias json='python -m json.tool'
 alias tk='toolkit'
 alias ls='ls -G'
 alias du='du -h'
+alias ttyclock='tty-clock -cC 7'
 
 cd() {
     pushd $@ > /dev/null
