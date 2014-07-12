@@ -101,7 +101,7 @@ if has('gui_running')
     colo mustang
     hi! Normal  guibg=#181818
 
-    set guifont=Consolas:h13
+    set guifont=Monaco:h12
     set guicursor+=a:blinkon0
     set guioptions-=r
     set guioptions-=L
