@@ -2,7 +2,7 @@ export TERM=xterm-256color
 export CLICOLOR=1
 export LSCOLORS='Exxxxxxxxxxxxxxxxxxxxx'
 
-export LESS='-R'
+export LESS='-er'
 
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
