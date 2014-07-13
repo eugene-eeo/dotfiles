@@ -17,9 +17,10 @@ venv() {
     fi
 }
 
-todo() {
-    local contents=`cat '~/.todo.md'`
-    if [[ $? == 0 ]]; then
-        echo $contents
-    fi
+mkenv() {
+    mkvirtualenv "$@"
+}
+
+rmenv() {
+    rmvirtualenv "$@"
 }

@@ -3,5 +3,5 @@ if [ `id -u` == '0' ]; then
 fi
 
 export PS1=" 🌀  "
-export PS2=" > "
+export PS2="\[\e[38;5;27m\]--> \[\e[0m\]"
 

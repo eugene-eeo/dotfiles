@@ -1,6 +1,8 @@
 export TERM=xterm-256color
 export CLICOLOR=1
-export LSCOLORS="Exxxxxxxxxxxxxxxxxxxxx"
+export LSCOLORS='Exxxxxxxxxxxxxxxxxxxxx'
+
+export LESS='-R'
 
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
@@ -30,4 +32,4 @@ fi
 [ -f /Users/eeojun/.travis/travis.sh ] && source /Users/eeojun/.travis/travis.sh
 
 set PYTHONIOENCODING=utf-8
-set completion-ignore-case on
+set -o vi
