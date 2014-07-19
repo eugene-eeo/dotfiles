@@ -101,7 +101,7 @@ if has('gui_running')
     colo mustang
     hi! Normal  guibg=#181818
 
-    set guifont=Monaco:h12
+    set guifont=Consolas:h13
     set guicursor+=a:blinkon0
     set guioptions-=r
     set guioptions-=L
@@ -153,7 +153,7 @@ let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
 " YouCompleteMe
-let g:ycm_filetype_blacklist = {'markdown':1, 'tagbar':1, 'djangohtml':1}
+let g:ycm_filetype_blacklist = {'markdown':1, 'tagbar':1, 'djangohtml':1, 'c':1}
 
 hi! link pythonDocTest  Function
 hi! link pythonDocTest2 Function

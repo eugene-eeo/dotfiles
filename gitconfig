@@ -10,6 +10,7 @@
     graph = log --graph --abbrev-commit --pretty=format:'%C(bold yellow)%h%C(reset) %C(dim white)(%ar)%C(reset) %s %C(bold green)%d%C(reset)' --all
     lg = log --graph --decorate=short --pretty=format:'%C(bold yellow)%h%C(reset) %C(green)%d%C(reset) %s' --simplify-by-decoration --abbrev-commit --all
     st = status
+    stat = diff --stat
 [pager]
 	diff = true
 	graph = true

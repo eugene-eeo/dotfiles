@@ -29,7 +29,8 @@ if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     source /usr/local/bin/virtualenvwrapper.sh
 fi
 
-[ -f /Users/eeojun/.travis/travis.sh ] && source /Users/eeojun/.travis/travis.sh
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
 set PYTHONIOENCODING=utf-8
 set -o vi
