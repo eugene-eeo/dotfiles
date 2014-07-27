@@ -2,10 +2,10 @@
 
 alias tree='tree -F -C -I "*.pyc|__pycache__|*.pyo"'
 alias json='python -m json.tool'
-alias tk='toolkit'
 alias ls='ls -G'
 alias du='du -h'
 alias procview='ps -eo pcpu,pid,user,args | sort -rk 1 | head -6'
+alias sql='sqlite3'
 
 cd() {
     pushd $@ > /dev/null
