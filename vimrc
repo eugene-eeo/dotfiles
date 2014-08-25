@@ -10,10 +10,12 @@ Bundle 'croaker/mustang-vim'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'twerth/ir_black'
 Bundle 'morhetz/gruvbox'
+Bundle 'nanotech/jellybeans.vim'
 
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
+Bundle 'noahfrederick/vim-noctu'
 
 Bundle 'hdima/python-syntax'
 Bundle 'b4winckler/vim-objc'
@@ -64,14 +66,18 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 colo mustang
 if has('gui_running')
     set cursorline
-    set guifont=Inconsolata:h14
+    set guifont=Consolas:h13
     set guicursor+=a:blinkon0
     set guioptions-=r
     set guioptions-=L
+    set guioptions+=c
 endif
 
 hi! Statusline ctermbg=234 guibg=#1c1c1c
 hi! StatuslineNC ctermbg=234 ctermfg=234 guifg=#1c1c1c guibg=#1c1c1c
+
+hi Cursorline   guibg=#101010
+hi CursorLineNr guibg=#101010 guifg=#FFFFFF
 
 hi! clear SignColumn
 hi! link NonText Normal
@@ -95,6 +101,15 @@ let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 " SYNTASTIC
 let g:syntastic_enable_signs=1
 let g:syntastic_enable_highlighting = 1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_loc_list_height=5
+
+" Use ag if possible
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_use_caching = 0
+endif
 
 
 hi! link MBEVisibleActiveNormal Statement
@@ -102,13 +117,9 @@ hi! link pythonDocTest  Function
 hi! link pythonDocTest2 Function
 hi! link MBEVisibleActiveNormal Statement
 
-hi pythonFormatting      ctermfg=106 guifg=#a0a300
-
-function! UpdatePythonHighlighting()
+function UpdatePythonHighlighting()
     syn keyword pythonBuiltinObj    True False Ellipsis None NotImplemented
     syn keyword pythonSelfObject    self
-
-    "hi pythonStringDelimiter ctermfg=240 guifg=#888888
 
     hi link pythonStrFormat     pythonFormatting
     hi link pythonStrFormatting pythonFormatting
@@ -126,9 +137,6 @@ endfunction
 hi pythonFormatting      ctermfg=106 guifg=#a0a300
 hi customEscape          ctermfg=154 guifg=#c2c742
 
-hi Cursorline   guibg=#101010
-hi CursorLineNr guibg=#101010 guifg=#FFFFFF
-
 " KEY BINDINGS
 let mapleader=","
 
@@ -141,10 +149,11 @@ au BufRead,BufNewFile *.py call UpdatePythonHighlighting()
 map <Leader>d <esc>:NERDTree<CR>
 map <Leader>n <esc>:bprev<CR>
 map <Leader>m <esc>:bnext<CR>
-map <F5> <esc>:MBEbw<CR>
 vnoremap <Leader>s :sort<CR>
+vmap r "_dP
 
 nnoremap <F2> :set invpaste paste?<CR>
+nnoremap <F5> <esc>:MBEbw<CR>
 nnoremap <F6> :GundoToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <Leader>w :w<CR>
