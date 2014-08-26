@@ -1,5 +1,6 @@
 #!/bin/bash
 
+alias g='git'
 alias tree='tree -F -C -I "*.pyc|__pycache__|*.pyo"'
 alias json='python -m json.tool'
 alias ls='ls -G'

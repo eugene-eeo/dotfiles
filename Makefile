@@ -14,7 +14,8 @@ patch:
 	echo '[[ -s ~/.bashrc ]] && source ~/.bashrc' >> $(BASH_PROFILE)
 
 source:
-	cp -r $(BUILD_DIR) ./bash-files
+	cp -r $(BUILD_DIR) .
+	mv $(BUILD_DIR) ./bash-files
 	cp $(VIMRC)     ./vimrc
 	cp $(BASHRC)    ./bashrc
 	cp $(GITCONFIG) ./gitconfig
