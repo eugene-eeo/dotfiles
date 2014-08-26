@@ -15,7 +15,7 @@ patch:
 
 source:
 	cp -r $(BUILD_DIR) .
-	mv $(BUILD_DIR) ./bash-files
+	mv .bash-files ./bash-files
 	cp $(VIMRC)     ./vimrc
 	cp $(BASHRC)    ./bashrc
 	cp $(GITCONFIG) ./gitconfig
@@ -26,6 +26,11 @@ apply:
 	cp ./bashrc    $(BASHRC)
 	cp ./gitconfig $(GITCONFIG)
 	brew bundle
+
+coffee:
+	pip install unp
+	pip install Flask
+	pip install gevent
 
 .SUFFIXES:
 	MAKEFLAGS += -r
