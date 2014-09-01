@@ -152,6 +152,7 @@ map <Leader>m <esc>:bnext<CR>
 vnoremap <Leader>s :sort<CR>
 vmap r "_dP
 
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap <F2> :set invpaste paste?<CR>
 nnoremap <F5> <esc>:MBEbw<CR>
 nnoremap <F6> :GundoToggle<CR>
