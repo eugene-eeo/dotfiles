@@ -9,24 +9,25 @@ Bundle 'gmarik/vundle'
 Bundle 'croaker/mustang-vim'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'twerth/ir_black'
-Bundle 'morhetz/gruvbox'
 Bundle 'nanotech/jellybeans.vim'
+Bundle 'alfredodeza/pytest.vim'
 
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
-Bundle 'noahfrederick/vim-noctu'
 
 Bundle 'hdima/python-syntax'
 Bundle 'b4winckler/vim-objc'
 Bundle 'mitsuhiko/vim-json'
-Bundle 'fsouza/go.vim'
 Bundle 'wting/rust.vim'
+Bundle 'fsouza/go.vim'
 
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'airblade/vim-gitgutter'
-Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdtree'
+
+Bundle 'kana/vim-textobj-user'
+Bundle 'bps/vim-textobj-python'
 
 filetype plugin indent on
 set t_Co=256
@@ -111,7 +112,6 @@ if executable('ag')
     let g:ctrlp_use_caching = 0
 endif
 
-
 hi! link MBEVisibleActiveNormal Statement
 hi! link pythonDocTest  Function
 hi! link pythonDocTest2 Function
@@ -149,6 +149,7 @@ au BufRead,BufNewFile *.py call UpdatePythonHighlighting()
 map <Leader>d <esc>:NERDTree<CR>
 map <Leader>n <esc>:bprev<CR>
 map <Leader>m <esc>:bnext<CR>
+map <Leader>t <esc>:Pytest project<CR>
 vnoremap <Leader>s :sort<CR>
 vmap r "_dP
 

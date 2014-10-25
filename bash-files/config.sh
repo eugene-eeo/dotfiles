@@ -1,9 +1,19 @@
-if [ `id -u` == '0' ]; then
+#!/bin/bash
+if [[ `id -u` == '0' ]]; then
     echo -e '\033[31mYou are in sudo mode!\033[0m'
 fi
 
-#export PS1=' 🌀  '
-#export PS1=" \[\e[38;5;18m\]>\[\e[38;5;19m\]>\[\e[38;5;20m\]>\[\e[0m\] "
-#export PS1=" \[\e[38;5;238m\][\[\e[38;5;243m\]\w\[\e[38;5;238m\]] \[\e[38;5;24m\]$\[\e[0m\] "
-export PS1=" \[\e[38;5;24m\]$\[\e[0m\] "
-export PS2=" \[\e[38;5;239m\]>\[\e[0m\] "
+
+__color() {
+    echo "\[$(tput $@)\]"
+}
+
+
+: ${GREY=`__color setaf 238`}
+: ${RESET=`__color sgr0`}
+
+set_prompt() {
+    PS1="`vcprompt -f \"${GREY}(%b)${RESET}\"` \W \[\033[0;33m\]○\[\e[0m\] "
+}
+
+PROMPT_COMMAND='set_prompt'

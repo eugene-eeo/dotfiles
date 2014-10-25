@@ -36,3 +36,17 @@ fi
 
 set PYTHONIOENCODING=utf-8
 set -o vi
+set -o notify
+
+: ${INPUTRC=~/.inputrc}
+: ${HOME=~}
+
+shopt -s cdspell                 >/dev/null 2>&1
+shopt -s extglob                 >/dev/null 2>&1
+shopt -s histappend              >/dev/null 2>&1
+shopt -s hostcomplete            >/dev/null 2>&1
+shopt -s interactive_comments    >/dev/null 2>&1
+shopt -u mailwarn                >/dev/null 2>&1
+shopt -s no_empty_cmd_completion >/dev/null 2>&1
+
+unset MAILCHECK
