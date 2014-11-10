@@ -15,6 +15,7 @@ Bundle 'alfredodeza/pytest.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
+Bundle 'jpo/vim-railscasts-theme'
 
 Bundle 'hdima/python-syntax'
 Bundle 'b4winckler/vim-objc'
@@ -26,6 +27,7 @@ Bundle 'fholgado/minibufexpl.vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'scrooloose/nerdtree'
 
+Bundle 'elixir-lang/vim-elixir'
 Bundle 'kana/vim-textobj-user'
 Bundle 'bps/vim-textobj-python'
 
@@ -134,8 +136,38 @@ function UpdatePythonHighlighting()
     hi link pythonSuperclass    PreProc
 endfunction
 
+function UpdateElixirHighlighting()
+    hi link elixirDocString Comment
+    hi link elixirVariable  PreProc
+    hi link elixirSigil     PreProc
+    hi link elixirAlias     Statement
+    hi link elixirInclude   Statement
+    hi link elixirAtom      customEscape
+    hi link elixirSpecial   customEscape
+    hi link elixirDelimiter customEscape
+    hi link elixirDefine    Statement
+    hi link elixirKeyword   Statement
+    hi link elixirOperator  darkerStatement
+
+    hi link elixirPrivateDefine   Statement
+    hi link elixirModuleDefine    Statement
+    hi link elixirProtocolDefine  Statement
+    hi link elixirImplDefine      Statement
+    hi link elixirRecordDefine    Statement
+    hi link elixirPrivateRecordDefine Statement
+    hi link elixirMacroDefine Statement
+    hi link elixirMacroDeclaration Statement
+    hi link elixirPrivateMacroDefine Statement
+    hi link elixirDelegateDefine Statement
+    hi link elixirOverridableDefine Statement
+    hi link elixirExceptionDefine Statement
+    hi link elixirCallbackDefine Statement
+    hi link elixirStructDefine Statement
+endfunction
+
 hi pythonFormatting      ctermfg=106 guifg=#a0a300
 hi customEscape          ctermfg=154 guifg=#c2c742
+hi darkerStatement       ctermfg=102 guifg=#5c6880
 
 " KEY BINDINGS
 let mapleader=","
@@ -145,6 +177,8 @@ au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.rs set filetype=rust
 au BufRead,BufNewFile *.lambda set syntax=lambda
 au BufRead,BufNewFile *.py call UpdatePythonHighlighting()
+au BufRead,BufNewFile *.ex call UpdateElixirHighlighting()
+au BufRead,BufNewFile *.exs call UpdateElixirHighlighting()
 
 map <Leader>d <esc>:NERDTree<CR>
 map <Leader>n <esc>:bprev<CR>
