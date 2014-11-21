@@ -165,6 +165,16 @@ function UpdateElixirHighlighting()
     hi link elixirStructDefine Statement
 endfunction
 
+function UpdateCHighlighting()
+    hi link cIdentifier Normal
+    hi link cEscapeChar pythonFormatting
+    hi link cPrintFormat pythonFormatting
+    hi link cScanFormat pythonFormatting
+    hi link cOctalZero Number
+    hi link cPPIncludeFile PreProc
+    hi link c89Constant Statement
+endfunction
+
 hi pythonFormatting      ctermfg=106 guifg=#a0a300
 hi customEscape          ctermfg=154 guifg=#c2c742
 hi darkerStatement       ctermfg=102 guifg=#5c6880
@@ -179,6 +189,7 @@ au BufRead,BufNewFile *.lambda set syntax=lambda
 au BufRead,BufNewFile *.py call UpdatePythonHighlighting()
 au BufRead,BufNewFile *.ex call UpdateElixirHighlighting()
 au BufRead,BufNewFile *.exs call UpdateElixirHighlighting()
+au BufRead,BufNewFile *.c call UpdateCHighlighting()
 
 map <Leader>d <esc>:NERDTree<CR>
 map <Leader>n <esc>:bprev<CR>
