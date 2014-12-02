@@ -9,11 +9,13 @@ __color() {
 }
 
 
+: ${BLUE=`__color setaf 63`}
+: ${ORANGE=`__color setaf 214`}
 : ${GREY=`__color setaf 238`}
 : ${RESET=`__color sgr0`}
 
 set_prompt() {
-    PS1=" \[\033[38;5;105m\]»\[\e[0m\] "
+    PS1="${GREY}$(vcprompt -f [${BLUE}%b${GREY}]) ${RESET}\w ${BLUE}»${RESET} "
 }
 
 PROMPT_COMMAND='set_prompt'

@@ -69,7 +69,7 @@ au InsertLeave * match ExtraWhitespace /\s\+$/
 colo mustang
 if has('gui_running')
     set cursorline
-    set guifont=Consolas:h11
+    set guifont=Ubuntu\ Mono:h12
     set guicursor+=a:blinkon0
     set guioptions-=r
     set guioptions-=L
