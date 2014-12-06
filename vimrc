@@ -175,6 +175,26 @@ function UpdateCHighlighting()
     hi link cScanFormat pythonFormatting
 endfunction
 
+function UpdateRubyHighlighting()
+    hi link rubySymbol customEscape
+    hi link rubyStringDelimiter customEscape
+    hi link rubyStringEscape pythonFormatting
+    hi link rubyQuoteEscape pythonFormatting
+    hi link rubyInterpolationDelimiter pythonFormatting
+    hi link rubyInstanceVariable Statement
+    hi link rubyClassVariable Statement
+    hi link rubyGlobalVariable Constant
+    hi link rubyPredifinedVariable Statement
+    hi link rubyBlockParameter PreProc
+    hi link rubyRegexp PreProc
+    hi link rubyPseudoVariable Statement
+    hi link rubyKeyword Statement
+    hi link rubyDefine Statement
+    hi link rubyClass Statement
+    hi link rubyModule Statement
+    hi link rubyInclude Statement
+endfunction
+
 hi pythonFormatting      ctermfg=106 guifg=#a0a300
 hi customEscape          ctermfg=154 guifg=#c2c742
 hi darkerStatement       ctermfg=102 guifg=#5c6880
@@ -182,10 +202,11 @@ hi darkerStatement       ctermfg=102 guifg=#5c6880
 " Enable .md file extension as markdown
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.rs set filetype=rust
-au BufRead,BufNewFile *.py call UpdatePythonHighlighting()
-au BufRead,BufNewFile *.ex call UpdateElixirHighlighting()
-au BufRead,BufNewFile *.exs call UpdateElixirHighlighting()
-au BufRead,BufNewFile *.c call UpdateCHighlighting()
+au FileType python call UpdatePythonHighlighting()
+au FileType elixir call UpdateElixirHighlighting()
+au FileType ruby call UpdateRubyHighlighting()
+au FileType ruby setlocal ts=2 sts=2 sw=2
+au FileType c call UpdateCHighlighting()
 
 map <Leader>d <esc>:NERDTree<CR>
 map <Leader>n <esc>:bprev<CR>
