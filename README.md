@@ -17,8 +17,13 @@ following tools:
   - Uses Vundle as a plugin manager
   - Some sane defaults copied from elsewhere
   - Uses the **mustang** colorscheme
-  - Adjust some coloring for Python syntax
+  - Adjust some coloring for:
+    - Python
+    - Ruby
+    - Elixir
+    - C
   - Remaps some keys
+  - Gundo, Ctrl-P, MinibufExplorer, NERDTree
 - Bash
   - A really minimal prompt
   - ``hfind`` searches history
