@@ -181,18 +181,25 @@ function UpdateRubyHighlighting()
     hi link rubyStringEscape pythonFormatting
     hi link rubyQuoteEscape pythonFormatting
     hi link rubyInterpolationDelimiter pythonFormatting
-    hi link rubyInstanceVariable Statement
-    hi link rubyClassVariable Statement
-    hi link rubyGlobalVariable Constant
     hi link rubyPredifinedVariable Statement
-    hi link rubyBlockParameter PreProc
+
     hi link rubyRegexp PreProc
+    hi link rubyRegexpDelimiter Constant
+
+    hi link rubyClassVariable Statement
+    hi link rubyGlobalVariable Statement
     hi link rubyPseudoVariable Statement
+    hi link rubyInstanceVariable Statement
+
+    hi link rubyIdentifier Statement
     hi link rubyKeyword Statement
     hi link rubyDefine Statement
     hi link rubyClass Statement
     hi link rubyModule Statement
     hi link rubyInclude Statement
+
+    hi link rubyBlockParameter Normal
+    hi link rubyBlockParameterList Statement
 endfunction
 
 hi pythonFormatting      ctermfg=106 guifg=#a0a300
