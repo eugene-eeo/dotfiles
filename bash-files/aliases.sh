@@ -7,7 +7,9 @@ alias ls='ls -G'
 alias du='du -h'
 alias procview='ps -eo pcpu,pid,user,args | sort -rk 1 | head -6'
 alias sql='sqlite3'
+
 alias chrome="open $HOME/Applications/Google\ Chrome.app"
+alias kakao="open /Applications/KakaoTalk.app"
 
 cd() {
     pushd $@ > /dev/null
