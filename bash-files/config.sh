@@ -4,18 +4,9 @@ if [[ `id -u` == '0' ]]; then
 fi
 
 
-__color() {
-    echo "\[$(tput $@)\]"
-}
+WHITE=$(tput setaf 231)
+GREEN=$(tput setaf 148)
+DARK=$(tput setaf 64)
+RESET=$(tput sgr0)
 
-
-: ${BLUE=`__color setaf 63`}
-: ${ORANGE=`__color setaf 214`}
-: ${GREY=`__color setaf 238`}
-: ${RESET=`__color sgr0`}
-
-set_prompt() {
-    PS1="${GREY}$(vcprompt -f [${BLUE}%b${GREY}]) ${RESET}\w ${BLUE}»${RESET} "
-}
-
-PROMPT_COMMAND='set_prompt'
+export PS1="\[$WHITE\]λ \w \$(vcprompt -f '\[$DARK\]|\[$GREEN\]%b\[$DARK\]| ')\[$RESET\]"

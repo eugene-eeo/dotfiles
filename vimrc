@@ -28,8 +28,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'kana/vim-textobj-user'
 Plugin 'bps/vim-textobj-python'
-Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'jeetsukumaran/vim-nefertiti'
 
 filetype plugin indent on
 set t_Co=256
@@ -82,8 +80,8 @@ hi StatuslineNC ctermbg=234 ctermfg=234 guifg=#1c1c1c guibg=#1c1c1c
 hi Cursorline   guibg=#101010
 hi CursorLineNr guibg=#101010 guifg=#FFFFFF
 
-hi! clear SignColumn
-hi! link NonText Normal
+hi clear SignColumn
+hi link NonText Normal
 
 let python_highlight_all=1
 
@@ -111,10 +109,8 @@ if executable('ag')
     let g:ctrlp_use_caching=0
 endif
 
-hi! link pythonDocTest  Function
-hi! link pythonDocTest2 Function
-hi! link MBEVisibleActiveNormal Statement
-hi! link MBEVisibleActiveNormal Statement
+hi link MBEVisibleActiveNormal Statement
+hi link MBEVisibleActiveNormal Statement
 
 " KEY BINDINGS
 let mapleader=","
@@ -123,13 +119,16 @@ function UpdatePythonHighlighting()
     syn keyword pythonBuiltinObj    True False Ellipsis None NotImplemented
     syn keyword pythonSelfObject    self
 
+    hi link pythonDocTest  Function
+    hi link pythonDocTest2 Function
+
     hi link pythonStrFormat     pythonFormatting
     hi link pythonStrFormatting pythonFormatting
     hi link pythonStrTemplate   pythonFormatting
 
     hi link pythonEscape        customEscape
+    hi link pythonBuiltinObj    customEscape
 
-    hi link pythonBuiltinObj    Identifier
     hi link pythonDecorator     Statement
     hi link pythonSelfObject    Statement
     hi link pythonFuncName      Function

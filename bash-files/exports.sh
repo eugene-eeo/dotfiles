@@ -19,6 +19,7 @@ export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 export VISUAL=vim
 export FIGNORE=".git|.svn|.hg"
+export PYTHONDONTWRITEBYTECODE=1
 
 export HISTCONTROL=erasedups
 export HISTSIZE=1000
