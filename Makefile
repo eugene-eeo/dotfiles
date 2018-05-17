@@ -1,0 +1,26 @@
+sync:
+	chmod a+x scripts/*
+	cp    ./gitconfig        ~/.gitconfig
+	cp    ./tmux.conf        ~/.tmux.conf
+	cp    ./bash_profile     ~/.bash_profile
+	cp    ./pythonrc.py      ~/.pythonrc.py
+	cp    ./inputrc          ~/.inputrc
+	cp    ./vimrc            ~/.config/nvim/init.vim
+	cp -R ./dotvim/          ~/.config/nvim/
+	cp -R ./scripts/         ~/.scripts/
+	cp    ./scheme-word-list ~/scheme-word-list
+	cp    ./login.sh         ~/login.sh
+
+override:
+	cp     ~/.inputrc              ./inputrc
+	cp     ~/.gitconfig            ./gitconfig
+	cp     ~/.tmux.conf            ./tmux.conf
+	cp     ~/.config/nvim/init.vim ./vimrc
+	cp     ~/.bash_profile         ./bash_profile
+	cp -R  ~/.config/nvim          ./dotvim/
+	cp -R  ~/.scripts/             ./scripts/
+	cp     ~/.pythonrc.py          ./pythonrc.py
+	cp     ~/scheme-word-list      ./scheme-word-list 
+	rm -rf ./dotvim/undo/
+	rm -rf ./dotvim/plugged/
+	rm -rf ./dotvim/.netrwhist

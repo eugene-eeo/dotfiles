@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+tmp="/tmp/vipe.$(uuid).txt"
+touch "$tmp"
+
+cat "${1:-/dev/stdin}" > "$tmp"
+
+${EDITOR} "$tmp" < /dev/tty > /dev/tty || exit $?
+
+cat "$tmp"
+rm "$tmp"

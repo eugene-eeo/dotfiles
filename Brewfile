@@ -1,16 +1,22 @@
-tap homebrew/versions
-tap caskroom/cask
+#!/usr/local/bin/bash
+brew tap 'caskroom/cask'
 
-install brew-cask
-install vim --with-client-server --override-system-vi
-install redis mongodb postgresql
-install python python3 pypy ruby
-install bash nano tmux
-install rust
-install tree
-install the_silver_searcher
-install sqlite
-install git hg
+brew install vim --with-luajit --with-python3
+brew install git
+brew install bash bash-completion
+brew install pyenv pyenv-virtualenv
+brew install the_silver_searcher
+brew install tree
+brew install go node
+brew install reattach-to-user-namespace
+brew install youtube-dl
+brew install fzf
+brew install neovim/neovim/neovim
 
-cask install google-chrome
-cask install macvim
+brew cask install skype
+brew cask install pdfshaver
+brew cask install google-drive
+brew cask install libreoffice
+brew cask install vlc
+
+gem install terminal-notifier

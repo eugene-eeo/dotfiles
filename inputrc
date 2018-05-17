@@ -1,0 +1,31 @@
+set editing-mode vi
+
+# Make Tab autocomplete regardless of filename case
+set completion-ignore-case on
+set completion-map-case on
+
+# List all matches in case multiple possible completions are possible
+set show-all-if-ambiguous on
+set show-all-if-unmodified off
+
+# Immediately add a trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
+set match-hidden-files off
+
+# Show all autocomplete results at once
+set page-completions off
+set completion-query-items 100
+
+# Show extra file information when completing, like `ls -F` does
+set visible-stats on
+set colored-stats on
+set skip-completed-text on
+
+set input-meta on
+set output-meta on
+set convert-meta off
+
+set keymap vi-insert
+"p": self-insert

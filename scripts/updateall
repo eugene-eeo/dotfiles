@@ -1,0 +1,18 @@
+#!/bin/bash
+
+curr=$(pyenv local 2> /dev/null || pyenv global)
+pyenv global system
+
+brew update
+brew upgrade
+brew cleanup
+brew cask cleanup
+
+pyenv global "$curr"
+pip list --outdated --format=legacy | sed 's/(.*//g' | xargs pip install -U
+
+pwd=$(pwd)
+cd /usr/local/Homebrew/ \
+    && git gc --aggressive --prune=now || cd "$pwd" || exit
+
+vim +PlugUpdate +qall

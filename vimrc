@@ -1,231 +1,184 @@
-set nocompatible
+call plug#begin('~/.vim/plugged')
+Plug 'sjl/badwolf'
+Plug 'sjl/gundo.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'majutsushi/tagbar'
+Plug 'yankcrime/direwolf'
+Plug 'matze/vim-move'
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi',  {'for': 'python'}
+Plug 'zchee/deoplete-go',    {'for': 'go', 'do': 'make'}
+Plug 'Shougo/echodoc.vim'
+Plug 'ervandew/supertab'
+
+Plug 'neomake/neomake'
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'fatih/vim-go',         { 'for': 'go' }
+
+Plug 'junegunn/vim-easy-align'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'justinmk/vim-sneak'
+
+Plug 'ddrscott/vim-side-search'
+Plug 'moll/vim-bbye'
+
+Plug 'hail2u/vim-css3-syntax'
+Plug 'pangloss/vim-javascript'
+Plug 'othree/html5.vim'
+Plug 'hdima/python-syntax'
+Plug 'cespare/vim-toml'
+call plug#end()
+
 set backspace=2
-filetype off
+set encoding=utf8
+set ffs=unix,dos,mac        " use unix as default filetype
+set number                  " enable display of line numbers
+set cursorline              " show cursor line
+set scrolloff=3             " better scrolling semantics
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set wildmenu
+set wildmode=longest:full,full
+set ignorecase              " ignore case when searching
+set hlsearch                " highlight searches
+set noshowmode              " don't show -- INSERT --
 
-Plugin 'gmarik/vundle'
-Plugin 'croaker/mustang-vim'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'twerth/ir_black'
-Plugin 'nanotech/jellybeans.vim'
-
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'sjl/gundo.vim'
-
-Plugin 'hdima/python-syntax'
-Plugin 'b4winckler/vim-objc'
-Plugin 'mitsuhiko/vim-json'
-Plugin 'wting/rust.vim'
-Plugin 'fsouza/go.vim'
-
-Plugin 'fholgado/minibufexpl.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'scrooloose/nerdtree'
-
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'kana/vim-textobj-user'
-Plugin 'bps/vim-textobj-python'
-
-filetype plugin indent on
-set t_Co=256
-set backspace=2
-
+set showmatch               " show matching brackets
 set laststatus=2
-set showmode
-set autoindent
-set splitright
-set number
 set lazyredraw
-set ttyfast
-set hidden
-set noswapfile
 set visualbell
 
-set splitright
-set backup
-set backupdir=~/tmp
-set writebackup
-set fillchars+=stl:\ ,stlnc:\ "
+set undofile                " persistent undo
+set undolevels=1000
+set noswapfile
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+let g:mapleader=","
+
+set incsearch
+set expandtab               " expand tabs into spaces
+set smarttab
+set shiftwidth=4            " 1 tab == 4 spaces
+set tabstop=4
+set autoindent
+set smartindent
 set nowrap
+set nofoldenable
+set hidden
+set splitright
+set matchtime=0
 
-set tabstop=8
-set expandtab
-set shiftwidth=4
-set softtabstop=4
+set shortmess+=c
+set completeopt=menuone,menu,longest
+set pumheight=15            " Limit height to 15 at max
+set clipboard^=unnamed
+
+set pastetoggle=<F2>
+set fillchars+=vert:\|
+filetype plugin indent on
+syntax enable
+
+let g:python_host_prog  = '/Users/eeojun/.pyenv/versions/2.7.15/bin/python'
+let g:python3_host_prog = '/Users/eeojun/.pyenv/versions/3.5.2/bin/python3'
+
 set background=dark
-set wildignore+=*.pyc
-syntax on
-
-" Show whitespace in red
-" MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
-
-colo mustang
-if has('gui_running')
-    set cursorline
-    set guifont=Ubuntu\ Mono:h12
-    set guicursor+=a:blinkon0
-    set guioptions-=r
-    set guioptions-=L
-    set guioptions+=c
-endif
-
-hi Statusline ctermbg=234 guibg=#1c1c1c
-hi StatuslineNC ctermbg=234 ctermfg=234 guifg=#1c1c1c guibg=#1c1c1c
-
-hi Cursorline   guibg=#101010
-hi CursorLineNr guibg=#101010 guifg=#FFFFFF
-
+colo goodwolf
+hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
+hi MatchParen   guifg=#000000 guibg=yellow  ctermbg=241 ctermfg=233
 hi clear SignColumn
-hi link NonText Normal
+hi link NeomakeWarning NeomakeError
+hi NeomakeWarningSign ctermfg=221 guifg=#e5e500
+hi NeomakeErrorSign ctermfg=167 guifg=#E71919
 
-let python_highlight_all=1
+set grepprg=ag\ --nogroup\ --nocolor
 
-" GITGUTTER
-let g:gitgutter_map_keys = 0
+set listchars=tab:▸\ ,trail:·
+set list
 
-" GUNDO
-let g:gundo_right=1
-let g:gundo_close_on_revert=1
+" matze/vim-move
+let g:move_key_modifier = 'C'
 
-" NERDTREE
-let g:NERDTreeIgnore = ['\.pyc$','__pycache__$']
-let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
+" neomake/neomake
+let g:neomake_open_list = 2
 
-" SYNTASTIC
-let g:syntastic_enable_signs=1
-let g:syntastic_enable_highlighting=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_loc_list_height=5
+" Shougo/deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#disable_auto_complete = 1
+let g:deoplete#omni#input_patterns = {}
 
-" Use ag if possible
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
-    let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
-    let g:ctrlp_use_caching=0
-endif
+" ervandew/supertab
+let g:SuperTabDefaultCompletionType = "<c-n>"
+autocmd FileType *
+    \ if &omnifunc != '' |
+    \   call SuperTabChain(&omnifunc, "<c-p>") |
+    \ endif
 
-hi link MBEVisibleActiveNormal Statement
-hi link MBEVisibleActiveNormal Statement
+" fatih/vim-go
+let g:go_def_mapping_enabled = 0
 
-" KEY BINDINGS
-let mapleader=","
+" davidhalter/jedi-vim
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#show_call_signatures = 2
+let g:jedi#goto_command = ""
+let g:jedi#goto_assignments_command = ""
+let g:jedi#goto_definitions_command = "<leader>k"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = ""
+let g:jedi#completions_command = ""
+let g:jedi#rename_command = ""
 
-function UpdatePythonHighlighting()
-    syn keyword pythonBuiltinObj    True False Ellipsis None NotImplemented
-    syn keyword pythonSelfObject    self
+" ddrscott/vim-side-search
+command! -complete=file -nargs=+ Ag execute 'SideSearch <args>'
+let g:side_search_prg = 'ag --word-regexp'
+      \. " --ignore='*.js.map'"
+      \. " --heading --stats -B 3 -A 4"
 
-    hi link pythonDocTest  Function
-    hi link pythonDocTest2 Function
+" justinmk/vim-sneak
+let g:sneak#label = 1
 
-    hi link pythonStrFormat     pythonFormatting
-    hi link pythonStrFormatting pythonFormatting
-    hi link pythonStrTemplate   pythonFormatting
+" sjl/gundo.vim
+let g:gundo_right = 1
 
-    hi link pythonEscape        customEscape
-    hi link pythonBuiltinObj    customEscape
+" tabstop, softtabstop, shiftwidth
+augroup vimrc
+  autocmd!
+  autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
+  autocmd Filetype html setlocal ts=2 sts=2 sw=2
+  autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+  autocmd Filetype css setlocal ts=2 sts=2 sw=2
+  autocmd Filetype go  setlocal noet ci pi sts=0 sw=4 ts=4
+augroup END
 
-    hi link pythonDecorator     Statement
-    hi link pythonSelfObject    Statement
-    hi link pythonFuncName      Function
-    hi link pythonSuperclass    PreProc
-endfunction
+" key mappings
+nnoremap <Leader>n <Esc>:bp<CR>
+nnoremap <Leader>m <Esc>:bn<CR>
+nnoremap <Leader>d <Esc>:nohl<CR>
+nnoremap <F5> <Esc>:Bdelete<CR>
+nnoremap <F6> <Esc>:GundoToggle<CR>
+nnoremap <Leader>ss :SideSearch <C-r><C-w><CR> | wincmd p
+nnoremap <Leader>r <Esc>:NeomakeFile<CR>
+nnoremap p "+p
+nnoremap P "+P
+vnoremap p "+p
+vnoremap P "+P
+nnoremap <Leader>x "_d
+nnoremap <Leader>X "_D
+vnoremap <Leader>x "_d
 
-function UpdateElixirHighlighting()
-    hi link elixirDocString Comment
-    hi link elixirVariable  PreProc
-    hi link elixirSigil     PreProc
-    hi link elixirAlias     Statement
-    hi link elixirInclude   Statement
-    hi link elixirAtom      customEscape
-    hi link elixirSpecial   customEscape
-    hi link elixirStringDelimiter customEscape
-    hi link elixirInterpolationDelimiter customEscape
-    hi link elixirDefine    Statement
-    hi link elixirKeyword   Statement
-    hi link elixirOperator  darkerStatement
+" junegunn/vim-easy-align.vim
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 
-    hi link elixirPrivateDefine   Statement
-    hi link elixirModuleDefine    Statement
-    hi link elixirProtocolDefine  Statement
-    hi link elixirImplDefine      Statement
-    hi link elixirRecordDefine    Statement
-    hi link elixirPrivateRecordDefine Statement
-    hi link elixirMacroDefine Statement
-    hi link elixirMacroDeclaration Statement
-    hi link elixirPrivateMacroDefine Statement
-    hi link elixirDelegateDefine Statement
-    hi link elixirOverridableDefine Statement
-    hi link elixirExceptionDefine Statement
-    hi link elixirCallbackDefine Statement
-    hi link elixirStructDefine Statement
-endfunction
+" junegunn/fzf.vim
+nnoremap <C-p> <ESC>:FZF<CR>
+nnoremap <C-t> <ESC>:Buffers<CR>
+nnoremap <C-f> <ESC>:BTags<CR>
+nnoremap <C-l> <ESC>:Commands<CR>
 
-function UpdateCHighlighting()
-    hi link cIdentifier Normal
-    hi link cOctalZero Number
-    hi link c89Constant Statement
-    hi link cEscapeChar pythonFormatting
-    hi link cPrintFormat pythonFormatting
-    hi link cScanFormat pythonFormatting
-endfunction
-
-function UpdateRubyHighlighting()
-    hi link rubySymbol customEscape
-    hi link rubyStringDelimiter customEscape
-    hi link rubyStringEscape pythonFormatting
-    hi link rubyQuoteEscape pythonFormatting
-    hi link rubyInterpolationDelimiter pythonFormatting
-    hi link rubyPredifinedVariable Statement
-
-    hi link rubyRegexp PreProc
-    hi link rubyRegexpDelimiter Constant
-
-    hi link rubyClassVariable Statement
-    hi link rubyGlobalVariable Statement
-    hi link rubyPseudoVariable Statement
-    hi link rubyInstanceVariable Statement
-
-    hi link rubyIdentifier Statement
-    hi link rubyKeyword Statement
-    hi link rubyDefine Statement
-    hi link rubyClass Statement
-    hi link rubyModule Statement
-    hi link rubyInclude Statement
-
-    hi link rubyBlockParameter Normal
-    hi link rubyBlockParameterList Statement
-endfunction
-
-hi pythonFormatting      ctermfg=106 guifg=#a0a300
-hi customEscape          ctermfg=154 guifg=#c2c742
-hi darkerStatement       ctermfg=102 guifg=#5c6880
-
-" Enable .md file extension as markdown
-au BufRead,BufNewFile *.md set filetype=markdown
-au BufRead,BufNewFile *.rs set filetype=rust
-au FileType python call UpdatePythonHighlighting()
-au FileType elixir call UpdateElixirHighlighting()
-au FileType ruby call UpdateRubyHighlighting()
-au FileType ruby setlocal ts=2 sts=2 sw=2
-au FileType c call UpdateCHighlighting()
-
-map <Leader>d <esc>:NERDTree<CR>
-map <Leader>n <esc>:bprev<CR>
-map <Leader>m <esc>:bnext<CR>
-map <Leader>t <esc>:Pytest project<CR>
-vnoremap <Leader>s :sort<CR>
-vmap r "_dP
-
-nnoremap <F2> :set invpaste paste?<CR>
-nnoremap <F5> <esc>:MBEbw<CR>
-nnoremap <F6> :GundoToggle<CR>
-nnoremap <F8> :TagbarToggle<CR>
-nnoremap <Leader>w :w<CR>
-
-vnoremap < <gv
-vnoremap > >gv
+inoremap <S-Tab> <C-V><Tab>
+nnoremap <Leader>\| <Esc>:vsplit %<CR>
+nnoremap <Leader>- <Esc>:split %<CR>
