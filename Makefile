@@ -8,7 +8,6 @@ sync:
 	cp    ./vimrc            ~/.config/nvim/init.vim
 	cp -R ./dotvim/          ~/.config/nvim/
 	cp -R ./scripts/         ~/.scripts/
-	cp    ./scheme-word-list ~/scheme-word-list
 	cp    ./login.sh         ~/login.sh
 
 override:
@@ -20,7 +19,6 @@ override:
 	cp -R  ~/.config/nvim          ./dotvim/
 	cp -R  ~/.scripts/             ./scripts/
 	cp     ~/.pythonrc.py          ./pythonrc.py
-	cp     ~/scheme-word-list      ./scheme-word-list 
 	rm -rf ./dotvim/undo/
 	rm -rf ./dotvim/plugged/
 	rm -rf ./dotvim/.netrwhist
