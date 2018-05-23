@@ -1,8 +1,8 @@
-gaps = 1
+gaps = true
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "g", function()
     if not gaps then
-        gaps = 1
+        gaps = true
         hs.alert.show("gaps: on")
     else
         gaps = false
@@ -28,7 +28,7 @@ local focusedWindow = function(cb)
             f.w = f.w - 10
             f.h = f.h - 10
         end
-        win:setFrame(f)
+        win:setFrame(f, 0)
     end
 end
 
@@ -88,6 +88,14 @@ hs.hotkey.bind({"cmd", "ctrl", "shift"}, "right", focusedWindow(function(f, max)
     f.h = max.h / 2
 end))
 
+function setWallpaper(file)
+    hs.osascript.applescript([[
+    tell application "Finder"
+    set desktop picture to POSIX file "]] .. file .. [["
+    end tell
+    ]])
+end
+
 -- taken from https://gist.github.com/koekeishiya/dc48db74f4fdbfbf5648
 -- thanks kokeshiya!
 -- draws a border around the currently focused window
@@ -122,3 +130,25 @@ windows = hs.window.filter.new(nil)
 windows:subscribe(hs.window.filter.windowFocused, function () drawBorder() end)
 windows:subscribe(hs.window.filter.windowUnfocused, function () drawBorder() end)
 windows:subscribe(hs.window.filter.windowMoved, function () drawBorder() end)
+
+isBlurred = false
+
+function blurred()
+    local len = # hs.window.visibleWindows()
+    if len == 0 then
+        if isBlurred then
+            setWallpaper(os.getenv("HOME") .. "/Downloads/walls/FPyGCzs.jpg")
+            isBlurred = false
+        end
+    else
+        if not isBlurred then
+            setWallpaper(os.getenv("HOME") .. "/Downloads/walls/blurred.png")
+            isBlurred = true
+        end
+    end
+end
+
+blurred()
+
+windows:subscribe(hs.window.filter.windowNotVisible, function () blurred() end)
+windows:subscribe(hs.window.filter.windowVisible, function () blurred() end)
