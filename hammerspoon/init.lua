@@ -1,6 +1,6 @@
 gaps = true
 
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "g", function()
+function toggle_gaps()
     if not gaps then
         gaps = true
         hs.alert.show("gaps: on")
@@ -8,7 +8,22 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "g", function()
         gaps = false
         hs.alert.show("gaps: off")
     end
-end)
+end
+
+local currentSpace = function(cb)
+    return function()
+        local win = hs.window.filter.new():setCurrentSpace(true)
+        if win == nil then
+            return
+        end
+        cb(win)
+    end
+end
+
+focus_left  = currentSpace(function(win) win:focusWindowWest(nil, false, true) end)
+focus_right = currentSpace(function(win) win:focusWindowEast(nil, false, true) end)
+focus_top   = currentSpace(function(win) win:focusWindowNorth(nil, false, true) end)
+focus_bot   = currentSpace(function(win) win:focusWindowSouth(nil, false, true) end)
 
 local focusedWindow = function(cb)
     return function()
@@ -32,77 +47,63 @@ local focusedWindow = function(cb)
     end
 end
 
-hs.hotkey.bind({"cmd", "alt"}, "f", function()
+function fullscreen()
     local win = hs.window.focusedWindow()
     if win == nil then
         return
     end
-    win.toggleFullScreen()
-end)
+    win:toggleFullScreen()
+end
 
-hs.hotkey.bind({"cmd", "alt"}, "f", focusedWindow(function(f, max)
+maximise = focusedWindow(function(f, max)
     f.x = max.x
     f.y = max.y
     f.w = max.w
     f.h = max.h
     return true
-end))
+end)
 
--- Left half of screen
-hs.hotkey.bind({"cmd", "alt"}, "left", focusedWindow(function(f, max)
+resize_left = focusedWindow(function(f, max)
     f.x = max.x
     f.y = max.y
     f.w = max.w / 2
     f.h = max.h
-end))
+end)
 
--- Right half of screen
-hs.hotkey.bind({"cmd", "alt"}, "right", focusedWindow(function(f, max)
+resize_right = focusedWindow(function(f, max)
     f.x = max.x + (max.w / 2)
     f.y = max.y
     f.w = max.w / 2
     f.h = max.h
-end))
+end)
 
--- Top left quarter
-hs.hotkey.bind({"cmd", "ctrl"}, "left", focusedWindow(function(f, max)
+resize_top_left = focusedWindow(function(f, max)
     f.x = max.x
     f.y = max.y
     f.w = max.w / 2
     f.h = max.h / 2
-end))
+end)
 
--- Top right quarter
-hs.hotkey.bind({"cmd", "ctrl"}, "right", focusedWindow(function(f, max)
+resize_top_right = focusedWindow(function(f, max)
     f.x = max.x + (max.w / 2)
     f.y = max.y
     f.w = max.w / 2
     f.h = max.h / 2
-end))
+end)
 
--- Bottom left quarter
-hs.hotkey.bind({"cmd", "ctrl", "shift"}, "left", focusedWindow(function(f, max)
+resize_bot_left = focusedWindow(function(f, max)
     f.x = max.x
     f.y = max.y + (max.h / 2)
     f.w = max.w / 2
     f.h = max.h / 2
-end))
+end)
 
--- Bottom right quarter
-hs.hotkey.bind({"cmd", "ctrl", "shift"}, "right", focusedWindow(function(f, max)
+resize_bot_right = focusedWindow(function(f, max)
     f.x = max.x + (max.w / 2)
     f.y = max.y + (max.h / 2)
     f.w = max.w / 2
     f.h = max.h / 2
-end))
-
-function setWallpaper(file)
-    hs.osascript.applescript([[
-    tell application "Finder"
-    set desktop picture to POSIX file "]] .. file .. [["
-    end tell
-    ]])
-end
+end)
 
 -- taken from https://gist.github.com/koekeishiya/dc48db74f4fdbfbf5648
 -- thanks kokeshiya!
@@ -139,11 +140,19 @@ windows:subscribe(hs.window.filter.windowFocused, function () drawBorder() end)
 windows:subscribe(hs.window.filter.windowUnfocused, function () drawBorder() end)
 windows:subscribe(hs.window.filter.windowMoved, function () drawBorder() end)
 
+function setWallpaper(file)
+    hs.osascript.applescript([[
+    tell application "Finder"
+    set desktop picture to POSIX file "]] .. file .. [["
+end tell
+]])
+end
+
 isBlurred = false
 
 function blurred()
     local len = # hs.window.visibleWindows()
-    if len == 0 then
+    if len <= 1 then
         if isBlurred then
             setWallpaper(os.getenv("HOME") .. "/Downloads/walls/FPyGCzs.jpg")
             isBlurred = false
@@ -160,3 +169,24 @@ blurred()
 
 windows:subscribe(hs.window.filter.windowNotVisible, function () blurred() end)
 windows:subscribe(hs.window.filter.windowVisible, function () blurred() end)
+
+-- Key Bindings
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "g", toggle_gaps)
+hs.hotkey.bind({"cmd", "ctrl"}, "f", fullscreen)
+hs.hotkey.bind({"cmd", "alt"}, "f",  maximise)
+
+-- Halves
+hs.hotkey.bind({"cmd", "alt"}, "left", resize_left)
+hs.hotkey.bind({"cmd", "alt"}, "right", resize_right)
+
+-- Quarters
+hs.hotkey.bind({"cmd", "control"}, "left", resize_top_left)
+hs.hotkey.bind({"cmd", "control"}, "right", resize_top_right)
+hs.hotkey.bind({"cmd", "control", "shift"}, "left", resize_bot_left)
+hs.hotkey.bind({"cmd", "control", "shift"}, "right", resize_bot_right)
+
+-- Focus
+hs.hotkey.bind({"cmd", "ctrl"}, "h", focus_left)
+hs.hotkey.bind({"cmd", "ctrl"}, "j", focus_bot)
+hs.hotkey.bind({"cmd", "ctrl"}, "k", focus_top)
+hs.hotkey.bind({"cmd", "ctrl"}, "l", focus_right)
