@@ -6,9 +6,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'yankcrime/direwolf'
-Plug 'matze/vim-move'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'cocopon/iceberg.vim'
+Plug 'wesgibbs/vim-irblack'
+
+Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-jedi',  {'for': 'python'}
 Plug 'zchee/deoplete-go',    {'for': 'go', 'do': 'make'}
 Plug 'Shougo/echodoc.vim'
@@ -21,6 +23,7 @@ Plug 'fatih/vim-go',         { 'for': 'go' }
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'justinmk/vim-sneak'
+Plug 'matze/vim-move'
 
 Plug 'ddrscott/vim-side-search'
 Plug 'moll/vim-bbye'
@@ -98,6 +101,10 @@ set grepprg=ag\ --nogroup\ --nocolor
 set listchars=tab:▸\ ,trail:·
 set list
 
+" airblade/vim-gitgutter
+let g:gitgutter_map_keys=0
+let g:gitgutter_terminal_reports_focus=0
+
 " matze/vim-move
 let g:move_key_modifier = 'C'
 
@@ -117,7 +124,7 @@ autocmd FileType *
     \ endif
 
 " fatih/vim-go
-let g:go_def_mapping_enabled = 0
+let g:go_def_mapping_enabled=0
 
 " davidhalter/jedi-vim
 let g:jedi#auto_vim_configuration = 0
@@ -161,13 +168,11 @@ nnoremap <F5> <Esc>:Bdelete<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
 nnoremap <Leader>ss :SideSearch <C-r><C-w><CR> | wincmd p
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
-nnoremap p "+p
-nnoremap P "+P
-vnoremap p "+p
-vnoremap P "+P
-nnoremap <Leader>x "_d
-nnoremap <Leader>X "_D
-vnoremap <Leader>x "_d
+
+nmap x "_d
+nmap X "_D
+xmap x "_d
+xmap X "_D
 
 " junegunn/vim-easy-align.vim
 nmap ga <Plug>(EasyAlign)

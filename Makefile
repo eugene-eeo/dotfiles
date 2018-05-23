@@ -1,14 +1,15 @@
 sync:
 	chmod a+x scripts/*
-	cp    ./gitconfig        ~/.gitconfig
-	cp    ./tmux.conf        ~/.tmux.conf
-	cp    ./bash_profile     ~/.bash_profile
-	cp    ./pythonrc.py      ~/.pythonrc.py
-	cp    ./inputrc          ~/.inputrc
-	cp    ./vimrc            ~/.config/nvim/init.vim
-	cp -R ./dotvim/          ~/.config/nvim/
-	cp -R ./scripts/         ~/.scripts/
-	cp    ./login.sh         ~/login.sh
+	cp    ./gitconfig         ~/.gitconfig
+	cp    ./tmux.conf         ~/.tmux.conf
+	cp    ./bash_profile      ~/.bash_profile
+	cp    ./pythonrc.py       ~/.pythonrc.py
+	cp    ./inputrc           ~/.inputrc
+	cp    ./vimrc             ~/.config/nvim/init.vim
+	cp -R ./dotvim/           ~/.config/nvim/
+	cp -R ./scripts/          ~/.scripts/
+	cp    ./login.sh          ~/login.sh
+	cp    ./hammerspoon/*.lua ~/.hammerspoon
 
 override:
 	cp     ~/.inputrc              ./inputrc
