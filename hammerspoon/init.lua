@@ -180,13 +180,13 @@ hs.hotkey.bind({"cmd", "alt"}, "left", resize_left)
 hs.hotkey.bind({"cmd", "alt"}, "right", resize_right)
 
 -- Quarters
-hs.hotkey.bind({"cmd", "control"}, "left", resize_top_left)
-hs.hotkey.bind({"cmd", "control"}, "right", resize_top_right)
-hs.hotkey.bind({"cmd", "control", "shift"}, "left", resize_bot_left)
-hs.hotkey.bind({"cmd", "control", "shift"}, "right", resize_bot_right)
+hs.hotkey.bind({"cmd", "ctrl"}, "left", resize_top_left)
+hs.hotkey.bind({"cmd", "ctrl"}, "right", resize_top_right)
+hs.hotkey.bind({"cmd", "ctrl", "shift"}, "left", resize_bot_left)
+hs.hotkey.bind({"cmd", "ctrl", "shift"}, "right", resize_bot_right)
 
 -- Focus
-hs.hotkey.bind({"cmd", "ctrl"}, "left", focus_left)
-hs.hotkey.bind({"cmd", "ctrl"}, "down", focus_bot)
-hs.hotkey.bind({"cmd", "ctrl"}, "up", focus_top)
-hs.hotkey.bind({"cmd", "ctrl"}, "right", focus_right)
+hs.hotkey.bind({"cmd", "ctrl"}, "h", focus_left)
+hs.hotkey.bind({"cmd", "ctrl"}, "k", focus_bot)
+hs.hotkey.bind({"cmd", "ctrl"}, "j", focus_top)
+hs.hotkey.bind({"cmd", "ctrl"}, "l", focus_right)
