@@ -21,8 +21,8 @@ local focusedWindow = function(cb)
         local screen = win:screen()
         local max = screen:frame()
 
-        cb(f, max)
-        if gaps then
+        local isFull = cb(f, max)
+        if not isFull and gaps then
             f.x = f.x + 5
             f.y = f.y + 5
             f.w = f.w - 10
@@ -39,6 +39,14 @@ hs.hotkey.bind({"cmd", "alt"}, "f", function()
     end
     win.toggleFullScreen()
 end)
+
+hs.hotkey.bind({"cmd", "alt"}, "f", focusedWindow(function(f, max)
+    f.x = max.x
+    f.y = max.y
+    f.w = max.w
+    f.h = max.h
+    return true
+end))
 
 -- Left half of screen
 hs.hotkey.bind({"cmd", "alt"}, "left", focusedWindow(function(f, max)
