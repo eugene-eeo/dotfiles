@@ -186,7 +186,7 @@ hs.hotkey.bind({"cmd", "control", "shift"}, "left", resize_bot_left)
 hs.hotkey.bind({"cmd", "control", "shift"}, "right", resize_bot_right)
 
 -- Focus
-hs.hotkey.bind({"cmd", "ctrl"}, "h", focus_left)
-hs.hotkey.bind({"cmd", "ctrl"}, "j", focus_bot)
-hs.hotkey.bind({"cmd", "ctrl"}, "k", focus_top)
-hs.hotkey.bind({"cmd", "ctrl"}, "l", focus_right)
+hs.hotkey.bind({"cmd", "ctrl"}, "left", focus_left)
+hs.hotkey.bind({"cmd", "ctrl"}, "down", focus_bot)
+hs.hotkey.bind({"cmd", "ctrl"}, "up", focus_top)
+hs.hotkey.bind({"cmd", "ctrl"}, "right", focus_right)
