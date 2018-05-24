@@ -1,6 +1,5 @@
 /* jshint esversion: 6 */
 
-GAPS = true;
 PADDING = 5;
 
 function windowResize(func) {
@@ -12,14 +11,12 @@ function windowResize(func) {
         var screen = Screen.main();
         var vf = screen.flippedVisibleFrame();
         var frame = func(vf);
-        if (GAPS) {
-            var fr = screen.visibleFrame();
-            // subtract diff in height of menubar and dock
-            frame.y += (vf.y - fr.y) + PADDING;
-            frame.x += PADDING;
-            frame.w -= 2 * PADDING;
-            frame.h -= 2 * PADDING;
-        }
+        var fr = screen.visibleFrame();
+        // subtract diff in height of menubar and dock
+        frame.y += (vf.y - fr.y) + PADDING;
+        frame.x += PADDING;
+        frame.w -= 2 * PADDING;
+        frame.h -= 2 * PADDING;
         window.setFrame({
             x: frame.x,
             y: frame.y,
@@ -27,23 +24,6 @@ function windowResize(func) {
             height: frame.h,
         });
     };
-}
-
-function toggle_gaps() {
-    GAPS = !GAPS;
-    var screen = Screen.main();
-    var sFrame = screen.frame();
-    var modal = Modal.build({
-        text: "gaps: " + (GAPS ? "on" : "off"),
-        duration: 0.5,
-        origin: (frame) => {
-            return {
-                x: sFrame.x + ( sFrame.width / 2 ) - ( frame.width / 2 ),
-                y: Math.max(0, sFrame.y) + ( sFrame.height / 2 ) - ( frame.height / 2 ),
-            };
-        },
-    });
-    modal.show();
 }
 
 var resize_left_half = windowResize(screen => ({
@@ -134,7 +114,6 @@ Key.on('right', ['alt', 'ctrl'], focusClosest('east'));
 Key.on('up',    ['alt', 'ctrl'], focusClosest('north'));
 Key.on('down',  ['alt', 'ctrl'], focusClosest('south'));
 
-Key.on('g', ['cmd', 'alt'], toggle_gaps);
 Key.on('x', ['cmd', 'alt'], center_window);
 Key.on('f', ['cmd', 'alt'], maximise);
 Key.on('f', ['cmd', 'ctrl'], fullscreen_toggle);
