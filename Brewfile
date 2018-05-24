@@ -16,4 +16,4 @@ brew install neovim/neovim/neovim
 brew cask install skype lastpass google-backup-and-sync
 brew cask install pdfshaver vlc vimr flux
 brew cask install libreoffice
-brew cask install hammerspoon
+brew cask install phoenix

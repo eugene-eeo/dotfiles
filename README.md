@@ -15,13 +15,3 @@ $ make copy     # home -> repo
 
 Usual workflow is to work on dotfiles in *this*
 repo and then run `make`, and test the settings.
-
-
-## Hammerspoon config
-
-Initially I used [Spectacle](https://www.spectacleapp.com/)
-because I want a poor man's WM but without having to
-read through 100 pages of README and memorise 50 keyboard
-shortcuts. But I wanted gaps between windows because they
-looked really cool. At the same time I want to turn off gaps
-sometimes. So this was born.

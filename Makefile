@@ -9,7 +9,7 @@ sync:
 	cp -R ./dotvim/           ~/.config/nvim/
 	cp -R ./scripts/          ~/.scripts/
 	cp    ./login.sh          ~/login.sh
-	cp    ./hammerspoon/*.lua ~/.hammerspoon
+	cp    ./phoenix.js        ~/.phoenix.js
 
 override:
 	cp     ~/.inputrc              ./inputrc
