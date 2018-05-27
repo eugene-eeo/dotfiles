@@ -8,20 +8,16 @@ function windowResize(func) {
         if (!window) {
             return;
         }
-        var screen = Screen.main();
-        var vf = screen.flippedVisibleFrame();
-        var frame = func(vf);
-        var fr = screen.visibleFrame();
-        // subtract diff in height of menubar and dock
-        frame.y += (vf.y - fr.y) + PADDING;
-        frame.x += PADDING;
-        frame.w -= 2 * PADDING;
-        frame.h -= 2 * PADDING;
+        var screen = Screen.main(),
+            vFrame = screen.visibleFrame(),
+            fvFrame = screen.flippedVisibleFrame();
+        var frame = func(fvFrame);
         window.setFrame({
-            x: frame.x,
-            y: frame.y,
-            width: frame.w,
-            height: frame.h,
+            // subtract diff in height of menubar and dock + gaps
+            y:      frame.y + (fvFrame.y - vFrame.y) + PADDING,
+            x:      frame.x + PADDING,
+            width:  frame.w - 2 * PADDING,
+            height: frame.h - 2 * PADDING,
         });
     };
 }
@@ -76,11 +72,11 @@ var maximise = windowResize(screen => ({
 }));
 
 function center_window() {
-    const window = Window.focused();
+    var window = Window.focused();
     if (window) {
-        const screen = window.screen(),
-              sFrame = screen.frame(),
-              wFrame = window.frame();
+        var screen = window.screen(),
+            sFrame = screen.frame(),
+            wFrame = window.frame();
         window.setFrame({
             x:      sFrame.x + (sFrame.width / 2) - (wFrame.width / 2),
             y:      Math.max(0, sFrame.y) + (sFrame.height / 2) - (wFrame.height / 2),
@@ -97,22 +93,21 @@ function fullscreen_toggle() {
     }
 }
 
-function focusClosest(direction) {
+function focus(direction) {
     return function() {
         var window = Window.focused();
-        if (window) {
-            for (var adj of window.neighbours(direction))
-                if (adj.isVisible() && adj.focus())
-                    return;
-        }
+        if (!window) return;
+        for (var adj of window.neighbours(direction))
+            if (adj.isVisible() && adj.focus())
+                return;
     };
 }
 
 // Finally bind everything here
-Key.on('left',  ['alt', 'ctrl'], focusClosest('west'));
-Key.on('right', ['alt', 'ctrl'], focusClosest('east'));
-Key.on('up',    ['alt', 'ctrl'], focusClosest('north'));
-Key.on('down',  ['alt', 'ctrl'], focusClosest('south'));
+Key.on('left',  ['alt', 'ctrl'], focus('west'));
+Key.on('right', ['alt', 'ctrl'], focus('east'));
+Key.on('up',    ['alt', 'ctrl'], focus('north'));
+Key.on('down',  ['alt', 'ctrl'], focus('south'));
 
 Key.on('x', ['cmd', 'alt'], center_window);
 Key.on('f', ['cmd', 'alt'], maximise);
