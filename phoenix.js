@@ -13,7 +13,7 @@ function windowResize(func) {
             fvFrame = screen.flippedVisibleFrame();
         var frame = func(fvFrame);
         window.setFrame({
-            // subtract diff in height of menubar and dock + gaps
+            // account for height of menubar and dock
             y:      frame.y + (fvFrame.y - vFrame.y) + PADDING,
             x:      frame.x + PADDING,
             width:  frame.w - 2 * PADDING,

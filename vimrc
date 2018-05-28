@@ -7,8 +7,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'yankcrime/direwolf'
 
+Plug 'morhetz/gruvbox'
+Plug 'rakr/vim-two-firewatch'
 Plug 'cocopon/iceberg.vim'
-Plug 'wesgibbs/vim-irblack'
 
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-jedi',  {'for': 'python'}
