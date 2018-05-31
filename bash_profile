@@ -18,13 +18,9 @@ RESET="\\[$(tput sgr0)\\]"
 DIM="\\[$(tput setaf 2)\\]"
 RED="\\[$(tput setaf 4)\\]"
 
-function __virtualenv_info {
-    [ "$VIRTUAL_ENV" ] && printf "[${VIRTUAL_ENV##*/}] "
-}
-
 export PROMPT_DIRTRIM=2
-export PS1=" ${RED}\$(__virtualenv_info)${RESET}\w\$(vcprompt -f '${RED}(%b${DIM}%m${RED})')${RESET} ${RED}$ ${RESET}"
-export PS2=" > "
+export PS1=" \w\$(vcprompt -f '${RED}(%b${DIM}%m${RED})')${RESET} ${RED}$ ${RESET}"
+export PS2=" ${DIM}>${RESET} "
 
 # Python options
 export PYTHONIOENCODING='utf-8'
@@ -60,14 +56,6 @@ v() {
     fi
 }
 
-h() {
-    local _FZF
-    _FZF=$(history | sed 's/^ *[0-9]* *//' | fzf)
-    if [ "$_FZF" ]; then
-        $_FZF
-    fi
-}
-
 mux() {
     tmux attach -t base || tmux new -s base
 }
@@ -75,9 +63,6 @@ mux() {
 youtube-mp3() {
     youtube-dl --extract-audio --audio-format mp3 $@
 }
-
-# Rust completion
-export RUST_SRC_PATH="$HOME/sources/rust/src/"
 
 if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
     . $(brew --prefix)/etc/bash_completion
