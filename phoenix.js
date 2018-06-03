@@ -86,13 +86,6 @@ function center_window() {
     }
 }
 
-function fullscreen_toggle() {
-    var window = Window.focused();
-    if (window) {
-        window.setFullScreen(!window.isFullScreen());
-    }
-}
-
 function focus(direction) {
     return function() {
         var window = Window.focused();
@@ -111,7 +104,6 @@ Key.on('down',  ['alt', 'ctrl'], focus('south'));
 
 Key.on('x', ['cmd', 'alt'], center_window);
 Key.on('f', ['cmd', 'alt'], maximise);
-Key.on('f', ['cmd', 'ctrl'], fullscreen_toggle);
 
 Key.on('left',  ['cmd', 'ctrl'], resize_left_half);
 Key.on('right', ['cmd', 'ctrl'], resize_right_half);
