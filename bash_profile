@@ -1,6 +1,5 @@
 #!/usr/bin/bash
-# homebrew
-export PATH="$HOME/.go-packages/bin:$HOME/.cargo/bin:$HOME/.scripts:/usr/local/bin:${PATH}"
+export PATH="$HOME/.go-packages/bin:$HOME/.cargo/bin:/usr/local/bin:${PATH}"
 export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 
@@ -26,7 +25,7 @@ export PS2=" ${DIM}>${RESET} "
 export PYTHONIOENCODING='utf-8'
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export PYTHONDONTWRITEBYTECODE=1
-export VIRTUAL_ENV_DISABLE_PROMPT=1
+export VIRTUAL_ENV_DISABLE_PROMPT=0
 
 # Use neovim as editor
 export EDITOR='nvim'
@@ -70,3 +69,4 @@ fi
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+export PATH="$HOME/.scripts:$PATH"

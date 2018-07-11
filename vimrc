@@ -85,8 +85,8 @@ set fillchars+=vert:\|
 filetype plugin indent on
 syntax enable
 
-let g:python_host_prog  = '/Users/eeojun/.pyenv/versions/2.7.15/bin/python'
-let g:python3_host_prog = '/Users/eeojun/.pyenv/versions/3.5.2/bin/python3'
+let g:python_host_prog  = '/Users/eeojun/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/Users/eeojun/.pyenv/versions/neovim3/bin/python'
 
 set background=dark
 colo goodwolf
