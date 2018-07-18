@@ -114,30 +114,30 @@ let g:neomake_open_list = 2
 
 " Shougo/deoplete.nvim
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#disable_auto_complete = 1
+let g:deoplete#disable_auto_complete = 0
 let g:deoplete#omni#input_patterns = {}
 
-" ervandew/supertab
-let g:SuperTabDefaultCompletionType = "<c-n>"
-autocmd FileType *
-    \ if &omnifunc != '' |
-    \   call SuperTabChain(&omnifunc, "<c-p>") |
-    \ endif
+"" ervandew/supertab
+"let g:SuperTabDefaultCompletionType = "<c-n>"
+"autocmd FileType *
+"    \ if &omnifunc != '' |
+"    \   call SuperTabChain(&omnifunc, "<c-p>") |
+"    \ endif
 
 " fatih/vim-go
 let g:go_def_mapping_enabled=0
 
 " davidhalter/jedi-vim
-let g:jedi#auto_vim_configuration = 0
 let g:jedi#popup_on_dot = 0
 let g:jedi#show_call_signatures = 2
 let g:jedi#goto_command = ""
-let g:jedi#goto_assignments_command = ""
+let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#goto_definitions_command = "<leader>k"
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = ""
 let g:jedi#completions_command = ""
 let g:jedi#rename_command = ""
+let g:jedi#completions_enabled = 0
 
 " ddrscott/vim-side-search
 command! -complete=file -nargs=+ Ag execute 'SideSearch <args>'
