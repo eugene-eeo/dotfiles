@@ -6,6 +6,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'yankcrime/direwolf'
+Plug 'alfredodeza/pytest.vim', {'for': 'python'}
 
 Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-two-firewatch'
@@ -31,9 +32,9 @@ Plug 'moll/vim-bbye'
 
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 Plug 'othree/html5.vim'
-Plug 'hdima/python-syntax'
-Plug 'cespare/vim-toml'
+Plug 'vim-python/python-syntax'
 call plug#end()
 
 set backspace=2
@@ -101,6 +102,9 @@ set grepprg=ag\ --nogroup\ --nocolor
 
 set listchars=tab:▸\ ,trail:·
 set list
+
+" vim-python/python-syntax
+let g:python_highlight_all = 1
 
 " airblade/vim-gitgutter
 let g:gitgutter_map_keys=0
@@ -174,6 +178,11 @@ nmap x "_d
 nmap X "_D
 xmap x "_d
 xmap X "_D
+
+nmap <silent>tc <Esc>:Pytest class<CR>
+nmap <silent>ta <Esc>:Pytest project<CR>
+nmap <silent>tf <Esc>:Pytest file<CR>
+nmap <silent>tm <Esc>:Pytest method<CR>
 
 " junegunn/vim-easy-align.vim
 nmap ga <Plug>(EasyAlign)
