@@ -7,16 +7,14 @@ Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'yankcrime/direwolf'
 Plug 'alfredodeza/pytest.vim', {'for': 'python'}
-
-Plug 'morhetz/gruvbox'
-Plug 'rakr/vim-two-firewatch'
-Plug 'cocopon/iceberg.vim'
+Plug 'nice/sweater'
+Plug 'vyshane/cleanroom-vim-color'
+Plug 'Yggdroot/indentLine'
 
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-jedi',  {'for': 'python'}
 Plug 'zchee/deoplete-go',    {'for': 'go', 'do': 'make'}
 Plug 'Shougo/echodoc.vim'
-Plug 'ervandew/supertab'
 
 Plug 'neomake/neomake'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
@@ -103,6 +101,10 @@ set grepprg=ag\ --nogroup\ --nocolor
 set listchars=tab:▸\ ,trail:·
 set list
 
+" Yggdroot/indentLine
+let g:indentLine_enabled = 0
+let g:indentLine_color_gui = '#333333'
+
 " vim-python/python-syntax
 let g:python_highlight_all = 1
 
@@ -120,13 +122,14 @@ let g:neomake_open_list = 2
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#disable_auto_complete = 0
 let g:deoplete#omni#input_patterns = {}
-
-"" ervandew/supertab
-"let g:SuperTabDefaultCompletionType = "<c-n>"
-"autocmd FileType *
-"    \ if &omnifunc != '' |
-"    \   call SuperTabChain(&omnifunc, "<c-p>") |
-"    \ endif
+"inoremap <silent><expr> <TAB>
+"    \ pumvisible() ? "\<C-n>" :
+"    \ <SID>check_back_space() ? "\<TAB>" :
+"    \ deoplete#mappings#manual_complete()
+"function! s:check_back_space() abort "{{{
+"    let col = col('.') - 1
+"    return !col || getline('.')[col - 1]  =~ '\s'
+"endfunction"}}}
 
 " fatih/vim-go
 let g:go_def_mapping_enabled=0
