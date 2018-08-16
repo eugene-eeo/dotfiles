@@ -4,21 +4,19 @@ Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'majutsushi/tagbar'
 Plug 'yankcrime/direwolf'
-Plug 'alfredodeza/pytest.vim', {'for': 'python'}
-Plug 'nice/sweater'
-Plug 'vyshane/cleanroom-vim-color'
+Plug 'alfredodeza/pytest.vim'
+Plug 'ervandew/supertab'
 Plug 'Yggdroot/indentLine'
 
 Plug 'Shougo/deoplete.nvim'
-Plug 'zchee/deoplete-jedi',  {'for': 'python'}
-Plug 'zchee/deoplete-go',    {'for': 'go', 'do': 'make'}
+Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+Plug 'zchee/deoplete-go', { 'for': 'go' }
 Plug 'Shougo/echodoc.vim'
 
 Plug 'neomake/neomake'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'fatih/vim-go',         { 'for': 'go' }
+Plug 'fatih/vim-go'
 
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
@@ -28,6 +26,7 @@ Plug 'matze/vim-move'
 Plug 'ddrscott/vim-side-search'
 Plug 'moll/vim-bbye'
 
+Plug 'vim-scripts/Jinja'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -120,16 +119,8 @@ let g:neomake_open_list = 2
 
 " Shougo/deoplete.nvim
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#disable_auto_complete = 0
-let g:deoplete#omni#input_patterns = {}
-"inoremap <silent><expr> <TAB>
-"    \ pumvisible() ? "\<C-n>" :
-"    \ <SID>check_back_space() ? "\<TAB>" :
-"    \ deoplete#mappings#manual_complete()
-"function! s:check_back_space() abort "{{{
-"    let col = col('.') - 1
-"    return !col || getline('.')[col - 1]  =~ '\s'
-"endfunction"}}}
+
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 " fatih/vim-go
 let g:go_def_mapping_enabled=0
