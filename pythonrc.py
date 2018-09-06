@@ -4,6 +4,7 @@ import sys
 import atexit
 from pprint import pprint as pp
 
+
 try:
     import readline
 except ImportError:

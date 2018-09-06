@@ -83,8 +83,8 @@ set fillchars+=vert:\|
 filetype plugin indent on
 syntax enable
 
-let g:python_host_prog  = '/Users/eeojun/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = '/Users/eeojun/.pyenv/versions/neovim3/bin/python'
+let g:python_host_prog  = '/home/eeojun/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/home/eeojun/.pyenv/versions/neovim3/bin/python'
 
 set background=dark
 colo goodwolf
@@ -186,7 +186,7 @@ xmap ga <Plug>(EasyAlign)
 nnoremap <C-p> <ESC>:FZF<CR>
 nnoremap <C-t> <ESC>:Buffers<CR>
 nnoremap <C-f> <ESC>:BTags<CR>
-nnoremap <C-l> <ESC>:Commands<CR>
+nnoremap <C-o> <ESC>:Commands<CR>
 
 inoremap <S-Tab> <C-V><Tab>
 nnoremap <Leader>\| <Esc>:vsplit %<CR>
