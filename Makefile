@@ -3,19 +3,20 @@ sync:
 	cp    ./gitconfig   ~/.gitconfig
 	cp    ./tmux.conf   ~/.tmux.conf
 	cp    ./bashrc      ~/.bashrc
+	cp    ./profile      ~/.profile
 	cp    ./pythonrc.py ~/.pythonrc.py
 	cp    ./inputrc     ~/.inputrc
 	cp    ./vimrc       ~/.config/nvim/init.vim
 	cp -R ./dotvim/     ~/.config/nvim/
 	cp -R ./scripts/    ~/.scripts/
-	cp    ./login.sh    ~/login.sh
 
 override:
 	cp     ~/.inputrc              ./inputrc
 	cp     ~/.gitconfig            ./gitconfig
 	cp     ~/.tmux.conf            ./tmux.conf
 	cp     ~/.config/nvim/init.vim ./vimrc
-	cp     ~/.bashrc         ./bashrc
+	cp     ~/.profile         ./profile
+	cp     ~/.bashrc          ./bashrc
 	cp -R  ~/.config/nvim          ./dotvim/
 	cp -R  ~/.scripts/             ./scripts/
 	cp     ~/.pythonrc.py          ./pythonrc.py

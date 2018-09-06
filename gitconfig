@@ -2,6 +2,7 @@
 [user]
     name = Eeo Jun
     email = 141bytes@gmail.com
+    signingkey = 517D153BDE152D17
 [push]
     default = simple
 [alias]
