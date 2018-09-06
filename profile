@@ -1,38 +1,26 @@
 #!/usr/bin/bash
-source ~/.bashrc
-export CLICOLOR=1
-export IGNOREEOF=1
+export LC_ALL='en_US.UTF-8'
+export LANG='en_US.UTF-8'
 
-export LESS='-S -R'
-export GREP_COLOR='1;32'
+export GOPATH="$HOME/go"
 
-RESET="\\[$(tput sgr0)\\]"
-DIM="\\[$(tput setaf 2)\\]"
-RED="\\[$(tput setaf 4)\\]"
+# Python options
+export PYTHONIOENCODING='utf-8'
+export PYTHONSTARTUP="$HOME/.pythonrc.py"
+export PYTHONDONTWRITEBYTECODE=1
+export VIRTUAL_ENV_DISABLE_PROMPT=0
 
-export PROMPT_DIRTRIM=2
-export PS1=" \w\$(vcprompt -f '${RED}(%b${DIM}%m${RED})')${RESET} ${RED}$ ${RESET}"
-export PS2=" ${DIM}>${RESET} "
+# Use neovim as editor
+export EDITOR='nvim'
+export VISUAL='nvim'
 
-# Use ag to pipe to FZF, so we respect .gitignore
-export FZF_DEFAULT_COMMAND='ag -g ""'
+alias t='tree -N -F -C -I "$(cat .gitignore ~/.gitignore_global | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|")"'
+alias g='git'
 
-v() {
-    if [ "$1" ]; then
-        vim "$@"
-        return
-    fi
-    local _FZF
-    _FZF=$(fzf --preview='cat {}')
-    if [ "$_FZF" ]; then
-        vim "$_FZF"
-    fi
-}
+export PATH="/home/eeojun/.pyenv/bin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/.scripts:$PATH"
+export PATH="$HOME/.fzf/bin:$PATH"
 
-mux() {
-    tmux attach -t base || tmux new -s base
-}
-
-youtube-mp3() {
-    youtube-dl --extract-audio --audio-format mp3 $@
-}
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
