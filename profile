@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+source ~/.bashrc
 export CLICOLOR=1
 export IGNOREEOF=1
 

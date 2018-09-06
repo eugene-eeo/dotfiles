@@ -18,6 +18,7 @@ alias t='tree -N -F -C -I "$(cat .gitignore ~/.gitignore_global | egrep -v "^#.*
 alias g='git'
 
 export PATH="/home/eeojun/.pyenv/bin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.scripts:$PATH"
 export PATH="$HOME/.fzf/bin:$PATH"
 
