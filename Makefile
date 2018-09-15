@@ -7,19 +7,5 @@ sync:
 	cp    ./pythonrc.py ~/.pythonrc.py
 	cp    ./inputrc     ~/.inputrc
 	cp    ./vimrc       ~/.config/nvim/init.vim
-	cp -R ./dotvim/     ~/.config/nvim/
-	cp -R ./scripts/    ~/.scripts/
-
-override:
-	cp     ~/.inputrc              ./inputrc
-	cp     ~/.gitconfig            ./gitconfig
-	cp     ~/.tmux.conf            ./tmux.conf
-	cp     ~/.config/nvim/init.vim ./vimrc
-	cp     ~/.profile         ./profile
-	cp     ~/.bashrc          ./bashrc
-	cp -R  ~/.config/nvim          ./dotvim/
-	cp -R  ~/.scripts/             ./scripts/
-	cp     ~/.pythonrc.py          ./pythonrc.py
-	rm -rf ./dotvim/undo/
-	rm -rf ./dotvim/plugged/
-	rm -rf ./dotvim/.netrwhist
+	cp -a ./dotvim/.    ~/.config/nvim/
+	cp -a ./scripts/.   ~/.scripts/

@@ -1,0 +1,11 @@
+--2018-09-15 20:06:31--  https://raw.githubusercontent.com/woodruffw/twa/master/twa
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.76.133
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.76.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 12434 (12K) [text/plain]
+Saving to: ‘twa’
+
+     0K .......... ..                                         100% 61.9M=0s
+
+2018-09-15 20:06:32 (61.9 MB/s) - ‘twa’ saved [12434/12434]
+
