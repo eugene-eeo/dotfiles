@@ -13,6 +13,9 @@ export PROMPT_DIRTRIM=2
 export PS1=" \w\$(vcprompt -f '${RED}(%b${DIM}%m${RED})')${RESET} ${RED}$ ${RESET}"
 export PS2=" ${DIM}>${RESET} "
 
+alias t='tree -N -F -C -I "$(cat .gitignore ~/.gitignore_global | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|")"'
+alias g='git'
+
 # Use ag to pipe to FZF, so we respect .gitignore
 export FZF_DEFAULT_COMMAND='ag -g ""'
 

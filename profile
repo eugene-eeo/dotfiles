@@ -14,9 +14,6 @@ export VIRTUAL_ENV_DISABLE_PROMPT=0
 export EDITOR='nvim'
 export VISUAL='nvim'
 
-alias t='tree -N -F -C -I "$(cat .gitignore ~/.gitignore_global | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|")"'
-alias g='git'
-
 export PATH="/home/eeojun/.pyenv/bin:$PATH"
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.scripts:$PATH"
