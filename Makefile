@@ -10,3 +10,7 @@ sync:
 	cp    ./vimrc        ~/.config/nvim/init.vim
 	cp -a ./dotvim/.     ~/.config/nvim/
 	cp -a ./scripts/.    ~/.scripts/
+
+push:
+	git push origin
+	git push sr.ht
