@@ -7,9 +7,8 @@ stolen from other dotfiles.
 > Yes I still use makefiles. Get off my lawn.
 
 ```sh
-$ make          # repo -> home
-$ make copy     # home -> repo
+$ make # repo -> home
 ```
 
-Usual workflow is to work on dotfiles in this
-repo and then run `make` to test the settings.
+This repo is meant as a single source of truth for the
+dotfiles on my system. Works on Ubuntu.
