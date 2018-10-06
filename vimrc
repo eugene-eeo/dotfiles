@@ -76,7 +76,7 @@ set matchtime=0
 set shortmess+=c
 set completeopt=menuone,menu,longest
 set pumheight=15            " Limit height to 15 at max
-set clipboard^=unnamed
+set clipboard^=unnamedplus
 
 set pastetoggle=<F2>
 set fillchars+=vert:\|
