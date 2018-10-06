@@ -16,6 +16,8 @@ export PS2=" ${DIM}>${RESET} "
 alias t='tree -N -F -C -I "$(cat .gitignore ~/.gitignore_global | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|")"'
 alias g='git'
 alias ls='ls --color=auto'
+alias pbcopy='xsel -ib'
+alias pbpaste='xsel -ob'
 
 # Use ag to pipe to FZF, so we respect .gitignore
 export FZF_DEFAULT_COMMAND='ag -g ""'
