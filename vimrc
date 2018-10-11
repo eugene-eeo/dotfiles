@@ -16,7 +16,7 @@ Plug 'Shougo/echodoc.vim'
 
 Plug 'neomake/neomake'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for': 'go' }
 
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
@@ -157,6 +157,7 @@ augroup vimrc
   autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
   autocmd Filetype css setlocal ts=2 sts=2 sw=2
   autocmd Filetype go  setlocal noet ci pi sts=0 sw=4 ts=4
+  au FileType perl set filetype=prolog
 augroup END
 
 " key mappings
