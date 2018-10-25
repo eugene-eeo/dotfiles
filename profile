@@ -14,6 +14,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=0
 export EDITOR='nvim'
 export VISUAL='nvim'
 
+export PYENV_ROOT="/home/eeojun/.pyenv/"
 export PATH="/home/eeojun/.pyenv/bin:$PATH"
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.scripts:$PATH"

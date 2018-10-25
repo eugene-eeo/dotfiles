@@ -43,3 +43,4 @@ youtube-mp3() {
 }
 
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
