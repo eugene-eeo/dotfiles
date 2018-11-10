@@ -14,15 +14,19 @@ hc keyunbind --all
 # keybindings
 Mod=Mod4 # Use the super key as the main modifier
 
-hc keybind $Mod-Shift-q quit
+hc keybind $Mod-Control-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
-hc keybind $Mod-Return spawn gnome-terminal
-hc keybind $Mod-space spawn rofi -show run -display-run 'run: '
+hc keybind $Mod-Return      spawn gnome-terminal
+hc keybind $Mod-space       spawn rofi -show run -display-run 'run: '
 hc keybind $Mod-Shift-space spawn rofi -show drun -display-drun 'drun: '
-hc keybind $Mod-w spawn rofi -show window -display-window 'window: '
-hc keybind $Mod-e spawn ~/.config/herbstluftwm/locate.sh
-hc keybind $Mod-n spawn ~/.config/herbstluftwm/rofi-wifi-menu.sh
+hc keybind $Mod-w           spawn rofi -show window -display-window 'window: '
+hc keybind $Mod-e           spawn ~/.config/herbstluftwm/locate.sh
+hc keybind $Mod-n           spawn ~/.config/herbstluftwm/rofi-wifi-menu.sh
+
+# locking
+hc keybind $Mod-l           spawn i3lock -fe -i ~/Downloads/glitch-lock.png
+hc keybind $Mod-Shift-l     spawn systemctl suspend
 
 # basic movement
 # focusing clients
@@ -39,15 +43,15 @@ hc keybind $Mod-Shift-Right shift right
 
 # splitting frames
 # create an empty frame at the specified direction
-hc keybind $Mod-u       split   bottom  0.5
-hc keybind $Mod-o       split   right   0.5
+hc keybind $Mod-u split bottom 0.5
+hc keybind $Mod-o split right  0.5
 
 # resizing frames
 resizestep=0.05
-hc keybind $Mod-Control-Left    resize left +$resizestep
-hc keybind $Mod-Control-Down    resize down +$resizestep
-hc keybind $Mod-Control-Up      resize up +$resizestep
-hc keybind $Mod-Control-Right   resize right +$resizestep
+hc keybind $Mod-Control-Left  resize left  +$resizestep
+hc keybind $Mod-Control-Down  resize down  +$resizestep
+hc keybind $Mod-Control-Up    resize up    +$resizestep
+hc keybind $Mod-Control-Right resize right +$resizestep
 
 # tags
 tag_names=( {1..9} )
@@ -83,7 +87,6 @@ hc keybind 0xffbe  spawn pactl set-sink-mute 0 toggle
 # mouse
 hc mouseunbind --all
 hc mousebind $Mod-Button1 move
-#hc mousebind $Mod-Button2 zoom # I don't have mouse3
 hc mousebind $Mod-Button3 resize
 
 # focus
@@ -114,11 +117,7 @@ herbstclient set tree_style '╾│ ├└╼─┐'
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
 hc detect_monitors
-
-# find the panel
-panel=~/.config/herbstluftwm/panel.sh
-[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
-    # start it on each monitor
-    "$panel" $monitor &
+    # start panel on each monitor
+    ~/.config/herbstluftwm/panel.sh $monitor &
 done

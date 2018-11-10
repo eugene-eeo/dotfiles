@@ -3,7 +3,7 @@ hc() {
     herbstclient "$@"
 }
 
-feh --bg-fill ~/Downloads/glitch.png
+feh --bg-fill ~/Downloads/wallhaven-98585.jpg
 
 # theme
 hc attr theme.tiling.reset 1
