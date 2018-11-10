@@ -101,7 +101,7 @@ hc pad $monitor $panel_height
                     echo -n "^bg(#FF0675)^fg(#141414)"
                     ;;
                 *)
-                    echo -n "^bg()^fg(#ababab)"
+                    echo -n "^bg()^fg(#666666)"
                     ;;
             esac
             if [ ! -z "$dzen2_svn" ] ; then

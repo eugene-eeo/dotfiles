@@ -55,6 +55,7 @@ set visualbell
 set undofile                " persistent undo
 set undolevels=1000
 set noswapfile
+set nobackup
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
