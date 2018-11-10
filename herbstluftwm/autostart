@@ -7,7 +7,7 @@ hc() {
 hc emit_hook reload
 
 #xsetroot -solid '#5A8E3A'
-feh --bg-fill ~/Downloads/wallhaven-167900.jpg
+feh --bg-fill ~/Downloads/wallhaven-98585.jpg
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -19,10 +19,11 @@ hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return spawn gnome-terminal
-hc keybind $Mod-space spawn rofi -show run
-hc keybind $Mod-Shift-space spawn rofi -show drun
-hc keybind $Mod-w spawn rofi -show window
+hc keybind $Mod-space spawn rofi -show run -display-run 'run: '
+hc keybind $Mod-Shift-space spawn rofi -show drun -display-drun 'drun: '
+hc keybind $Mod-w spawn rofi -show window -display-window 'window: '
 hc keybind $Mod-e spawn ~/.config/herbstluftwm/locate.sh
+hc keybind $Mod-n spawn ~/.config/herbstluftwm/rofi-wifi-menu.sh
 
 # basic movement
 # focusing clients
@@ -83,7 +84,7 @@ hc keybind 0xffbe  spawn pactl set-sink-mute 0 toggle
 # mouse
 hc mouseunbind --all
 hc mousebind $Mod-Button1 move
-hc mousebind $Mod-Button2 zoom # I don't have mouse3
+#hc mousebind $Mod-Button2 zoom # I don't have mouse3
 hc mousebind $Mod-Button3 resize
 
 # focus
