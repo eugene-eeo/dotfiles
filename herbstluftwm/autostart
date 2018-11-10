@@ -78,6 +78,7 @@ hc keybind XF86MonBrightnessUp   spawn ~/.config/herbstluftwm/brightness.sh +
 hc keybind XF86MonBrightnessDown spawn ~/.config/herbstluftwm/brightness.sh -
 hc keybind 0xffc0  spawn ~/.config/herbstluftwm/volume.sh +
 hc keybind 0xffbf  spawn ~/.config/herbstluftwm/volume.sh -
+hc keybind 0xffbe  spawn pactl set-sink-mute 0 toggle
 
 # mouse
 hc mouseunbind --all
