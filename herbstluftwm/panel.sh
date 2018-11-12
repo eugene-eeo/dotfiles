@@ -15,23 +15,12 @@ x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=22
-font="-*-fixed-medium-*-*-*-15-*-*-*-*-*-*-*"
-#font="-*-consolas-medium-r-normal--15-*-*-*-*-*-*-*"
+font="Consolas:medium:pixelsize=16"
 bgcolor=$(hc get frame_border_normal_color)
 selbg=$(hc get window_border_active_color)
 selfg='#FFFFFF'
+textwidth='xftwidth'
 
-####
-# Try to find textwidth binary.
-# In e.g. Ubuntu, this is named dzen2-textwidth.
-if which textwidth &> /dev/null ; then
-    textwidth="textwidth";
-elif which dzen2-textwidth &> /dev/null ; then
-    textwidth="dzen2-textwidth";
-else
-    echo "This script requires the textwidth tool of the dzen2 project."
-    exit 1
-fi
 ####
 # true if we are using the svn version of dzen2
 # depending on version/distribution, this seems to have version strings like
@@ -124,7 +113,7 @@ hc pad $monitor $panel_height
         right="$separator^fg() $date $separator^bg()^fg() $network $separator^bg()^fg() ^fg(#909090)VOL:^fg()$volume $separator^bg()^fg() ^fg(#909090)BAT:^fg()$battery%"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
-        width=$($textwidth "$font" "$right_text_only ")
+        width=$($textwidth "$font" "$right_text_only   ")
         echo -n "^pa($(($panel_width - $width)))$right"
         echo
 
@@ -188,5 +177,6 @@ hc pad $monitor $panel_height
     # After the data is gathered and processed, the output of the previous block
     # gets piped to dzen2.
 
-} 2> /dev/null | dzen2 -w $panel_width -x $x -y $y -fn "$font" -h $panel_height \
-    -ta l -bg "$bgcolor" -fg '#efefef'
+} 2> /dev/null | dzen2 -w $panel_width -x $x -y $y -h $panel_height \
+    -ta l -bg "$bgcolor" -fg '#efefef' \
+    -fn "$font"
