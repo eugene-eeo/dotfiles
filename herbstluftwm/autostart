@@ -84,6 +84,7 @@ hc keybind 0xffc0  spawn ~/.config/herbstluftwm/volume.sh +
 hc keybind 0xffbf  spawn ~/.config/herbstluftwm/volume.sh -
 hc keybind 0xffbe  spawn pactl set-sink-mute 0 toggle
 hc keybind 0xffc7  spawn ~/.config/herbstluftwm/backlight.sh
+hc keybind 0xffc8  spawn ~/.config/herbstluftwm/scrot-random.sh
 
 # mouse
 hc mouseunbind --all
@@ -108,11 +109,12 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
 # theme
 ~/.config/herbstluftwm/theme.sh
+hc set snap_distance 2
+hc set snap_gap 2
 
 # unlock, just to be sure
 hc unlock
-
-herbstclient set tree_style '╾│ ├└╼─┐'
+hc set tree_style '╾│ ├└╼─┐'
 
 # do multi monitor setup here, e.g.:
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0

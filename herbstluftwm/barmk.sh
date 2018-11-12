@@ -18,8 +18,7 @@ volume() {
 }
 
 network() {
-    ssid=$(iwconfig wlp2s0 |grep ESSID | grep -o '".*"' | sed 's/"//g')
-    echo -n $ssid
+    iwgetid -r
 }
 
 echo "battery\t$(battery)"

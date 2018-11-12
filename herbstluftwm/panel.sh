@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-hc() { "${herbstclient_command[@]:-herbstclient}" "$@" ;}
+hc() {
+    herbstclient "$@";
+}
+
 monitor=${1:-0}
 geometry=( $(herbstclient monitor_rect "$monitor") )
 if [ -z "$geometry" ] ;then
@@ -13,7 +16,7 @@ y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=22
 font="-*-fixed-medium-*-*-*-15-*-*-*-*-*-*-*"
-#font="-*-dejavu sans mono-medium-r-normal--15-*-*-*-*-*-iso8859-1"
+#font="-*-consolas-medium-r-normal--15-*-*-*-*-*-*-*"
 bgcolor=$(hc get frame_border_normal_color)
 selbg=$(hc get window_border_active_color)
 selfg='#FFFFFF'
@@ -62,11 +65,10 @@ hc pad $monitor $panel_height
     # e.g.
     #   date    ^fg(#efefef)18:33^fg(#909090), 2013-10-^fg(#efefef)29
 
-    #mpc idleloop player &
     while true ; do
         # "date" output is checked once a second, but an event is only
         # generated if the output changed compared to the previous run.
-        date +$'date\t^fg(#efefef)%H:%M ^fg(#efefef)%d/%m/%Y'
+        date +$'date\t%H:%M %d/%m/%Y'
         ~/.config/herbstluftwm/barmk.sh
         sleep 1 || break
     done > >(uniq_linebuffered) &
@@ -119,7 +121,7 @@ hc pad $monitor $panel_height
         echo -n "$separator"
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
         # small adjustments
-        right="$date $separator^bg()^fg() $network $separator^bg()^fg() ^fg(#909090)VOL:^fg()$volume $separator^bg()^fg() ^fg(#909090)BAT:^fg()$battery%"
+        right="$separator^fg() $date $separator^bg()^fg() $network $separator^bg()^fg() ^fg(#909090)VOL:^fg()$volume $separator^bg()^fg() ^fg(#909090)BAT:^fg()$battery%"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
         width=$($textwidth "$font" "$right_text_only ")
@@ -139,11 +141,9 @@ hc pad $monitor $panel_height
         # find out event origin
         case "${cmd[0]}" in
             tag*)
-                #echo "resetting tags" >&2
                 IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
                 ;;
             date)
-                #echo "resetting date" >&2
                 date="${cmd[@]:1}"
                 ;;
             network)
@@ -181,8 +181,6 @@ hc pad $monitor $panel_height
             focus_changed|window_title_changed)
                 windowtitle="${cmd[@]:2}"
                 ;;
-            #player)
-            #    ;;
         esac
     done
 
@@ -191,5 +189,4 @@ hc pad $monitor $panel_height
     # gets piped to dzen2.
 
 } 2> /dev/null | dzen2 -w $panel_width -x $x -y $y -fn "$font" -h $panel_height \
-    -e 'button3=;button4=exec:herbstclient use_index -1;button5=exec:herbstclient use_index +1' \
     -ta l -bg "$bgcolor" -fg '#efefef'
