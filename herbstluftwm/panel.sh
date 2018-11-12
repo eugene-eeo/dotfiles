@@ -66,7 +66,6 @@ hc pad $monitor $panel_height
     kill $childpid
 } 2> /dev/null | {
     IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
-    visible=true
     date=""
     windowtitle=""
     while true ; do
@@ -75,7 +74,6 @@ hc pad $monitor $panel_height
         # This part prints dzen data based on the _previous_ data handling run,
         # and then waits for the next event to happen.
 
-        bordercolor="#26221C"
         separator="^bg()^fg($selbg)|"
         # draw tags
         for i in "${tags[@]}" ; do
@@ -146,23 +144,6 @@ hc pad $monitor $panel_height
                 ;;
             quit_panel)
                 exit
-                ;;
-            togglehidepanel)
-                currentmonidx=$(hc list_monitors | sed -n '/\[FOCUS\]$/s/:.*//p')
-                if [ "${cmd[1]}" -ne "$monitor" ] ; then
-                    continue
-                fi
-                if [ "${cmd[1]}" = "current" ] && [ "$currentmonidx" -ne "$monitor" ] ; then
-                    continue
-                fi
-                echo "^togglehide()"
-                if $visible ; then
-                    visible=false
-                    hc pad $monitor 0
-                else
-                    visible=true
-                    hc pad $monitor $panel_height
-                fi
                 ;;
             reload)
                 exit
