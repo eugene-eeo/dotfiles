@@ -77,10 +77,9 @@ hc keybind $Mod-f fullscreen toggle
 # proprietary bindings
 hc keybind XF86MonBrightnessUp   spawn ~/.config/herbstluftwm/brightness.sh +
 hc keybind XF86MonBrightnessDown spawn ~/.config/herbstluftwm/brightness.sh -
-hc keybind 0xffc0  spawn ~/.config/herbstluftwm/volume.sh +
-hc keybind 0xffbf  spawn ~/.config/herbstluftwm/volume.sh -
-hc keybind 0xffbe  spawn pactl set-sink-mute 0 toggle
-hc keybind 0xffc7  spawn ~/.config/herbstluftwm/backlight.sh
+hc keybind XF86AudioRaiseVolume  spawn ~/.config/herbstluftwm/volume.sh +
+hc keybind XF86AudioLowerVolume  spawn ~/.config/herbstluftwm/volume.sh -
+hc keybind XF86AudioMute         spawn pactl set-sink-mute 0 toggle
 hc keybind 0xffc8  spawn ~/.config/herbstluftwm/scrot-random.sh
 
 # mouse
