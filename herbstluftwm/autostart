@@ -80,7 +80,7 @@ hc keybind XF86MonBrightnessDown spawn ~/.config/herbstluftwm/brightness.sh -
 hc keybind XF86AudioRaiseVolume  spawn ~/.config/herbstluftwm/volume.sh +
 hc keybind XF86AudioLowerVolume  spawn ~/.config/herbstluftwm/volume.sh -
 hc keybind XF86AudioMute         spawn pactl set-sink-mute 0 toggle
-hc keybind 0xffc8  spawn ~/.config/herbstluftwm/scrot-random.sh
+hc keybind Print  spawn ~/.config/herbstluftwm/scrot-random.sh
 
 # mouse
 hc mouseunbind --all
