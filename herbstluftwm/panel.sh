@@ -15,10 +15,10 @@ x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=22
-font="Consolas:medium:ptsize=15"
+font="Source Code Pro:medium:pixelsize=15"
 bgcolor=$(hc get frame_border_normal_color)
 selbg=$(hc get window_border_active_color)
-selfg='#FFFFFF'
+selfg='#101010'
 textwidth='xftwidth'
 
 ####
@@ -55,9 +55,6 @@ hc pad $monitor $panel_height
     #   date    ^fg(#efefef)18:33^fg(#909090), 2013-10-^fg(#efefef)29
 
     while true ; do
-        # "date" output is checked once a second, but an event is only
-        # generated if the output changed compared to the previous run.
-        date +$'date\t%H:%M %d/%m/%Y'
         ~/.config/herbstluftwm/barmk.sh
         sleep 1 || break
     done > >(uniq_linebuffered) &
@@ -111,7 +108,7 @@ hc pad $monitor $panel_height
         right="$separator^fg() $date $separator^bg()^fg() $network $separator^bg()^fg() ^fg(#909090)VOL:^fg()$volume $separator^bg()^fg() ^fg(#909090)BAT:^fg()$battery%"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
-        width=$($textwidth "$font" "$right_text_only   ")
+        width=$($textwidth "$font" "$right_text_only  ")
         echo -n "^pa($(($panel_width - $width)))$right"
         echo
 

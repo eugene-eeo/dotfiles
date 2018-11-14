@@ -18,9 +18,11 @@ volume() {
 }
 
 network() {
+    #nmcli --fields in-use,bars device wifi list | grep '^*' | cut -d ' ' -f8-9
     iwgetid -r
 }
 
+date +'date	%H:%M %d/%m/%Y'
 echo "battery\t$(battery)"
 echo "volume\t$(volume)"
 echo "network\t$(network)"

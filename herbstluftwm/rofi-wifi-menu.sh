@@ -15,7 +15,7 @@ LIST=$(nmcli --fields "$FIELDS" device wifi list | sed '/^--/d')
 # For some reason rofi always approximates character width 2 short... hmmm
 RWIDTH=$(($(echo "$LIST" | head -n 1 | awk '{print length($0); }')+2))
 # Dynamically change the height of the rofi menu
-LINENUM=$(echo "$LIST" | wc -l)
+LINENUM=8
 # Gives a list of known connections so we can parse it later
 KNOWNCON=$(nmcli connection show)
 # Really janky way of telling if there is currently a connection
@@ -26,15 +26,6 @@ CURRSSID=$(iwgetid -r)
 if [[ ! -z $CURRSSID ]]; then
 	HIGHLINE=$(echo  "$(echo "$LIST" | awk -F "[  ]{2,}" '{print $1}' | grep -Fxn -m 1 "$CURRSSID" | awk -F ":" '{print $1}') + 1" | bc ) 
 fi
-
-# HOPEFULLY you won't need this as often as I do
-# If there are more than 8 SSIDs, the menu will still only have 8 lines
-if [ "$LINENUM" -gt 8 ] && [[ "$CONSTATE" =~ "enabled" ]]; then
-	LINENUM=8
-elif [[ "$CONSTATE" =~ "disabled" ]]; then
-	LINENUM=1
-fi
-
 
 if [[ "$CONSTATE" =~ "enabled" ]]; then
 	TOGGLE="toggle off"

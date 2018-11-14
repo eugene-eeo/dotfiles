@@ -121,12 +121,6 @@ let g:neomake_open_list = 2
 " Shougo/deoplete.nvim
 let g:deoplete#enable_at_startup = 1
 
-let g:SuperTabDefaultCompletionType = "context"
-autocmd FileType *
-    \ if &omnifunc != '' |
-    \   call SuperTabChain(&omnifunc, "<c-p>") |
-    \ endif
-
 " fatih/vim-go
 let g:go_def_mapping_enabled=0
 
