@@ -15,7 +15,7 @@ Mod=Super # Use the super key as the main modifier
 hc keybind $Mod-Control-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
-hc keybind $Mod-Return      spawn gnome-terminal
+hc keybind $Mod-Return      spawn urxvt
 hc keybind $Mod-space       spawn rofi -modi run,drun -show run -show-icons -display-run 'run: ' -display-drun 'drun: '
 hc keybind $Mod-w           spawn rofi -show window -show-icons -display-window 'window: '
 hc keybind $Mod-e           spawn ~/.config/herbstluftwm/locate.sh
