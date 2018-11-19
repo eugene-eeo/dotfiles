@@ -19,7 +19,6 @@ font="Source Code Pro:medium:pixelsize=15"
 bgcolor=$(hc get frame_border_normal_color)
 selbg=$(hc get window_border_active_color)
 selfg='#101010'
-textwidth='xftwidth'
 
 ####
 # true if we are using the svn version of dzen2
@@ -29,20 +28,6 @@ if dzen2 -v 2>&1 | head -n 1 | grep -q '^dzen-\([^,]*-svn\|\),'; then
     dzen2_svn="true"
 else
     dzen2_svn=""
-fi
-
-if awk -Wv 2>/dev/null | head -1 | grep -q '^mawk'; then
-    # mawk needs "-W interactive" to line-buffer stdout correctly
-    # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=593504
-    uniq_linebuffered() {
-      awk -W interactive '$0 != l { print ; l=$0 ; fflush(); }' "$@"
-    }
-else
-    # other awk versions (e.g. gawk) issue a warning with "-W interactive", so
-    # we don't want to use it there.
-    uniq_linebuffered() {
-      awk '$0 != l { print ; l=$0 ; fflush(); }' "$@"
-    }
 fi
 
 hc pad $monitor $panel_height
@@ -57,7 +42,7 @@ hc pad $monitor $panel_height
     while true ; do
         ~/.config/herbstluftwm/barmk.sh
         sleep 1 || break
-    done > >(uniq_linebuffered) &
+    done &
     childpid=$!
     hc --idle
     kill $childpid
@@ -108,7 +93,7 @@ hc pad $monitor $panel_height
         right="$separator^fg() $date $separator^bg()^fg() $network $separator^bg()^fg() ^fg(#909090)VOL:^fg()$volume $separator^bg()^fg() ^fg(#909090)BAT:^fg()$battery%"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
-        width=$($textwidth "$font" "$right_text_only  ")
+        width=$(xftwidth "$font" "$right_text_only  ")
         echo -n "^pa($(($panel_width - $width)))$right"
         echo
 
