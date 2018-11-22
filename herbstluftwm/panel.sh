@@ -16,6 +16,7 @@ y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=22
 font="Source Code Pro:medium:pixelsize=15"
+font="Consolas:medium:pixelsize=15"
 bgcolor=$(hc get frame_border_normal_color)
 selbg=$(hc get window_border_active_color)
 selfg='#101010'
@@ -90,7 +91,7 @@ hc pad $monitor $panel_height
         echo -n "$separator"
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
         # small adjustments
-        right="$separator^fg() $date $separator^bg()^fg() $network $separator^bg()^fg() ^fg(#909090)VOL:^fg()$volume $separator^bg()^fg() ^fg(#909090)BAT:^fg()$battery%"
+        right="$separator^fg() $date $separator^bg()^fg() $network $separator^bg()^fg() ^fg(#909090)V:^fg()$volume $separator^bg()^fg() ^fg(#909090)B:^fg()$battery%"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
         width=$(xftwidth "$font" "$right_text_only  ")
