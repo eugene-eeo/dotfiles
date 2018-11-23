@@ -10,6 +10,8 @@ sync:
 	cp    ./vimrc          ~/.config/nvim/init.vim
 	cp -a ./dotvim/.       ~/.config/nvim/
 	cp -a ./scripts/.      ~/.scripts/
+	cp    ./herbstluftwm/* ~/.config/herbstluftwm
 
 push:
 	git push origin
+	git push sr.ht
