@@ -7,7 +7,6 @@ stolen from other dotfiles.
 > Yes I still use makefiles. Get off my lawn.
 
 ```sh
-$ systemctl enable "i3lock@$(whoami)"
 $ make # repo -> home
 ```
 
