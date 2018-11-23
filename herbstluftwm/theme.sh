@@ -18,7 +18,7 @@ hc set frame_border_width 1
 hc set always_show_frame 1
 hc set frame_bg_transparent 1
 hc set frame_transparent_width 3
-hc set frame_gap 4
+hc set frame_gap 2
 
 hc attr theme.active.color '#ECA03E'
 hc attr theme.normal.color '#454545'
