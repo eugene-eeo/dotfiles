@@ -15,11 +15,11 @@ x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=22
-font="Source Code Pro:medium:pixelsize=15"
 font="Consolas:medium:pixelsize=15"
-bgcolor=$(hc get frame_border_normal_color)
+#bgcolor=$(hc get frame_border_normal_color)
+bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
-selfg='#101010'
+selfg='#000000'
 
 ####
 # true if we are using the svn version of dzen2
@@ -79,9 +79,9 @@ hc pad $monitor $panel_height
             esac
             if [ ! -z "$dzen2_svn" ] ; then
                 # clickable tags if using SVN dzen
-                echo -n "^ca(1,\"${herbstclient_command[@]:-herbstclient}\" "
+                echo -n "^ca(1,\"herbstclient\" "
                 echo -n "focus_monitor \"$monitor\" && "
-                echo -n "\"${herbstclient_command[@]:-herbstclient}\" "
+                echo -n "\"herbstclient\" "
                 echo -n "use \"${i:1}\") ${i:1} ^ca()"
             else
                 # non-clickable tags if using older dzen

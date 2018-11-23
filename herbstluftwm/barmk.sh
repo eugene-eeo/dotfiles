@@ -18,7 +18,7 @@ volume() {
 }
 
 network() {
-    #nmcli --fields in-use,bars device wifi list | grep '^*' | cut -d ' ' -f8-9
+    #nmcli --fields in-use,bars device wifi list | grep '^*' | cut -d ' ' -f8-9 | cut -d ' ' -f1
     iwgetid -r
 }
 
