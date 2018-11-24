@@ -14,7 +14,7 @@ fi
 x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
-panel_height=22
+panel_height=20
 font="Consolas:medium:pixelsize=15"
 #bgcolor=$(hc get frame_border_normal_color)
 bgcolor='#000000'
@@ -103,8 +103,7 @@ hc pad $monitor $panel_height
         # internal variables based on them. The event and its arguments are
         # read into the array cmd, then action is taken depending on the event
         # name.
-        # "Special" events (quit_panel/togglehidepanel/reload) are also handled
-        # here.
+        # "Special" events (quit_panel/reload) are also handled here.
 
         # wait for next event
         IFS=$'\t' read -ra cmd || break
@@ -136,11 +135,6 @@ hc pad $monitor $panel_height
                 ;;
         esac
     done
-
-    ### dzen2 ###
-    # After the data is gathered and processed, the output of the previous block
-    # gets piped to dzen2.
-
 } 2> /dev/null | dzen2 -w $panel_width -x $x -y $y -h $panel_height \
     -ta l -bg "$bgcolor" -fg '#efefef' \
     -fn "$font"

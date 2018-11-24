@@ -47,6 +47,6 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 if [ -n "$DESKTOP_SESSION" ];then
-    eval $(gnome-keyring-daemon --start)
+    eval $(gnome-keyring-daemon --start --components=ssh,gpg,secrets,pkcs11)
     export SSH_AUTH_SOCK
 fi
