@@ -19,6 +19,3 @@ export PATH="/home/eeojun/.pyenv/bin:$PATH"
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.scripts:$PATH"
 export PATH="$HOME/.fzf/bin:$PATH"
-
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"

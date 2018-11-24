@@ -18,6 +18,7 @@ alias g='git'
 alias ls='ls --color=auto'
 alias pbcopy='xsel -ib'
 alias pbpaste='xsel -ob'
+alias u='urxvt &'
 
 # Use ag to pipe to FZF, so we respect .gitignore
 export FZF_DEFAULT_COMMAND='ag -g ""'
@@ -44,3 +45,9 @@ youtube-mp3() {
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+echo 1
+if [ -n "$DESKTOP_SESSION" ];then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
+fi
