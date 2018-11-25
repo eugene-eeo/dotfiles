@@ -3,8 +3,6 @@ hc() {
     herbstclient "$@"
 }
 
-#feh --bg-fill ~/Downloads/wallhaven-98585.jpg
-#feh --bg-fill ~/Downloads/cheeky.png
 feh --bg-fill ~/Downloads/mi2.png
 
 # theme
