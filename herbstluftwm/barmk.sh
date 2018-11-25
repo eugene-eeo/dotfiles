@@ -3,7 +3,7 @@
 battery() {
     BATC=/sys/class/power_supply/BAT0/capacity
     BATS=/sys/class/power_supply/BAT0/status
-    test "`cat $BATS`" = "Charging" && echo -n '+' || echo -n '-'
+    test "`cat $BATS`" = "Discharging" && echo -n '-' || echo -n '+'
     cat $BATC
 }
 
@@ -18,7 +18,6 @@ volume() {
 }
 
 network() {
-    #nmcli --fields in-use,bars device wifi list | grep '^*' | cut -d ' ' -f8-9 | cut -d ' ' -f1
     iwgetid -r
 }
 
