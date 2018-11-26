@@ -1,3 +1,3 @@
 #!/bin/sh
 mkdir -p ~/screenshots
-scrot "$HOME/screenshots/$(date +'%H:%M:%S-%d:%m:%Y').png"
+scrot "$HOME/screenshots/$(date +'%d:%m:%Y-%H:%M:%S').png"
