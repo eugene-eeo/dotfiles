@@ -5,7 +5,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'yankcrime/direwolf'
-Plug 'alfredodeza/pytest.vim'
 Plug 'ervandew/supertab'
 Plug 'Yggdroot/indentLine'
 
@@ -89,8 +88,12 @@ let g:python3_host_prog = '/home/eeojun/.pyenv/versions/neovim3/bin/python'
 
 set background=dark
 colo goodwolf
+hi NonText      ctermbg=none
+hi Normal       ctermbg=none
+hi LineNr       ctermbg=232 ctermfg=238
+hi DiffChange   ctermbg=232
 hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
-hi MatchParen   guifg=#000000 guibg=yellow  ctermbg=241 ctermfg=233
+hi Comment      ctermbg=none
 hi clear SignColumn
 hi link NeomakeWarning NeomakeError
 hi NeomakeWarningSign ctermfg=221 guifg=#e5e500
@@ -172,11 +175,6 @@ nmap x "_d
 nmap X "_D
 xmap x "_d
 xmap X "_D
-
-nmap <silent>tc <Esc>:Pytest class<CR>
-nmap <silent>ta <Esc>:Pytest project<CR>
-nmap <silent>tf <Esc>:Pytest file<CR>
-nmap <silent>tm <Esc>:Pytest method<CR>
 
 " junegunn/vim-easy-align.vim
 nmap ga <Plug>(EasyAlign)
