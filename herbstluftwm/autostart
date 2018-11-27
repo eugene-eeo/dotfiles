@@ -22,7 +22,7 @@ hc keybind $Mod-e       spawn ~/.config/herbstluftwm/locate.sh
 hc keybind $Mod-n       spawn ~/.config/herbstluftwm/rofi-wifi-menu.sh
 
 # locking
-hc keybind $Mod-l       spawn i3lock -fe -i ~/Downloads/mi2.png
+hc keybind $Mod-l       spawn i3lock -fe -i ~/Downloads/ghost1.png
 hc keybind $Mod-Shift-l spawn systemctl suspend
 
 # basic movement
