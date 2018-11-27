@@ -72,7 +72,6 @@ hc keybind $Mod-comma  use_index -1 --skip-visible
 hc keybind $Mod-r remove
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
-#hc keybind $Mod-p pseudotile toggle
 
 # proprietary bindings
 hc keybind XF86MonBrightnessUp   spawn ~/.config/herbstluftwm/brightness.sh +

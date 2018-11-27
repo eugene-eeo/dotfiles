@@ -21,7 +21,7 @@ network() {
     iwgetid -r
 }
 
-date +'date	%H:%M %d/%m/%Y'
+date +'date	%H:%M ^fg(#909090)%d %b'
 echo "battery\t$(battery)"
 echo "volume\t$(volume)"
 echo "network\t$(network)"
