@@ -90,7 +90,7 @@ set background=dark
 colo goodwolf
 hi NonText      ctermbg=none
 hi Normal       ctermbg=none
-hi LineNr       ctermbg=232 ctermfg=238
+hi LineNr       ctermbg=232 ctermfg=239
 hi DiffChange   ctermbg=232
 hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
 hi Comment      ctermbg=none

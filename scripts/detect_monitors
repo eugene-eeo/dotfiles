@@ -1,0 +1,8 @@
+#!/bin/bash
+xrandr | grep '\bconnected\b' | cut -d ' ' -f3-4 | while read line; do
+    case $line in
+        primary*) printf `echo $line | cut -d ' ' -f2-` ;;
+        *)        printf `echo $line | cut -d ' ' -f-1` ;;
+    esac
+    printf ' '
+done

@@ -111,10 +111,9 @@ hc set snap_gap 2
 hc unlock
 hc set tree_style '╾│ ├└╼─┐'
 
-# do multi monitor setup here, e.g.:
-# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
-# or simply:
-hc detect_monitors
+# for some reason hc detect_monitors doesn't do the job
+# so we have to manually query xrandr
+hc set_monitors $(detect_monitors)
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     # start panel on each monitor
     ~/.config/herbstluftwm/panel.sh $monitor &
