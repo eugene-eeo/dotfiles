@@ -40,8 +40,8 @@ hc keybind $Mod-Shift-Right shift right
 
 # splitting frames
 # create an empty frame at the specified direction
-hc keybind $Mod-u split bottom 0.5
-hc keybind $Mod-o split right  0.5
+hc keybind $Mod-u and , split bottom 0.5 , focus down
+hc keybind $Mod-o and , split right  0.5 , focus right
 
 # resizing frames
 resizestep=0.05
@@ -100,7 +100,10 @@ hc rule focus=on # normally focus new clients
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+#hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+#hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=off pseudotile=on focus=on
+#hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off focus=off
 
 # theme
 ~/.config/herbstluftwm/theme.sh
