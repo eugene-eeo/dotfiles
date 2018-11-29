@@ -19,6 +19,7 @@ alias ls='ls --color=auto'
 alias pbcopy='xsel -ib'
 alias pbpaste='xsel -ob'
 alias u='urxvt &'
+alias hc='herbstclient'
 
 # Use ag to pipe to FZF, so we respect .gitignore
 export FZF_DEFAULT_COMMAND='ag -g ""'
