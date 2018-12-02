@@ -40,8 +40,8 @@ hc keybind $Mod-Shift-Right shift right
 
 # splitting frames
 # create an empty frame at the specified direction
-hc keybind $Mod-u and , split bottom 0.5 , focus down
-hc keybind $Mod-o and , split right  0.5 , focus right
+hc keybind $Mod-u split bottom 0.5
+hc keybind $Mod-o split right  0.5
 
 # resizing frames
 resizestep=0.05
@@ -55,7 +55,7 @@ tag_names=( {1..9} )
 tag_keys=( {1..9} 0 )
 
 hc rename default "${tag_names[0]}" || true
-for i in ${!tag_names[@]} ; do
+for i in "${!tag_names[@]}" ; do
     hc add "${tag_names[$i]}"
     key="${tag_keys[$i]}"
     if ! [ -z "$key" ] ; then
