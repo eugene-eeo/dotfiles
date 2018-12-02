@@ -6,7 +6,7 @@ Before=sleep.target
 User=%I
 Type=forking
 Environment=DISPLAY=:0
-ExecStart=/usr/bin/i3lock -fe -ti /home/eeojun/Downloads/ghost1.png
+ExecStart=/usr/bin/i3lock -fe -ti /home/eeojun/Downloads/iu.png
 
 [Install]
 WantedBy=sleep.target
