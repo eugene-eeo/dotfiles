@@ -15,7 +15,7 @@ x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=20
-font="Consolas:medium:pixelsize=15"
+font="Source Code Pro:medium:pixelsize=15"
 #bgcolor=$(hc get frame_border_normal_color)
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
