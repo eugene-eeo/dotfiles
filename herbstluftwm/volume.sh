@@ -12,10 +12,4 @@ then
 elif [ "$1" = "-" ] && [ $(echo "$volume >= 0" | bc) -eq 1 ]
 then
     pactl set-sink-volume @DEFAULT_SINK@ '-2%'
-    if [ "`vol`" -eq 0 ]
-    then
-        pactl set-sink-mute @DEFAULT_SINK@ 1
-    else
-        pactl set-sink-mute @DEFAULT_SINK@ 0
-    fi
 fi

@@ -11,7 +11,7 @@ volume() {
     info=`amixer get Master | tail -n 1`
     if [ $(echo $info | grep -o '\[\(on\|off\)\]') = '[off]' ]
     then
-        echo -n 'MUTE'
+        echo -n 'M'
     else
         echo $info | grep -o '[0-9]\+%'
     fi
