@@ -12,5 +12,7 @@ sync:
 	cp -a ./scripts/.      ~/.scripts/
 	cp    ./herbstluftwm/* ~/.config/herbstluftwm
 
+	cd st && make DESTDIR=~/.scripts/ clean install
+
 push:
 	git push origin
