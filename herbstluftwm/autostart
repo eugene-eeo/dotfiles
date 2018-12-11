@@ -115,8 +115,7 @@ hc unlock
 hc set tree_style '╾│ ├└╼─┐'
 
 # for some reason hc detect_monitors doesn't do the job
-# so we have to manually query xrandr
-hc set_monitors $(detect_monitors)
+hc detect_monitors
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     # start panel on each monitor
     ~/.config/herbstluftwm/panel.sh $monitor &
