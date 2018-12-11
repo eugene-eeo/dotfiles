@@ -19,7 +19,6 @@ hc keybind $Mod-Return  spawn st
 hc keybind $Mod-space   spawn rofi -modi run,drun -show run -show-icons -display-run 'run: ' -display-drun 'drun: '
 hc keybind $Mod-w       spawn rofi -show window -show-icons -display-window 'window: '
 hc keybind $Mod-e       spawn ~/.config/herbstluftwm/locate.sh
-hc keybind $Mod-n       spawn ~/.config/herbstluftwm/rofi-wifi-menu.sh
 
 # locking
 hc keybind $Mod-l       spawn i3lock -fe -ti ~/Downloads/iu.png
@@ -121,4 +120,6 @@ for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     ~/.config/herbstluftwm/panel.sh $monitor &
 done
 
-export $(gnome-keyring-daemon -rd)
+if hc silent new_attr bool my_not_first_autostart ; then
+    export $(gnome-keyring-daemon -rd)
+fi
