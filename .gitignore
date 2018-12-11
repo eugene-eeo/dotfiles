@@ -2,3 +2,4 @@ dotvim/undo
 dotvim/plugged
 dotvim/.netrwhist
 /st/st
+/st/*.o
