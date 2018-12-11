@@ -18,7 +18,7 @@ alias g='git'
 alias ls='ls --color=auto'
 alias pbcopy='xsel -ib'
 alias pbpaste='xsel -ob'
-alias u='urxvt &'
+alias u='st &'
 alias hc='herbstclient'
 
 # Use ag to pipe to FZF, so we respect .gitignore

@@ -7,6 +7,7 @@ stolen from other dotfiles.
 > Yes I still use makefiles. Get off my lawn.
 
 ```sh
+$ sudo cp ./systemd/i3lock@.service /etc/systemd/system/i3lock@.service
 $ systemctl enable "i3lock@$(whoami)"
 $ make # repo -> home
 ```
