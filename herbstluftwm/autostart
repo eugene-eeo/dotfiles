@@ -122,4 +122,4 @@ for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     ~/.config/herbstluftwm/panel.sh $monitor &
 done
 
-gnome-keyring-daemon -rd
+export $(gnome-keyring-daemon -rd)
