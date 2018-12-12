@@ -21,7 +21,7 @@ hc keybind $Mod-w       spawn rofi -show window -show-icons -display-window 'win
 hc keybind $Mod-e       spawn ~/.config/herbstluftwm/locate.sh
 
 # locking
-hc keybind $Mod-l       spawn i3lock -fe -ti ~/Downloads/iu.png
+hc keybind $Mod-l       spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
 hc keybind $Mod-Shift-l spawn systemctl suspend
 
 # basic movement
