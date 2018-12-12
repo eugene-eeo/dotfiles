@@ -10,7 +10,7 @@ DIM="\\[$(tput setaf 2)\\]"
 RED="\\[$(tput setaf 4)\\]"
 
 export PROMPT_DIRTRIM=2
-export PS1=" \w\$(vcprompt -f '${RED}(%b${DIM}%m${RED})')${RESET} ${RED}$ ${RESET}"
+export PS1=" \w\$(vcprompt -f '${RED}(%b${DIM}%m${RED})')${RESET} ${RED}\$ ${RESET}"
 export PS2=" ${DIM}>${RESET} "
 
 alias t='tree -N -F -C'
@@ -38,10 +38,6 @@ v() {
 
 mux() {
     tmux attach -t base || tmux new -s base
-}
-
-youtube-mp3() {
-    youtube-dl --extract-audio --audio-format mp3 $@
 }
 
 eval "$(pyenv init -)"
