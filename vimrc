@@ -10,7 +10,7 @@ Plug 'Yggdroot/indentLine'
 
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-Plug 'zchee/deoplete-go', { 'for': 'go' }
+Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
 Plug 'Shougo/echodoc.vim'
 
 Plug 'neomake/neomake'
@@ -25,10 +25,8 @@ Plug 'matze/vim-move'
 Plug 'ddrscott/vim-side-search'
 Plug 'moll/vim-bbye'
 
-Plug 'vim-scripts/Jinja'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 Plug 'othree/html5.vim'
 Plug 'vim-python/python-syntax'
 call plug#end()
