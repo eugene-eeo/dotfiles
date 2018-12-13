@@ -1,0 +1,29 @@
+#!/bin/bash
+FZF_OPTIONS="--layout=reverse --color=bw --margin=1,2"
+GEOMETRY="80x20+570+300"
+
+_st_run() {
+    st -t 'st-launch' -ai -g $GEOMETRY -e "$0" "$1" &
+}
+
+case "$1" in
+    _run)
+        f=$(compgen -c | sort | fzf $FZF_OPTIONS)
+        if [ $? = 0 ]; then
+            # for some reason we need to sleep
+            pdetach $f
+            sleep 0.25
+        fi
+        ;;
+    _filter)
+        f=$(find ~ -name '.*' -prune -o -print | fzf $FZF_OPTIONS)
+        if [ $? = 0 ]; then
+            # for some reason we need to sleep
+            pdetach xdg-open "$f"
+            sleep 0.25
+        fi
+        ;;
+    run)    _st_run _run    ;;
+    filter) _st_run _filter ;;
+    *)      echo 'usage: st-launch [run|filter]'
+esac

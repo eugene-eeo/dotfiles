@@ -16,9 +16,8 @@ hc keybind $Mod-Control-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return  spawn st
-hc keybind $Mod-space   spawn rofi -modi run,drun -show run -show-icons -display-run 'run: ' -display-drun 'drun: '
-hc keybind $Mod-w       spawn rofi -show window -show-icons -display-window 'window: '
-hc keybind $Mod-e       spawn ~/.config/herbstluftwm/locate.sh
+hc keybind $Mod-space   spawn st-launch run
+hc keybind $Mod-e       spawn st-launch filter
 
 # locking
 hc keybind $Mod-l       spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
@@ -97,6 +96,7 @@ hc rule focus=on # normally focus new clients
 #hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
+hc rule title='st-launch' focus=on pseudotile=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 #hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
