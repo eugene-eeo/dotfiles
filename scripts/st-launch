@@ -2,18 +2,18 @@
 GEOMETRY="80x20+570+300"
 
 _st_fzf() {
-    fzf --layout=reverse --color=bw --margin=1,2 --prompt='∴ ' $@
+    fzf +m --tiebreak=length,end --layout=reverse --color=prompt:7,pointer:7,spinner:2,info:8,hl:2,hl+:2,marker:0 --margin=1,2 --prompt='∴ ' $@
 }
 
 _st_run() {
-    st -t 'st-launch' -ai -g $GEOMETRY -e "$0" "$1" &
+    st -t 'st-launch' -a -g $GEOMETRY -e "$0" "$1" &
 }
 
 case "$1" in
     # for some weird reason we need to sleep when we run pdetach
     # to prevent it from exiting prematurely
     _run)
-        f=$(compgen -c | _st_fzf)
+        f=$(compgen -c | sort | grep -v '[:!.{}]\|\[\[\|]]\|\[' | _st_fzf)
         if [ $? = 0 ]; then
             pdetach "$f"
             sleep 0.25
@@ -43,5 +43,7 @@ case "$1" in
     run)    _st_run _run    ;;
     filter) _st_run _filter ;;
     window) _st_run _window ;;
-    *)      echo 'usage: st-launch [run|filter]'
+    *)      echo 'usage: st-launch run'
+            echo '       st-launch filter'
+            echo '       st-launch window'
 esac
