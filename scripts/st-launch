@@ -14,17 +14,11 @@ case "$1" in
     # to prevent it from exiting prematurely
     _run)
         f=$(compgen -c | sort | grep -v '[:!.{}]\|\[\[\|]]\|\[' | _st_fzf)
-        if [ $? = 0 ]; then
-            pdetach "$f"
-            sleep 0.25
-        fi
+        [ $? = 0 ] && pdetach "$f" && sleep 0.25
         ;;
     _filter)
         f=$(find ~ -name '.*' -prune -o -print | _st_fzf)
-        if [ $? = 0 ]; then
-            pdetach xdg-open "$f"
-            sleep 0.25
-        fi
+        [ $? = 0 ] && pdetach xdg-open "$f" && sleep 0.25
         ;;
     _window)
         window_ids=$(xprop -root | grep '^_NET_CLIENT_LIST(WINDOW)' | cut -d ' ' -f5-)
@@ -36,9 +30,7 @@ case "$1" in
                 [[ $name != 'st-launch' ]] && echo "$wid	$name"
             done | _st_fzf --with-nth 2..
         )
-        if [ $? = 0 ]; then
-            xdotool windowactivate $(echo "$choice" | cut -d ' ' -f1)
-        fi
+        [ $? = 0 ] && xdotool windowactivate $(echo "$choice" | cut -d ' ' -f1)
         ;;
     run)    _st_run _run    ;;
     filter) _st_run _filter ;;
