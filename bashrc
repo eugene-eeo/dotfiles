@@ -18,7 +18,7 @@ alias g='git'
 alias ls='ls --color=auto'
 alias pbcopy='xsel -ib'
 alias pbpaste='xsel -ob'
-alias u='st &'
+alias u='nohup st >/dev/null 2> /dev/null &'
 alias hc='herbstclient'
 
 # Use ag to pipe to FZF, so we respect .gitignore
@@ -34,6 +34,10 @@ v() {
     if [ "$_FZF" ]; then
         vim "$_FZF"
     fi
+}
+
+open() {
+    nohup xdg-open "$@" > /dev/null 2> /dev/null &
 }
 
 mux() {
