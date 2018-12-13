@@ -1,29 +1,47 @@
 #!/bin/bash
-FZF_OPTIONS="--layout=reverse --color=bw --margin=1,2"
 GEOMETRY="80x20+570+300"
+
+_st_fzf() {
+    fzf --layout=reverse --color=bw --margin=1,2 --prompt='∴ ' $@
+}
 
 _st_run() {
     st -t 'st-launch' -ai -g $GEOMETRY -e "$0" "$1" &
 }
 
 case "$1" in
+    # for some weird reason we need to sleep when we run pdetach
+    # to prevent it from exiting prematurely
     _run)
-        f=$(compgen -c | sort | fzf $FZF_OPTIONS)
+        f=$(compgen -c | _st_fzf)
         if [ $? = 0 ]; then
-            # for some reason we need to sleep
-            pdetach $f
+            pdetach "$f"
             sleep 0.25
         fi
         ;;
     _filter)
-        f=$(find ~ -name '.*' -prune -o -print | fzf $FZF_OPTIONS)
+        f=$(find ~ -name '.*' -prune -o -print | _st_fzf)
         if [ $? = 0 ]; then
-            # for some reason we need to sleep
             pdetach xdg-open "$f"
             sleep 0.25
         fi
         ;;
+    _window)
+        window_ids=$(xprop -root | grep '^_NET_CLIENT_LIST(WINDOW)' | cut -d ' ' -f5-)
+        IFS=', ' read -ra IDS <<< "$window_ids"
+        choice=$(
+            for wid in "${IDS[@]}"; do
+                name=$(xwininfo -id "$wid" -wm | grep '^xwininfo:'  | cut -d ' ' -f 5-)
+                name="${name:1:-1}"
+                [[ $name != 'st-launch' ]] && echo "$wid	$name"
+            done | _st_fzf --with-nth 2..
+        )
+        if [ $? = 0 ]; then
+            xdotool windowactivate $(echo "$choice" | cut -d ' ' -f1)
+        fi
+        ;;
     run)    _st_run _run    ;;
     filter) _st_run _filter ;;
+    window) _st_run _window ;;
     *)      echo 'usage: st-launch [run|filter]'
 esac
