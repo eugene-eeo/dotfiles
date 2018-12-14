@@ -33,7 +33,6 @@ __st_freedesktop_entries() {
     if [ -e "$tmp" ]; then
         cat "$tmp" && exit
     fi
-    echo '' > "$tmp"
     for file in /usr/share/applications/*.desktop; do
         name=''
         path=''
@@ -82,7 +81,7 @@ case "$1" in
         [ $? = 0 ] && __st_pdetach "$choice"
         ;;
     _filter)
-        choice=$(cd ~ && __st_fzf)
+        choice=$(find ~ -name '.*' -prune -o -print | __st_fzf)
         # shellcheck disable=2181
         [ $? = 0 ] && __st_pdetach xdg-open "$choice"
         ;;
@@ -100,7 +99,7 @@ case "$1" in
     filter) __st_run _filter ;;
     window) __st_run _window ;;
     *)      echo 'usage: st-launch run'
-            echo 'usage: st-launch drun'
+            echo '       st-launch drun'
             echo '       st-launch filter'
             echo '       st-launch window'
 esac
