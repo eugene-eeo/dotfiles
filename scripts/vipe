@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-tmp="/tmp/vipe.$(uuid).txt"
+tmp="/tmp/vipe.$(uuidgen).txt"
 touch "$tmp"
 
 cat "${1:-/dev/stdin}" > "$tmp"

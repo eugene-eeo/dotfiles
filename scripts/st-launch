@@ -18,10 +18,9 @@ __st_run() {
 }
 
 __st_window_ids() {
-    ids=$(xprop -root | grep '^_NET_CLIENT_LIST(WINDOW)' | cut -d ' ' -f5-)
-    IFS=', ' read -ra IDS <<< "$ids"
-    for wid in "${IDS[@]}"; do
-        name=$(xwininfo -id "$wid" -wm | grep '^xwininfo:' | cut -d ' ' -f 5-)
+    IFS=', '
+    for wid in $(xprop -root | grep '^_NET_CLIENT_LIST(WINDOW)' | cut -d ' ' -f5-); do
+        name=$(xwininfo -id "$wid" -wm | grep '^xwininfo:' | cut -d ' ' -f5-)
         name="${name:1:-1}"
         [[ $name != 'st-launch' ]] && echo -e "$wid\t$name"
     done
@@ -59,9 +58,7 @@ __st_freedesktop_entries() {
 
 case "$1" in
     _drun)
-        choice=$(__st_freedesktop_entries | __st_fzf --with-nth=1)
-        # shellcheck disable=2181
-        if [ $? = 0 ]; then
+        if choice=$(__st_freedesktop_entries | __st_fzf --with-nth=1); then
             term=$(echo "$choice" | cut -d$'\t' -f2)
             exec=$(echo "$choice" | cut -d$'\t' -f3)
             path=$(echo "$choice" | cut -d$'\t' -f4)
@@ -74,19 +71,15 @@ case "$1" in
         fi
         ;;
     _run)
-        choice=$(compgen -c | grep -v '[:!.{}]\|\[\[\|]]\|\[\|__st' | __st_fzf)
-        # shellcheck disable=2181
-        [ $? = 0 ] && __st_pdetach "$choice"
+        choice=$(compgen -c | grep -v '[:!.{}]\|\[\[\|]]\|\[\|__st' | __st_fzf) \
+            && __st_pdetach "$choice"
         ;;
     _filter)
-        choice=$(find ~ -name '.*' -prune -o -print | __st_fzf)
-        # shellcheck disable=2181
-        [ $? = 0 ] && __st_pdetach xdg-open "$choice"
+        choice=$(find ~ -name '.*' -prune -o -print | __st_fzf) \
+            && __st_pdetach xdg-open "$choice"
         ;;
     _window)
-        choice=$(__st_window_ids | __st_fzf --with-nth=2..)
-        # shellcheck disable=2181
-        if [ $? = 0 ]; then
+        if choice=$(__st_window_ids | __st_fzf --with-nth=2..); then
             wid=$(echo "$choice" | cut -d$'\t' -f1)
             herbstclient jumpto "$wid"
             herbstclient raise "$wid"
