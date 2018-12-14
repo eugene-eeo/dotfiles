@@ -1,14 +1,20 @@
 #!/bin/bash
 GEOMETRY="80x20+570+300"
 
-_st_fzf() {
+__st_fzf() {
     # shellcheck disable=2068
     fzf +m --tiebreak=length,end --layout=reverse \
         --color=prompt:7,pointer:7,spinner:2,info:8,hl:2,hl+:2,marker:0 \
         --margin=1,2 --prompt='∴ ' $@
 }
 
-_st_run() {
+__st_pdetach() {
+    # shellcheck disable=2068
+    nohup $@ > /dev/null 2> /dev/null &
+    sleep 0.1 # don't question this hack
+}
+
+__st_run() {
     st -t 'st-launch' -a -g $GEOMETRY -e "$0" "$1" &
 }
 
@@ -16,15 +22,14 @@ case "$1" in
     # for some weird reason we need to sleep when we run pdetach
     # to prevent it from exiting prematurely
     _run)
-        f=$(compgen -c | sort | grep -v '[:!.{}]\|\[\[\|]]\|\[' | _st_fzf)
         # shellcheck disable=2181
-        [ $? = 0 ] && pdetach "$f" && sleep 0.25
+        choice=$(compgen -c | sort | grep -v '[:!.{}]\|\[\[\|]]\|\[' | __st_fzf)
+        [ $? -eq 0 ] && __st_pdetach "$choice"
         ;;
     _filter)
-        cd ~
-        f=$(_st_fzf)
+        choice=$(cd ~ && __st_fzf)
         # shellcheck disable=2181
-        [ $? = 0 ] && pdetach xdg-open "$f" && sleep 0.25
+        [ $? -eq 0 ] && __st_pdetach xdg-open "$choice"
         ;;
     _window)
         window_ids=$(xprop -root | grep '^_NET_CLIENT_LIST(WINDOW)' | cut -d ' ' -f5-)
@@ -34,14 +39,17 @@ case "$1" in
                 name=$(xwininfo -id "$wid" -wm | grep '^xwininfo:'  | cut -d ' ' -f 5-)
                 name="${name:1:-1}"
                 [[ $name != 'st-launch' ]] && echo -e "$wid\t$name"
-            done | _st_fzf --with-nth 2..
+            done | __st_fzf --with-nth 2..
         )
         # shellcheck disable=2181
-        [ $? = 0 ] && herbstclient jumpto "$(echo "$choice" | cut -d ' ' -f1)"
+        if [ $? = 0 ]; then
+            wid=$(echo "$choice" | cut -d ' ' -f1)
+            herbstclient jumpto "$wid"
+        fi
         ;;
-    run)    _st_run _run    ;;
-    filter) _st_run _filter ;;
-    window) _st_run _window ;;
+    run)    __st_run _run    ;;
+    filter) __st_run _filter ;;
+    window) __st_run _window ;;
     *)      echo 'usage: st-launch run'
             echo '       st-launch filter'
             echo '       st-launch window'
