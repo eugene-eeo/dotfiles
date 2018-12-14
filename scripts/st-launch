@@ -19,11 +19,9 @@ __st_run() {
 }
 
 case "$1" in
-    # for some weird reason we need to sleep when we run pdetach
-    # to prevent it from exiting prematurely
     _run)
+        choice=$(compgen -c | grep -v '[:!.{}]\|\[\[\|]]\|\[\|__st' | __st_fzf)
         # shellcheck disable=2181
-        choice=$(compgen -c | sort | grep -v '[:!.{}]\|\[\[\|]]\|\[' | __st_fzf)
         [ $? -eq 0 ] && __st_pdetach "$choice"
         ;;
     _filter)
@@ -32,11 +30,11 @@ case "$1" in
         [ $? -eq 0 ] && __st_pdetach xdg-open "$choice"
         ;;
     _window)
-        window_ids=$(xprop -root | grep '^_NET_CLIENT_LIST(WINDOW)' | cut -d ' ' -f5-)
-        IFS=', ' read -ra IDS <<< "$window_ids"
+        ids=$(xprop -root | grep '^_NET_CLIENT_LIST(WINDOW)' | cut -d ' ' -f5-)
+        IFS=', ' read -ra IDS <<< "$ids"
         choice=$(
             for wid in "${IDS[@]}"; do
-                name=$(xwininfo -id "$wid" -wm | grep '^xwininfo:'  | cut -d ' ' -f 5-)
+                name=$(xwininfo -id "$wid" -wm | grep '^xwininfo:' | cut -d ' ' -f 5-)
                 name="${name:1:-1}"
                 [[ $name != 'st-launch' ]] && echo -e "$wid\t$name"
             done | __st_fzf --with-nth 2..
