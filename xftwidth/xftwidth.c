@@ -19,14 +19,13 @@ int main(int argc, char** argv)
 {
   if (argc < 3)
   {
-    printf("xftwidth font string [maxwidth]\n");
+    printf("xftwidth font string\n");
     return 1;
   }
 
   char *name = argv[1];
   size_t name_len = strlen(name);
   size_t len = strlen(argv[2]);
-  int maxwidth = 0;
   double fontsize = 1.0;
   double sizeincr = 1.0;
 
@@ -37,19 +36,7 @@ int main(int argc, char** argv)
 
   memcpy(str, argv[2], len);
   dpy = XOpenDisplay(NULL);
-
-  if (argc > 3) {
-    sscanf(argv[3], "%d", &maxwidth);
-
-    if (maxwidth <= 0) {
-      puts("maxwidth must be > 0.");
-      return 1;
-    }
-
-    fn = Load(dpy, name, fontsize);
-  } else {
-    fn = XftFontOpenName(dpy, 0, name);
-  }
+  fn = XftFontOpenName(dpy, 0, name);
 
   if (fn == NULL)
   {
@@ -58,17 +45,6 @@ int main(int argc, char** argv)
   }
 
   XftTextExtentsUtf8(dpy, fn, str, (int)len, &ext);
-
-  if (maxwidth > 0) {
-    while (ext.width < maxwidth) {
-      fontsize += sizeincr;
-      fn = Load(dpy, name, fontsize);
-      XftTextExtentsUtf8(dpy, fn, str, (int)len, &ext);
-    }
-
-    printf("%s:size=%.0f ", name, fontsize);
-  }
-
   printf("%d\n", ext.width);
   XftFontClose(dpy, fn);
   XCloseDisplay(dpy);
