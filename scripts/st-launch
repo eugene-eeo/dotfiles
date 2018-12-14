@@ -71,7 +71,7 @@ case "$1" in
         fi
         ;;
     _run)
-        choice=$(compgen -c | grep -v '[:!.{}]\|\[\[\|]]\|\[\|__st' | __st_fzf) \
+        choice=$(compgen -c | sort -u | grep -v '^\([:!.{}]\|\[\[\|]]\|\[\)$\|^__st' | __st_fzf) \
             && __st_pdetach "$choice"
         ;;
     _filter)
@@ -89,8 +89,5 @@ case "$1" in
     drun)   __st_run _drun   ;;
     filter) __st_run _filter ;;
     window) __st_run _window ;;
-    *)      echo 'usage: st-launch run'
-            echo '       st-launch drun'
-            echo '       st-launch filter'
-            echo '       st-launch window'
+    *)      echo 'usage: st-launch (run | drun | filter | window)'
 esac
