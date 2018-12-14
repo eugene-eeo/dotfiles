@@ -21,7 +21,8 @@ case "$1" in
         [ $? = 0 ] && pdetach "$f" && sleep 0.25
         ;;
     _filter)
-        f=$(find ~ -name '.*' -prune -o -print | _st_fzf)
+        cd ~
+        f=$(_st_fzf)
         # shellcheck disable=2181
         [ $? = 0 ] && pdetach xdg-open "$f" && sleep 0.25
         ;;
@@ -36,7 +37,7 @@ case "$1" in
             done | _st_fzf --with-nth 2..
         )
         # shellcheck disable=2181
-        [ $? = 0 ] && xdotool windowactivate "$(echo "$choice" | cut -d ' ' -f1)"
+        [ $? = 0 ] && herbstclient jumpto "$(echo "$choice" | cut -d ' ' -f1)"
         ;;
     run)    _st_run _run    ;;
     filter) _st_run _filter ;;
