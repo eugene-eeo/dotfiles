@@ -41,9 +41,9 @@ __st_freedesktop_entries() {
         hide=''
         while IFS= read -r line; do
             case "$line" in
-                Name=*) [[ $name = '' ]] && name=$(echo "$line" | cut -d '=' -f2-) ;;
-                Path=*) [[ $path = '' ]] && path=$(echo "$line" | cut -d '=' -f2-) ;;
-                Exec=*) [[ $exec = '' ]] && exec=$(echo "$line" | cut -d '=' -f2- | grep -v '%[UuFf]') ;;
+                Name=*) [ ! $name ] && name=$(echo "$line" | cut -d '=' -f2-) ;;
+                Path=*) [ ! $path ] && path=$(echo "$line" | cut -d '=' -f2-) ;;
+                Exec=*) [ ! $exec ] && exec=$(echo "$line" | cut -d '=' -f2- | grep -v '%[UuFf]') ;;
                 Terminal=true) term='y' ;;
                 Type=Link)              ;&
                 Type=Directory)         ;&
@@ -51,12 +51,9 @@ __st_freedesktop_entries() {
                 NotShowIn=*)   hide='y' ;;
             esac
         done < "$file"
-        if [[ $hide = '' ]] && [[ $name != '' ]] && [[ $exec != '' ]]; then
-            entry="$name\t$term\t$exec\t$path"
-            echo -e $entry >> "$tmp"
-            echo -e $entry
-        fi
-    done
+        [ ! "$hide" ] && [ "$name" ] && [ "$exec" ] \
+            && echo -e "${name}\t${term}\t${exec}\t${path}"
+    done | tee "$tmp"
 }
 
 case "$1" in
@@ -67,8 +64,8 @@ case "$1" in
             term=$(echo "$choice" | cut -d$'\t' -f2)
             exec=$(echo "$choice" | cut -d$'\t' -f3)
             path=$(echo "$choice" | cut -d$'\t' -f4)
-            [[ $path != '' ]] && (cd "$path" || exit)
-            if [[ $term = 'y' ]]; then
+            [ "$path" ] && (cd "$path" || exit)
+            if [ "$term" ]; then
                 __st_pdetach st -e "$exec"
             else
                 __st_pdetach "$exec"
