@@ -2,6 +2,7 @@
 GEOMETRY="80x20+570+300"
 
 _st_fzf() {
+    # shellcheck disable=2068
     fzf +m --tiebreak=length,end --layout=reverse \
         --color=prompt:7,pointer:7,spinner:2,info:8,hl:2,hl+:2,marker:0 \
         --margin=1,2 --prompt='∴ ' $@
@@ -16,10 +17,12 @@ case "$1" in
     # to prevent it from exiting prematurely
     _run)
         f=$(compgen -c | sort | grep -v '[:!.{}]\|\[\[\|]]\|\[' | _st_fzf)
+        # shellcheck disable=2181
         [ $? = 0 ] && pdetach "$f" && sleep 0.25
         ;;
     _filter)
         f=$(find ~ -name '.*' -prune -o -print | _st_fzf)
+        # shellcheck disable=2181
         [ $? = 0 ] && pdetach xdg-open "$f" && sleep 0.25
         ;;
     _window)
@@ -32,7 +35,8 @@ case "$1" in
                 [[ $name != 'st-launch' ]] && echo -e "$wid\t$name"
             done | _st_fzf --with-nth 2..
         )
-        [ $? = 0 ] && xdotool windowactivate $(echo "$choice" | cut -d ' ' -f1)
+        # shellcheck disable=2181
+        [ $? = 0 ] && xdotool windowactivate "$(echo "$choice" | cut -d ' ' -f1)"
         ;;
     run)    _st_run _run    ;;
     filter) _st_run _filter ;;
