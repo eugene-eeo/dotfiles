@@ -19,6 +19,7 @@ hc keybind $Mod-Return  spawn st
 hc keybind $Mod-space   spawn st-launch run
 hc keybind $Mod-w       spawn st-launch window
 hc keybind $Mod-e       spawn st-launch filter
+hc keybind $Mod-Shift-space   spawn st-launch drun
 
 # locking
 hc keybind $Mod-l       spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
