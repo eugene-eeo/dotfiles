@@ -75,15 +75,13 @@ case "$1" in
             && __st_pdetach "$choice"
         ;;
     _filter)
-        choice=$(find ~ -name '.*' -prune -o -print | __st_fzf) \
-            && __st_pdetach xdg-open "$choice"
+        choice=$(find ~ -name '.*' -prune -o -print | sed "s|^$HOME|~|" | __st_fzf) \
+            && __st_pdetach xdg-open "$HOME${choice:1}"
         ;;
     _window)
-        if choice=$(__st_window_ids | __st_fzf --with-nth=2..); then
-            wid=$(echo "$choice" | cut -d$'\t' -f1)
-            herbstclient jumpto "$wid"
-            herbstclient raise "$wid"
-        fi
+        wid=$(__st_window_ids | __st_fzf --with-nth=2.. | cut -d$'\t' -f1) \
+            && herbstclient jumpto "$wid" \
+            && herbstclient raise "$wid"
         ;;
     run)    __st_run _run    ;;
     drun)   __st_run _drun   ;;
