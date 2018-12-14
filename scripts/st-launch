@@ -28,12 +28,13 @@ __st_window_ids() {
 }
 
 __st_freedesktop_entries() {
-    sum=$(ls /usr/share/applications/*.desktop | sort | sha1sum | cut -d ' ' -f1)
+    files=$(find /usr/share/applications/ -maxdepth 1 -type f -name '*.desktop' | sort)
+    sum=$(echo "$files" | sha1sum | cut -d ' ' -f1)
     tmp="/tmp/st-launch.drun.$sum"
     if [ -e "$tmp" ]; then
         cat "$tmp" && exit
     fi
-    for file in /usr/share/applications/*.desktop; do
+    for file in $files; do
         name=''
         path=''
         term=''
@@ -41,9 +42,9 @@ __st_freedesktop_entries() {
         hide=''
         while IFS= read -r line; do
             case "$line" in
-                Name=*) [ ! $name ] && name=$(echo "$line" | cut -d '=' -f2-) ;;
-                Path=*) [ ! $path ] && path=$(echo "$line" | cut -d '=' -f2-) ;;
-                Exec=*) [ ! $exec ] && exec=$(echo "$line" | cut -d '=' -f2- | grep -v '%[UuFf]') ;;
+                Name=*) [ ! "$name" ] && name=$(echo "$line" | cut -d '=' -f2-) ;;
+                Path=*) [ ! "$path" ] && path=$(echo "$line" | cut -d '=' -f2-) ;;
+                Exec=*) [ ! "$exec" ] && exec=$(echo "$line" | cut -d '=' -f2- | grep -v '%[UuFf]') ;;
                 Terminal=true) term='y' ;;
                 Type=Link)              ;&
                 Type=Directory)         ;&
