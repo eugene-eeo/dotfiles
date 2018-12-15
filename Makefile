@@ -14,5 +14,9 @@ sync:
 
 	cd st && make DESTDIR=~/.scripts/ clean install
 
+slouch:
+	touch ~/.config/slouch/hooks
+	cp ~/code/slouch/slouch ./scripts/
+
 push:
 	git push origin
