@@ -33,12 +33,6 @@ fi
 hc pad $monitor $panel_height
 
 {
-    ### Event generator ###
-    # based on different input data (mpc, date, hlwm hooks, ...) this generates events, formed like this:
-    #   <eventname>\t<data> [...]
-    # e.g.
-    #   date    ^fg(#efefef)18:33^fg(#909090), 2013-10-^fg(#efefef)29
-
     while true ; do
         ~/.config/herbstluftwm/barmk.sh
         sleep 1 || break
@@ -97,7 +91,7 @@ hc pad $monitor $panel_height
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
         width=$(xftwidth "$font" "$right_text_only  ")
-        echo -n "^pa($(($panel_width - $width)))$right"
+        echo -n "^p(_RIGHT)^p(-$width)$right"
         echo
 
         ### Data handling ###

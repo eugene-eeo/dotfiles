@@ -22,5 +22,5 @@ bookmark because I always forget:
 ```sh
 xrandr --output DP-1 --auto --same-as e-DP1 --mode 1920x1080 # mirror
 xrandr --output DP-1 --auto --right-of e-DP1 # independent
-xrandr --output DP-1 --auto --left-of e-DP1  # independent
+xrandr --output DP-1 --off                   # turn off/unplug
 ```
