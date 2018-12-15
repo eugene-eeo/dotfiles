@@ -1,0 +1,8 @@
+#!/bin/bash
+xrandr | tail +2 | grep -v '^ ' | while read line; do
+    name=$(echo $line | cut -d ' ' -f1)
+    status=$(echo $line | cut -d ' ' -f2)
+    if [ "$status" = 'disconnected' ]; then
+        xrandr --output "$name" --off
+    fi
+done

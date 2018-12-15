@@ -115,6 +115,7 @@ hc set snap_gap 2
 hc unlock
 hc set tree_style '╾│ ├└╼─┐'
 
+fix_displays
 hc detect_monitors
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     # start panel on each monitor
