@@ -1,35 +1,38 @@
 #!/bin/bash
-GEOMETRY="80x20+570+300"
-
-__st_fzf() {
+__slouch_fzf() {
     # shellcheck disable=2068
     fzf +m --layout=reverse --margin=1,2 --prompt='∴ ' -d$'\t' \
         --color=prompt:7,pointer:7,spinner:2,info:8,hl:2,hl+:2,marker:0 $@
 }
 
-__st_pdetach() {
+__slouch_pdetach() {
     # shellcheck disable=2068
     nohup $@ > /dev/null 2> /dev/null &
     sleep 0.1 # don't question this hack
 }
 
-__st_run() {
-    st -t 'st-launch' -a -g $GEOMETRY -e "$0" "$1" &
+__slouch_run() {
+    st -t 'slouch' -a -g "80x20+570+300" -e "$0" "$1"
 }
 
-__st_window_ids() {
+__slouch_window_ids() {
     IFS=', '
     for wid in $(xprop -root | grep '^_NET_CLIENT_LIST(WINDOW)' | cut -d ' ' -f5-); do
         name=$(xwininfo -id "$wid" -wm | grep '^xwininfo:' | cut -d ' ' -f5-)
         name="${name:1:-1}"
-        [[ $name != 'st-launch' ]] && echo -e "$wid\t$name"
+        [[ $name != 'slouch' ]] && echo -e "$wid\t$name"
     done
 }
 
-__st_freedesktop_entries() {
+__slouch_focus() {
+    herbstclient jumpto "$1"
+    herbstclient raise "$1"
+}
+
+__slouch_freedesktop_entries() {
     files=$(find /usr/share/applications/ -maxdepth 1 -type f -name '*.desktop' | sort)
     sum=$(echo "$files" | sha1sum | cut -d ' ' -f1)
-    tmp="/tmp/st-launch.drun.$sum"
+    tmp="/tmp/slouch.drun.$sum"
     if [ -e "$tmp" ]; then
         cat "$tmp" && exit
     fi
@@ -56,36 +59,42 @@ __st_freedesktop_entries() {
     done | tee "$tmp"
 }
 
+__slouch_drun() {
+    if [ "$1" ]; then
+        __slouch_pdetach st -e "$2"
+    else
+        __slouch_pdetach "$2"
+    fi
+}
+
+# shellcheck source=/dev/null
+. ~/.config/slouch/hooks
+
 case "$1" in
     _drun)
-        if choice=$(__st_freedesktop_entries | __st_fzf --with-nth=1); then
+        if choice=$(__slouch_freedesktop_entries | __slouch_fzf --with-nth=1); then
             term=$(echo "$choice" | cut -d$'\t' -f2)
             exec=$(echo "$choice" | cut -d$'\t' -f3)
             path=$(echo "$choice" | cut -d$'\t' -f4)
             [ "$path" ] && (cd "$path" || exit)
-            if [ "$term" ]; then
-                __st_pdetach st -e "$exec"
-            else
-                __st_pdetach "$exec"
-            fi
+            __slouch_drun "$term" "$exec"
         fi
         ;;
     _run)
-        choice=$(compgen -c | sort -u | grep -v '^\([:!.{}]\|\[\[\|]]\|\[\)$\|^__st' | __st_fzf) \
-            && __st_pdetach "$choice"
+        choice=$(compgen -c | sort -u | grep -v '^\([:!.{}]\|\[\[\|]]\|\[\)$\|^__slouch' | __slouch_fzf) \
+            && __slouch_pdetach "$choice"
         ;;
     _filter)
-        choice=$(find ~ -name '.*' -prune -o -print | sed "s|^$HOME|~|" | __st_fzf) \
-            && __st_pdetach xdg-open "$HOME${choice:1}"
+        choice=$(find ~ -name '.*' -prune -o -print | sed "s|^$HOME|~|" | __slouch_fzf) \
+            && __slouch_pdetach xdg-open "$HOME${choice:1}"
         ;;
     _window)
-        wid=$(__st_window_ids | __st_fzf --with-nth=2.. | cut -d$'\t' -f1) \
-            && herbstclient jumpto "$wid" \
-            && herbstclient raise "$wid"
+        wid=$(__slouch_window_ids | __slouch_fzf --with-nth=2.. | cut -d$'\t' -f1) \
+            && __slouch_focus "$wid"
         ;;
-    run)    __st_run _run    ;;
-    drun)   __st_run _drun   ;;
-    filter) __st_run _filter ;;
-    window) __st_run _window ;;
-    *)      echo 'usage: st-launch (run | drun | filter | window)'
+    run)    __slouch_run _run    ;;
+    drun)   __slouch_run _drun   ;;
+    filter) __slouch_run _filter ;;
+    window) __slouch_run _window ;;
+    *)      echo 'usage: slouch (run | drun | filter | window)'
 esac

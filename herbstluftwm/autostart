@@ -16,10 +16,10 @@ hc keybind $Mod-Control-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return  spawn st
-hc keybind $Mod-space   spawn st-launch run
-hc keybind $Mod-w       spawn st-launch window
-hc keybind $Mod-e       spawn st-launch filter
-hc keybind $Mod-Shift-space   spawn st-launch drun
+hc keybind $Mod-space   spawn slouch run
+hc keybind $Mod-w       spawn slouch window
+hc keybind $Mod-e       spawn slouch filter
+hc keybind $Mod-Shift-space   spawn slouch drun
 
 # locking
 hc keybind $Mod-l       spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
@@ -98,7 +98,7 @@ hc rule focus=on # normally focus new clients
 #hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
-hc rule title='st-launch' focus=on pseudotile=on
+hc rule title='slouch' focus=on pseudotile=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 #hc rule windowtype~'_NET_WM_WINDOW_TYPE_DESKTOP' manage=off
