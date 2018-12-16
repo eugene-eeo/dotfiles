@@ -9,12 +9,9 @@ battery() {
 
 volume() {
     info=`amixer get Master | tail -n 1`
-    if [ $(echo $info | grep -o '\[\(on\|off\)\]') = '[off]' ]
-    then
-        echo -n 'M'
-    else
-        echo $info | grep -o '[0-9]\+%'
-    fi
+    test "`echo "$info" | grep -o '\[\(on\|off\)\]'`" = '[on]' \
+        && echo "$info" | grep -o '[0-9]\+%' \
+        || echo -n 'M'
 }
 
 network() {
@@ -22,6 +19,6 @@ network() {
 }
 
 date +'date	%H:%M ^fg(#909090)%d %b'
-echo "battery\t$(battery)"
-echo "volume\t$(volume)"
-echo "network\t$(network)"
+echo "battery	$(battery)"
+echo "volume	$(volume)"
+echo "network	$(network)"

@@ -4,7 +4,6 @@ Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'yankcrime/direwolf'
 Plug 'ervandew/supertab'
 Plug 'Yggdroot/indentLine'
 
