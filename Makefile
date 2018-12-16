@@ -1,4 +1,5 @@
 sync:
+	mkdir -p ~/.config/dunst
 	chmod a+x scripts/*
 	cp    ./gitconfig      ~/.gitconfig
 	cp    ./tmux.conf      ~/.tmux.conf
@@ -11,6 +12,7 @@ sync:
 	cp -a ./dotvim/.       ~/.config/nvim/
 	cp -a ./scripts/.      ~/.scripts/
 	cp    ./herbstluftwm/* ~/.config/herbstluftwm
+	cp    ./dunstrc        ~/.config/dunst/dunstrc
 
 	cd st && make DESTDIR=~/.scripts/ clean install
 	cd xftwidth && make && cp xftwidth ~/.scripts
@@ -18,6 +20,10 @@ sync:
 slouch:
 	touch ~/.config/slouch/hooks
 	cp ~/code/slouch/slouch ./scripts/
+
+reload: slouch sync
+	-killall dunst
+	-herbstclient reload
 
 push:
 	git push origin
