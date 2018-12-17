@@ -10,6 +10,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
+Plug 'zchee/deoplete-clang'
 Plug 'Shougo/echodoc.vim'
 
 Plug 'neomake/neomake'
@@ -100,6 +101,10 @@ set grepprg=ag\ --nogroup\ --nocolor
 
 set listchars=tab:▸\ ,trail:·
 set list
+
+" zchee/deoplete-clang
+let g:deoplete#sources#clang#clang_header  = '/usr/lib/llvm-6.0/lib/clang'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
 
 " Yggdroot/indentLine
 let g:indentLine_enabled = 0

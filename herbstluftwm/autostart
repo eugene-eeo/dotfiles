@@ -22,7 +22,7 @@ hc keybind $Mod-e       spawn slouch filter
 hc keybind $Mod-Shift-space   spawn slouch drun
 
 # locking
-hc keybind $Mod-l       spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
+hc keybind $Mod-l spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
 
 # basic movement
 # focusing clients
@@ -123,4 +123,5 @@ done
 
 if hc silent new_attr bool my_not_first_autostart ; then
     export $(gnome-keyring-daemon -rd)
+    seahorse
 fi
