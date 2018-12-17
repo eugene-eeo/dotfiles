@@ -1,6 +1,7 @@
 #!/bin/sh
-pactl set-sink-mute @DEFAULT_SINK@ 0
+sink='@DEFAULT_SINK@'
+pactl set-sink-mute "$sink" 0
 case "$1" in
-    +) pactl set-sink-volume @DEFAULT_SINK@ '+2%' ;;
-    -) pactl set-sink-volume @DEFAULT_SINK@ '-2%' ;;
+    +) pactl set-sink-volume "$sink" '+2%' ;;
+    -) pactl set-sink-volume "$sink" '-2%' ;;
 esac
