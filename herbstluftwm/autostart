@@ -23,7 +23,6 @@ hc keybind $Mod-Shift-space   spawn slouch drun
 
 # locking
 hc keybind $Mod-l       spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
-hc keybind $Mod-Shift-l spawn systemctl suspend
 
 # basic movement
 # focusing clients
@@ -78,7 +77,7 @@ hc keybind XF86MonBrightnessUp   spawn ~/.config/herbstluftwm/brightness.sh +
 hc keybind XF86MonBrightnessDown spawn ~/.config/herbstluftwm/brightness.sh -
 hc keybind XF86AudioRaiseVolume  spawn ~/.config/herbstluftwm/volume.sh +
 hc keybind XF86AudioLowerVolume  spawn ~/.config/herbstluftwm/volume.sh -
-hc keybind XF86AudioMute         spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
+hc keybind XF86AudioMute         spawn ~/.config/herbstluftwm/volume.sh m
 hc keybind Print  spawn ~/.config/herbstluftwm/scrot-random.sh
 
 # mouse
