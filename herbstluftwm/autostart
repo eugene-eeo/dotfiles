@@ -122,6 +122,10 @@ for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
 done
 
 if hc silent new_attr bool my_not_first_autostart ; then
+    export XDG_CURRENT_DESKTOP=XFCE
+    # turn off bluetooth by default
+    rfkill block bluetooth
     export $(gnome-keyring-daemon -rd)
-    seahorse
+    # tools that should've been spawned
+    pdetach xfsettingsd
 fi

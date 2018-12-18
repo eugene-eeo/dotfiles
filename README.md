@@ -7,7 +7,9 @@ stolen from other dotfiles.
 > Yes I still use makefiles. Get off my lawn.
 
 ```sh
+$ sudo cp ./systemd/dunst.service /etc/systemd/system/dunst.service
 $ sudo cp ./systemd/i3lock@.service /etc/systemd/system/i3lock@.service
+$ systemctl enable "dunst"
 $ systemctl enable "i3lock@$(whoami)"
 $ make # repo -> home
 ```
