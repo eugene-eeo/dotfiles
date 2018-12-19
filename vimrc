@@ -20,10 +20,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'justinmk/vim-sneak'
-Plug 'matze/vim-move'
-
 Plug 'ddrscott/vim-side-search'
-Plug 'moll/vim-bbye'
 
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
@@ -117,9 +114,6 @@ let g:python_highlight_all = 1
 let g:gitgutter_map_keys=0
 let g:gitgutter_terminal_reports_focus=0
 
-" matze/vim-move
-let g:move_key_modifier = 'C'
-
 " neomake/neomake
 let g:neomake_open_list = 2
 
@@ -166,10 +160,8 @@ augroup vimrc
 augroup END
 
 " key mappings
-nnoremap <Leader>n <Esc>:bp<CR>
-nnoremap <Leader>m <Esc>:bn<CR>
 nnoremap <Leader>d <Esc>:nohl<CR>
-nnoremap <F5> <Esc>:Bdelete<CR>
+nnoremap <F5> <Esc>:bd<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
 nnoremap <Leader>ss :SideSearch <C-r><C-w><CR> | wincmd p
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
