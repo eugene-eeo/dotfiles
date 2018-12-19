@@ -94,13 +94,6 @@ hc pad $monitor $panel_height
         echo -n "^p(_RIGHT)^p(-$width)$right"
         echo
 
-        ### Data handling ###
-        # This part handles the events generated in the event loop, and sets
-        # internal variables based on them. The event and its arguments are
-        # read into the array cmd, then action is taken depending on the event
-        # name.
-        # "Special" events (quit_panel/reload) are also handled here.
-
         # wait for next event
         IFS=$'\t' read -ra cmd || break
         # find out event origin
