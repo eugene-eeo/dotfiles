@@ -1,0 +1,32 @@
+#!/bin/bash
+pid=$(ps -ef | grep '^root' | grep 'gdm-session-worker \[pam/gdm-launch-environment\]' | tr -s ' ' | cut -f2 -d ' ')
+if [ "$pid" ]; then
+    echo 'Found PID of gdm-session-worker [pam/gdm-launch-environment]'
+    echo "PID: $pid"
+    echo 'Killing: (Requires password)'
+    sudo kill "$pid"
+fi
+
+daemons="
+/usr/lib/gnome-settings-daemon/gsd-sound
+/usr/lib/gnome-settings-daemon/gsd-smartcard
+/usr/lib/gnome-settings-daemon/gsd-sharing
+/usr/lib/gnome-settings-daemon/gsd-rfkill
+/usr/lib/gnome-settings-daemon/gsd-print-notifications
+/usr/lib/gnome-settings-daemon/gsd-power
+/usr/lib/gnome-settings-daemon/gsd-mouse
+/usr/lib/gnome-settings-daemon/gsd-keyboard
+/usr/lib/gnome-settings-daemon/gsd-housekeeping
+/usr/lib/gnome-settings-daemon/gsd-datetime
+/usr/lib/gnome-settings-daemon/gsd-a11y-settings
+"
+
+echo 'Spawning our own daemons:'
+for proc in $daemons; do
+    if [ "$proc" ]; then
+        pdetach "$proc"
+        echo " [+] $proc"
+    fi
+done
+echo 'Wait a sec...'
+sleep 5

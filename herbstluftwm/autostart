@@ -123,4 +123,5 @@ done
 
 if hc silent new_attr bool my_not_first_autostart ; then
     export $(gnome-keyring-daemon -rd)
+    st -e gnome_hc_startup
 fi
