@@ -1,3 +1,2 @@
 #!/bin/sh
-(! pidof xfsettingsd >/dev/null) && pdetach xfsettingsd
-xfce4-settings-manager
+XDG_CURRENT_DESKTOP=GNOME gnome-control-center
