@@ -1,4 +1,11 @@
 #!/usr/bin/bash
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+HISTCONTROL=ignoreboth
+shopt -s histappend
+shopt -s checkwinsize
+
 export CLICOLOR=1
 export IGNOREEOF=1
 
@@ -47,7 +54,7 @@ mux() {
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-if [ -n "$DESKTOP_SESSION" ];then
-    eval $(gnome-keyring-daemon --start --components=ssh,gpg,secrets,pkcs11)
-    export SSH_AUTH_SOCK
+if [ -n "$DESKTOP_SESSION" ]; then
+    #shellcheck disable=2046
+    export $(gnome-keyring-daemon --start --components=ssh,gpg,secrets,pkcs11)
 fi

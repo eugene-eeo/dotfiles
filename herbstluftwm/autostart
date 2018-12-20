@@ -73,13 +73,16 @@ hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
 
 # proprietary bindings
-# for now they are handled by gnome-flashback
-#hc keybind XF86MonBrightnessUp   spawn ~/.config/herbstluftwm/brightness.sh +
-#hc keybind XF86MonBrightnessDown spawn ~/.config/herbstluftwm/brightness.sh -
-#hc keybind XF86AudioRaiseVolume  spawn ~/.config/herbstluftwm/volume.sh +
-#hc keybind XF86AudioLowerVolume  spawn ~/.config/herbstluftwm/volume.sh -
-#hc keybind XF86AudioMute         spawn ~/.config/herbstluftwm/volume.sh m
-#hc keybind Print                 spawn ~/.config/herbstluftwm/scrot-random.sh
+# if we are in a gnome-flashback session then these are handled
+# by gnome-flashback. Otherwise we have to handle them ourselves:
+[ "$XDG_SESSION_DESKTOP" = 'herbstluftwm' ] && {
+    hc keybind XF86MonBrightnessUp   spawn ~/.config/herbstluftwm/brightness.sh +
+    hc keybind XF86MonBrightnessDown spawn ~/.config/herbstluftwm/brightness.sh -
+    hc keybind XF86AudioRaiseVolume  spawn ~/.config/herbstluftwm/volume.sh +
+    hc keybind XF86AudioLowerVolume  spawn ~/.config/herbstluftwm/volume.sh -
+    hc keybind XF86AudioMute         spawn ~/.config/herbstluftwm/volume.sh m
+    hc keybind Print                 spawn ~/.config/herbstluftwm/scrot-random.sh
+}
 
 # mouse
 hc mouseunbind --all
@@ -123,7 +126,7 @@ for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
 done
 
 if hc silent new_attr bool my_not_first_autostart ; then
-    pdetach gnome-flashback # <3
-    export $(gnome-keyring-daemon -rd)
+    [ "$XDG_SESSION_DESKTOP" != 'herbstluftwm' ] && pdetach gnome-flashback
+    gnome-keyring-daemon -rd
     st -e gnome_hc_startup
 fi
