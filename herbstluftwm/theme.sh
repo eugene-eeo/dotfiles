@@ -26,7 +26,7 @@ hc attr theme.inner_color black
 hc attr theme.border_width 2
 hc attr theme.floating.border_width 2
 hc attr theme.floating.outer_width 1
-hc attr theme.floating.outer_color black
+hc attr theme.floating.outer_color '#666666'
 hc attr theme.active.inner_color '#cccccc'
 hc attr theme.active.outer_color '#cccccc'
 hc attr theme.background_color '#141414'
