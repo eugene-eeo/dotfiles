@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Consolas:pixelsize=18:antialias=true";
-//static char *font = "Source Code Pro:medium:pixelsize=18:antialias=true";
+static char *font = "Consolas:pixelsize=18:antialias=true:autohint=true";
+//static char *font = "Source Code Pro:medium:pixelsize=17:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
