@@ -6,27 +6,6 @@ if [ "$pid" ]; then
     echo 'Killing: (Requires password)'
     sudo kill "$pid"
 fi
-
-daemons="
-/usr/lib/gnome-settings-daemon/gsd-sound
-/usr/lib/gnome-settings-daemon/gsd-smartcard
-/usr/lib/gnome-settings-daemon/gsd-sharing
-/usr/lib/gnome-settings-daemon/gsd-rfkill
-/usr/lib/gnome-settings-daemon/gsd-print-notifications
-/usr/lib/gnome-settings-daemon/gsd-power
-/usr/lib/gnome-settings-daemon/gsd-mouse
-/usr/lib/gnome-settings-daemon/gsd-keyboard
-/usr/lib/gnome-settings-daemon/gsd-housekeeping
-/usr/lib/gnome-settings-daemon/gsd-datetime
-/usr/lib/gnome-settings-daemon/gsd-a11y-settings
-"
-
-echo 'Spawning our own daemons:'
-for proc in $daemons; do
-    if [ "$proc" ]; then
-        pdetach "$proc"
-        echo " [+] $proc"
-    fi
-done
-echo 'Wait a sec...'
-sleep 5
+killall nautilus-desktop
+killall update-notifier
+killall indicator-application-service

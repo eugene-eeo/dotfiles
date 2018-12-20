@@ -9,18 +9,14 @@ stolen from other dotfiles.
 ```sh
 $ sudo cp ./systemd/i3lock@.service /etc/systemd/system/i3lock@.service
 $ systemctl enable "i3lock@$(whoami)"
+$ cd hc-gnome   # shamefully stolen from i3-gnome with changes
+$ sudo make install
+$ cd -
 $ make # repo -> home
 ```
 
 This repo is meant as a single source of truth for the
 dotfiles on my system. Works on Ubuntu.
-
-## `gnome_hc_startup`
-
-the most important piece to let `herbstluftwm` and gnome coexist.
-post boot, we find the gdm worker process that is in charge of
-spawning the gnome-settings daemons and another Xwayland instance,
-and then we kill it and spawn our own gsd daemons.
 
 ## multi monitors
 
