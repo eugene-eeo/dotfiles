@@ -1,9 +1,7 @@
 #!/bin/bash
 pid=$(ps -ef | grep '^root' | grep 'gdm-session-worker \[pam/gdm-launch-environment\]' | tr -s ' ' | cut -f2 -d ' ')
 if [ "$pid" ]; then
-    echo 'Found PID of gdm-session-worker [pam/gdm-launch-environment]'
-    echo "PID: $pid"
-    echo 'Killing: (Requires password)'
+    echo 'Killing gdm-session-worker [pam/gdm-launch-environment] (Requires password)'
     sudo kill "$pid"
 fi
 killall nautilus-desktop

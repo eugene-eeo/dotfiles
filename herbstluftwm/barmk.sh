@@ -9,7 +9,7 @@ battery() {
 
 volume() {
     info=`amixer get Master | tail -n 1`
-    test "`echo "$info" | grep -o '\[\(on\|off\)\]'`" = '[on]' \
+    (echo "$info" | grep -o '\[on\]' > /dev/null) \
         && echo "$info" | grep -o '[0-9]\+%' \
         || echo -n 'M'
 }

@@ -98,6 +98,7 @@ hc keybind $Mod-Shift-Tab   cycle_all --skip-invisible -1
 hc unrule -F
 hc rule focus=on
 hc rule title='slouch' focus=on pseudotile=on
+hc rule title='rfkill-info' manage=off focus=off
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off

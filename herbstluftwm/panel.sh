@@ -87,7 +87,7 @@ hc pad $monitor $panel_height
         echo -n "$separator"
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
         # small adjustments
-        right=" $separator^fg() $date $separator^fg() $network $separator ^fg(#909090)V:^fg()$volume $separator ^fg(#909090)B:^fg()$battery%"
+        right=" $separator^fg() $date $separator^fg()^ca(1, \"$HOME/.config/herbstluftwm/rfkill-info.sh\") $network ^ca()$separator ^fg(#909090)V:^fg()$volume $separator ^fg(#909090)B:^fg()$battery%"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
         width=$(xftwidth "$font" "$right_text_only  ")
