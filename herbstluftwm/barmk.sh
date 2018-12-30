@@ -7,18 +7,5 @@ battery() {
     cat $BATC
 }
 
-volume() {
-    info=`amixer get Master | tail -n 1`
-    (echo "$info" | grep -o '\[on\]' > /dev/null) \
-        && echo "$info" | grep -o '[0-9]\+%' \
-        || echo -n 'M'
-}
-
-network() {
-    iwgetid -r
-}
-
 date +'date	%H:%M ^fg(#909090)%d %b'
 echo "battery	$(battery)"
-echo "volume	$(volume)"
-echo "network	$(network)"

@@ -16,6 +16,7 @@ sync:
 
 	cd st && make DESTDIR=~/.scripts/ clean install
 	cd xftwidth && make && cp xftwidth ~/.scripts
+	cd get-volume && go build && cp get-volume ~/.scripts
 
 slouch:
 	touch ~/.config/slouch/hooks

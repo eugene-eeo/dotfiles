@@ -33,13 +33,19 @@ fi
 hc pad $monitor $panel_height
 
 {
+    pdetach hydra
     while true ; do
         ~/.config/herbstluftwm/barmk.sh
         sleep 1 || break
     done &
-    childpid=$!
+    child1=$!
+    hydra-head &
+    child2=$!
+    echo nmcli
+    echo pactl
     hc --idle
-    kill $childpid
+    kill $child1
+    kill $child2
 } 2> /dev/null | {
     IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
     date=""
@@ -104,11 +110,11 @@ hc pad $monitor $panel_height
             date)
                 date="${cmd[@]:1}"
                 ;;
-            network)
-                network="${cmd[@]:1}"
+            nmcli)
+                network=$(iwgetid -r)
                 ;;
-            volume)
-                volume="${cmd[@]:1}"
+            pactl)
+                volume=$(get-volume)
                 ;;
             battery)
                 battery="${cmd[@]:1}"
