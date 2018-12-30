@@ -19,16 +19,7 @@ font="Source Code Pro:medium:pixelsize=15"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
 selfg='#000000'
-
-####
-# true if we are using the svn version of dzen2
-# depending on version/distribution, this seems to have version strings like
-# "dzen-" or "dzen-x.x.x-svn"
-if dzen2 -v 2>&1 | head -n 1 | grep -q '^dzen-\([^,]*-svn\|\),'; then
-    dzen2_svn="true"
-else
-    dzen2_svn=""
-fi
+separator="^bg()^fg($selbg)|"
 
 hc pad $monitor $panel_height
 
@@ -51,12 +42,10 @@ hc pad $monitor $panel_height
     date=""
     windowtitle=""
     while true ; do
-
         ### Output ###
         # This part prints dzen data based on the _previous_ data handling run,
         # and then waits for the next event to happen.
 
-        separator="^bg()^fg($selbg)|"
         # draw tags
         for i in "${tags[@]}" ; do
             case ${i:0:1} in
@@ -79,16 +68,10 @@ hc pad $monitor $panel_height
                     echo -n "^bg()^fg(#666666)"
                     ;;
             esac
-            if [ ! -z "$dzen2_svn" ] ; then
-                # clickable tags if using SVN dzen
-                echo -n "^ca(1,\"herbstclient\" "
-                echo -n "focus_monitor \"$monitor\" && "
-                echo -n "\"herbstclient\" "
-                echo -n "use \"${i:1}\") ${i:1} ^ca()"
-            else
-                # non-clickable tags if using older dzen
-                echo -n " ${i:1} "
-            fi
+            echo -n "^ca(1,\"herbstclient\" "
+            echo -n "focus_monitor \"$monitor\" && "
+            echo -n "\"herbstclient\" "
+            echo -n "use \"${i:1}\") ${i:1} ^ca()"
         done
         echo -n "$separator"
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
