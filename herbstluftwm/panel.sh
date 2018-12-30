@@ -22,21 +22,15 @@ selfg='#000000'
 separator="^bg()^fg($selbg)|"
 
 hc pad $monitor $panel_height
+pdetach hydra
 
 {
-    pdetach hydra
-    while true ; do
-        ~/.config/herbstluftwm/barmk.sh
-        sleep 1 || break
-    done &
-    child1=$!
+    ~/.config/herbstluftwm/barmk.sh &
     hydra-head &
-    child2=$!
     echo nmcli
     echo pactl
     hc --idle
-    kill $child1
-    kill $child2
+    kill $(jobs -p)
 } 2> /dev/null | {
     IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
     date=""

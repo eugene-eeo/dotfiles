@@ -1,9 +1,11 @@
 #!/bin/bash
 pid=$(ps -ef | grep '^root' | grep 'gdm-session-worker \[pam/gdm-launch-environment\]' | tr -s ' ' | cut -f2 -d ' ')
 if [ "$pid" ]; then
-    echo 'Killing gdm-session-worker [pam/gdm-launch-environment] (Requires password)'
+    echo 'Killing gdm-session-worker [pam/gdm-launch-environment]'
     sudo kill "$pid"
 fi
+echo 'Auto-tuning using powertop'
+sudo powertop --auto-tune
 killall nautilus-desktop
 killall update-notifier
 killall indicator-application-service

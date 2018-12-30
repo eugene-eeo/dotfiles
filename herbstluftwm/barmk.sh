@@ -7,5 +7,8 @@ battery() {
     cat $BATC
 }
 
-date +'date	%H:%M ^fg(#909090)%d %b'
-echo "battery	$(battery)"
+while true ; do
+    date +'date	%H:%M ^fg(#909090)%d %b'
+    echo "battery	$(battery)"
+    sleep 1 || break
+done
