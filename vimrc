@@ -26,6 +26,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'
 Plug 'vim-python/python-syntax'
+Plug 'digitaltoad/vim-pug'
 call plug#end()
 
 set backspace=2
@@ -161,7 +162,7 @@ augroup END
 
 " key mappings
 nnoremap <Leader>d <Esc>:nohl<CR>
-nnoremap <F5> <Esc>:bd<CR>
+nnoremap <F5> <Esc>:b#<bar>bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
 nnoremap <Leader>ss :SideSearch <C-r><C-w><CR> | wincmd p
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>

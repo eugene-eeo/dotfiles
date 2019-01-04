@@ -12,7 +12,7 @@ hc set frame_border_active_color '#222222'
 hc set frame_border_normal_color '#101010'
 hc set frame_bg_normal_color '#565656'
 hc set frame_bg_active_color '#aaaaaa'
-hc set frame_border_width 1
+hc set frame_border_width 0
 hc set always_show_frame 1
 hc set frame_bg_transparent 1
 hc set frame_transparent_width 3
