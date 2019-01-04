@@ -71,6 +71,7 @@ hc keybind $Mod-comma  use_index -1 --skip-visible
 hc keybind $Mod-r remove
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
+hc keybind $Mod-m spawn ~/.config/herbstluftwm/float-maximize.sh
 
 # proprietary bindings
 # if we are in a gnome-flashback session then these are handled
