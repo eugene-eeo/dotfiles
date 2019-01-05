@@ -4,7 +4,6 @@ Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'ervandew/supertab'
 Plug 'Yggdroot/indentLine'
 
 Plug 'Shougo/deoplete.nvim'
@@ -20,7 +19,6 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'justinmk/vim-sneak'
-Plug 'ddrscott/vim-side-search'
 
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
@@ -136,12 +134,6 @@ let g:jedi#completions_command = ""
 let g:jedi#rename_command = ""
 let g:jedi#completions_enabled = 0
 
-" ddrscott/vim-side-search
-command! -complete=file -nargs=+ Ag execute 'SideSearch <args>'
-let g:side_search_prg = 'ag --word-regexp'
-      \. " --ignore='*.js.map'"
-      \. " --heading --stats -B 3 -A 4"
-
 " justinmk/vim-sneak
 let g:sneak#label = 1
 
@@ -157,14 +149,14 @@ augroup vimrc
   autocmd Filetype css setlocal ts=2 sts=2 sw=2
   autocmd Filetype go  setlocal noet ci pi sts=0 sw=4 ts=4
   autocmd Filetype c   setlocal noet ci pi sts=0 sw=4 ts=4
-  au FileType perl set filetype=prolog
+  autocmd FileType perl set filetype=prolog
+  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 augroup END
 
 " key mappings
 nnoremap <Leader>d <Esc>:nohl<CR>
 nnoremap <F5> <Esc>:b#<bar>bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
-nnoremap <Leader>ss :SideSearch <C-r><C-w><CR> | wincmd p
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 
 nmap x "_d
@@ -182,6 +174,7 @@ nnoremap <C-t> <ESC>:Buffers<CR>
 nnoremap <C-f> <ESC>:BTags<CR>
 nnoremap <C-o> <ESC>:Commands<CR>
 
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <S-Tab> <C-V><Tab>
 nnoremap <Leader>\| <Esc>:vsplit %<CR>
 nnoremap <Leader>- <Esc>:split %<CR>
