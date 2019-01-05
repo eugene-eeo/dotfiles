@@ -81,7 +81,7 @@ hc keybind $Mod-m spawn ~/.config/herbstluftwm/float-maximize.sh
     hc keybind XF86MonBrightnessDown spawn ~/.config/herbstluftwm/brightness.sh -
     hc keybind XF86AudioRaiseVolume  spawn amixer -q set Master 5%+ unmute
     hc keybind XF86AudioLowerVolume  spawn amixer -q set Master 5%- unmute
-    hc keybind XF86AudioMute         spawn amixer -D pulse set Master 1+ toggle
+    hc keybind XF86AudioMute         spawn amixer -q -D pulse set Master toggle
     hc keybind Print                 spawn ~/.config/herbstluftwm/scrot-random.sh
 }
 

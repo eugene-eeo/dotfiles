@@ -3,7 +3,7 @@ package main
 import "os"
 import "bufio"
 import "regexp"
-import "strings"
+import "bytes"
 import "os/exec"
 
 var pctg = regexp.MustCompile("[0-9]+%")
@@ -13,12 +13,12 @@ func main() {
 	out, _ := cmd.StdoutPipe()
 	cmd.Start()
 	r := bufio.NewScanner(out)
-	l := ""
+	b := []byte{}
 	for r.Scan() {
-		l = r.Text()
+		b = r.Bytes()
 	}
-	if strings.Contains(l, "[on]") {
-		os.Stdout.WriteString(pctg.FindString(l))
+	if bytes.Contains(b, []byte("[on]")) {
+		os.Stdout.Write(pctg.Find(b))
 	} else {
 		os.Stdout.WriteString("M")
 	}

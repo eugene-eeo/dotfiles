@@ -36,7 +36,7 @@ rfkill_display() {
         case "$name" in
             bluetooth) echo -e " ${BLU} B ${RST} $stat";;
             wlan)      echo -e " ${MGN} W ${RST} $stat" ;;
-            *)         echo -e "${BGR} $name ${RST} $stat" ;;
+            *)         echo -e " ${BGR} $name ${RST} $stat" ;;
         esac
     done
 }
