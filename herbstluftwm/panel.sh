@@ -14,7 +14,7 @@ fi
 x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
-panel_height=18
+panel_height=20
 #font="Source Code Pro:medium:pixelsize=15:autohint=true"
 font="IBM Plex Mono:medium:pixelsize=14:autohint=true"
 bgcolor='#000000'

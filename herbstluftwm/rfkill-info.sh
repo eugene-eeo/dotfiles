@@ -2,7 +2,7 @@
 
 if [ ! "$1" ]; then
     st -g 30x3-0+20 -t rfkill-info \
-       -f "Source Code Pro:medium:pixelsize=15:antialias=true:autohint=true" \
+       -f "IBM Plex Mono:pixelsize=14:antialias=true:autohint=true" \
        -e "$0" 1
     exit
 fi
@@ -21,10 +21,8 @@ rfkill_status() {
 }
 
 
-FGR=$(tput setaf 8)
-BGR=$(tput setab 8)
-MGN=$(tput setab 5)
-BLU=$(tput setab 4)
+RED=$(tput setaf 1)
+GRN=$(tput setaf 2)
 RST=$(tput sgr 0)
 
 
@@ -33,11 +31,11 @@ rfkill_display() {
     for line in $(rfkill_status); do
         name=$(echo "$line" | cut -d $'\t' -f1)
         stat=$(echo "$line" | cut -d $'\t' -f2)
-        case "$name" in
-            bluetooth) echo -e " ${BLU} B ${RST} $stat";;
-            wlan)      echo -e " ${MGN} W ${RST} $stat" ;;
-            *)         echo -e " ${BGR} $name ${RST} $stat" ;;
-        esac
+        color=$GRN
+        if [ "$stat" = 'off' ]; then
+            color=$RED
+        fi
+        echo " $name $color$stat$RST"
     done
 }
 
