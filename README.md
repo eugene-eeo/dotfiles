@@ -9,10 +9,9 @@ stolen from other dotfiles.
 ```sh
 $ sudo cp ./systemd/i3lock@.service /etc/systemd/system/i3lock@.service
 $ systemctl enable "i3lock@$(whoami)"
-$ cd hc-gnome   # shamefully stolen from i3-gnome with changes
-$ sudo make install
-$ cd -
 $ make # repo -> home
+$ cd hc-gnome
+$ sudo make install
 ```
 
 This repo is meant as a single source of truth for the
