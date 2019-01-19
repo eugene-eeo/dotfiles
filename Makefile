@@ -13,6 +13,7 @@ sync:
 	cp -a ./scripts/.      ~/.scripts/
 	cp    ./herbstluftwm/* ~/.config/herbstluftwm
 	cp    ./dunstrc        ~/.config/dunst/dunstrc
+	cp    ./hydrarc.json   ~/.hydrarc.json
 
 	cd st && make DESTDIR=~/.scripts/ clean install
 	cd xftwidth && make && cp xftwidth ~/.scripts

@@ -1,0 +1,10 @@
+{
+  "pactl": true,
+  "nmcli": true,
+  "procs": [{
+      "proc": ["hydra-watch-battery"],
+      "match": [
+          ["battery", "^battery$"]
+      ]
+  }]
+}
