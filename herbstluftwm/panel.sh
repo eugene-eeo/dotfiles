@@ -34,16 +34,17 @@ hc pad $monitor $panel_height
 pdetach hydra
 
 {
-    ~/.config/herbstluftwm/barmk.sh &
     hydra-head &
     echo nmcli
     echo pactl
     echo battery
+    date +'date	%H:%M ^fg(#909090)%d %b'
     hc --idle
     kill $(jobs -p)
 } 2> /dev/null | {
     IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
     date=""
+    windowtitle=""
     while true ; do
         ### Output ###
         # This part prints dzen data based on the _previous_ data handling run,
@@ -77,6 +78,7 @@ pdetach hydra
             echo -n "use \"${i:1}\") ${i:1} ^ca()"
         done
         echo -n "$separator"
+        echo -n "^bg()^fg() ${windowtitle//^/^^}"
         # small adjustments
         right=" $separator^fg() $date $separator^fg()^ca(1, \"$HOME/.config/herbstluftwm/rfkill-info.sh\") $network ^ca()$separator ^fg(#909090)V:^fg()$volume $separator ^fg(#909090)B:^fg()$battery%"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
@@ -103,6 +105,9 @@ pdetach hydra
                 ;;
             battery)
                 battery=$(get_bat_info)
+                ;;
+            focus_changed|window_title_changed)
+                windowtitle="${cmd[@]:2}"
                 ;;
             quit_panel)
                 exit
