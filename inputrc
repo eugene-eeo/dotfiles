@@ -18,9 +18,6 @@ set match-hidden-files off
 set page-completions off
 set completion-query-items 100
 
-# Show extra file information when completing, like `ls -F` does
-set visible-stats on
-set colored-stats on
 set skip-completed-text on
 
 set input-meta on

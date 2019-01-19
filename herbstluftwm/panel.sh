@@ -16,11 +16,19 @@ y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=20
 #font="Source Code Pro:medium:pixelsize=15:autohint=true"
-font="IBM Plex Mono:medium:pixelsize=14:autohint=true"
+#font="IBM Plex Mono:medium:pixelsize=14:autohint=true"
+font="Source Code Pro:medium:pixelsize=15:autohint=true"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
 selfg='#000000'
 separator="^bg()^fg($selbg)|"
+
+get_bat_info() {
+    BATC=/sys/class/power_supply/BAT0/capacity
+    BATS=/sys/class/power_supply/BAT0/status
+    test "`cat $BATS`" = "Discharging" && echo -n '-' || echo -n '+'
+    cat $BATC
+}
 
 hc pad $monitor $panel_height
 pdetach hydra
@@ -30,12 +38,12 @@ pdetach hydra
     hydra-head &
     echo nmcli
     echo pactl
+    echo battery
     hc --idle
     kill $(jobs -p)
 } 2> /dev/null | {
     IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
     date=""
-    windowtitle=""
     while true ; do
         ### Output ###
         # This part prints dzen data based on the _previous_ data handling run,
@@ -69,7 +77,6 @@ pdetach hydra
             echo -n "use \"${i:1}\") ${i:1} ^ca()"
         done
         echo -n "$separator"
-        echo -n "^bg()^fg() ${windowtitle//^/^^}"
         # small adjustments
         right=" $separator^fg() $date $separator^fg()^ca(1, \"$HOME/.config/herbstluftwm/rfkill-info.sh\") $network ^ca()$separator ^fg(#909090)V:^fg()$volume $separator ^fg(#909090)B:^fg()$battery%"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
@@ -95,16 +102,13 @@ pdetach hydra
                 volume=$(get-volume)
                 ;;
             battery)
-                battery="${cmd[@]:1}"
+                battery=$(get_bat_info)
                 ;;
             quit_panel)
                 exit
                 ;;
             reload)
                 exit
-                ;;
-            focus_changed|window_title_changed)
-                windowtitle="${cmd[@]:2}"
                 ;;
         esac
     done
