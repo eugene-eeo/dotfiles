@@ -113,6 +113,7 @@ pdetach hydra
                 exit
                 ;;
             reload)
+                killall hydra
                 exit
                 ;;
         esac
