@@ -18,7 +18,8 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'justinmk/vim-sneak'
+Plug 'terryma/vim-expand-region'
+Plug 'tpope/vim-commentary'
 
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
@@ -85,10 +86,11 @@ colo goodwolf
 hi NonText      ctermbg=none
 hi Normal       ctermbg=none
 hi LineNr       ctermbg=232 ctermfg=239
-hi DiffChange   ctermbg=232
+hi DiffChange   ctermbg=232 ctermfg=220
+hi DiffAdd      ctermbg=232 ctermfg=64
+hi DiffDelete   ctermbg=232 ctermfg=196
 hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
 hi Comment      ctermbg=none
-hi clear SignColumn
 hi link NeomakeWarning NeomakeError
 hi NeomakeWarningSign ctermfg=221 guifg=#e5e500
 hi NeomakeErrorSign ctermfg=167 guifg=#E71919
@@ -133,9 +135,6 @@ let g:jedi#usages_command = ""
 let g:jedi#completions_command = ""
 let g:jedi#rename_command = ""
 let g:jedi#completions_enabled = 0
-
-" justinmk/vim-sneak
-let g:sneak#label = 1
 
 " sjl/gundo.vim
 let g:gundo_right = 1
