@@ -6,11 +6,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 
-Plug 'Shougo/deoplete.nvim'
-Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make' }
-Plug 'zchee/deoplete-clang'
-Plug 'Shougo/echodoc.vim'
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-pyclang'
+Plug 'ncm2/ncm2-go'
+Plug 'roxma/nvim-yarp'
 
 Plug 'neomake/neomake'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
@@ -18,7 +20,6 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-commentary'
 
 Plug 'hail2u/vim-css3-syntax'
@@ -69,7 +70,7 @@ set splitright
 set matchtime=0
 
 set shortmess+=c
-set completeopt=menuone,menu,longest
+set completeopt=menuone,menu,longest,noselect,noinsert
 set pumheight=15            " Limit height to 15 at max
 set clipboard^=unnamedplus
 
@@ -100,9 +101,7 @@ set grepprg=ag\ --nogroup\ --nocolor
 set listchars=tab:▸\ ,trail:·
 set list
 
-" zchee/deoplete-clang
-let g:deoplete#sources#clang#clang_header  = '/usr/lib/llvm-6.0/lib/clang'
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
+let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib'
 
 " Yggdroot/indentLine
 let g:indentLine_enabled = 0
@@ -117,9 +116,6 @@ let g:gitgutter_terminal_reports_focus=0
 
 " neomake/neomake
 let g:neomake_open_list = 2
-
-" Shougo/deoplete.nvim
-let g:deoplete#enable_at_startup = 1
 
 " fatih/vim-go
 let g:go_def_mapping_enabled=0
@@ -149,7 +145,7 @@ augroup vimrc
   autocmd Filetype go  setlocal noet ci pi sts=0 sw=4 ts=4
   autocmd Filetype c   setlocal noet ci pi sts=0 sw=4 ts=4
   autocmd FileType perl set filetype=prolog
-  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+  autocmd BufEnter * call ncm2#enable_for_buffer()
 augroup END
 
 " key mappings
