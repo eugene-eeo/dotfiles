@@ -19,6 +19,7 @@ RED="\\[$(tput setaf 4)\\]"
 export PROMPT_DIRTRIM=2
 export PS1=" \w\$(vcprompt -f '${RED}(%b${DIM}%m${RED})')${RESET} ${RED}\$ ${RESET}"
 export PS2=" ${DIM}>${RESET} "
+export PROMPT_COMMAND='echo -ne "\033]0;${USER}: $PWD\007"'
 
 alias t='tree -N -F -C'
 alias g='git'

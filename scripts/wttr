@@ -1,0 +1,6 @@
+#!/bin/bash
+url='wttr.in?FmAn&lang=en'
+if [ "$1" ]; then
+    url="wttr.in/$1?FmAn&lang=en"
+fi
+curl --compressed "$url"
