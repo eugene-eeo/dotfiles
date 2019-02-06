@@ -20,8 +20,10 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-commentary'
 
+Plug 'gregsexton/MatchTag'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'

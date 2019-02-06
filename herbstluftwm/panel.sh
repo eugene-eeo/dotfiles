@@ -21,7 +21,7 @@ font="IBM Plex Mono:medium:pixelsize=14:autohint=true"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
 selfg='#000000'
-separator="^bg()^fg($selbg)|"
+separator="^bg()^fg($selbg)|^fg()"
 
 get_bat_info() {
     BATC=/sys/class/power_supply/BAT0/capacity
@@ -80,7 +80,7 @@ pdetach hydra
         echo -n "$separator"
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
         # small adjustments
-        right=" $separator^fg() $date $separator^fg()^ca(1, \"$HOME/.config/herbstluftwm/rfkill-info.sh\") $network ^ca()$separator ^fg(#909090)V:^fg()$volume $separator ^fg(#909090)B:^fg()$battery%"
+        right=" $separator $date $separator^ca(1, \"$HOME/.config/herbstluftwm/rfkill-info.sh\") $network ^ca()$separator ^fg(#909090)V:^fg()$volume $separator ^fg(#909090)B:^fg()$battery%"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
         width=$(xftwidth "$font" "$right_text_only  ")

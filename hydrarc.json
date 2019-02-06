@@ -2,14 +2,7 @@
   "pactl": true,
   "nmcli": true,
   "procs": [
-      {
-          "proc": ["hydra-timer", "15:04 ^fg(#909090)2 Jan"]
-      },
-      {
-          "proc": ["hydra-watch-battery"],
-          "match": [
-              ["battery", "^battery$"]
-          ]
-      }
+      {"proc": ["hydra-timer", "15:04 ^fg(#909090)2 Jan"]},
+      {"proc": ["hydra-watch-battery"]}
   ]
 }
