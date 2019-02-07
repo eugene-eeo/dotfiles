@@ -6,13 +6,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 
+Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-pyclang'
 Plug 'ncm2/ncm2-go'
-Plug 'roxma/nvim-yarp'
 
 Plug 'neomake/neomake'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
@@ -103,11 +103,10 @@ set grepprg=ag\ --nogroup\ --nocolor
 set listchars=tab:▸\ ,trail:·
 set list
 
-let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib'
+let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
 
 " Yggdroot/indentLine
 let g:indentLine_enabled = 0
-let g:indentLine_color_gui = '#333333'
 
 " vim-python/python-syntax
 let g:python_highlight_all = 1
