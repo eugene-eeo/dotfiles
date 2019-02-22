@@ -1,5 +1,8 @@
 set editing-mode vi
 
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
 # Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
 set completion-map-case on
