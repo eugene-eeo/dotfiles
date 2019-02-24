@@ -5,6 +5,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
+Plug 'justinmk/vim-sneak'
 
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
@@ -104,6 +105,9 @@ set listchars=tab:▸\ ,trail:·
 set list
 
 let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
+
+" justinmk/vim-sneak
+let g:sneak#label = 1
 
 " Yggdroot/indentLine
 let g:indentLine_enabled = 0
