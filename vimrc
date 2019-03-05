@@ -17,7 +17,6 @@ Plug 'ncm2/ncm2-go'
 Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
 
 Plug 'neomake/neomake'
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 
 Plug 'junegunn/vim-easy-align'
@@ -74,7 +73,7 @@ set splitright
 set matchtime=0
 
 set shortmess+=c
-set completeopt=menuone,menu,longest,noselect,noinsert
+set completeopt=noinsert,menuone,noselect
 set pumheight=15            " Limit height to 15 at max
 set clipboard^=unnamedplus
 
@@ -122,21 +121,13 @@ let g:gitgutter_terminal_reports_focus=0
 
 " neomake/neomake
 let g:neomake_open_list = 2
+let g:neomake_python_enabled_makers = ['flake8']
+let g:neomake_python_flake8_maker = {
+  \ 'exe': $PYENV_ROOT . '/versions/neovim3/bin/flake8'
+  \ }
 
 " fatih/vim-go
 let g:go_def_mapping_enabled=0
-
-" davidhalter/jedi-vim
-let g:jedi#popup_on_dot = 0
-let g:jedi#show_call_signatures = 2
-let g:jedi#goto_command = ""
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = "<leader>k"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = ""
-let g:jedi#completions_command = ""
-let g:jedi#rename_command = ""
-let g:jedi#completions_enabled = 0
 
 " sjl/gundo.vim
 let g:gundo_right = 1
