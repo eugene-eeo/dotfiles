@@ -104,6 +104,7 @@ set grepprg=ag\ --nogroup\ --nocolor
 set listchars=tab:▸\ ,trail:·
 set list
 
+" ncm2/ncm2-pyclang
 let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
 
 " justinmk/vim-sneak
@@ -117,7 +118,6 @@ let g:python_highlight_all = 1
 
 " airblade/vim-gitgutter
 let g:gitgutter_map_keys=0
-let g:gitgutter_terminal_reports_focus=0
 
 " neomake/neomake
 let g:neomake_open_list = 2
@@ -150,6 +150,7 @@ nnoremap <Leader>d <Esc>:nohl<CR>
 nnoremap <F5> <Esc>:b#<bar>bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
+nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
 nmap x "_d
 nmap X "_D
