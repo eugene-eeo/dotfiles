@@ -2,7 +2,7 @@
 
 if [ ! "$1" ]; then
     st -g 30x3-0+20 -t rfkill-info \
-       -f "IBM Plex Mono:pixelsize=14:antialias=true:autohint=true" \
+       -f "Consolas:pixelsize=15:antialias=true:autohint=true" \
        -e "$0" 1
     exit
 fi
@@ -20,11 +20,9 @@ rfkill_status() {
     done
 }
 
-
 RED=$(tput setaf 1)
 GRN=$(tput setaf 2)
 RST=$(tput sgr 0)
-
 
 rfkill_display() {
     IFS=$'\n'
