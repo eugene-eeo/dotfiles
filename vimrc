@@ -11,13 +11,14 @@ Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-jedi', { 'commit': '0003b012ff2ded5a606e3329f92be69865a7d301' }
 Plug 'ncm2/ncm2-pyclang'
 Plug 'ncm2/ncm2-go'
 Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
 
 Plug 'neomake/neomake'
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
@@ -29,7 +30,6 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'
 Plug 'vim-python/python-syntax'
-Plug 'digitaltoad/vim-pug'
 call plug#end()
 
 set backspace=2
@@ -103,6 +103,17 @@ set grepprg=ag\ --nogroup\ --nocolor
 
 set listchars=tab:▸\ ,trail:·
 set list
+
+" davidhalter/jedi-vim
+let g:jedi#popup_on_dot = 0
+let g:jedi#goto_command = ""
+let g:jedi#goto_assignments_command = ""
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = ""
+let g:jedi#completions_command = ""
+let g:jedi#rename_command = ""
+let g:jedi#completions_enabled = 0
 
 " ncm2/ncm2-pyclang
 let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
