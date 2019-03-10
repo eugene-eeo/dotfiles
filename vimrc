@@ -23,7 +23,7 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'terryma/vim-expand-region'
+Plug 'gcmt/wildfire.vim'
 Plug 'tpope/vim-commentary'
 
 Plug 'gregsexton/MatchTag'
@@ -172,6 +172,11 @@ nmap x "_d
 nmap X "_D
 xmap x "_d
 xmap X "_D
+
+" gcmt/wildfire.vim
+let g:wildfire_objects = ["iw", "i'", 'i"', "i)", "i]", "i}", "ip", "it"]
+map + <Plug>(wildfire-fuel)
+vmap _ <Plug>(wildfire-water)
 
 " junegunn/vim-easy-align.vim
 nmap ga <Plug>(EasyAlign)
