@@ -26,7 +26,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'gcmt/wildfire.vim'
 Plug 'tpope/vim-commentary'
 
-Plug 'gregsexton/MatchTag'
+Plug 'valloric/matchtagalways'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'
@@ -174,8 +174,7 @@ xmap x "_d
 xmap X "_D
 
 " gcmt/wildfire.vim
-let g:wildfire_objects = ["iw", "i'", 'i"', "i)", "i]", "i}", "ip", "it"]
-nmap <leader>s <Plug>(wildfire-quick-select)
+nmap <Leader>s <Plug>(wildfire-quick-select)
 
 " junegunn/vim-easy-align.vim
 nmap ga <Plug>(EasyAlign)
@@ -188,10 +187,9 @@ nnoremap <C-f> <ESC>:BTags<CR>
 nnoremap <C-o> <ESC>:Commands<CR>
 
 " ncm2
-inoremap <c-c> <ESC>
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-V><Tab>"
 " wrap existing omnifunc
 " Note that omnifunc does not run in background and may probably block the
 " editor. If you don't want to be blocked by omnifunc too often, you could
@@ -209,6 +207,5 @@ au User Ncm2Plugin call ncm2#register_source({
         \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
         \ })
 
-inoremap <S-Tab> <C-V><Tab>
 nnoremap <Leader>\| <Esc>:vsplit %<CR>
 nnoremap <Leader>- <Esc>:split %<CR>
