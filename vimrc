@@ -165,8 +165,8 @@ nnoremap <F8> <Esc>:TagbarToggle<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
-nnoremap <C-]> <Esc>:GitGutterNextHunk<CR>
-nnoremap <C-[> <Esc>:GitGutterPrevHunk<CR>
+nnoremap ]h <Esc>:GitGutterNextHunk<CR>
+nnoremap [h <Esc>:GitGutterPrevHunk<CR>
 
 nmap x "_d
 nmap X "_D
