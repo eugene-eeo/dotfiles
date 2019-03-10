@@ -175,8 +175,7 @@ xmap X "_D
 
 " gcmt/wildfire.vim
 let g:wildfire_objects = ["iw", "i'", 'i"', "i)", "i]", "i}", "ip", "it"]
-map + <Plug>(wildfire-fuel)
-vmap _ <Plug>(wildfire-water)
+nmap <leader>s <Plug>(wildfire-quick-select)
 
 " junegunn/vim-easy-align.vim
 nmap ga <Plug>(EasyAlign)
