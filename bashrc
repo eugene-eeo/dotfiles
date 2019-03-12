@@ -38,7 +38,7 @@ v() {
         return
     fi
     local _FZF
-    if _FZF=$(fzf); then
+    if _FZF=$(fzf --preview='cat {}'); then
         vim "$_FZF"
     fi
 }
