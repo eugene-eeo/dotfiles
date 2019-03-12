@@ -6,7 +6,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tweekmonster/local-indent.vim'
 Plug 'justinmk/vim-sneak'
-Plug 'majutsushi/tagbar'
 
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
@@ -158,7 +157,6 @@ augroup END
 nnoremap <Leader>d <Esc>:nohl<CR>
 nnoremap <F5> <Esc>:b#<bar>bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
-nnoremap <F8> <Esc>:TagbarToggle<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
