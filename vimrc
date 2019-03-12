@@ -4,7 +4,7 @@ Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'Yggdroot/indentLine'
+Plug 'tweekmonster/local-indent.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'majutsushi/tagbar'
 
@@ -12,10 +12,11 @@ Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi', { 'commit': '0003b012ff2ded5a606e3329f92be69865a7d301' }
+"Plug 'ncm2/ncm2-jedi', { 'commit': '0003b012ff2ded5a606e3329f92be69865a7d301' }
 Plug 'ncm2/ncm2-pyclang'
 Plug 'ncm2/ncm2-go'
 Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
+Plug '~/code/ncm2-jedi'
 
 Plug 'neomake/neomake'
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -25,6 +26,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'gcmt/wildfire.vim'
 Plug 'tpope/vim-commentary'
+Plug 'rstacruz/vim-closer'
+Plug 'wellle/targets.vim'
 
 Plug 'valloric/matchtagalways'
 Plug 'hail2u/vim-css3-syntax'
@@ -83,9 +86,6 @@ set fillchars+=vert:\|
 filetype plugin indent on
 syntax enable
 
-let g:python_host_prog  = '/home/eeojun/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = '/home/eeojun/.pyenv/versions/neovim3/bin/python'
-
 set background=dark
 colo goodwolf
 hi NonText      ctermbg=none
@@ -121,9 +121,6 @@ let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
 
 " justinmk/vim-sneak
 let g:sneak#label = 1
-
-" Yggdroot/indentLine
-let g:indentLine_enabled = 0
 
 " vim-python/python-syntax
 let g:python_highlight_all = 1
@@ -173,6 +170,10 @@ nmap X "_D
 xmap x "_d
 xmap X "_D
 
+" tweekmonster/local-indent.vim
+nnoremap <Leader>i <ESC>:LocalIndentGuide +cc<CR>
+nnoremap <Leader>I <ESC>:LocalIndentGuide -cc<CR>
+
 " gcmt/wildfire.vim
 nmap <Leader>s <Plug>(wildfire-quick-select)
 
@@ -209,3 +210,18 @@ au User Ncm2Plugin call ncm2#register_source({
 
 nnoremap <Leader>\| <Esc>:vsplit %<CR>
 nnoremap <Leader>- <Esc>:split %<CR>
+
+
+" Try to find a Python3 version that has pynvim installed
+let g:python_host_prog  = '/home/eeojun/.pyenv/versions/neovim2/bin/python'
+if executable("python3")
+    " get local python from $PATH (virtualenv/anaconda or system python)
+    let s:python3_local = substitute(system("pyenv which python3"), '\n\+$', '', '')
+    " detect whether neovim package is installed; if not, automatically install it
+    let s:python3_neovim_path = substitute(system("python3 -c 'import pynvim; print(pynvim.__path__)' 2>/dev/null"), '\n\+$', '', '')
+    if empty(s:python3_neovim_path)
+        let g:python3_host_prog = '/home/eeojun/.pyenv/versions/neovim3/bin/python'
+    else
+        let g:python3_host_prog = s:python3_local
+    endif
+endif
