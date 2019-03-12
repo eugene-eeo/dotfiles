@@ -115,11 +115,16 @@ hc set tree_style '╾│ ├└╼─┐'
 
 fix_displays
 hc detect_monitors
+
+# panel things
+killall hydra
+pdetach hydra
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     # start panel on each monitor
     ~/.config/herbstluftwm/panel.sh "$monitor" &
 done
 
+# if this is our first startup then ...
 if hc silent new_attr bool my_not_first_autostart ; then
     [ "$XDG_SESSION_DESKTOP" != 'herbstluftwm' ] && pdetach gnome-flashback
     gnome-keyring-daemon -rd
