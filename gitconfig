@@ -8,7 +8,7 @@
 [alias]
     lg = !"git log --oneline --abbrev-commit --all --graph"
     br = !"git symbolic-ref --short HEAD"
-    d  = !"git diff --patience --color $@ | diff-so-fancy | less --tabs=4 -RFX"
+    d  = !"git diff --patience --color $@ | diff-so-fancy | less --tabs=4 -R"
     p  = "push"
     c  = "commit"
 [commit]
