@@ -93,6 +93,7 @@ hi DiffChange   ctermbg=232 ctermfg=220
 hi DiffAdd      ctermbg=232 ctermfg=64
 hi DiffDelete   ctermbg=232 ctermfg=196
 hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
+hi MatchParen   ctermbg=none
 hi Comment      ctermbg=none
 hi link NeomakeWarning NeomakeError
 hi NeomakeWarningSign ctermfg=221 guifg=#e5e500
@@ -132,9 +133,6 @@ let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_python_flake8_maker = {
   \ 'exe': $PYENV_ROOT . '/versions/neovim3/bin/flake8'
   \ }
-
-" fatih/vim-go
-let g:go_def_mapping_enabled=0
 
 " sjl/gundo.vim
 let g:gundo_right = 1
