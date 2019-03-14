@@ -6,6 +6,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tweekmonster/local-indent.vim'
 Plug 'justinmk/vim-sneak'
+Plug 'majutsushi/tagbar'
 
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
@@ -118,6 +119,9 @@ let g:jedi#completions_enabled = 0
 " ncm2/ncm2-pyclang
 let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
 
+" fatih/vim-go
+let g:go_def_mapping_enabled = 0
+
 " justinmk/vim-sneak
 let g:sneak#label = 1
 
@@ -154,6 +158,7 @@ augroup END
 nnoremap <Leader>d <Esc>:nohl<CR>
 nnoremap <F5> <Esc>:b#<bar>bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
@@ -171,6 +176,8 @@ nnoremap <Leader>I <ESC>:LocalIndentGuide -cc<CR>
 
 " gcmt/wildfire.vim
 nmap <Leader>s <Plug>(wildfire-quick-select)
+map  + <Plug>(wildfire-fuel)
+vmap _ <Plug>(wildfire-water)
 
 " junegunn/vim-easy-align.vim
 nmap ga <Plug>(EasyAlign)
