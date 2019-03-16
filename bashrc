@@ -59,6 +59,9 @@ if [ -n "$DESKTOP_SESSION" ]; then
     export $(gnome-keyring-daemon --start --components=ssh,gpg,secrets,pkcs11)
 fi
 
+# source fzf if it exists
+[ -s "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
