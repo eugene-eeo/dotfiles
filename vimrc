@@ -18,6 +18,8 @@ Plug 'ncm2/ncm2-go'
 Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
 Plug '~/code/ncm2-jedi'
 
+Plug 'Chiel92/vim-autoformat'
+Plug 'Shougo/echodoc.vim'
 Plug 'neomake/neomake'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
@@ -105,11 +107,15 @@ set grepprg=ag\ --nogroup\ --nocolor
 set listchars=tab:▸\ ,trail:·
 set list
 
+" Shougo/echodoc.vim
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#highlight_arguments = "Title"
+
 " davidhalter/jedi-vim
 let g:jedi#popup_on_dot = 0
 let g:jedi#goto_command = ""
 let g:jedi#goto_assignments_command = ""
-let g:jedi#goto_definitions_command = ""
+let g:jedi#goto_definitions_command = "gd"
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = ""
 let g:jedi#completions_command = ""
@@ -207,6 +213,7 @@ au User Ncm2Plugin call ncm2#register_source({
 
 nnoremap <Leader>\| <Esc>:vsplit %<CR>
 nnoremap <Leader>- <Esc>:split %<CR>
+nnoremap <Leader>A <Esc>:Autoformat<CR>
 
 
 " Try to find a Python3 version that has pynvim installed
