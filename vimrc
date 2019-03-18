@@ -8,15 +8,10 @@ Plug 'tweekmonster/local-indent.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'majutsushi/tagbar'
 
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-"Plug 'ncm2/ncm2-jedi', { 'commit': '0003b012ff2ded5a606e3329f92be69865a7d301' }
-Plug 'ncm2/ncm2-pyclang'
-Plug 'ncm2/ncm2-go'
-Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
-Plug '~/code/ncm2-jedi'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'deoplete-plugins/deoplete-clang'
+Plug 'deoplete-plugins/deoplete-go'
 
 Plug 'Chiel92/vim-autoformat'
 Plug 'Shougo/echodoc.vim'
@@ -122,8 +117,12 @@ let g:jedi#completions_command = ""
 let g:jedi#rename_command = ""
 let g:jedi#completions_enabled = 0
 
-" ncm2/ncm2-pyclang
-let g:ncm2_pyclang#library_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
+" deoplete
+let g:deoplete#enable_at_startup = 1
+
+" deoplete-plugins/deoplete-clang
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
+let g:deoplete#sources#clang#clang_header  = '/usr/lib/llvm-6.0/lib/clang'
 
 " fatih/vim-go
 let g:go_def_mapping_enabled = 0
@@ -157,7 +156,6 @@ augroup vimrc
   autocmd Filetype go  setlocal noet ci pi sts=0 sw=4 ts=4
   autocmd Filetype c   setlocal noet ci pi sts=0 sw=4 ts=4
   autocmd FileType perl set filetype=prolog
-  autocmd BufEnter * call ncm2#enable_for_buffer()
 augroup END
 
 " key mappings
@@ -195,26 +193,13 @@ nnoremap <C-t> <ESC>:Buffers<CR>
 nnoremap <C-f> <ESC>:BTags<CR>
 nnoremap <C-o> <ESC>:Commands<CR>
 
-" ncm2
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-V><Tab>"
-" wrap existing omnifunc
-au User Ncm2Plugin call ncm2#register_source({
-        \ 'name' : 'css',
-        \ 'priority': 9,
-        \ 'subscope_enable': 1,
-        \ 'scope': ['css','scss'],
-        \ 'mark': 'css',
-        \ 'word_pattern': '[\w\-]+',
-        \ 'complete_pattern': ':\s*',
-        \ 'on_complete': ['ncm2#on_complete#delay', 180, 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-        \ })
 
 nnoremap <Leader>\| <Esc>:vsplit %<CR>
 nnoremap <Leader>- <Esc>:split %<CR>
 nnoremap <Leader>A <Esc>:Autoformat<CR>
-
 
 " Try to find a Python3 version that has pynvim installed
 let g:python_host_prog  = '/home/eeojun/.pyenv/versions/neovim2/bin/python'
