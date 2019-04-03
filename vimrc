@@ -140,23 +140,21 @@ let g:gitgutter_map_keys=0
 " neomake/neomake
 let g:neomake_open_list = 2
 let g:neomake_python_enabled_makers = ['flake8']
-let g:neomake_python_flake8_maker = {
-  \ 'exe': $PYENV_ROOT . '/versions/neovim3/bin/flake8'
-  \ }
+let g:neomake_python_flake8_maker = {'exe': $PYENV_ROOT . '/versions/neovim3/bin/flake8'}
 
 " sjl/gundo.vim
 let g:gundo_right = 1
 
 " tabstop, softtabstop, shiftwidth
 augroup vimrc
-  autocmd!
-  autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
-  autocmd Filetype html setlocal ts=2 sts=2 sw=2
-  autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
-  autocmd Filetype css setlocal ts=2 sts=2 sw=2
-  autocmd Filetype go  setlocal noet ci pi sts=0 sw=4 ts=4
-  autocmd Filetype c   setlocal noet ci pi sts=0 sw=4 ts=4
-  autocmd FileType perl set filetype=prolog
+    autocmd!
+    autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
+    autocmd Filetype html setlocal ts=2 sts=2 sw=2
+    autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+    autocmd Filetype css setlocal ts=2 sts=2 sw=2
+    autocmd Filetype go  setlocal noet ci pi sts=0 sw=4 ts=4
+    autocmd Filetype c   setlocal noet ci pi sts=0 sw=4 ts=4
+    autocmd FileType perl set filetype=prolog
 augroup END
 
 " key mappings
@@ -204,14 +202,12 @@ nnoremap <Leader>A <Esc>:Autoformat<CR>
 
 " Try to find a Python3 version that has pynvim installed
 let g:python_host_prog  = '/home/eeojun/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/home/eeojun/.pyenv/versions/neovim3/bin/python'
 if executable("python3")
-    " get local python from $PATH (virtualenv/anaconda or system python)
     let s:python3_local = substitute(system("pyenv which python3"), '\n\+$', '', '')
-    " detect whether neovim package is installed; if not, automatically install it
+    " detect whether neovim package is installed
     let s:python3_neovim_path = substitute(system("python3 -c 'import pynvim; print(pynvim.__path__)' 2>/dev/null"), '\n\+$', '', '')
-    if empty(s:python3_neovim_path)
-        let g:python3_host_prog = '/home/eeojun/.pyenv/versions/neovim3/bin/python'
-    else
+    if !empty(s:python3_neovim_path)
         let g:python3_host_prog = s:python3_local
     endif
 endif
