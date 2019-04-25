@@ -37,7 +37,7 @@ hc pad $monitor $panel_height
     echo nmcli
     echo pactl
     echo battery
-    date +'date	%H:%M ^fg(#909090)%d %b'
+    date +'date	%H:%M ^fg(#909090)%a %d %b'
     hc --idle
     kill $(jobs -p)
 } 2> /dev/null | {
