@@ -1,0 +1,11 @@
+#!/bin/bash
+
+main() {
+    case "$1" in
+        "") pdetach st -f 'Iosevka:pixelsize=16:autohint=true' -t 'orchid' -a -g '51x8' -e 'mp' '--' ;;
+        --) cd ~/Music && orchid ;;
+    esac
+}
+
+# shellcheck disable=SC2068
+main $@
