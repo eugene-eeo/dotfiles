@@ -17,7 +17,7 @@ panel_width=${geometry[2]}
 panel_height=20
 #font="Source Code Pro:medium:pixelsize=14:autohint=true"
 #font="IBM Plex Mono:medium:pixelsize=14:autohint=true"
-font="Consolas:pixelsize=15:autohint=true"
+font="Operator Mono Medium:pixelsize=15:autohint=true"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
 selfg='#000000'
@@ -33,22 +33,17 @@ get_bat_info() {
 hc pad $monitor $panel_height
 
 {
-    hydra-head &
     echo nmcli
     echo pactl
     echo battery
     date +'date	%H:%M ^fg(#909090)%a %d %b'
-    hc --idle
-    kill $(jobs -p)
+    hydra-head
 } 2> /dev/null | {
+    # we get monitor-specific data here
     IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
     date=""
     windowtitle=""
     while true ; do
-        ### Output ###
-        # This part prints dzen data based on the _previous_ data handling run,
-        # and then waits for the next event to happen.
-
         # draw tags
         for i in "${tags[@]}" ; do
             case ${i:0:1} in
@@ -71,10 +66,7 @@ hc pad $monitor $panel_height
                     echo -n "^bg()^fg(#666666)"
                     ;;
             esac
-            echo -n "^ca(1,\"herbstclient\" "
-            echo -n "focus_monitor \"$monitor\" && "
-            echo -n "\"herbstclient\" "
-            echo -n "use \"${i:1}\") ${i:1} ^ca()"
+            echo -n "^ca(1,\"herbstclient\" focus_monitor \"$monitor\" && \"herbstclient\" use \"${i:1}\") ${i:1} ^ca()"
         done
         echo -n "$separator"
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
