@@ -14,40 +14,22 @@ Mod=Super # Use the super key as the main modifier
 
 hc keybind $Mod-Control-Shift-q quit
 hc keybind $Mod-Shift-r reload
+hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return  spawn st
 hc keybind $Mod-space   spawn slouch run
 hc keybind $Mod-w       spawn slouch window
 hc keybind $Mod-e       spawn slouch filter
 hc keybind $Mod-Shift-space   spawn slouch drun
 
-# close the window, but if we are in floatmon
-# then switch back to the previous monitor
-hc keybind $Mod-Shift-c try or \
-    , substitute M clients.focus.my_lastmon \
-        try and \
-            . close \
-            . compare monitors.focus.name = floatmon \
-            . focus_monitor M \
-    , close
-
 # locking
 hc keybind $Mod-l spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
 
-bind_focus_ignore_floatmon() {
-    # only focus floatmon if it has >= 1 client.
-    hc keybind $Mod-$1 try and \
-        . focus $2 \
-        . compare monitors.focus.name = floatmon \
-        . compare tags.focus.client_count = 0 \
-        . focus $2
-}
-
 # basic movement
 # focusing clients
-bind_focus_ignore_floatmon Left  left
-bind_focus_ignore_floatmon Up    up
-bind_focus_ignore_floatmon Down  down
-bind_focus_ignore_floatmon Right right
+hc keybind $Mod-Left  focus left
+hc keybind $Mod-Up    focus up
+hc keybind $Mod-Down  focus down
+hc keybind $Mod-Right focus right
 
 # moving clients
 hc keybind $Mod-Shift-Left  shift left
@@ -110,17 +92,14 @@ hc mousebind $Mod-Button3 resize
 # focus
 hc keybind $Mod-Tab       cycle_all +1
 hc keybind $Mod-Shift-Tab cycle_all -1
-hc keybind $Mod-BackSpace try and \
-    . cycle_monitor \
-    . compare monitors.focus.name = floatmon \
-    . cycle_monitor
+hc keybind $Mod-BackSpace cycle_monitor
 
 # rules
 hc unrule -F
 hc rule focus=on
 hc rule title='slouch' focus=on pseudotile=on
 hc rule title='rfkill-info' manage=off focus=off
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on tag='#'
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
@@ -143,9 +122,6 @@ for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     # start panel on each monitor
     ~/.config/herbstluftwm/panel.sh "$monitor" &
 done
-
-# float monitor
-~/.config/herbstluftwm/floatmon.sh
 
 # if this is our first startup then ...
 if hc silent new_attr bool my_not_first_autostart ; then
