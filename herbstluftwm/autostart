@@ -110,7 +110,7 @@ hc mousebind $Mod-Button3 resize
 # focus
 hc keybind $Mod-Tab       cycle_all +1
 hc keybind $Mod-Shift-Tab cycle_all -1
-hc keybind $Mod-BackSpace try and
+hc keybind $Mod-BackSpace try and \
     . cycle_monitor \
     . compare monitors.focus.name = floatmon \
     . cycle_monitor
