@@ -54,6 +54,15 @@ mux() {
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+# enable bash completion in interactive shells
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
 if [ -n "$DESKTOP_SESSION" ]; then
     #shellcheck disable=2046
     export $(gnome-keyring-daemon --start --components=ssh,gpg,secrets,pkcs11)
