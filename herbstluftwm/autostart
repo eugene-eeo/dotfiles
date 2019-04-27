@@ -22,12 +22,13 @@ hc keybind $Mod-Shift-space   spawn slouch drun
 
 # close the window, but if we are in floatmon
 # then switch back to the previous monitor
-hc keybind $Mod-Shift-c \
-    substitute M clients.focus.my_lastmon \
+hc keybind $Mod-Shift-c try or \
+    , substitute M clients.focus.my_lastmon \
         try and \
             . close \
             . compare monitors.focus.name = floatmon \
-            . focus_monitor M
+            . focus_monitor M \
+    , close
 
 # locking
 hc keybind $Mod-l spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
