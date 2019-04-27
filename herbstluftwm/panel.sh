@@ -46,6 +46,7 @@ hc pad $monitor $panel_height
     while true ; do
         # draw tags
         for i in "${tags[@]}" ; do
+            [ "${i:1}" = '#' ] && continue
             case ${i:0:1} in
                 '#')
                     echo -n "^bg($selbg)^fg($selfg)"
@@ -110,4 +111,5 @@ hc pad $monitor $panel_height
     done
 } 2> /dev/null | dzen2 -w $panel_width -x $x -y $y -h $panel_height \
     -ta l -bg "$bgcolor" -fg '#efefef' \
+    -e 'button3=' \
     -fn "$font"
