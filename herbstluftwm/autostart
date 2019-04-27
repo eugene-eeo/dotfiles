@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 hc() {
     herbstclient "$@"
@@ -14,22 +14,39 @@ Mod=Super # Use the super key as the main modifier
 
 hc keybind $Mod-Control-Shift-q quit
 hc keybind $Mod-Shift-r reload
-hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return  spawn st
 hc keybind $Mod-space   spawn slouch run
 hc keybind $Mod-w       spawn slouch window
 hc keybind $Mod-e       spawn slouch filter
 hc keybind $Mod-Shift-space   spawn slouch drun
 
+# close the window, but if we are in floatmon
+# then switch back to the previous monitor
+hc keybind $Mod-Shift-c \
+    substitute M clients.focus.my_lastmon \
+        try and \
+            . close \
+            . compare monitors.focus.name = floatmon \
+            . focus_monitor M
+
 # locking
 hc keybind $Mod-l spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
 
+bind_focus_ignore_floatmon() {
+    # only focus floatmon if it has >= 1 client.
+    hc keybind $Mod-$1 try and \
+        . focus $2 \
+        . compare monitors.focus.name = floatmon \
+        . compare tags.focus.client_count = 0 \
+        . focus $2
+}
+
 # basic movement
 # focusing clients
-hc keybind $Mod-Left  focus left
-hc keybind $Mod-Down  focus down
-hc keybind $Mod-Up    focus up
-hc keybind $Mod-Right focus right
+bind_focus_ignore_floatmon Left  left
+bind_focus_ignore_floatmon Up    up
+bind_focus_ignore_floatmon Down  down
+bind_focus_ignore_floatmon Right right
 
 # moving clients
 hc keybind $Mod-Shift-Left  shift left
@@ -90,9 +107,12 @@ hc mousebind $Mod-Button1 move
 hc mousebind $Mod-Button3 resize
 
 # focus
-hc keybind $Mod-BackSpace   cycle_monitor
-hc keybind $Mod-Tab         cycle_all --skip-invisible +1
-hc keybind $Mod-Shift-Tab   cycle_all --skip-invisible -1
+hc keybind $Mod-Tab       cycle_all +1
+hc keybind $Mod-Shift-Tab cycle_all -1
+hc keybind $Mod-BackSpace try and
+    . cycle_monitor \
+    . compare monitors.focus.name = floatmon \
+    . cycle_monitor
 
 # rules
 hc unrule -F
