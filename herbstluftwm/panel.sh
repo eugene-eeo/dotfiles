@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 hc() {
     herbstclient "$@";
@@ -46,7 +46,6 @@ hc pad $monitor $panel_height
     while true ; do
         # draw tags
         for i in "${tags[@]}" ; do
-            [ "${i:1}" = '#' ] && continue
             case ${i:0:1} in
                 '#')
                     echo -n "^bg($selbg)^fg($selfg)"
@@ -67,7 +66,7 @@ hc pad $monitor $panel_height
                     echo -n "^bg()^fg(#666666)"
                     ;;
             esac
-            echo -n "^ca(1,\"herbstclient\" focus_monitor \"$monitor\" && \"herbstclient\" use \"${i:1}\") ${i:1} ^ca()"
+            echo -n "^ca(1,herbstclient focus_monitor \"$monitor\" && herbstclient use \"${i:1}\") ${i:1} ^ca()"
         done
         echo -n "$separator"
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
