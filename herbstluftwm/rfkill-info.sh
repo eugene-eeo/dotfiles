@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ ! "$1" ]; then
-    st -g 30x3-0+20 -t rfkill-info \
-       -f "Consolas:pixelsize=15:antialias=true:autohint=true" \
+    st -g 30x3-0+25 -t rfkill-info \
+       -f "Operator Mono Medium:pixelsize=15:antialias=true:autohint=true" \
        -e "$0" 1
     exit
 fi
