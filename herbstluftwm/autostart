@@ -39,8 +39,8 @@ hc keybind $Mod-Shift-Right shift right
 
 # splitting frames
 # create an empty frame at the specified direction
-hc keybind $Mod-u split bottom 0.5
-hc keybind $Mod-o split right  0.5
+hc keybind $Mod-u and . compare tags.focus.floating = false . split bottom 0.5 . focus down
+hc keybind $Mod-o and . compare tags.focus.floating = false . split right  0.5 . focus right
 
 # resizing frames
 resizestep=0.05
@@ -71,6 +71,7 @@ hc keybind $Mod-comma  use_index -1 --skip-visible
 hc keybind $Mod-r remove
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
+hc keybind $Mod-g cycle_layout +1 vertical grid
 
 # proprietary bindings
 # if we are in a gnome-flashback session then these are handled

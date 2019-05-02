@@ -20,11 +20,10 @@ hc attr theme.active.color '#cccccc'
 hc attr theme.normal.color '#454545'
 hc attr theme.urgent.color orange
 hc attr theme.inner_width 0
+hc attr theme.outer_width 0
 hc attr theme.border_width 2
 hc attr theme.floating.border_width 2
 hc attr theme.floating.outer_width 0
-hc attr theme.active.inner_color '#cccccc'
-hc attr theme.active.outer_color '#cccccc'
 hc attr theme.background_color '#141414'
 
 hc set window_gap 0
