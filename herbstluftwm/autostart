@@ -82,7 +82,7 @@ hc keybind $Mod-g cycle_layout +1 vertical grid
     hc keybind XF86AudioRaiseVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ +3%
     hc keybind XF86AudioLowerVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ -3%
     hc keybind XF86AudioMute         spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
-    hc keybind Print                 spawn ~/.config/herbstluftwm/scrot-random.sh
+    hc keybind Print                 spawn scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/'
 }
 
 # mouse
