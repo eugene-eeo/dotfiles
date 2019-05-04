@@ -39,8 +39,16 @@ hc keybind $Mod-Shift-Right shift right
 
 # splitting frames
 # create an empty frame at the specified direction
-hc keybind $Mod-u and . compare tags.focus.floating = false . split bottom 0.5 . focus down
-hc keybind $Mod-o and . compare tags.focus.floating = false . split right  0.5 . focus right
+bindsplit() {
+    hc keybind $Mod-$1 and \
+        . compare tags.focus.floating = false \
+        . split $2 0.5 \
+        . focus $3
+}
+bindsplit u bottom down
+bindsplit o right right
+bindsplit Shift-u top up
+bindsplit Shift-o left left
 
 # resizing frames
 resizestep=0.05
