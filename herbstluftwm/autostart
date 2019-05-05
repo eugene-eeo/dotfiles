@@ -20,6 +20,7 @@ hc keybind $Mod-space   spawn slouch run
 hc keybind $Mod-w       spawn slouch window
 hc keybind $Mod-e       spawn slouch filter
 hc keybind $Mod-Shift-space   spawn slouch drun
+hc keybind $Mod-Shift-p       spawn ~/.config/herbstluftwm/open-latest-scrot.sh
 
 # locking
 hc keybind $Mod-l spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
@@ -116,6 +117,9 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 ~/.config/herbstluftwm/theme.sh
 hc set snap_distance 10
 hc set snap_gap 0
+hc set raise_on_focus 1
+hc set raise_on_click 1
+hc set auto_detect_monitors 1
 
 # unlock, just to be sure
 hc unlock
