@@ -90,7 +90,7 @@ hc keybind $Mod-g cycle_layout +1 vertical grid
     hc keybind XF86AudioRaiseVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ +3%
     hc keybind XF86AudioLowerVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ -3%
     hc keybind XF86AudioMute         spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
-    hc keybind Print                 spawn scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/'
+    hc keybind Print                 spawn scrot '%F-%s_$wx$h.png' -e 'mv $f ~/Pictures/'
 }
 
 # mouse
@@ -109,7 +109,7 @@ hc rule focus=on
 hc rule title='slouch' focus=on pseudotile=on
 hc rule title='rfkill-info' manage=off focus=off
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
-hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on manage=off
+hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on pseudotile=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
 # theme
