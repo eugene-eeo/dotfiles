@@ -100,9 +100,7 @@ hc pad $monitor $panel_height
             focus_changed|window_title_changed)
                 windowtitle="${cmd[@]:2}"
                 ;;
-            quit_panel)
-                exit
-                ;;
+            quit_panel) ;&
             reload)
                 exit
                 ;;
