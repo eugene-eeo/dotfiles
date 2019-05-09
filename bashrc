@@ -28,6 +28,7 @@ alias pbcopy='xsel -ib'
 alias pbpaste='xsel -ob'
 alias u='pdetach st'
 alias hc='herbstclient'
+alias sudo='sudo '
 
 # Use ag to pipe to FZF, so we respect .gitignore
 export FZF_DEFAULT_COMMAND='ag -g ""'
