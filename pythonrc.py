@@ -8,10 +8,11 @@ from pprint import pprint as pp
 try:
     import readline
 except ImportError:
-    print('Module readline not available')
+    print("Module readline not available")
 else:
     import rlcompleter
-    readline.parse_and_bind('tab: complete')
+
+    readline.parse_and_bind("tab: complete")
 
 
 def display_hook(value):
@@ -22,11 +23,12 @@ def display_hook(value):
 
 
 sys.displayhook = display_hook
-history_path = os.path.expanduser('~/.pyhistory')
+history_path = os.path.expanduser("~/.pyhistory")
 
 
 def save_history(path=history_path):
     import readline
+
     readline.write_history_file(path)
 
 

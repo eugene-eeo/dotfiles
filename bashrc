@@ -1,4 +1,6 @@
 #!/usr/bin/bash
+#shellcheck disable=1090
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -13,11 +15,12 @@ export LESS='-S -R'
 export GREP_COLOR='1;32'
 
 RESET="\\[$(tput sgr0)\\]"
-DIM="\\[$(tput setaf 2)\\]"
+GREEN="\\[$(tput setaf 2)\\]"
 RED="\\[$(tput setaf 4)\\]"
 
 export PROMPT_DIRTRIM=2
-export PS1=" \w\$(vcprompt -f '${RED}(%b${DIM}%m${RED})')${RESET} ${RED}\$ ${RESET}"
+export VCPROMPT_FORMAT="$(tput setaf 4)(%b$(tput setaf 2)%m$(tput setaf 4))"
+export PS1=" \w\$(vcprompt)${RESET} ${RED}\$ ${RESET}"
 export PS2=" ${DIM}>${RESET} "
 export PROMPT_COMMAND='echo -ne "\033]0;[st] ${USER}: $PWD\007"'
 
@@ -57,11 +60,11 @@ eval "$(pyenv virtualenv-init -)"
 
 # enable bash completion in interactive shells
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 if [ -n "$DESKTOP_SESSION" ]; then
@@ -71,7 +74,3 @@ fi
 
 # source fzf if it exists
 [ -s "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
