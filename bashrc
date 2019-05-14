@@ -74,4 +74,4 @@ fi
 
 # source fzf if it exists
 [ -s "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"
-[[ -s "/home/eeojun/.gvm/scripts/gvm" ]] && source "/home/eeojun/.gvm/scripts/gvm"
+[ -s "$HOME/.gvm/scripts/gvm" ] && \. "$HOME/.gvm/scripts/gvm"
