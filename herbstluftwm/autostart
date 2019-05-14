@@ -93,7 +93,7 @@ hc keybind $Mod-g cycle_layout +1 vertical grid
     hc keybind XF86AudioLowerVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ -3%
     hc keybind XF86AudioMute         spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
     # shellcheck disable=2016
-    hc keybind Print                 spawn scrot '%F-%s_$wx$h.png' -e 'mv $f ~/Pictures/'
+    hc keybind Print                 spawn scrot '%F-%s.png' -e 'mv $f ~/Pictures/'
 }
 
 # mouse
@@ -133,7 +133,7 @@ hc detect_monitors
 # panel things
 killall hydra
 pdetach hydra
-for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
+for monitor in $(hc list_monitors | cut -d: -f1) ; do
     # start panel on each monitor
     ~/.config/herbstluftwm/panel.sh "$monitor" &
 done
