@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/dash
 bin='pkexec xfpm-power-backlight-helper'
 mul='0.25'
 cur=$($bin --get-brightness)

@@ -43,6 +43,9 @@ hc pad $monitor $panel_height
     IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
     date=""
     windowtitle=""
+    network=""
+    volume=""
+    battery=""
     while true ; do
         # draw tags
         for i in "${tags[@]}" ; do

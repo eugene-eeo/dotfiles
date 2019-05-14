@@ -3,9 +3,6 @@
 #include <stdint.h>
 #include <sys/types.h>
 
-/* Arbitrary size */
-#define HISTSIZE      2000
-
 /* macros */
 #define MIN(a, b)		((a) < (b) ? (a) : (b))
 #define MAX(a, b)		((a) < (b) ? (b) : (a))
@@ -22,8 +19,6 @@
 
 #define TRUECOLOR(r,g,b)	(1 << 24 | (r) << 16 | (g) << 8 | (b))
 #define IS_TRUECOL(x)		(1 << 24 & (x))
-#define TLINE(y)       ((y) < term.scr ? term.hist[((y) + term.histi - term.scr \
-               + HISTSIZE + 1) % HISTSIZE] : term.line[(y) - term.scr])
 
 enum glyph_attribute {
 	ATTR_NULL       = 0,
@@ -85,6 +80,8 @@ void die(const char *, ...);
 void redraw(void);
 void draw(void);
 
+void kscrolldown(const Arg *);
+void kscrollup(const Arg *);
 void printscreen(const Arg *);
 void printsel(const Arg *);
 void sendbreak(const Arg *);
@@ -115,14 +112,11 @@ void *xmalloc(size_t);
 void *xrealloc(void *, size_t);
 char *xstrdup(char *);
 
-void kscrolldown(const Arg *);
-void kscrollup(const Arg *);
-
 /* config.h globals */
 extern char *utmp;
 extern char *stty_args;
 extern char *vtiden;
-extern char *worddelimiters;
+extern wchar_t *worddelimiters;
 extern int allowaltscreen;
 extern char *termname;
 extern unsigned int tabspaces;

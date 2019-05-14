@@ -6,7 +6,6 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font = "Consolas:pixelsize=18:antialias=true:autohint=true";
-//static char *font = "Source Code Pro:pixelsize=17:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -33,7 +32,7 @@ static float chscale = 1.0;
  *
  * More advanced example: " `'\"()[]{}"
  */
-char *worddelimiters = " ";
+wchar_t *worddelimiters = L" ";
 
 /* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
