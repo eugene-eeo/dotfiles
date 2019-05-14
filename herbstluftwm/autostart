@@ -41,11 +41,12 @@ hc keybind $Mod-Shift-Right shift right
 # splitting frames
 # create an empty frame at the specified direction
 bindsplit() {
-    hc keybind $Mod-$1 and \
+    hc keybind "$Mod-$1" and \
         . compare tags.focus.floating = false \
-        . split $2 0.5 \
-        . focus $3
+        . split "$2" 0.5 \
+        . focus "$3"
 }
+
 bindsplit u bottom down
 bindsplit o right right
 bindsplit Shift-u top up
@@ -91,6 +92,7 @@ hc keybind $Mod-g cycle_layout +1 vertical grid
     hc keybind XF86AudioRaiseVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ +3%
     hc keybind XF86AudioLowerVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ -3%
     hc keybind XF86AudioMute         spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
+    # shellcheck disable=2016
     hc keybind Print                 spawn scrot '%F-%s_$wx$h.png' -e 'mv $f ~/Pictures/'
 }
 
