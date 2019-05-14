@@ -24,7 +24,6 @@ hc keybind $Mod-Shift-p       spawn ~/.config/herbstluftwm/open-latest-scrot.sh
 
 # locking
 hc keybind $Mod-Shift-l spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
-
 # swap lock_tag and unlock_tag
 hc keybind $Mod-l or \
     . and \
