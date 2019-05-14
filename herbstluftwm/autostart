@@ -23,7 +23,14 @@ hc keybind $Mod-Shift-space   spawn slouch drun
 hc keybind $Mod-Shift-p       spawn ~/.config/herbstluftwm/open-latest-scrot.sh
 
 # locking
-hc keybind $Mod-l spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
+hc keybind $Mod-Shift-l spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
+
+# swap lock_tag and unlock_tag
+hc keybind $Mod-l or \
+    . and \
+        , compare monitors.focus.lock_tag = true \
+        , unlock_tag \
+    . lock_tag
 
 # basic movement
 # focusing clients
