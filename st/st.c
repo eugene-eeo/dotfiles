@@ -1641,9 +1641,9 @@ tsetmode(int priv, int set, int *args, int narg)
 				MODBIT(term.mode, set, MODE_CRLF);
 				break;
 			default:
-				fprintf(stderr,
-					"erresc: unknown set/reset mode %d\n",
-					*args);
+				//fprintf(stderr,
+				//	"erresc: unknown set/reset mode %d\n",
+				//	*args);
 				break;
 			}
 		}
