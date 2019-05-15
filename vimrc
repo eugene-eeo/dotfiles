@@ -141,7 +141,7 @@ let g:gitgutter_map_keys=0
 " neomake/neomake
 let g:neomake_open_list = 2
 let g:neomake_python_enabled_makers = ['flake8']
-let g:neomake_python_flake8_maker = {'exe': $PYENV_ROOT . '/versions/neovim3/bin/flake8'}
+"let g:neomake_python_flake8_maker = {'exe': $PYENV_ROOT . '/versions/neovim3/bin/flake8'}
 
 " sjl/gundo.vim
 let g:gundo_right = 1
