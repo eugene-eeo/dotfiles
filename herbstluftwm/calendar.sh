@@ -1,9 +1,7 @@
 #!/bin/bash
 #
 # pop-up calendar for dzen
-#
-# (c) 2007, by Robert Manea
-#
+# shellcheck disable=2004
 
 width=220
 monitor=( $(herbstclient list_monitors \
@@ -12,7 +10,6 @@ monitor=( $(herbstclient list_monitors \
     | tr x ' ' \
     | sed 's/\([-+]\)/ \1/g') )
 x=$((${monitor[2]} + ${monitor[0]}/2 - width/2))
-
 padding=( $(herbstclient list_padding) )
 
 
