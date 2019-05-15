@@ -100,6 +100,13 @@ hc keybind $Mod-g cycle_layout +1 vertical grid
     hc keybind XF86AudioMute         spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
     # shellcheck disable=2016
     hc keybind Print                 spawn scrot '%F-%s.png' -e 'mv $f ~/Pictures/'
+
+    # if we're not on gnome, then keychain is not ran automatically
+    # so we use hc to export these environment variables
+    env_vars=$(gnome-keyring-daemon --start --components=ssh,gpg,secrets,pkcs11)
+    for var in $env_vars ; do
+        hc setenv "$(echo "$var" | cut -d'=' -f1)" "$(echo "$var" | cut -d'=' -f2-)"
+    done
 }
 
 # mouse
