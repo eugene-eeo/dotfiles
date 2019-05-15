@@ -66,10 +66,10 @@ if ! shopt -oq posix; then
     fi
 fi
 
-if [ -n "$DESKTOP_SESSION" ]; then
-    #shellcheck disable=2046
-    export $(gnome-keyring-daemon --start --components=ssh,gpg,secrets,pkcs11)
-fi
+#if [ -n "$DESKTOP_SESSION" ]; then
+#    #shellcheck disable=2046
+#    export $(gnome-keyring-daemon --start --components=ssh,gpg,secrets,pkcs11)
+#fi
 
 # source fzf if it exists
 [ -s "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"
