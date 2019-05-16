@@ -9,9 +9,9 @@ Plug 'justinmk/vim-sneak'
 Plug 'majutsushi/tagbar'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
 Plug 'deoplete-plugins/deoplete-clang'
-Plug 'deoplete-plugins/deoplete-go'
+Plug 'deoplete-plugins/deoplete-go', { 'for': 'go' }
 
 Plug 'Chiel92/vim-autoformat'
 Plug 'Shougo/echodoc.vim'
@@ -120,7 +120,7 @@ let g:jedi#rename_command = ""
 let g:jedi#completions_enabled = 0
 
 " deoplete
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
 
 " deoplete-plugins/deoplete-clang
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
@@ -146,9 +146,17 @@ let g:neomake_python_enabled_makers = ['flake8']
 " sjl/gundo.vim
 let g:gundo_right = 1
 
+fun! EnableDeoplete()
+    " Only enable if we're not in gitcommit mode
+    if &ft != 'gitcommit'
+        call deoplete#enable()
+    endif
+endfun
+
 " tabstop, softtabstop, shiftwidth
 augroup vimrc
     autocmd!
+    autocmd InsertEnter * call EnableDeoplete()
     autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
     autocmd Filetype html setlocal ts=2 sts=2 sw=2
     autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
