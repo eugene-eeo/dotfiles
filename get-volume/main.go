@@ -13,7 +13,7 @@ func main() {
 	out, _ := cmd.StdoutPipe()
 	cmd.Start()
 	r := bufio.NewScanner(out)
-	b := []byte{}
+	var b []byte
 	for r.Scan() {
 		b = r.Bytes()
 	}

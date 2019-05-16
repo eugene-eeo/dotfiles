@@ -1,5 +1,0 @@
-#!/bin/bash
-xrandr | tail +2 | grep -v '^ ' | grep '^.\+ disconnected (' | while read line; do
-    name=$(echo "$line" | cut -d ' ' -f1)
-    xrandr --output "$name" --off
-done

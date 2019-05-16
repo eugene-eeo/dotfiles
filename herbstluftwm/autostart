@@ -139,8 +139,6 @@ hc set auto_detect_monitors 1
 # unlock, just to be sure
 hc unlock
 hc set tree_style '╾│ ├└╼─┐'
-
-fix_displays
 hc detect_monitors
 
 # panel things
