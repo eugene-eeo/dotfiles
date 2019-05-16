@@ -37,7 +37,7 @@ hc pad $monitor $panel_height
     echo pactl
     echo battery
     date +'date	%H:%M ^fg(#909090)%a %d %b'
-    hydra-head
+    timeout 1 sh -c 'until nc -z localhost 9900; do sleep 0.01; done' && cat < /dev/tcp/localhost/9900
 } 2> /dev/null | {
     # we get monitor-specific data here
     IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"

@@ -6,8 +6,7 @@
       {"proc": "herbstclient --idle"},
       {"proc": "pactl subscribe",
        "match": [
-           ["pactl",      "^Event 'change' on (client|sink) #\\d+$"],
-           ["pactl:card", "^Event 'change' on card #\\d+$"]
+           ["pactl", "^Event 'change' on (client|sink) #\\d+$"]
        ]}
   ]
 }
