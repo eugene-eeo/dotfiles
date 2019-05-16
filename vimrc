@@ -121,6 +121,7 @@ let g:jedi#completions_enabled = 0
 
 " deoplete
 let g:deoplete#enable_at_startup = 0
+let g:deoplete#num_processes = 2
 
 " deoplete-plugins/deoplete-clang
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
@@ -141,7 +142,6 @@ let g:gitgutter_map_keys=0
 " neomake/neomake
 let g:neomake_open_list = 2
 let g:neomake_python_enabled_makers = ['flake8']
-"let g:neomake_python_flake8_maker = {'exe': $PYENV_ROOT . '/versions/neovim3/bin/flake8'}
 
 " sjl/gundo.vim
 let g:gundo_right = 1
