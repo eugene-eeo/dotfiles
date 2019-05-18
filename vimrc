@@ -103,6 +103,8 @@ set grepprg=ag\ --nogroup\ --nocolor
 set listchars=tab:▸\ ,trail:·
 set list
 
+let g:is_bash = 1
+
 " Shougo/echodoc.vim
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#highlight_arguments = "Title"

@@ -6,7 +6,7 @@ hc() {
 
 monitor=${1:-0}
 geometry=( $(herbstclient monitor_rect "$monitor") )
-if [ -z "$geometry" ] ;then
+if [ -z "${geometry[0]}" ]; then
     echo "Invalid monitor $monitor"
     exit 1
 fi
@@ -26,11 +26,11 @@ separator="^bg()^fg($selbg)|^fg()"
 get_bat_info() {
     BATC=/sys/class/power_supply/BAT0/capacity
     BATS=/sys/class/power_supply/BAT0/status
-    test "`cat $BATS`" = "Discharging" && echo -n '-' || echo -n '+'
+    test "$(cat $BATS)" = "Discharging" && echo -n '-' || echo -n '+'
     cat $BATC
 }
 
-hc pad $monitor $panel_height
+hc pad "$monitor" $panel_height
 
 {
     echo nmcli
@@ -40,7 +40,7 @@ hc pad $monitor $panel_height
     timeout 1 sh -c 'until nc -z localhost 9900; do sleep 0.01; done' && cat < /dev/tcp/localhost/9900
 } 2> /dev/null | {
     # we get monitor-specific data here
-    IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
+    IFS=$'\t' read -ra tags <<< "$(hc tag_status "$monitor")"
     date=""
     windowtitle=""
     network=""
@@ -86,10 +86,10 @@ hc pad $monitor $panel_height
         # find out event origin
         case "${cmd[0]}" in
             tag*)
-                IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
+                IFS=$'\t' read -ra tags <<< "$(hc tag_status "$monitor")"
                 ;;
             date)
-                date="${cmd[@]:1}"
+                date="${cmd[*]:1}"
                 ;;
             nmcli)
                 network=$(iwgetid -r)
@@ -101,7 +101,7 @@ hc pad $monitor $panel_height
                 battery=$(get_bat_info)
                 ;;
             focus_changed|window_title_changed)
-                windowtitle="${cmd[@]:2}"
+                windowtitle="${cmd[*]:2}"
                 ;;
             quit_panel) ;&
             reload)
@@ -109,7 +109,7 @@ hc pad $monitor $panel_height
                 ;;
         esac
     done
-} 2> /dev/null | dzen2 -w $panel_width -x $x -y $y -h $panel_height \
+} 2> /dev/null | dzen2 -w "$panel_width" -x "$x" -y "$y" -h $panel_height \
     -ta l -bg "$bgcolor" -fg '#efefef' \
     -e 'button3=' \
     -fn "$font"
