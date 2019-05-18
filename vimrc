@@ -4,7 +4,6 @@ Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'tweekmonster/local-indent.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'majutsushi/tagbar'
 
@@ -181,10 +180,6 @@ nmap x "_d
 nmap X "_D
 xmap x "_d
 xmap X "_D
-
-" tweekmonster/local-indent.vim
-nnoremap <Leader>i <ESC>:LocalIndentGuide +cc<CR>
-nnoremap <Leader>I <ESC>:LocalIndentGuide -cc<CR>
 
 " gcmt/wildfire.vim
 nmap <Leader>s <Plug>(wildfire-quick-select)
