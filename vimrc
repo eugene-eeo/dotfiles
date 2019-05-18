@@ -1,20 +1,19 @@
 call plug#begin('~/.vim/plugged')
 Plug 'sjl/badwolf'
 Plug 'sjl/gundo.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
-Plug 'deoplete-plugins/deoplete-clang'
+Plug 'deoplete-plugins/deoplete-clang', { 'for': 'c' }
 Plug 'deoplete-plugins/deoplete-go', { 'for': 'go' }
 
 Plug 'Chiel92/vim-autoformat'
 Plug 'Shougo/echodoc.vim'
-Plug 'neomake/neomake'
+Plug 'neomake/neomake', { 'on': 'NeomakeFile' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 

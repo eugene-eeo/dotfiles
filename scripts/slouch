@@ -98,7 +98,7 @@ case "$1" in
     _run)
         IFS=':'
         # shellcheck disable=2086
-        choice=$(find $PATH -type f,l -executable -printf '%f\n' | grep -v '^\[$' | sort -u | __slouch_fzf run) \
+        choice=$(find $PATH -type f,l -executable -printf '%f\n' | sort -u | __slouch_fzf run) \
             && __slouch_pdetach "$choice"
         ;;
     _filter)
