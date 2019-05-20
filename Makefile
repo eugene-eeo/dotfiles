@@ -15,6 +15,7 @@ sync:
 	cp    ./dunstrc        ~/.config/dunst/dunstrc
 	cp    ./hydrarc.json   ~/.hydrarc.json
 
+bins:
 	cd st && make DESTDIR=~/.scripts/ clean install
 	cd xftwidth && make && cp xftwidth ~/.scripts
 	cd get-volume && make

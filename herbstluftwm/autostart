@@ -95,8 +95,8 @@ hc keybind $Mod-g cycle_layout +1 vertical grid
 [ "$XDG_SESSION_DESKTOP" = 'herbstluftwm' ] && {
     hc keybind XF86MonBrightnessUp   spawn ~/.config/herbstluftwm/brightness.sh +
     hc keybind XF86MonBrightnessDown spawn ~/.config/herbstluftwm/brightness.sh -
-    hc keybind XF86AudioRaiseVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ +3%
-    hc keybind XF86AudioLowerVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ -3%
+    hc keybind XF86AudioRaiseVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ +2%
+    hc keybind XF86AudioLowerVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ -2%
     hc keybind XF86AudioMute         spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
     # shellcheck disable=2016
     hc keybind Print                 spawn scrot '%F-%s.png' -e 'mv $f ~/Pictures/'

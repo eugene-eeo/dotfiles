@@ -11,7 +11,7 @@ Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
 Plug 'deoplete-plugins/deoplete-clang', { 'for': 'c' }
 Plug 'deoplete-plugins/deoplete-go', { 'for': 'go' }
 
-Plug 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
 Plug 'Shougo/echodoc.vim'
 Plug 'neomake/neomake', { 'on': 'NeomakeFile' }
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -19,7 +19,6 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'gcmt/wildfire.vim'
 Plug 'tpope/vim-commentary'
 Plug 'rstacruz/vim-closer'
 Plug 'wellle/targets.vim'
@@ -37,7 +36,7 @@ set encoding=utf8
 set ffs=unix,dos,mac        " use unix as default filetype
 set number                  " enable display of line numbers
 set cursorline              " show cursor line
-set scrolloff=3             " better scrolling semantics
+set scrolloff=3
 
 set wildmenu
 set wildmode=longest:full,full
@@ -78,7 +77,6 @@ set pumheight=15            " Limit height to 15 at max
 set clipboard^=unnamedplus
 
 set pastetoggle=<F2>
-set fillchars+=vert:\|
 filetype plugin indent on
 syntax enable
 
@@ -91,13 +89,20 @@ hi DiffChange   ctermbg=232 ctermfg=220
 hi DiffAdd      ctermbg=232 ctermfg=64
 hi DiffDelete   ctermbg=232 ctermfg=196
 hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
-hi MatchParen   ctermbg=none
 hi Comment      ctermbg=none
 hi link NeomakeWarning NeomakeError
-hi NeomakeWarningSign ctermfg=221 guifg=#e5e500
-hi NeomakeErrorSign ctermfg=167 guifg=#E71919
 
 set grepprg=ag\ --nogroup\ --nocolor
+
+" Statusline
+hi Statusline   ctermbg=234 ctermfg=255 cterm=none
+hi StatuslineNC ctermbg=234 ctermfg=240
+set statusline=%f
+set statusline+=%=
+set statusline+=\ (%l:%c)
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
 
 set listchars=tab:▸\ ,trail:·
 set list
@@ -123,6 +128,13 @@ let g:jedi#completions_enabled = 0
 let g:deoplete#enable_at_startup = 0
 let g:deoplete#num_processes = 2
 
+fun! EnableDeoplete()
+    " Only enable if we're not in gitcommit mode
+    if &ft != 'gitcommit'
+        call deoplete#enable()
+    endif
+endfun
+
 " deoplete-plugins/deoplete-clang
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
 let g:deoplete#sources#clang#clang_header  = '/usr/lib/llvm-6.0/lib/clang'
@@ -145,13 +157,6 @@ let g:neomake_python_enabled_makers = ['flake8']
 
 " sjl/gundo.vim
 let g:gundo_right = 1
-
-fun! EnableDeoplete()
-    " Only enable if we're not in gitcommit mode
-    if &ft != 'gitcommit'
-        call deoplete#enable()
-    endif
-endfun
 
 " tabstop, softtabstop, shiftwidth
 augroup vimrc
@@ -182,11 +187,6 @@ nmap x "_d
 nmap X "_D
 xmap x "_d
 xmap X "_D
-
-" gcmt/wildfire.vim
-nmap <Leader>s <Plug>(wildfire-quick-select)
-map  + <Plug>(wildfire-fuel)
-vmap _ <Plug>(wildfire-water)
 
 " junegunn/vim-easy-align.vim
 nmap ga <Plug>(EasyAlign)

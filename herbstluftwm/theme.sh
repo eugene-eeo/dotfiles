@@ -3,7 +3,7 @@ hc() {
     herbstclient "$@"
 }
 
-feh --bg-fill ~/Downloads/iu-yellow.png
+hsetroot -full ~/Downloads/iu-yellow.png
 
 # theme
 hc attr theme.tiling.reset 1
