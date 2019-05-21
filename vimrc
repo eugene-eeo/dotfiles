@@ -17,6 +17,7 @@ Plug 'neomake/neomake', { 'on': 'NeomakeFile' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
@@ -75,6 +76,7 @@ set shortmess+=c
 set completeopt=noinsert,menuone,noselect
 set pumheight=15            " Limit height to 15 at max
 set clipboard^=unnamedplus
+set updatetime=100
 
 set pastetoggle=<F2>
 filetype plugin indent on
@@ -95,8 +97,8 @@ hi link NeomakeWarning NeomakeError
 set grepprg=ag\ --nogroup\ --nocolor
 
 " Statusline
-hi Statusline   ctermbg=234 ctermfg=255 cterm=none
-hi StatuslineNC ctermbg=234 ctermfg=240
+hi Statusline   ctermbg=234 ctermfg=255 cterm=bold
+hi StatuslineNC ctermbg=234 ctermfg=243
 set statusline=%f
 set statusline+=%=
 set statusline+=\ (%l:%c)
@@ -158,6 +160,13 @@ let g:neomake_python_enabled_makers = ['flake8']
 " sjl/gundo.vim
 let g:gundo_right = 1
 
+" mhinz/vim-grepper
+let g:grepper = {}
+let g:grepper.tools = ['rg', 'ag', 'git', 'grep']
+let g:grepper.operator = {}
+let g:grepper.operator.side = 1
+let g:grepper.operator.prompt = 0
+
 " tabstop, softtabstop, shiftwidth
 augroup vimrc
     autocmd!
@@ -187,6 +196,12 @@ nmap x "_d
 nmap X "_D
 xmap x "_d
 xmap X "_D
+
+" mhinz/vim-grepper
+nmap <Leader>ss <Esc>:Grepper -side -tool rg -cword -noprompt<CR>
+xmap <Leader>ss <plug>(GrepperOperator)
+nnoremap <leader>/ :Grepper -tool rg<cr>
+nnoremap <leader>? :Grepper -tool rg -side<cr>
 
 " junegunn/vim-easy-align.vim
 nmap ga <Plug>(EasyAlign)
