@@ -6,10 +6,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
+Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
+Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
 Plug 'deoplete-plugins/deoplete-clang', { 'for': 'c' }
-Plug 'deoplete-plugins/deoplete-go', { 'for': 'go' }
+Plug 'deoplete-plugins/deoplete-go',    { 'for': 'go' }
 
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
 Plug 'Shougo/echodoc.vim'
@@ -17,6 +17,7 @@ Plug 'neomake/neomake', { 'on': 'NeomakeFile' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
+Plug 'rhysd/git-messenger.vim'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
@@ -111,6 +112,12 @@ set list
 
 let g:is_bash = 1
 
+" rhysd/git-messenger
+hi link gitmessengerHeader      Identifier
+hi link gitmessengerHash        Comment
+hi link gitmessengerHistory     Constant
+hi link gitmessengerPopupNormal Normal
+
 " Shougo/echodoc.vim
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#highlight_arguments = "Title"
@@ -189,8 +196,9 @@ nnoremap <F8> :TagbarToggle<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
-nnoremap ]h <Esc>:GitGutterNextHunk<CR>
-nnoremap [h <Esc>:GitGutterPrevHunk<CR>
+nnoremap <leader>m <Esc>:GitGutterNextHunk<CR>
+nnoremap <leader>n <Esc>:GitGutterPrevHunk<CR>
+nnoremap <Space> @q
 
 nmap x "_d
 nmap X "_D
