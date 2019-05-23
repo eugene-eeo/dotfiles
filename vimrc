@@ -112,12 +112,6 @@ set list
 
 let g:is_bash = 1
 
-" rhysd/git-messenger
-hi link gitmessengerHeader      Identifier
-hi link gitmessengerHash        Comment
-hi link gitmessengerHistory     Constant
-hi link gitmessengerPopupNormal Normal
-
 " Shougo/echodoc.vim
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#highlight_arguments = "Title"
