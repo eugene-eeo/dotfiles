@@ -54,7 +54,7 @@ mux() {
     tmux attach -t base || tmux new -s base
 }
 
-eval "$(pyenv init -)"
+eval "$(pyenv init - bash --no-rehash)"
 eval "$(pyenv virtualenv-init -)"
 
 # enable bash completion in interactive shells
