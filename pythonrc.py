@@ -26,6 +26,7 @@ sys.displayhook = display_hook
 history_path = os.path.expanduser("~/.pyhistory")
 
 
+@atexit.register
 def save_history(path=history_path):
     import readline
 
@@ -34,9 +35,6 @@ def save_history(path=history_path):
 
 if os.path.exists(history_path):
     readline.read_history_file(history_path)
-
-
-atexit.register(save_history)
 
 
 del rlcompleter

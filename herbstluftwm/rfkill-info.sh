@@ -1,42 +1,28 @@
 #!/bin/bash
+#
+# pop-up rfkill-info for dzen
+# shellcheck disable=2004
 
-if [ ! "$1" ]; then
-    st -g 30x3-0+25 -t rfkill-info \
-       -f "Operator Mono Medium:pixelsize=15:antialias=true:autohint=true" \
-       -e "$0" 1
-    exit
-fi
+font='Operator Mono Medium:pixelsize=16'
+monitor=( $(herbstclient list_monitors \
+    | grep '\[FOCUS\]$' \
+    | cut -d' ' -f2 \
+    | tr x ' ' \
+    | sed 's/\([-+]\)/ \1/g') )
+padding=( $(herbstclient list_padding) )
 
-rfkill_status() {
-    rfkill | tail +2 | tr -s ' ' | cut -d ' ' -f3,5,6 | while read -r line; do
-        name=$(echo "$line" | cut -d ' ' -f1)
-        soft_status=$(echo "$line" | cut -d ' ' -f2)
-        hard_status=$(echo "$line" | cut -d ' ' -f3)
-        if [ "$soft_status" = 'blocked' ] || [ "$hard_status" = 'blocked' ]; then
-            echo -e "$name\toff"
-        else
-            echo -e "$name\ton"
-        fi
-    done
-}
+output=$(rfkill)
+lines=$(echo "$output" | wc -l)
 
-RED=$(tput setaf 1)
-GRN=$(tput setaf 2)
-RST=$(tput sgr 0)
 
-rfkill_display() {
-    IFS=$'\n'
-    for line in $(rfkill_status); do
-        name=$(echo "$line" | cut -d $'\t' -f1)
-        stat=$(echo "$line" | cut -d $'\t' -f2)
-        color=$GRN
-        if [ "$stat" = 'off' ]; then
-            color=$RED
-        fi
-        echo " $name $color$stat$RST"
-    done
-}
+width=$( xftwidth "$font" "$(echo "   $output   " | head -n 1)" )
+x=$((${monitor[2]} + ${monitor[0]}/2 - width/2))
 
-tput civis # hide cursor
-rfkill_display
-sleep 4
+{
+    echo
+    echo "$output"
+} \
+    | dzen2 -p 60 -x $x -y "$(( ${padding[0]} * 2 ))" -w $width -l "$((lines + 2))" -sa c \
+            -e 'onstart=uncollapse;button1=exit' \
+            -fg '#EEEEEE' -bg '#111111' \
+            -fn "$font"
