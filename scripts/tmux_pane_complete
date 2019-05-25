@@ -1,0 +1,20 @@
+#!/bin/bash
+header='ctrl-y=yank, ctrl-o=open, return=subst'
+if choice=$(
+    tmux capture-pane -pJ \
+        | rg -ow '\w{8,}' - \
+        | sort -u \
+        | fzf-tmux -- --expect='ctrl-y,ctrl-o' --header="$header"); then
+    # ctrl-y = yank
+    # ctrl-o = open
+    # return = insert
+    body=$(echo "$choice" | tail -n 1 | tr -d "\n")
+    case "$(echo "$choice" | head -n 1)" in
+        ctrl-y) echo -n "$body" | xsel -i --clipboard ;;
+        ctrl-o) xdg-open "$body" ;;
+        *)
+            tmux set-buffer -- "$body"
+            tmux paste-buffer -t "$TMUX_PANE"
+            ;;
+    esac
+fi

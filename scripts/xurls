@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# xurls
+# ~~~~~
+# tiny script for finding and opening urls
+#
+case "$1" in
+    --open)
+        if url=$("$0" | fzf-tmux); then
+            xdg-open "$url"
+        fi
+        ;;
+    *)
+        rg --no-heading -o -- '(https?|ssh|mailto|(git@[^:]+)):(//)?[^\s]+' -
+        ;;
+esac
