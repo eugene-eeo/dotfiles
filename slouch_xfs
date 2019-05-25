@@ -1,0 +1,11 @@
+#!/bin/bash
+while true; do
+    if query=$(echo | dmenu -p 'xfs>'); then
+        if f=$(xfs-search "$query" --no-pretty | slouch pipe xfs); then
+            xdg-open "$f"
+            exit
+        fi
+        continue
+    fi
+    exit
+done
