@@ -154,4 +154,5 @@ if hc silent new_attr bool my_not_first_autostart ; then
     [ "$XDG_SESSION_DESKTOP" != 'herbstluftwm' ] && pdetach gnome-flashback
     gnome-keyring-daemon -rd
     st -e gnome_hc_startup
+    pdetach compton
 fi
