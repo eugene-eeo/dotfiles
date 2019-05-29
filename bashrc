@@ -41,7 +41,7 @@ v() {
         return
     fi
     local _FZF
-    if _FZF=$(fzf --preview='cat {}'); then
+    if _FZF=$(fzf --preview='cat {} | head -n 100'); then
         vim "$_FZF"
     fi
 }

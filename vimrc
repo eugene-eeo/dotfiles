@@ -169,10 +169,20 @@ let g:grepper.operator = {}
 let g:grepper.operator.side = 1
 let g:grepper.operator.prompt = 0
 
+fun! MyLastWindow()
+    " If the last window is quickfix, then quit automatically
+    if &buftype == "quickfix"
+        if winbufnr(2) == -1
+            quit!
+        endif
+    endif
+endfun
+
 " tabstop, softtabstop, shiftwidth
 augroup vimrc
     autocmd!
     autocmd InsertEnter * call EnableDeoplete()
+    autocmd BufEnter    * call MyLastWindow()
     autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
     autocmd Filetype html     setlocal ts=2 sts=2 sw=2
     autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
@@ -189,6 +199,8 @@ nnoremap <F8> :TagbarToggle<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
+nnoremap <C-[> <Esc>:cp<CR>
+nnoremap <C-]> <Esc>:cn<CR>
 nnoremap <leader>m <Esc>:GitGutterNextHunk<CR>
 nnoremap <leader>n <Esc>:GitGutterPrevHunk<CR>
 nnoremap <Space> @q
