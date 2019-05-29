@@ -1,0 +1,8 @@
+herbstluftwm
+pdetach
+feh
+scrot
+neovim
+golang
+compton
+xfce4-power-manager
