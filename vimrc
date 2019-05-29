@@ -199,8 +199,8 @@ nnoremap <F8> :TagbarToggle<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
-nnoremap <C-[> <Esc>:cp<CR>
-nnoremap <C-]> <Esc>:cn<CR>
+nnoremap [q <Esc>:cp<CR>
+nnoremap ]q <Esc>:cn<CR>
 nnoremap <leader>m <Esc>:GitGutterNextHunk<CR>
 nnoremap <leader>n <Esc>:GitGutterPrevHunk<CR>
 nnoremap <Space> @q
