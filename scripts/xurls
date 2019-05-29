@@ -7,7 +7,7 @@
 case "$1" in
     --open)
         if url=$("$0" | fzf-tmux); then
-            xdg-open "$url"
+            pdetach xdg-open "$url"
         fi
         ;;
     *)

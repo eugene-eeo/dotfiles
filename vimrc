@@ -144,6 +144,7 @@ let g:deoplete#sources#clang#clang_header  = '/usr/lib/llvm-6.0/lib/clang'
 
 " fatih/vim-go
 let g:go_def_mapping_enabled = 0
+let g:go_auto_type_info = 1
 
 " justinmk/vim-sneak
 let g:sneak#label = 1
