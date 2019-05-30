@@ -14,6 +14,7 @@ sync:
 	cp    ./herbstluftwm/* ~/.config/herbstluftwm
 	cp    ./dunstrc        ~/.config/dunst/dunstrc
 	cp    ./hydrarc.json   ~/.hydrarc.json
+	cp    ./compton.conf   ~/.compton.conf
 
 bins:
 	cd st && make DESTDIR=~/.scripts/ clean install
