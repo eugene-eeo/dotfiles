@@ -17,7 +17,6 @@ Plug 'neomake/neomake', { 'on': 'NeomakeFile' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
-Plug 'rhysd/git-messenger.vim'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
