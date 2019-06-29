@@ -9,7 +9,7 @@ import "os/exec"
 var pctg = regexp.MustCompile("[0-9]+%")
 
 func main() {
-	cmd := exec.Command("amixer", "get", "Master")
+	cmd := exec.Command("amixer", "-D", "pulse", "get", "Master")
 	out, _ := cmd.StdoutPipe()
 	cmd.Start()
 	r := bufio.NewScanner(out)
