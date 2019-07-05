@@ -11,7 +11,7 @@ shopt -s checkwinsize
 export CLICOLOR=1
 export IGNOREEOF=1
 
-export LESS='-S -R'
+export LESS='-SR'
 export GREP_COLOR='1;32'
 
 RESET="\\[$(tput sgr0)\\]"

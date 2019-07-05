@@ -5,6 +5,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegu
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'nanotech/jellybeans.vim'
 
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
@@ -30,6 +31,7 @@ Plug 'othree/html5.vim'
 Plug 'vim-python/python-syntax'
 Plug 'cespare/vim-toml'
 Plug 'vim-scripts/bats.vim'
+Plug 'mxw/vim-jsx'
 call plug#end()
 
 set backspace=2
@@ -99,12 +101,6 @@ set grepprg=ag\ --nogroup\ --nocolor
 " Statusline
 hi Statusline   ctermbg=234 ctermfg=255 cterm=bold
 hi StatuslineNC ctermbg=234 ctermfg=243
-set statusline=%f
-set statusline+=%=
-set statusline+=\ (%l:%c)
-set statusline+=\ %y
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\[%{&fileformat}\]
 
 set listchars=tab:▸\ ,trail:·
 set list
@@ -156,7 +152,6 @@ let g:gitgutter_map_keys=0
 
 " neomake/neomake
 let g:neomake_open_list = 2
-let g:neomake_python_enabled_makers = ['flake8']
 
 " sjl/gundo.vim
 let g:gundo_right = 1
@@ -182,6 +177,7 @@ augroup vimrc
     autocmd!
     autocmd InsertEnter * call EnableDeoplete()
     autocmd BufEnter    * call MyLastWindow()
+    autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
     autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
     autocmd Filetype html     setlocal ts=2 sts=2 sw=2
     autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
