@@ -124,7 +124,6 @@ let g:jedi#completions_enabled = 0
 
 " deoplete
 let g:deoplete#enable_at_startup = 0
-let g:deoplete#num_processes = 2
 
 fun! EnableDeoplete()
     " Only enable if we're not in gitcommit mode
@@ -132,6 +131,13 @@ fun! EnableDeoplete()
         call deoplete#enable()
     endif
 endfun
+
+function g:Multiple_cursors_before()
+    call deoplete#custom#buffer_option('auto_complete', v:false)
+endfunction
+function g:Multiple_cursors_after()
+    call deoplete#custom#buffer_option('auto_complete', v:true)
+endfunction
 
 " deoplete-plugins/deoplete-clang
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
