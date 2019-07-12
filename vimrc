@@ -5,16 +5,14 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegu
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'nanotech/jellybeans.vim'
 
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
-Plug 'deoplete-plugins/deoplete-clang', { 'for': 'c' }
 Plug 'deoplete-plugins/deoplete-go',    { 'for': 'go' }
 
+Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
-Plug 'Shougo/echodoc.vim'
-Plug 'neomake/neomake', { 'on': 'NeomakeFile' }
+Plug 'jaawerth/neomake-local-eslint-first'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
@@ -107,10 +105,6 @@ set list
 
 let g:is_bash = 1
 
-" Shougo/echodoc.vim
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#highlight_arguments = "Title"
-
 " davidhalter/jedi-vim
 let g:jedi#popup_on_dot = 0
 let g:jedi#goto_command = ""
@@ -119,7 +113,7 @@ let g:jedi#goto_definitions_command = "gd"
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = ""
 let g:jedi#completions_command = ""
-let g:jedi#rename_command = ""
+let g:jedi#rename_command = "<Leader>rn"
 let g:jedi#completions_enabled = 0
 
 " deoplete
@@ -139,10 +133,6 @@ function g:Multiple_cursors_after()
     call deoplete#custom#buffer_option('auto_complete', v:true)
 endfunction
 
-" deoplete-plugins/deoplete-clang
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
-let g:deoplete#sources#clang#clang_header  = '/usr/lib/llvm-6.0/lib/clang'
-
 " fatih/vim-go
 let g:go_def_mapping_enabled = 0
 let g:go_auto_type_info = 1
@@ -158,6 +148,11 @@ let g:gitgutter_map_keys=0
 
 " neomake/neomake
 let g:neomake_open_list = 2
+let g:neomake_python_enabled_makers = ['flake8']
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_error_sign   = {'text': '◆', 'texthl': 'DiffDelete'}
+let g:neomake_warning_sign = {'text': '◆', 'texthl': 'ModeMsg'}
+call neomake#configure#automake('w', 500)
 
 " sjl/gundo.vim
 let g:gundo_right = 1
