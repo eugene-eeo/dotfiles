@@ -9,12 +9,14 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
 Plug 'deoplete-plugins/deoplete-go',    { 'for': 'go' }
+Plug 'carlitux/deoplete-ternjs',        { 'for': 'javascript', 'do': 'npm install -g tern' }
 
 Plug 'neomake/neomake'
-Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
 Plug 'jaawerth/neomake-local-eslint-first'
+Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
 
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'junegunn/vim-easy-align'
@@ -28,7 +30,6 @@ Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'
 Plug 'vim-python/python-syntax'
 Plug 'cespare/vim-toml'
-Plug 'vim-scripts/bats.vim'
 Plug 'mxw/vim-jsx'
 call plug#end()
 
@@ -133,6 +134,12 @@ function g:Multiple_cursors_after()
     call deoplete#custom#buffer_option('auto_complete', v:true)
 endfunction
 
+" deoplete-ternjs
+let g:deoplete#sources#ternjs#types = 1
+let g:deoplete#sources#ternjs#docs = 1
+let g:deoplete#sources#ternjs#case_insensitive = 1
+let g:deoplete#sources#ternjs#filetypes = ['jsx', 'javascript.jsx']
+
 " fatih/vim-go
 let g:go_def_mapping_enabled = 0
 let g:go_auto_type_info = 1
@@ -150,9 +157,15 @@ let g:gitgutter_map_keys=0
 let g:neomake_open_list = 2
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_eslint_cwd = $PWD
 let g:neomake_error_sign   = {'text': '◆', 'texthl': 'DiffDelete'}
 let g:neomake_warning_sign = {'text': '◆', 'texthl': 'ModeMsg'}
-call neomake#configure#automake('w', 500)
+
+if readfile('/sys/class/power_supply/AC/online') == ['0']
+    call neomake#configure#automake('w')
+else
+    call neomake#configure#automake('nwi', 500)
+endif
 
 " sjl/gundo.vim
 let g:gundo_right = 1
@@ -173,11 +186,22 @@ fun! MyLastWindow()
     endif
 endfun
 
+" ternjs/tern_for_vim
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
+
+fun! MyTernMappings()
+    nnoremap <buffer> gd :TernDef<CR>
+    nnoremap <buffer> K :TernDoc<CR>
+    nnoremap <buffer> <leader>rn :TernRename<CR>
+endfun
+
 " tabstop, softtabstop, shiftwidth
 augroup vimrc
     autocmd!
     autocmd InsertEnter * call EnableDeoplete()
     autocmd BufEnter    * call MyLastWindow()
+    autocmd Filetype javascript call MyTernMappings()
     autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
     autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
     autocmd Filetype html     setlocal ts=2 sts=2 sw=2
@@ -189,9 +213,10 @@ augroup END
 
 " key mappings
 nnoremap <Leader>d <Esc>:nohl<CR>
-nnoremap <F5> <Esc>:b#<bar>bd#<CR>
+nnoremap <F5> <Esc>:bp<bar>bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
+nnoremap <Leader>lp <Esc>:Neomake! flake8 eslint<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
