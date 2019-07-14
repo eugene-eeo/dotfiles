@@ -93,7 +93,6 @@ hi DiffAdd      ctermbg=232 ctermfg=64
 hi DiffDelete   ctermbg=232 ctermfg=196
 hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
 hi Comment      ctermbg=none
-hi link NeomakeWarning NeomakeError
 
 set grepprg=ag\ --nogroup\ --nocolor
 
@@ -162,7 +161,7 @@ let g:neomake_error_sign   = {'text': '◆', 'texthl': 'DiffDelete'}
 let g:neomake_warning_sign = {'text': '◆', 'texthl': 'ModeMsg'}
 
 if readfile('/sys/class/power_supply/AC/online') == ['0']
-    call neomake#configure#automake('w')
+    call neomake#configure#automake('w', 1000)
 else
     call neomake#configure#automake('nwi', 500)
 endif
