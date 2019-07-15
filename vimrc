@@ -74,7 +74,8 @@ set splitright
 set matchtime=0
 
 set shortmess+=c
-set completeopt=noinsert,menuone,noselect
+set completeopt-=preview
+set completeopt+=menu,menuone,noinsert,noselect
 set pumheight=15            " Limit height to 15 at max
 set clipboard^=unnamedplus
 set updatetime=100
