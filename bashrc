@@ -51,7 +51,8 @@ open() {
 }
 
 mux() {
-    tmux attach -t base || tmux new -s base
+    local session="${1:-base}"
+    tmux attach -t "$session" || tmux new -s "$session"
 }
 
 eval "$(pyenv init -)"

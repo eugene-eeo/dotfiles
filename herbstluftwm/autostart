@@ -135,6 +135,7 @@ hc set snap_gap 0
 hc set raise_on_focus 1
 hc set raise_on_click 1
 hc set auto_detect_monitors 1
+hc set focus_follows_mouse 1
 
 # unlock, just to be sure
 hc unlock

@@ -29,8 +29,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'
 Plug 'vim-python/python-syntax'
-Plug 'cespare/vim-toml'
-Plug 'mxw/vim-jsx'
+Plug 'MaxMEllon/vim-jsx-pretty'
 call plug#end()
 
 set backspace=2
@@ -160,12 +159,7 @@ let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_cwd = $PWD
 let g:neomake_error_sign   = {'text': '◆', 'texthl': 'DiffDelete'}
 let g:neomake_warning_sign = {'text': '◆', 'texthl': 'ModeMsg'}
-
-if readfile('/sys/class/power_supply/AC/online') == ['0']
-    call neomake#configure#automake('w', 1000)
-else
-    call neomake#configure#automake('nwi', 500)
-endif
+call neomake#configure#automake('w', 1000)
 
 " sjl/gundo.vim
 let g:gundo_right = 1
@@ -176,15 +170,6 @@ let g:grepper.tools = ['rg', 'ag', 'git', 'grep']
 let g:grepper.operator = {}
 let g:grepper.operator.side = 1
 let g:grepper.operator.prompt = 0
-
-fun! MyLastWindow()
-    " If the last window is quickfix, then quit automatically
-    if &buftype == "quickfix"
-        if winbufnr(2) == -1
-            quit!
-        endif
-    endif
-endfun
 
 " ternjs/tern_for_vim
 let g:tern#command = ["tern"]
@@ -200,7 +185,6 @@ endfun
 augroup vimrc
     autocmd!
     autocmd InsertEnter * call EnableDeoplete()
-    autocmd BufEnter    * call MyLastWindow()
     autocmd Filetype javascript call MyTernMappings()
     autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
     autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
