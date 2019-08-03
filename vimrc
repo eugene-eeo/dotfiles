@@ -77,7 +77,7 @@ set completeopt-=preview
 set completeopt+=menu,menuone,noinsert,noselect
 set pumheight=15            " Limit height to 15 at max
 set clipboard^=unnamedplus
-set updatetime=100
+set updatetime=2500
 
 set pastetoggle=<F2>
 filetype plugin indent on
@@ -93,12 +93,41 @@ hi DiffAdd      ctermbg=232 ctermfg=64
 hi DiffDelete   ctermbg=232 ctermfg=196
 hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
 hi Comment      ctermbg=none
+hi link NeomakeVirtualtextWarning MoreMsg
+
+hi MyNeomakeStatColorTypeW ctermbg=172 cterm=none
+hi MyNeomakeStatColorTypeE ctermbg=196 cterm=none
+hi MyNeomakeStatColorTypeI ctermbg=64  cterm=none
 
 set grepprg=ag\ --nogroup\ --nocolor
 
 " Statusline
 hi Statusline   ctermbg=234 ctermfg=255 cterm=bold
 hi StatuslineNC ctermbg=234 ctermfg=243
+
+fun! MyStatusLine()
+    let status = ""
+    let status .= "%f"
+    let status .= "\ %m"
+    let status .= "%="
+    let status .= "\ %y"
+    let status .= "\ %{&fileencoding?&fileencoding:&encoding}"
+    let status .= "\[%{&fileformat}\]"
+    let status .= "\ "
+    let status .= neomake#statusline#get(bufnr('%'), {
+        \ "format_loclist_type_E": "%#MyNeomakeStatColorTypeE# {{count}} ",
+        \ "format_loclist_type_W": "%#MyNeomakeStatColorTypeW# {{count}} ",
+        \ "format_loclist_type_I": "%#MyNeomakeStatColorTypeI# {{count}} ",
+        \ "format_quickfix_type_E": "%#MyNeomakeStatColorTypeE# {{count}} ",
+        \ "format_quickfix_type_W": "%#MyNeomakeStatColorTypeW# {{count}} ",
+        \ "format_quickfix_type_I": "%#MyNeomakeStatColorTypeI# {{count}} ",
+        \ "format_quickfix_issues": "| %s%%#NeomakeStatReset",
+        \ })
+    let status .= "\ "
+    return status
+endfun
+
+set statusline=%!MyStatusLine()
 
 set listchars=tab:▸\ ,trail:·
 set list
@@ -153,13 +182,16 @@ let g:python_highlight_all = 1
 let g:gitgutter_map_keys=0
 
 " neomake/neomake
-let g:neomake_open_list = 2
+let g:neomake_open_list = 0
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_cwd = $PWD
 let g:neomake_error_sign   = {'text': '◆', 'texthl': 'DiffDelete'}
-let g:neomake_warning_sign = {'text': '◆', 'texthl': 'ModeMsg'}
+let g:neomake_warning_sign = {'text': '◆', 'texthl': 'DiffChange'}
 call neomake#configure#automake('w', 1000)
+
+" autoformat
+let g:formatters_python = ['autopep8']
 
 " sjl/gundo.vim
 let g:gundo_right = 1
@@ -181,9 +213,14 @@ fun! MyTernMappings()
     nnoremap <buffer> <leader>rn :TernRename<CR>
 endfun
 
+" Clear Registers
+command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
+
 " tabstop, softtabstop, shiftwidth
 augroup vimrc
     autocmd!
+    autocmd VimEnter * WipeReg
+    autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
     autocmd InsertEnter * call EnableDeoplete()
     autocmd Filetype javascript call MyTernMappings()
     autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
@@ -204,16 +241,26 @@ nnoremap <Leader>lp <Esc>:Neomake! flake8 eslint<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
-nnoremap [q <Esc>:cp<CR>
-nnoremap ]q <Esc>:cn<CR>
 nnoremap <leader>m <Esc>:GitGutterNextHunk<CR>
 nnoremap <leader>n <Esc>:GitGutterPrevHunk<CR>
 nnoremap <Space> @q
 
-nmap x "_d
-nmap X "_D
-xmap x "_d
-xmap X "_D
+" Use x and X for cut
+noremap x d
+noremap X D
+nnoremap dd "_dd
+noremap d "_d
+noremap D "_D
+noremap c "_c
+noremap C "_C
+
+" loclist and quickfix
+nnoremap <Leader>o <Esc>:lopen<CR>
+nnoremap <c-j> <Esc>:lprev<CR>
+nnoremap <c-k> <Esc>:lnext<CR>
+nnoremap <Leader>O <Esc>:copen<CR>
+nnoremap <c-J> <Esc>:cprev<CR>
+nnoremap <c-K> <Esc>:cnext<CR>
 
 " mhinz/vim-grepper
 nmap <Leader>ss <Esc>:Grepper -side -tool rg -cword -noprompt<CR>

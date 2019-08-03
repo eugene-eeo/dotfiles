@@ -107,7 +107,7 @@ case "$1" in
         ;;
     _window)
         wid=$(__slouch_window_ids | __slouch_fzf window -d'\t' --with-nth=2) \
-            && __slouch_focus "$(echo $wid | cut -d$'\t' -f1)"
+            && __slouch_focus "$(echo "$wid" | cut -d$'\t' -f1)"
         ;;
     _pipe)  __slouch_fzf "$2" > "$3" < "$4" ;;
     run)    __slouch_term _run    ;;
