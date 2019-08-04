@@ -105,29 +105,14 @@ set grepprg=ag\ --nogroup\ --nocolor
 hi Statusline   ctermbg=234 ctermfg=255 cterm=bold
 hi StatuslineNC ctermbg=234 ctermfg=243
 
-fun! MyStatusLine()
-    let status = ""
-    let status .= "%f"
-    let status .= "\ %m"
-    let status .= "%="
-    let status .= "\ %y"
-    let status .= "\ %{&fileencoding?&fileencoding:&encoding}"
-    let status .= "\[%{&fileformat}\]"
-    let status .= "\ "
-    let status .= neomake#statusline#get(bufnr('%'), {
-        \ "format_loclist_type_E": "%#MyNeomakeStatColorTypeE# {{count}} ",
-        \ "format_loclist_type_W": "%#MyNeomakeStatColorTypeW# {{count}} ",
-        \ "format_loclist_type_I": "%#MyNeomakeStatColorTypeI# {{count}} ",
-        \ "format_quickfix_type_E": "%#MyNeomakeStatColorTypeE# {{count}} ",
-        \ "format_quickfix_type_W": "%#MyNeomakeStatColorTypeW# {{count}} ",
-        \ "format_quickfix_type_I": "%#MyNeomakeStatColorTypeI# {{count}} ",
-        \ "format_quickfix_issues": "| %s%%#NeomakeStatReset",
-        \ })
-    let status .= "\ "
-    return status
-endfun
-
-set statusline=%!MyStatusLine()
+set statusline=
+set statusline+=%f
+set statusline+=\ %m
+set statusline+=%=
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ 
 
 set listchars=tab:▸\ ,trail:·
 set list
@@ -182,7 +167,7 @@ let g:python_highlight_all = 1
 let g:gitgutter_map_keys=0
 
 " neomake/neomake
-let g:neomake_open_list = 0
+let g:neomake_open_list = 2
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_cwd = $PWD
@@ -213,13 +198,10 @@ fun! MyTernMappings()
     nnoremap <buffer> <leader>rn :TernRename<CR>
 endfun
 
-" Clear Registers
-command! WipeReg for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
-
 " tabstop, softtabstop, shiftwidth
 augroup vimrc
     autocmd!
-    autocmd VimEnter * WipeReg
+    autocmd VimEnter * call setreg('q', [])
     autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
     autocmd InsertEnter * call EnableDeoplete()
     autocmd Filetype javascript call MyTernMappings()
@@ -255,12 +237,8 @@ noremap c "_c
 noremap C "_C
 
 " loclist and quickfix
-nnoremap <Leader>o <Esc>:lopen<CR>
 nnoremap <c-j> <Esc>:lprev<CR>
 nnoremap <c-k> <Esc>:lnext<CR>
-nnoremap <Leader>O <Esc>:copen<CR>
-nnoremap <c-J> <Esc>:cprev<CR>
-nnoremap <c-K> <Esc>:cnext<CR>
 
 " mhinz/vim-grepper
 nmap <Leader>ss <Esc>:Grepper -side -tool rg -cword -noprompt<CR>
