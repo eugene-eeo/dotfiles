@@ -4,7 +4,7 @@ Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
@@ -147,6 +147,9 @@ function g:Multiple_cursors_after()
     call deoplete#custom#buffer_option('auto_complete', v:true)
 endfunction
 
+" gutentags
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
 " deoplete-ternjs
 let g:deoplete#sources#ternjs#types = 1
 let g:deoplete#sources#ternjs#docs = 1
@@ -218,7 +221,6 @@ augroup END
 nnoremap <Leader>d <Esc>:nohl<CR>
 nnoremap <F5> <Esc>:bp<bar>bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
-nnoremap <F8> :TagbarToggle<CR>
 nnoremap <Leader>lp <Esc>:Neomake! flake8 eslint<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 nnoremap <Leader>R <Esc>:NeomakeClean<CR>
@@ -257,6 +259,7 @@ nnoremap <C-p> <ESC>:FZF<CR>
 nnoremap <C-t> <ESC>:Buffers<CR>
 nnoremap <C-f> <ESC>:BTags<CR>
 nnoremap <C-o> <ESC>:Commands<CR>
+nnoremap <C-Space> <ESC>:Tags<CR>
 
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
