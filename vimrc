@@ -231,6 +231,8 @@ nnoremap <Space> @q
 noremap x d
 noremap X D
 nnoremap dd "_dd
+vnoremap p "_dP
+vnoremap d "_d
 noremap d "_d
 noremap D "_D
 noremap c "_c
