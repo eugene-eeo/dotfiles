@@ -149,6 +149,8 @@ endfunction
 
 " gutentags
 let g:gutentags_cache_dir = expand('~/.cache/tags')
+let g:gutentags_ctags_exclude = ["node_modules"]
+let g:gutentags_file_list_command = 'rg --files'
 
 " deoplete-ternjs
 let g:deoplete#sources#ternjs#types = 1
