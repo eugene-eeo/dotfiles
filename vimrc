@@ -95,10 +95,6 @@ hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
 hi Comment      ctermbg=none
 hi link NeomakeVirtualtextWarning MoreMsg
 
-hi MyNeomakeStatColorTypeW ctermbg=172 cterm=none
-hi MyNeomakeStatColorTypeE ctermbg=196 cterm=none
-hi MyNeomakeStatColorTypeI ctermbg=64  cterm=none
-
 set grepprg=ag\ --nogroup\ --nocolor
 
 " Statusline
@@ -209,6 +205,7 @@ augroup vimrc
     autocmd VimEnter * call setreg('q', [])
     autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
     autocmd InsertEnter * call EnableDeoplete()
+    autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
     autocmd Filetype javascript call MyTernMappings()
     autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
     autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
