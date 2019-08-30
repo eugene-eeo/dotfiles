@@ -31,6 +31,9 @@ hc keybind $Mod-l or \
         , unlock_tag \
     . lock_tag
 
+# toggle layout
+hc keybind $Mod-t cycle_layout +1 vertical max
+
 # basic movement
 # focusing clients
 hc keybind $Mod-Left  focus left
