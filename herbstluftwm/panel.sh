@@ -15,7 +15,7 @@ x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=20
-font="IBM Plex Mono:pixelsize=14:autohint=true"
+font="Consolas:weight=bold:pixelsize=15:autohint=true"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
 selfg='#000000'
