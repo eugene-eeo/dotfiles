@@ -21,7 +21,7 @@ RED="\\[$(tput setaf 4)\\]"
 export PROMPT_DIRTRIM=2
 export PS1=" \w\$(vcprompt -f '${RED}(%b${GREEN}%m${RED})')${RESET} ${RED}\$ ${RESET}"
 export PS2=" ${DIM}>${RESET} "
-export PROMPT_COMMAND='echo -ne "\033]0;[st] ${USER}: $PWD\007"'
+#export PROMPT_COMMAND='echo -ne "\033]0;[st] ${USER}: $PWD\007"'
 
 alias t='tree -N -F -C'
 alias g='git'
@@ -53,6 +53,11 @@ open() {
 mux() {
     local session="${1:-base}"
     tmux attach -t "$session" || tmux new -s "$session"
+}
+
+bpython() {
+    PYTHONPATH="$(python -c 'import sys; print(":".join(sys.path))')" \
+    command bpython "$@"
 }
 
 eval "$(pyenv init -)"

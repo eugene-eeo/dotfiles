@@ -75,7 +75,7 @@ set matchtime=0
 set shortmess+=c
 set completeopt-=preview
 set completeopt+=menu,menuone,noinsert,noselect
-set pumheight=15            " Limit height to 15 at max
+set pumheight=25            " Limit height to 25 at max
 set clipboard^=unnamedplus
 set updatetime=2500
 
@@ -128,6 +128,9 @@ let g:jedi#completions_enabled = 0
 
 " deoplete
 let g:deoplete#enable_at_startup = 0
+let g:deoplete#max_list = 100
+let g:deoplete#num_processes = 2
+let g:deoplete#refresh_always = v:false
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#manual_complete()
@@ -159,6 +162,10 @@ endfunction
 let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_ctags_exclude = ["node_modules"]
 let g:gutentags_file_list_command = 'rg --files'
+
+" deoplete-jedi
+let g:deoplete#sources#jedi#ignore_errors = 1
+"let g:deoplete#sources#jedi#enable_typeinfo = 0
 
 " deoplete-ternjs
 let g:deoplete#sources#ternjs#types = 1
@@ -276,14 +283,14 @@ nnoremap <Leader>\| <Esc>:vsplit %<CR>
 nnoremap <Leader>- <Esc>:split %<CR>
 nnoremap <Leader>A <Esc>:Autoformat<CR>
 
+let g:python_host_prog  = expand('~/.pyenv/versions/neovim2/bin/python')
+let g:python3_host_prog = expand('~/.pyenv/versions/neovim3/bin/python')
 " Try to find a Python3 version that has pynvim installed
-let g:python_host_prog  = '/home/eeojun/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = '/home/eeojun/.pyenv/versions/neovim3/bin/python'
-if executable("python3")
-    let s:python3_local = substitute(system("pyenv which python3"), '\n\+$', '', '')
-    " detect whether neovim package is installed
-    let s:python3_neovim_path = substitute(system("python3 -c 'import pynvim; print(pynvim.__path__)' 2>/dev/null"), '\n\+$', '', '')
-    if !empty(s:python3_neovim_path)
-        let g:python3_host_prog = s:python3_local
-    endif
-endif
+"if executable("python3")
+"    let s:python3_local = substitute(system("pyenv which python3"), '\n\+$', '', '')
+"    " detect whether neovim package is installed
+"    let s:python3_neovim_path = substitute(system("python3 -c 'import pynvim; print(pynvim.__path__)' 2>/dev/null"), '\n\+$', '', '')
+"    if !empty(s:python3_neovim_path)
+"        let g:python3_host_prog = s:python3_local
+"    endif
+"endif

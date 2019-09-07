@@ -40,7 +40,6 @@ hc pad "$monitor" $panel_height
     # we get monitor-specific data here
     IFS=$'\t' read -ra tags <<< "$(hc tag_status "$monitor")"
     date=""
-    windowtitle=""
     network=""
     volume=""
     battery=""
@@ -70,7 +69,6 @@ hc pad "$monitor" $panel_height
             echo -n "^ca(1,herbstclient focus_monitor \"$monitor\" && herbstclient use \"${i:1}\") ${i:1} ^ca()"
         done
         echo -n "$separator"
-        echo -n "^bg()^fg() ${windowtitle//^/^^}"
         # small adjustments
         right=" $separator^ca(1, \"$HOME/.config/herbstluftwm/calendar.sh\") $date ^ca()$separator $network $separator ^fg(#909090)V:^fg()$volume $separator ^fg(#909090)B:^fg()$battery%"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
@@ -97,9 +95,6 @@ hc pad "$monitor" $panel_height
                 ;;
             battery)
                 battery=$(get_bat_info)
-                ;;
-            focus_changed|window_title_changed)
-                windowtitle="${cmd[*]:2}"
                 ;;
             quit_panel) ;&
             reload)
