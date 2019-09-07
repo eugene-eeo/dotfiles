@@ -12,11 +12,10 @@ Plug 'deoplete-plugins/deoplete-go',    { 'for': 'go' }
 Plug 'carlitux/deoplete-ternjs',        { 'for': 'javascript', 'do': 'npm install -g tern' }
 
 Plug 'neomake/neomake'
-Plug 'jaawerth/neomake-local-eslint-first'
+Plug 'jaawerth/neomake-local-eslint-first', { 'for': 'javascript' }
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
 
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'junegunn/vim-easy-align'
@@ -127,29 +126,20 @@ let g:jedi#rename_command = "<Leader>rn"
 let g:jedi#completions_enabled = 0
 
 " deoplete
-let g:deoplete#enable_at_startup = 0
+let g:deoplete#enable_at_startup = 1
 let g:deoplete#max_list = 100
 let g:deoplete#num_processes = 2
 let g:deoplete#refresh_always = v:false
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#manual_complete()
+" Actually insert a tab
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-V><Tab>"
 
-" Use <TAB> to select the popup menu:
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-V><Tab>"
-
-function! s:check_back_space() abort "{{{
+function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
-
-fun! EnableDeoplete()
-    " Only enable if we're not in gitcommit mode
-    if &ft != 'gitcommit'
-        call deoplete#enable()
-    endif
-endfun
+endfunction
 
 function g:Multiple_cursors_before()
     call deoplete#custom#buffer_option('auto_complete', v:false)
@@ -208,24 +198,12 @@ let g:grepper.operator = {}
 let g:grepper.operator.side = 1
 let g:grepper.operator.prompt = 0
 
-" ternjs/tern_for_vim
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
-
-fun! MyTernMappings()
-    nnoremap <buffer> gd :TernDef<CR>
-    nnoremap <buffer> K :TernDoc<CR>
-    nnoremap <buffer> <leader>rn :TernRename<CR>
-endfun
-
 " tabstop, softtabstop, shiftwidth
 augroup vimrc
     autocmd!
     autocmd VimEnter * call setreg('q', [])
     autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
-    autocmd InsertEnter * call EnableDeoplete()
     autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
-    autocmd Filetype javascript call MyTernMappings()
     autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
     autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
     autocmd Filetype html     setlocal ts=2 sts=2 sw=2
@@ -239,7 +217,6 @@ augroup END
 nnoremap <Leader>d <Esc>:nohl<CR>
 nnoremap <F5> <Esc>:bp<bar>bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
-nnoremap <Leader>lp <Esc>:Neomake! flake8 eslint<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
