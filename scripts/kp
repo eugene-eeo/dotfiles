@@ -5,7 +5,7 @@
 # or press [escape] to go back to the process list. Press [escape] twice to exit completely.
 
 pid=$(ps -ef | sed 1d | eval "fzf --height=40% --reverse -m --header='[kill:process]'" | awk '{print $2}')
-if [ "x$pid" != "x" ]; then
+if [ "$pid" != '' ]; then
   echo "$pid" | xargs kill "-${1:-9}"
   kp
 fi
