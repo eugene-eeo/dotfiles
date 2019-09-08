@@ -15,7 +15,7 @@ x=${geometry[0]}
 y=${geometry[1]}
 #h=${geometry[3]}
 panel_width=${geometry[2]}
-panel_height=22
+panel_height=20
 #font="Consolas:weight=bold:pixelsize=15:autohint=true"
 font="Iosevka Term:weight=bold:pixelsize=16:autohint=true"
 bgcolor='#000000'
@@ -99,7 +99,6 @@ hc pad "$monitor" $panel_height
             battery)
                 battery=$(get_bat_info)
                 ;;
-            quit_panel) ;&
             reload)
                 exit
                 ;;
