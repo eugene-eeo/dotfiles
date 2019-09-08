@@ -13,9 +13,11 @@ fi
 # geometry has the format W H X Y
 x=${geometry[0]}
 y=${geometry[1]}
+#h=${geometry[3]}
 panel_width=${geometry[2]}
-panel_height=20
-font="Consolas:weight=bold:pixelsize=15:autohint=true"
+panel_height=22
+#font="Consolas:weight=bold:pixelsize=15:autohint=true"
+font="Iosevka Term:weight=bold:pixelsize=16:autohint=true"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
 selfg='#000000'
@@ -29,6 +31,7 @@ get_bat_info() {
 }
 
 hc pad "$monitor" $panel_height
+#hc pad "$monitor" 0 0 $panel_height 0
 
 {
     echo nmcli
