@@ -16,6 +16,7 @@ hc keybind $Mod-Control-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return  spawn st
+hc keybind $Mod-Shift-Return  spawn st -e choose_tmux_session
 hc keybind $Mod-space   spawn slouch run
 hc keybind $Mod-w       spawn slouch window
 hc keybind $Mod-e       spawn slouch filter
@@ -84,13 +85,6 @@ hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-c spawn ~/.config/herbstluftwm/float-center.sh
 hc keybind $Mod-m spawn ~/.config/herbstluftwm/float-maximise.sh
 
-# swap lock_tag and unlock_tag
-hc keybind $Mod-l or \
-    . and \
-        , compare monitors.focus.lock_tag = true \
-        , unlock_tag \
-    . lock_tag
-
 # toggle layout
 hc keybind $Mod-t cycle_layout +1 vertical max grid
 
@@ -128,7 +122,6 @@ hc keybind $Mod-BackSpace cycle_monitor
 hc unrule -F
 hc rule focus=on
 hc rule title='slouch' focus=on pseudotile=on
-hc rule title='rfkill-info' manage=off focus=off
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on pseudotile=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off

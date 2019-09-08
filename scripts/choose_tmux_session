@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+fmt='#{session_id}:|#S|(#{session_attached} attached)'
+if [[ -z "$TMUX" ]] ;then
+    if choice=$(tmux list-sessions -F "$fmt" \
+            | column -t -s'|' \
+            | fzf -q '$' --reverse --prompt 'switch session: '); then
+        choice=$(echo -n "$choice" | cut -d':' -f1)
+        exec tmux attach-session -t "$choice"
+    else
+        # recycle tmux sessions here
+        ID=$( tmux ls | grep -vm1 '(attached)$' | cut -d: -f1 ) # get the id of a deattached session
+        if [[ -z "$ID" ]]; then # if not available create a new one
+            exec tmux new
+        else
+            exec tmux attach-session -t "$ID"
+        fi
+    fi
+else
+    exec tmux new base
+fi
