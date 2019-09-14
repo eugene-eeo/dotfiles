@@ -9,7 +9,7 @@ stolen from other dotfiles.
 ```sh
 $ sudo cp ./systemd/i3lock@.service /etc/systemd/system/i3lock@.service
 $ systemctl enable "i3lock@$(whoami)"
-$ make # repo -> home
+$ make all
 $ cd hc-gnome
 $ sudo make install
 ```

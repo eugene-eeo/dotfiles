@@ -31,3 +31,6 @@ reload: slouch sync
 
 push:
 	git push origin
+
+
+all: sync bins slouch
