@@ -155,15 +155,9 @@ let g:gutentags_file_list_command = 'rg --files'
 let g:deoplete#sources#jedi#ignore_errors = 1
 "let g:deoplete#sources#jedi#enable_typeinfo = 0
 
-" deoplete-ternjs
-let g:deoplete#sources#ternjs#types = 1
-let g:deoplete#sources#ternjs#docs = 1
-let g:deoplete#sources#ternjs#case_insensitive = 1
-let g:deoplete#sources#ternjs#filetypes = ['jsx', 'javascript.jsx']
-
 " fatih/vim-go
 let g:go_def_mapping_enabled = 0
-let g:go_auto_type_info = 1
+let g:go_auto_type_info = 0
 
 " justinmk/vim-sneak
 let g:sneak#label = 1
