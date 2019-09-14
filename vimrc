@@ -9,6 +9,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
 Plug 'deoplete-plugins/deoplete-go',    { 'for': 'go' }
+Plug 'deoplete-plugins/deoplete-tag'
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
@@ -74,7 +75,7 @@ set completeopt-=preview
 set completeopt+=menu,menuone,noinsert,noselect
 set pumheight=25            " Limit height to 25 at max
 set clipboard^=unnamedplus
-set updatetime=2500
+set updatetime=750
 
 set pastetoggle=<F2>
 filetype plugin indent on
@@ -153,7 +154,6 @@ let g:gutentags_file_list_command = 'rg --files'
 
 " deoplete-jedi
 let g:deoplete#sources#jedi#ignore_errors = 1
-"let g:deoplete#sources#jedi#enable_typeinfo = 0
 
 " fatih/vim-go
 let g:go_def_mapping_enabled = 0
@@ -208,7 +208,8 @@ augroup END
 " key mappings
 map <C-a> <Nop>
 nnoremap <Leader>d <Esc>:nohl<CR>
-nnoremap <F5> <Esc>:bp<bar>bd#<CR>
+"nnoremap <F5> <Esc>:bp<bar>bd#<CR>
+nnoremap <F5> <Esc>:enew \| bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
 nnoremap <Leader>r <Esc>:NeomakeFile<CR>
 nnoremap <Leader>R <Esc>:NeomakeClean<CR>
@@ -221,7 +222,7 @@ nnoremap <Space> @q
 noremap x d
 noremap X D
 nnoremap dd "_dd
-vnoremap p "_dP
+vnoremap p "_d"+P
 vnoremap d "_d
 noremap d "_d
 noremap D "_D
@@ -233,10 +234,10 @@ nnoremap <c-j> <Esc>:lprev<CR>
 nnoremap <c-k> <Esc>:lnext<CR>
 
 " mhinz/vim-grepper
-nmap <Leader>ss <Esc>:Grepper -side -tool rg -cword -noprompt<CR>
-xmap <Leader>ss <plug>(GrepperOperator)
-nnoremap <leader>/ :Grepper -tool rg<cr>
-nnoremap <leader>? :Grepper -tool rg -side<cr>
+nmap <leader>ss <Esc>:Grepper -side -cword -noprompt<CR>
+xmap <leader>ss <plug>(GrepperOperator)
+nnoremap <leader>/ :Grepper<cr>
+nnoremap <leader>? :Grepper -side<cr>
 
 " junegunn/vim-easy-align.vim
 nmap ga <Plug>(EasyAlign)
