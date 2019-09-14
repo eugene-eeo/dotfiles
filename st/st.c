@@ -44,8 +44,8 @@
 #define ISCONTROL(c)		(ISCONTROLC0(c) || ISCONTROLC1(c))
 #define ISDELIM(u)		(u && wcschr(worddelimiters, u))
 #define TLINE(y)		((y) < term.scr ? term.hist[((y) + term.histi - \
-				term.scr + HISTSIZE + 1) % HISTSIZE] : \
-				term.line[(y) - term.scr])
+			term.scr + HISTSIZE + 1) % HISTSIZE] : \
+			term.line[(y) - term.scr])
 
 enum term_mode {
 	MODE_WRAP        = 1 << 0,
@@ -1050,7 +1050,6 @@ tswapscreen(void)
 	term.mode ^= MODE_ALTSCREEN;
 	tfulldirt();
 }
-
 void
 kscrolldown(const Arg* a)
 {
@@ -1073,7 +1072,6 @@ void
 kscrollup(const Arg* a)
 {
 	int n = a->i;
-
 	if (n < 0)
 		n = term.row + n;
 
@@ -1641,9 +1639,9 @@ tsetmode(int priv, int set, int *args, int narg)
 				MODBIT(term.mode, set, MODE_CRLF);
 				break;
 			default:
-				//fprintf(stderr,
-				//	"erresc: unknown set/reset mode %d\n",
-				//	*args);
+				fprintf(stderr,
+					"erresc: unknown set/reset mode %d\n",
+					*args);
 				break;
 			}
 		}
@@ -2643,7 +2641,7 @@ draw(void)
 	drawregion(0, 0, term.col, term.row);
 	if (term.scr == 0)
 		xdrawcursor(cx, term.c.y, term.line[term.c.y][cx],
-				term.ocx, term.ocy, term.line[term.ocy][term.ocx]);
+			term.ocx, term.ocy, term.line[term.ocy][term.ocx]);
 	term.ocx = cx, term.ocy = term.c.y;
 	xfinishdraw();
 	xximspot(term.ocx, term.ocy);

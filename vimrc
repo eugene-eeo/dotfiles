@@ -9,10 +9,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
 Plug 'deoplete-plugins/deoplete-go',    { 'for': 'go' }
-Plug 'carlitux/deoplete-ternjs',        { 'for': 'javascript', 'do': 'npm install -g tern' }
 
 Plug 'neomake/neomake'
-Plug 'jaawerth/neomake-local-eslint-first', { 'for': 'javascript' }
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
@@ -214,6 +212,7 @@ augroup vimrc
 augroup END
 
 " key mappings
+map <C-a> <Nop>
 nnoremap <Leader>d <Esc>:nohl<CR>
 nnoremap <F5> <Esc>:bp<bar>bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
