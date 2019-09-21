@@ -44,14 +44,13 @@ hc keybind $Mod-Shift-Right shift right
 bindsplit() {
     hc keybind "$Mod-$1" and \
         . compare tags.focus.floating = false \
-        . split "$2" 0.5 \
-        . focus "$3"
+        . split "$2" 0.5
 }
 
-bindsplit u bottom down
-bindsplit o right right
-bindsplit Shift-u top up
-bindsplit Shift-o left left
+bindsplit u bottom
+bindsplit o right
+bindsplit Shift-u top
+bindsplit Shift-o left
 
 # resizing frames
 resizestep=0.05
