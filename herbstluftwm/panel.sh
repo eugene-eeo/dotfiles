@@ -23,11 +23,22 @@ selbg=$(hc get window_border_active_color)
 selfg='#000000'
 separator="^bg()^fg($selbg)|^fg()"
 
-get_bat_info() {
-    BATC=/sys/class/power_supply/BAT0/capacity
+get_bat_charging() {
     BATS=/sys/class/power_supply/BAT0/status
     test "$(cat $BATS)" = "Discharging" && echo -n '-' || echo -n '+'
+}
+
+get_bat_level() {
+    BATC=/sys/class/power_supply/BAT0/capacity
     cat $BATC
+}
+
+prev_bat='100'
+
+proc_bat_info() {
+    if [ "$1" -lt 20 ] && [ "$1" != "$2" ]; then
+        notify-send "Low battery: $1%" -a "bat" -u critical
+    fi
 }
 
 hc pad "$monitor" $panel_height
@@ -97,7 +108,10 @@ hc pad "$monitor" $panel_height
                 volume=$(get-volume)
                 ;;
             battery)
-                battery=$(get_bat_info)
+                bat_level=$(get_bat_level)
+                battery="$(get_bat_charging)${bat_level}"
+                proc_bat_info "$bat_level" "$prev_bat"
+                prev_bat=$bat_level
                 ;;
             reload)
                 exit
