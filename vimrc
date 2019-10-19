@@ -10,6 +10,7 @@ Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
 Plug 'deoplete-plugins/deoplete-go',    { 'for': 'go' }
 Plug 'deoplete-plugins/deoplete-tag'
+Plug 'deoplete-plugins/deoplete-clang'
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
@@ -114,15 +115,19 @@ set list
 let g:is_bash = 1
 
 " davidhalter/jedi-vim
-let g:jedi#popup_on_dot = 0
 let g:jedi#goto_command = ""
 let g:jedi#goto_assignments_command = ""
 let g:jedi#goto_definitions_command = "gd"
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = ""
-let g:jedi#completions_command = ""
 let g:jedi#rename_command = "<Leader>rn"
+let g:jedi#auto_initialization = 1
 let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#completions_command = ""
+let g:jedi#show_call_signatures = "1"
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -147,6 +152,10 @@ function g:Multiple_cursors_after()
     call deoplete#custom#buffer_option('auto_complete', v:true)
 endfunction
 
+" deoplete-clang
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-6.0/'
+
 " gutentags
 let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_ctags_exclude = ["node_modules"]
@@ -154,6 +163,7 @@ let g:gutentags_file_list_command = 'rg --files'
 
 " deoplete-jedi
 let g:deoplete#sources#jedi#ignore_errors = 1
+let g:deoplete#sources#jedi#enable_typeinfo = 0
 
 " fatih/vim-go
 let g:go_def_mapping_enabled = 0
@@ -202,7 +212,7 @@ augroup vimrc
     autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
     autocmd Filetype css      setlocal ts=2 sts=2 sw=2
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
-    autocmd Filetype c        setlocal noet ci pi sts=0 sw=4 ts=4
+    "autocmd Filetype c        setlocal noet ci pi sts=0 sw=4 ts=4
 augroup END
 
 " key mappings
