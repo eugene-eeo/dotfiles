@@ -9,7 +9,6 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
 Plug 'deoplete-plugins/deoplete-go',    { 'for': 'go' }
-Plug 'deoplete-plugins/deoplete-tag'
 Plug 'deoplete-plugins/deoplete-clang'
 
 Plug 'neomake/neomake'
@@ -164,6 +163,7 @@ let g:gutentags_file_list_command = 'rg --files'
 " deoplete-jedi
 let g:deoplete#sources#jedi#ignore_errors = 1
 let g:deoplete#sources#jedi#enable_typeinfo = 0
+let g:deoplete#sources#jedi#python_path = "python"
 
 " fatih/vim-go
 let g:go_def_mapping_enabled = 0

@@ -37,7 +37,7 @@ prev_bat='100'
 
 proc_bat_info() {
     if [ "$1" -lt 20 ] && [ "$1" != "$2" ]; then
-        notify-send "Low battery: $1%" -a "bat" -u critical
+        notify-send "critical: $1%" -a "bat" -u critical
     fi
 }
 
