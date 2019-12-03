@@ -8,12 +8,12 @@ Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
-Plug 'deoplete-plugins/deoplete-go',    { 'for': 'go' }
+Plug 'deoplete-plugins/deoplete-go',    { 'for': 'go', 'do': 'make' }
 Plug 'deoplete-plugins/deoplete-clang'
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
-Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'fatih/vim-go', { 'tag': 'v1.21' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
@@ -133,6 +133,9 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#max_list = 100
 let g:deoplete#num_processes = 2
 let g:deoplete#refresh_always = v:false
+ call deoplete#custom#option('omni_patterns', {
+ \ 'go': '[^. *\t]\.\w*',
+ \})
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#manual_complete()

@@ -55,11 +55,6 @@ mux() {
     tmux attach -t "$session" || tmux new -s "$session"
 }
 
-bpython() {
-    PYTHONPATH="$(python -c 'import sys; print(":".join(sys.path))')" \
-    command bpython "$@"
-}
-
 eval "$(pyenv init -)"
 
 # enable bash completion in interactive shells
