@@ -133,9 +133,9 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#max_list = 100
 let g:deoplete#num_processes = 2
 let g:deoplete#refresh_always = v:false
- call deoplete#custom#option('omni_patterns', {
- \ 'go': '[^. *\t]\.\w*',
- \})
+call deoplete#custom#option('omni_patterns', {
+\ 'go': '[^. *\t]\.\w*',
+\})
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#manual_complete()
