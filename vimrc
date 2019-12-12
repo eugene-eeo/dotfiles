@@ -23,6 +23,7 @@ Plug 'tpope/vim-commentary'
 Plug 'rstacruz/vim-closer'
 Plug 'wellle/targets.vim'
 
+Plug 'ollykel/v-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'
