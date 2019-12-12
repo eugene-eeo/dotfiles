@@ -68,4 +68,3 @@ fi
 
 # source fzf if it exists
 [ -s "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"
-[ -s "$HOME/.gvm/scripts/gvm" ] && \. "$HOME/.gvm/scripts/gvm"
