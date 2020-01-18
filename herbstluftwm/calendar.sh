@@ -2,7 +2,7 @@
 #
 # pop-up calendar for dzen
 
-width=220
+width=240
 monitor=( $(herbstclient list_monitors \
     | grep '\[FOCUS\]$' \
     | cut -d' ' -f2 \
@@ -25,4 +25,4 @@ today=$(( "10#$(date +'%d')" + 0))
     | dzen2 -p 60 -x $x -y "$(( padding[0] * 2 ))" -w $width -l 8 -sa c \
             -e 'onstart=uncollapse;button1=exit' \
             -fg '#EEEEEE' -bg '#111111' \
-            -fn 'Iosevka Term:weight=bold:pixelsize=18'
+            -fn 'Consolas:weight=bold:pixelsize=18'

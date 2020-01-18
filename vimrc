@@ -8,12 +8,11 @@ Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
-Plug 'deoplete-plugins/deoplete-go',    { 'for': 'go', 'do': 'make' }
 Plug 'deoplete-plugins/deoplete-clang'
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
-Plug 'fatih/vim-go', { 'tag': 'v1.21' }
+Plug 'fatih/vim-go'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
@@ -133,10 +132,7 @@ let g:jedi#show_call_signatures = "1"
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#max_list = 100
 let g:deoplete#num_processes = 2
-let g:deoplete#refresh_always = v:false
-call deoplete#custom#option('omni_patterns', {
-\ 'go': '[^. *\t]\.\w*',
-\})
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#manual_complete()
@@ -156,8 +152,8 @@ function g:Multiple_cursors_after()
 endfunction
 
 " deoplete-clang
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-6.0/'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-8/lib/libclang.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-8/'
 
 " gutentags
 let g:gutentags_cache_dir = expand('~/.cache/tags')
@@ -216,7 +212,8 @@ augroup vimrc
     autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
     autocmd Filetype css      setlocal ts=2 sts=2 sw=2
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
-    "autocmd Filetype c        setlocal noet ci pi sts=0 sw=4 ts=4
+    " autocmd Filetype c        setlocal sts=0 sw=2 ts=2
+    " autocmd BufNewFile,BufRead *.c   set ft=cpp
 augroup END
 
 " key mappings
