@@ -22,7 +22,6 @@ Plug 'tpope/vim-commentary'
 Plug 'rstacruz/vim-closer'
 Plug 'wellle/targets.vim'
 
-Plug 'ollykel/v-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'
@@ -69,6 +68,7 @@ set nofoldenable
 set hidden
 set splitright
 set matchtime=0
+set cinkeys-=0#             " don't put line in col 1 when it starts with '#'
 
 set shortmess+=c
 set completeopt-=preview
@@ -92,6 +92,7 @@ hi DiffDelete   ctermbg=232 ctermfg=196
 hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
 hi Comment      ctermbg=none
 hi link NeomakeVirtualtextWarning MoreMsg
+hi link cPreCondit mailQuoted2
 
 set grepprg=ag\ --nogroup\ --nocolor
 
