@@ -5,6 +5,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegu
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'jaredgorski/fogbell.vim'
 
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
