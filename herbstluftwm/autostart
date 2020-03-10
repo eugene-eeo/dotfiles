@@ -84,6 +84,9 @@ hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-c spawn ~/.config/herbstluftwm/float-center.sh
 hc keybind $Mod-m spawn ~/.config/herbstluftwm/float-maximise.sh
 
+# ibus
+hc keybind Alt-grave spawn ~/.config/herbstluftwm/ibus-switch.sh
+
 # toggle layout
 hc keybind $Mod-t cycle_layout +1 vertical max grid
 

@@ -48,6 +48,7 @@ hc pad "$monitor" $panel_height
     echo nmcli
     echo pactl
     echo battery
+    echo ibus
     date +'date	%H:%M ^fg(#909090)%a %d %b'
     timeout 1 sh -c 'until nc -z localhost 9900; do sleep 0.01; done' && cat < /dev/tcp/localhost/9900
 } 2> /dev/null | {
@@ -57,6 +58,7 @@ hc pad "$monitor" $panel_height
     network=""
     volume=""
     battery=""
+    ibus=""
     while true ; do
         # draw tags
         for i in "${tags[@]}" ; do
@@ -84,7 +86,7 @@ hc pad "$monitor" $panel_height
         done
         echo -n "$separator"
         # small adjustments
-        right=" $separator^ca(1, \"$HOME/.config/herbstluftwm/calendar.sh\") $date ^ca()$separator $network $separator ^fg(#909090)V:^fg()$volume $separator ^fg(#909090)B:^fg()$battery%"
+        right=" $separator $ibus $separator^ca(1, \"$HOME/.config/herbstluftwm/calendar.sh\") $date ^ca()$separator $network $separator ^fg(#909090)V:^fg()$volume $separator ^fg(#909090)B:^fg()$battery%"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
         width=$(xftwidth "$font" "$right_text_only  ")
@@ -97,6 +99,13 @@ hc pad "$monitor" $panel_height
         case "${cmd[0]}" in
             tag*)
                 IFS=$'\t' read -ra tags <<< "$(hc tag_status "$monitor")"
+                ;;
+            ibus)
+                ibus=$(ibus engine)
+                # case "$(ibus engine)" in
+                #     'pinyin')  ibus="zh" ;;
+                #     *)         ibus="en" ;;
+                # esac
                 ;;
             date)
                 date="${cmd[*]:1}"
