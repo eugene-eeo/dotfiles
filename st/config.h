@@ -7,7 +7,8 @@
  */
 static char *font = "Consolas:pixelsize=17:antialias=true:autohint=true";
 //static char *font = "Hack:pixelsize=15:autohint=true:antialias=true";
-//static char *font = "Iosevka Term:pixelsize=18:autohint=true:antialias=true";
+//static char *font = "Camingo Code:pixelsize=15:autohint=true:antialias=true";
+/* static char *font = "Iosevka Term:pixelsize=18:autohint=true:antialias=true"; */
 static int borderpx = 2;
 
 /*

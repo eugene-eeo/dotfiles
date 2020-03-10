@@ -153,4 +153,5 @@ if hc silent new_attr bool my_not_first_autostart ; then
     gnome-keyring-daemon -rd
     st -e gnome_hc_startup
     pdetach compton
+    pdetach ibus-daemon
 fi
