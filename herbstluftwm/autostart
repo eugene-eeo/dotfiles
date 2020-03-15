@@ -85,7 +85,9 @@ hc keybind $Mod-c spawn ~/.config/herbstluftwm/float-center.sh
 hc keybind $Mod-m spawn ~/.config/herbstluftwm/float-maximise.sh
 
 # ibus
-hc keybind Alt-grave spawn ~/.config/herbstluftwm/ibus-switch.sh
+# Really hacky: just intercept the keypress for input method
+# switching, and switch it manually
+hc keybind Alt-grave spawn ibus-switch
 
 # toggle layout
 hc keybind $Mod-t cycle_layout +1 vertical max grid

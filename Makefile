@@ -20,6 +20,7 @@ bins:
 	cd st && make DESTDIR=~/.scripts/ clean install
 	cd xftwidth && make && cp xftwidth ~/.scripts
 	cd get-volume && make
+	cd ibus-switch && make
 
 slouch:
 	touch ~/.config/slouch/hooks
