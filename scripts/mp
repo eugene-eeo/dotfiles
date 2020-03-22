@@ -1,4 +1,0 @@
-#!/bin/bash
-
-cd ~/Music
-pdetach st -f 'Iosevka:pixelsize=16:autohint=true' -t 'orchid' -a -g '51x8' -e orchid

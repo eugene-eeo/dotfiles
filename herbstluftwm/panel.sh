@@ -101,7 +101,6 @@ hc pad "$monitor" $panel_height
                 IFS=$'\t' read -ra tags <<< "$(hc tag_status "$monitor")"
                 ;;
             ibus)
-                # ibus=$(ibus engine)
                 case "$(ibus engine)" in
                     'pinyin')  ibus="zh" ;;
                     *)         ibus="en" ;;
