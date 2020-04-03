@@ -6,7 +6,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'arzg/vim-colors-xcode'
-Plug 'huyvohcmc/atlas.vim'
 
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
@@ -29,6 +28,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'othree/html5.vim'
 Plug 'vim-python/python-syntax'
 Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 call plug#end()
 
 set backspace=2
@@ -215,6 +215,7 @@ augroup vimrc
     autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
     autocmd Filetype css      setlocal ts=2 sts=2 sw=2
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
+    autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
     " autocmd Filetype c        setlocal sts=0 sw=2 ts=2
     " autocmd BufNewFile,BufRead *.c   set ft=cpp
 augroup END
