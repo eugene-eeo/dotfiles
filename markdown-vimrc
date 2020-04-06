@@ -1,32 +1,17 @@
 call plug#begin('~/.vim/plugged')
-Plug 'sjl/badwolf'
 Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'arzg/vim-colors-xcode'
 
-Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
-Plug 'deoplete-plugins/deoplete-clang', { 'for': ['c','cpp'] }
-
-Plug 'neomake/neomake'
-Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
-Plug 'fatih/vim-go',         { 'for': 'go' }
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'rstacruz/vim-closer'
 Plug 'wellle/targets.vim'
-
-Plug 'hail2u/vim-css3-syntax',  {'for': 'css'}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'othree/html5.vim',        {'for': 'html'}
-Plug 'vim-python/python-syntax'
 Plug 'vim-pandoc/vim-pandoc-syntax', {'for': 'markdown.pandoc'}
 call plug#end()
 
@@ -43,7 +28,7 @@ set ignorecase              " ignore case when searching
 set hlsearch                " highlight searches
 set noshowmode              " don't show -- INSERT --
 
-set showmatch               " show matching brackets
+let g:loaded_matchparen=1
 set laststatus=2
 set ttyfast
 set lazyredraw
@@ -65,7 +50,6 @@ set shiftwidth=4            " 1 tab == 4 spaces
 set tabstop=4
 set autoindent
 set smartindent
-set nowrap
 set nofoldenable
 set hidden
 set splitright
@@ -77,30 +61,16 @@ set completeopt-=preview
 set completeopt+=menu,menuone,noinsert,noselect
 set pumheight=25            " Limit height to 25 at max
 set clipboard^=unnamedplus
-set updatetime=750
+set updatetime=1000
 
 set pastetoggle=<F2>
 filetype plugin indent on
-syntax enable
+syntax on
 
 set background=dark
-colo goodwolf
-hi NonText      ctermbg=none
-hi Normal       ctermbg=none
-hi LineNr       ctermbg=232 ctermfg=239
-hi DiffChange   ctermbg=232 ctermfg=220
-hi DiffAdd      ctermbg=232 ctermfg=64
-hi DiffDelete   ctermbg=232 ctermfg=196
-hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
-hi Comment      ctermbg=none
-hi link NeomakeVirtualtextWarning MoreMsg
-hi link cPreCondit mailQuoted2
+colo xcodedarkhc
 
 set grepprg=ag\ --nogroup\ --nocolor
-
-" Statusline
-hi Statusline   ctermbg=234 ctermfg=255 cterm=bold
-hi StatuslineNC ctermbg=234 ctermfg=243
 
 set statusline=
 set statusline+=%f
@@ -116,26 +86,10 @@ set list
 
 let g:is_bash = 1
 
-" davidhalter/jedi-vim
-let g:jedi#goto_command = ""
-let g:jedi#goto_assignments_command = ""
-let g:jedi#goto_definitions_command = "gd"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = ""
-let g:jedi#rename_command = "<Leader>rn"
-let g:jedi#auto_initialization = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#smart_auto_mappings = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = ""
-let g:jedi#show_call_signatures = "1"
-
 " deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#max_list = 100
-let g:deoplete#num_processes = 2
-call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+let g:deoplete#num_processes = 1
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#manual_complete()
@@ -154,44 +108,8 @@ function g:Multiple_cursors_after()
     call deoplete#custom#buffer_option('auto_complete', v:true)
 endfunction
 
-" deoplete-clang
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-8/lib/libclang.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-8/'
-
-" gutentags
-let g:gutentags_cache_dir = expand('~/.cache/tags')
-let g:gutentags_ctags_exclude = ["node_modules"]
-let g:gutentags_file_list_command = 'rg --files'
-
-" deoplete-jedi
-let g:deoplete#sources#jedi#ignore_errors = 1
-let g:deoplete#sources#jedi#enable_typeinfo = 0
-let g:deoplete#sources#jedi#python_path = "python"
-
-" fatih/vim-go
-let g:go_def_mapping_enabled = 0
-let g:go_auto_type_info = 0
-
 " justinmk/vim-sneak
 let g:sneak#label = 1
-
-" vim-python/python-syntax
-let g:python_highlight_all = 1
-
-" airblade/vim-gitgutter
-let g:gitgutter_map_keys=0
-
-" neomake/neomake
-let g:neomake_open_list = 2
-let g:neomake_python_enabled_makers = ['flake8']
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_javascript_eslint_cwd = $PWD
-let g:neomake_error_sign   = {'text': '◆', 'texthl': 'DiffDelete'}
-let g:neomake_warning_sign = {'text': '◆', 'texthl': 'DiffChange'}
-call neomake#configure#automake('w', 1000)
-
-" autoformat
-let g:formatters_python = ['autopep8']
 
 " sjl/gundo.vim
 let g:gundo_right = 1
@@ -209,19 +127,12 @@ augroup vimrc
     autocmd VimEnter * call setreg('q', [])
     autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
     autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
-    autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
     autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
-    autocmd Filetype html     setlocal ts=2 sts=2 sw=2
-    autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
-    autocmd Filetype css      setlocal ts=2 sts=2 sw=2
-    autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
     autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-    " autocmd Filetype c        setlocal sts=0 sw=2 ts=2
-    " autocmd BufNewFile,BufRead *.c   set ft=cpp
 augroup END
 
 " pandoc
-let g:pandoc#syntax#conceal#use = 0
+let g:pandoc#syntax#conceal#use = 1
 let g:pandoc#syntax#style#use_definition_lists = 0
 
 " key mappings
@@ -229,8 +140,6 @@ map <C-a> <Nop>
 nnoremap <Leader>d <Esc>:nohl<CR>
 nnoremap <F5> <Esc>:bp<bar>bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
-nnoremap <Leader>r <Esc>:NeomakeFile<CR>
-nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
 nnoremap <leader>m <Esc>:GitGutterNextHunk<CR>
 nnoremap <leader>n <Esc>:GitGutterPrevHunk<CR>
@@ -270,16 +179,6 @@ nnoremap <C-Space> <ESC>:Tags<CR>
 
 nnoremap <Leader>\| <Esc>:vsplit %<CR>
 nnoremap <Leader>- <Esc>:split %<CR>
-nnoremap <Leader>A <Esc>:Autoformat<CR>
 
 let g:python_host_prog  = expand('~/.pyenv/versions/neovim2/bin/python')
 let g:python3_host_prog = expand('~/.pyenv/versions/neovim3/bin/python')
-" Try to find a Python3 version that has pynvim installed
-"if executable("python3")
-"    let s:python3_local = substitute(system("pyenv which python3"), '\n\+$', '', '')
-"    " detect whether neovim package is installed
-"    let s:python3_neovim_path = substitute(system("python3 -c 'import pynvim; print(pynvim.__path__)' 2>/dev/null"), '\n\+$', '', '')
-"    if !empty(s:python3_neovim_path)
-"        let g:python3_host_prog = s:python3_local
-"    endif
-"endif
