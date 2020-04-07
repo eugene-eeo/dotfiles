@@ -16,8 +16,8 @@ y=${geometry[1]}
 #h=${geometry[3]}
 panel_width=${geometry[2]}
 panel_height=20
-font="Consolas:weight=bold:pixelsize=15:autohint=true"
-#font="SF Mono:weight=heavy:pixelsize=13:autohint=true"
+#font="Consolas:weight=bold:pixelsize=15:autohint=true"
+font="Hack:weight=semibold:pixelsize=14:autohint=true:antialias=true"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
 selfg='#000000'
@@ -37,7 +37,7 @@ prev_bat='100'
 
 proc_bat_info() {
     if [ "$1" -lt 20 ] && [ "$1" != "$2" ]; then
-        notify-send "critical: $1%" -a "bat" -u critical
+        notify-send "battery: $1%" -a "bat" -u critical
     fi
 }
 

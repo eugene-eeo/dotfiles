@@ -1,10 +1,12 @@
 call plug#begin('~/.vim/plugged')
+Plug 'sjl/badwolf'
 Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
-Plug 'arzg/vim-colors-xcode'
+Plug 'Lokaltog/vim-monotone'
 
+Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'junegunn/vim-easy-align'
@@ -65,12 +67,26 @@ set updatetime=1000
 
 set pastetoggle=<F2>
 filetype plugin indent on
-syntax on
+syntax off
 
 set background=dark
-colo xcodedarkhc
+colo goodwolf
+hi NonText      ctermbg=none
+hi Normal       ctermbg=none
+hi LineNr       ctermbg=232 ctermfg=239
+hi DiffChange   ctermbg=232 ctermfg=220
+hi DiffAdd      ctermbg=232 ctermfg=64
+hi DiffDelete   ctermbg=232 ctermfg=196
+hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
+hi Comment      ctermbg=none
+hi link NeomakeVirtualtextWarning MoreMsg
+hi link cPreCondit mailQuoted2
 
 set grepprg=ag\ --nogroup\ --nocolor
+
+" Statusline
+hi Statusline   ctermbg=234 ctermfg=255 cterm=bold
+hi StatuslineNC ctermbg=234 ctermfg=243
 
 set statusline=
 set statusline+=%f
@@ -155,6 +171,14 @@ noremap d "_d
 noremap D "_D
 noremap c "_c
 noremap C "_C
+
+" neosnippet
+let g:neosnippet#disable_runtime_snippets = {'_':1}
+let g:neosnippet#snippets_directory = "/home/eeojun/code/dotfiles/snippets/"
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+set conceallevel=2
 
 " loclist and quickfix
 nnoremap <c-j> <Esc>:lprev<CR>

@@ -6,10 +6,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'arzg/vim-colors-xcode'
+Plug 'Lokaltog/vim-monotone'
 
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
-Plug 'deoplete-plugins/deoplete-clang', { 'for': ['c','cpp'] }
+Plug 'deoplete-plugins/deoplete-clang'
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
@@ -155,7 +156,7 @@ function g:Multiple_cursors_after()
 endfunction
 
 " deoplete-clang
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-8/lib/libclang.so.1'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-8/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-8/'
 
 " gutentags
