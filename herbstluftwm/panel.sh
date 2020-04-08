@@ -13,10 +13,9 @@ fi
 # geometry has the format W H X Y
 x=${geometry[0]}
 y=${geometry[1]}
-#h=${geometry[3]}
 panel_width=${geometry[2]}
 panel_height=20
-font="Hack:weight=semibold:pixelsize=14"
+font="Hack:weight=bold:pixelsize=14:autohint=true:antialias=true"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
 selfg='#000000'
@@ -106,10 +105,10 @@ hc pad "$monitor" $panel_height
                 date="${cmd[*]:1}"
                 ;;
             nmcli)
-                network=$(iwgetid -r)
+                network="$(iwgetid -r)"
                 ;;
             pactl)
-                volume="$(get-volume)%"
+                volume="$(get-volume)"
                 ;;
             battery)
                 bat_level=$(get_bat_level)
