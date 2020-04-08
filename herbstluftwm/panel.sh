@@ -81,7 +81,7 @@ hc pad "$monitor" $panel_height
                     echo -n "%{B-}%{F#666666}"
                     ;;
             esac
-            echo -n "%{A:herbstclient use \"${i:1}\":} ${i:1} %{A}"
+            echo -n "%{A:herbstclient focus_monitor \"$monitor\" && herbstclient use \"${i:1}\":} ${i:1} %{A}"
         done
         echo -n "$separator"
         # small adjustments
