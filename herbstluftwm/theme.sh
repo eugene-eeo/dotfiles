@@ -14,7 +14,7 @@ hc set frame_border_width 0
 hc set always_show_frame 1
 hc set frame_bg_transparent 1
 hc set frame_transparent_width 3
-hc set frame_gap 0
+hc set frame_gap 2
 
 hc attr theme.active.color '#cccccc'
 hc attr theme.normal.color '#454545'
@@ -29,5 +29,5 @@ hc attr theme.background_color '#141414'
 hc set window_gap 0
 hc set frame_padding 0
 hc set smart_window_surroundings 0
-hc set smart_frame_surroundings 0
+hc set smart_frame_surroundings 1
 hc set mouse_recenter_gap 50

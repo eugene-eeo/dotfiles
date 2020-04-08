@@ -5,7 +5,7 @@ hc() {
 }
 
 monitor=${1:-0}
-geometry=( $(herbstclient monitor_rect "$monitor") )
+IFS=" " read -r -a geometry <<< "$(hc monitor_rect "$monitor")"
 if [ -z "${geometry[0]}" ]; then
     echo "Invalid monitor $monitor"
     exit 1
@@ -16,12 +16,11 @@ y=${geometry[1]}
 #h=${geometry[3]}
 panel_width=${geometry[2]}
 panel_height=20
-#font="Consolas:weight=bold:pixelsize=15:autohint=true"
-font="Hack:weight=semibold:pixelsize=14:autohint=true:antialias=true"
+font="Hack:weight=semibold:pixelsize=14"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
 selfg='#000000'
-separator="^bg()^fg($selbg)|^fg()"
+separator="%{B-}%{F$selbg}|%{F-}"
 
 get_bat_charging() {
     BATS=/sys/class/power_supply/BAT0/status
@@ -49,7 +48,7 @@ hc pad "$monitor" $panel_height
     echo pactl
     echo battery
     echo ibus
-    date +'date	%H:%M ^fg(#909090)%a %d %b'
+    date +'date	%H:%M %%{F#909090}%a %d %b'
     timeout 1 sh -c 'until nc -z localhost 9900; do sleep 0.01; done' && cat < /dev/tcp/localhost/9900
 } 2> /dev/null | {
     # we get monitor-specific data here
@@ -64,33 +63,30 @@ hc pad "$monitor" $panel_height
         for i in "${tags[@]}" ; do
             case ${i:0:1} in
                 '#')
-                    echo -n "^bg($selbg)^fg($selfg)"
+                    echo -n "%{B$selbg}%{F$selfg}"
                     ;;
                 '+')
-                    echo -n "^bg(#888888)^fg(#141414)"
+                    echo -n "%{B#888888}%{F#141414}"
                     ;;
                 ':')
-                    echo -n "^bg()^fg(#ffffff)"
+                    echo -n "%{B-}%{F#ffffff}"
                     ;;
                 '!')
-                    echo -n "^bg(orange)^fg(#141414)"
+                    echo -n "%{B#FFA500}%{F#141414}"
                     ;;
                 '-')
-                    echo -n "^bg(#444444)^fg(#FFFFFF)"
+                    echo -n "%{B#444444}%{F#FFFFFF}"
                     ;;
                 *)
-                    echo -n "^bg()^fg(#666666)"
+                    echo -n "%{B-}%{F#666666}"
                     ;;
             esac
-            echo -n "^ca(1,herbstclient focus_monitor \"$monitor\" && herbstclient use \"${i:1}\") ${i:1} ^ca()"
+            echo -n "%{A:herbstclient use \"${i:1}\":} ${i:1} %{A}"
         done
         echo -n "$separator"
         # small adjustments
-        right=" $separator $ibus $separator^ca(1, \"$HOME/.config/herbstluftwm/calendar.sh\") $date ^ca()$separator $network $separator ^fg(#909090)V:^fg()$volume $separator ^fg(#909090)B:^fg()$battery%"
-        right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
-        # get width of right aligned text.. and add some space..
-        width=$(xftwidth "$font" "$right_text_only  ")
-        echo -n "^p(_RIGHT)^p(-$width)$right"
+        right="$separator $ibus $separator%{A:\"$HOME/.config/herbstluftwm/calendar.sh\":} $date %{A}$separator $network $separator %{F#909090}V:%{F-}$volume $separator %{F#909090}B:%{F-}${battery}%"
+        echo -n "%{r}$right"
         echo
 
         # wait for next event
@@ -113,7 +109,7 @@ hc pad "$monitor" $panel_height
                 network=$(iwgetid -r)
                 ;;
             pactl)
-                volume=$(get-volume)
+                volume="$(get-volume)%"
                 ;;
             battery)
                 bat_level=$(get_bat_level)
@@ -126,7 +122,9 @@ hc pad "$monitor" $panel_height
                 ;;
         esac
     done
-} 2> /dev/null | dzen2 -w "$panel_width" -x "$x" -y "$y" -h $panel_height \
-    -ta l -bg "$bgcolor" -fg '#efefef' \
-    -e 'button3=' \
-    -fn "$font"
+} 2> /dev/null | lemonbar \
+    -g "${panel_width}x${panel_height}+${x}+${y}" \
+    -f "${font}" \
+    -B "${bgcolor}" \
+    -F '#ffffff' \
+    -u 0 | bash
