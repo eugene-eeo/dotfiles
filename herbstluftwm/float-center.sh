@@ -16,12 +16,12 @@ main() {
     if [ "$winid" = '' ]; then
         return
     fi
-    monitor=( $(hc monitor_rect -p "") )
+    monitor=( $(hc monitor_rect) )
     geometry=( $(get_window_geometry "$winid") )
-    x=$(( (monitor[2] - geometry[0]) / 2 ))
+    x=$(( monitor[0] + (monitor[2] - geometry[0]) / 2 ))
     # For some weird reason, monitor[1] + borderwidth causes the window to
     # move by +the padded amount, incorrectly.
-    y=$(( (monitor[3] - geometry[1]) / 2 ))
+    y=$(( monitor[1] + (monitor[3] - geometry[1]) / 2 ))
     xdotool windowmove "$winid" "$x" "$y"
 }
 
