@@ -23,6 +23,7 @@ hc keybind $Mod-e       spawn slouch filter
 hc keybind $Mod-Shift-space   spawn slouch drun
 hc keybind $Mod-Shift-p       spawn ~/.config/herbstluftwm/open-latest-scrot.sh
 hc keybind $Mod-x       spawn xkill
+# hc keybind $Mod-i       spawn ~/.config/herbstluftwm/info.sh
 
 # locking
 hc keybind $Mod-Shift-l spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
@@ -69,8 +70,8 @@ for i in "${!tag_names[@]}" ; do
     hc add "${tag_names[$i]}"
     key="${tag_keys[$i]}"
     if ! [ -z "$key" ] ; then
-        hc keybind "$Mod-$key" use_index "$i"
-        hc keybind "$Mod-Shift-$key" move_index "$i"
+        hc keybind "$Mod-$key"       use_index "$i" #chain , use_index "$i"  , spawn ~/.config/herbstluftwm/tags.sh
+        hc keybind "$Mod-Shift-$key" move_index "$i" #chain , move_index "$i" , spawn ~/.config/herbstluftwm/tags.sh
     fi
 done
 
@@ -127,7 +128,7 @@ hc keybind $Mod-BackSpace cycle_monitor
 hc unrule -F
 hc rule focus=on
 hc rule title='slouch' focus=on pseudotile=on
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=off
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on # manage=off
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on pseudotile=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
@@ -146,8 +147,9 @@ hc set tree_style '╾│ ├└╼─┐'
 hc detect_monitors
 
 # panel things
-killall hydra
+killall hydra # hydra_listener
 pdetach hydra
+# pdetach hydra_listener
 for monitor in $(hc list_monitors | cut -d: -f1) ; do
     # start panel on each monitor
     ~/.config/herbstluftwm/panel.sh "$monitor" &

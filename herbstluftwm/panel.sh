@@ -10,7 +10,7 @@ if [ -z "${geometry[0]}" ]; then
     echo "Invalid monitor $monitor"
     exit 1
 fi
-# geometry has the format W H X Y
+# geometry has the format X Y W H
 x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
@@ -43,12 +43,13 @@ hc pad "$monitor" $panel_height
 #hc pad "$monitor" 0 0 $panel_height 0
 
 {
+    date +'date	%H:%M %%{F#909090}%a %d %b'
+    echo ibus
     echo nmcli
     echo pactl
     echo battery
-    echo ibus
-    date +'date	%H:%M %%{F#909090}%a %d %b'
-    timeout 1 sh -c 'until nc -z localhost 9900; do sleep 0.01; done' && cat < /dev/tcp/localhost/9900
+    echo
+    hydra-head
 } 2> /dev/null | {
     # we get monitor-specific data here
     IFS=$'\t' read -ra tags <<< "$(hc tag_status "$monitor")"
@@ -105,7 +106,7 @@ hc pad "$monitor" $panel_height
                 date="${cmd[*]:1}"
                 ;;
             nmcli)
-                network="$(iwgetid -r)"
+                network="$(iwgetid --raw)"
                 ;;
             pactl)
                 volume="$(get-volume)"
