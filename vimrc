@@ -273,8 +273,8 @@ nnoremap <Leader>\| <Esc>:vsplit %<CR>
 nnoremap <Leader>- <Esc>:split %<CR>
 nnoremap <Leader>A <Esc>:Autoformat<CR>
 
-let g:python_host_prog  = expand('~/.pyenv/versions/neovim2/bin/python')
-let g:python3_host_prog = expand('~/.pyenv/versions/neovim3/bin/python')
+let g:python_host_prog  = expand('~/.pyenv/versions/neovim2.7.17/bin/python')
+let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.8.2/bin/python')
 " Try to find a Python3 version that has pynvim installed
 "if executable("python3")
 "    let s:python3_local = substitute(system("pyenv which python3"), '\n\+$', '', '')
