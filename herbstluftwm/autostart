@@ -98,8 +98,8 @@ hc keybind $Mod-t cycle_layout +1 vertical max grid
 # if we are in a gnome-flashback session then these are handled
 # by gnome-flashback. Otherwise we have to handle them ourselves:
 [ "$XDG_SESSION_DESKTOP" = 'herbstluftwm' ] && {
-    hc keybind XF86MonBrightnessUp   spawn ~/.config/herbstluftwm/brightness.sh +
-    hc keybind XF86MonBrightnessDown spawn ~/.config/herbstluftwm/brightness.sh -
+    hc keybind XF86MonBrightnessUp   spawn xbacklight + 10
+    hc keybind XF86MonBrightnessDown spawn xbacklight - 10
     hc keybind XF86AudioRaiseVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ +2%
     hc keybind XF86AudioLowerVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ -2%
     hc keybind XF86AudioMute         spawn pactl set-sink-mute @DEFAULT_SINK@ toggle

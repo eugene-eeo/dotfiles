@@ -19,7 +19,7 @@ GREEN="\\[$(tput setaf 2)\\]"
 RED="\\[$(tput setaf 4)\\]"
 
 export PROMPT_DIRTRIM=3
-export PS1=" \w\$(vcprompt -f '${RED}(%b${GREEN}%m${RED})')${RESET} ${RED}\$ ${RESET}"
+export PS1=" \\w\$(vcprompt -f '${RED}(%b${GREEN}%m${RED})')${RESET} ${RED}\$ ${RESET}"
 export PS2=" ${DIM}>${RESET} "
 #export PROMPT_COMMAND='echo -ne "\033]0;[st] ${USER}: $PWD\007"'
 
