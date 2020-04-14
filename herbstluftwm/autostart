@@ -92,7 +92,7 @@ hc keybind $Mod-m spawn ~/.config/herbstluftwm/float-maximise.sh
 hc keybind Alt-grave spawn ibus-switch
 
 # toggle layout
-hc keybind $Mod-t cycle_layout +1 vertical max grid
+# hc keybind $Mod-t cycle_layout +1 vertical max grid
 
 # proprietary bindings
 # if we are in a gnome-flashback session then these are handled
