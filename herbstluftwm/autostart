@@ -85,6 +85,11 @@ hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-c spawn ~/.config/herbstluftwm/float-center.sh
 hc keybind $Mod-m spawn ~/.config/herbstluftwm/float-maximise.sh
+# toggle clients.focus.floating attribute
+hc keybind $Mod-Shift-s or , \
+    and + compare clients.focus.floating = true \
+        + attr clients.focus.floating false \
+    , attr clients.focus.floating true
 
 # ibus
 # Really hacky: just intercept the keypress for input method
@@ -128,7 +133,7 @@ hc keybind $Mod-BackSpace cycle_monitor
 hc unrule -F
 hc rule focus=on
 hc rule title='slouch' focus=on pseudotile=on
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on # manage=off
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on # manage=off floating=true
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on pseudotile=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
