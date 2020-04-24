@@ -155,8 +155,8 @@ function g:Multiple_cursors_after()
 endfunction
 
 " deoplete-clang
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-8/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-8/'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-9/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-9/'
 
 " gutentags
 let g:gutentags_cache_dir = expand('~/.cache/tags')
