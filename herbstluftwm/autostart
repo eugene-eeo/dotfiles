@@ -69,7 +69,7 @@ hc rename default "${tag_names[0]}" || true
 for i in "${!tag_names[@]}" ; do
     hc add "${tag_names[$i]}"
     key="${tag_keys[$i]}"
-    if ! [ -z "$key" ] ; then
+    if [ -n "$key" ] ; then
         hc keybind "$Mod-$key"       use_index "$i" #chain , use_index "$i"  , spawn ~/.config/herbstluftwm/tags.sh
         hc keybind "$Mod-Shift-$key" move_index "$i" #chain , move_index "$i" , spawn ~/.config/herbstluftwm/tags.sh
     fi
@@ -141,10 +141,10 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 ~/.config/herbstluftwm/theme.sh
 hc set snap_distance 10
 hc set snap_gap 0
-hc set raise_on_focus 1
-hc set raise_on_click 1
-hc set auto_detect_monitors 1
-hc set focus_follows_mouse 0
+hc set raise_on_focus 1 #true
+hc set raise_on_click 1 #true
+hc set auto_detect_monitors 1 #true
+hc set focus_follows_mouse 0 #false
 
 # unlock, just to be sure
 hc unlock

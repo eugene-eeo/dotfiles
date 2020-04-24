@@ -4,7 +4,7 @@ Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
-Plug 'Lokaltog/vim-monotone'
+Plug 'arzg/vim-colors-xcode'
 
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -57,6 +57,7 @@ set hidden
 set splitright
 set matchtime=0
 set cinkeys-=0#             " don't put line in col 1 when it starts with '#'
+set nowrap
 
 set shortmess+=c
 set completeopt-=preview
