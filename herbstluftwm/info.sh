@@ -16,8 +16,6 @@ height="200"
 x=$((monitor[2] + monitor[0]/2 - width/2))
 y=$((monitor[3] + monitor[1]/2 - height/2))
 
-echo "${width}x$height+$x+$y"
-
 get_bat_charging() {
     BATS=/sys/class/power_supply/BAT0/status
     test "$(cat $BATS)" = "Discharging" && echo -n '-' || echo -n '+'
