@@ -133,9 +133,9 @@ let g:jedi#show_call_signatures = "1"
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#max_list = 100
-let g:deoplete#num_processes = 2
+call deoplete#custom#option('max_list', 100)
 call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+call deoplete#custom#option('num_processes', 2)
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#manual_complete()
