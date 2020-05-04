@@ -5,10 +5,10 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-//static char *font = "Consolas:pixelsize=18:antialias=true:autohint=true";
+static char *font = "Consolas:pixelsize=18:antialias=true:autohint=true";
 //static char *font = "SF Mono:weight=semibold:pixelsize=16:antialias=true:autohint=true";
-//static char *font = "Source Code Pro:weight=medium:pixelsize=17:antialias=true:autohint=true";
-static char *font = "Hack:pixelsize=16:autohint=true:antialias=true";
+/* static char *font = "Source Code Pro:weight=medium:pixelsize=17:antialias=true:autohint=true"; */
+/* static char *font = "Hack:pixelsize=16:autohint=true:antialias=true"; */
 /* static char *font = "Iosevka Term:pixelsize=18:autohint=true:antialias=true"; */
 static int borderpx = 2;
 
