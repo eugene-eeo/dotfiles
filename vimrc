@@ -10,6 +10,7 @@ Plug 'arzg/vim-colors-xcode'
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
 Plug 'deoplete-plugins/deoplete-clang'
+Plug 'voldikss/vim-floaterm'
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
@@ -261,8 +262,14 @@ nnoremap <leader>? :Grepper -side<cr>
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 
+" floatterm
+nnoremap <C-p> <ESC>:FloatermNew fzf --preview='cat {}'<CR>
+noremap  <leader>t :FloatermToggle<CR>
+noremap! <leader>t <ESC>:FloatermToggle<CR>
+tnoremap <leader>t <C-\><C-n>:FloatermToggle<CR>
+
 " junegunn/fzf.vim
-nnoremap <C-p> <ESC>:FZF<CR>
+" nnoremap <C-p> <ESC>:FZF<CR>
 nnoremap <C-t> <ESC>:Buffers<CR>
 nnoremap <C-f> <ESC>:BTags<CR>
 nnoremap <C-o> <ESC>:Commands<CR>

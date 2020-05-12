@@ -15,15 +15,15 @@ int main() {
     memset(buf, 0, 1024);
 
     FILE* fp = popen("ibus engine", "r");
-    fread(buf, sizeof(buf), 1, fp);
+    int len = fread(buf, 1, sizeof(buf), fp);
     pclose(fp);
 
-    for (int i = 0; i < sizeof(buf); i++)
-        if (buf[i] == '\n') {
-            buf[i] = '\0';
-            break;
-        }
+    if (len <= 0)
+        return 0;
 
+    if (buf[len-1] == '\n') {
+        buf[len-1] = '\0';
+    }
     for (int i = 0; i < NMETHODS; i++) {
         if (strcmp(buf, methods[i]) == 0) {
             sprintf(buf, "ibus engine %s", methods[(i+1) % NMETHODS]);
