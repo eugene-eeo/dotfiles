@@ -2,8 +2,7 @@
 __slouch_fzf() {
     mode=$1
     shift
-    fzf +m --layout=reverse --margin=1,2 --prompt="$mode: " \
-        --color=prompt:7,pointer:7,spinner:2,info:8,hl:2,hl+:2,marker:0 "$@"
+    fzf --layout=reverse --margin=1,2 --prompt="$mode: " --color=bw "$@"
 }
 
 __slouch_pdetach() {
