@@ -4,7 +4,6 @@ Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
-Plug 'arzg/vim-colors-xcode'
 
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -14,7 +13,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'rstacruz/vim-closer'
 Plug 'wellle/targets.vim'
-Plug 'vim-pandoc/vim-pandoc-syntax', {'for': 'markdown.pandoc'}
 call plug#end()
 
 set backspace=2
@@ -145,12 +143,7 @@ augroup vimrc
     autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
     autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
     autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
-    autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 augroup END
-
-" pandoc
-let g:pandoc#syntax#conceal#use = 1
-let g:pandoc#syntax#style#use_definition_lists = 0
 
 " key mappings
 map <C-a> <Nop>
