@@ -21,20 +21,21 @@ selbg=$(hc get window_border_active_color)
 selfg='#000000'
 separator="%{B-}%{F$selbg}|%{F-}"
 
+BATS=/sys/class/power_supply/BAT0/status
+BATC=/sys/class/power_supply/BAT0/capacity
+
 get_bat_charging() {
-    BATS=/sys/class/power_supply/BAT0/status
-    test "$(cat $BATS)" = "Discharging" && echo -n '-' || echo -n '+'
+    [ "$(cat $BATS)" = "Discharging" ] && echo -n '-' || echo -n '+'
 }
 
 get_bat_level() {
-    BATC=/sys/class/power_supply/BAT0/capacity
     cat $BATC
 }
 
 prev_bat='100'
 
 proc_bat_info() {
-    if [ "$1" -lt 20 ] && [ "$1" != "$2" ]; then
+    if [ "$monitor" = 0 ] && [ "$1" -lt 20 ] && [ "$1" != "$2" ]; then
         notify-send "battery: $1%" -a "bat" -u critical
     fi
 }

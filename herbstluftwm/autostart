@@ -22,7 +22,7 @@ hc keybind $Mod-w       spawn slouch window
 hc keybind $Mod-e       spawn slouch filter
 hc keybind $Mod-Shift-space   spawn slouch drun
 hc keybind $Mod-Shift-p       spawn ~/.config/herbstluftwm/open-latest-scrot.sh
-hc keybind $Mod-x       spawn xkill
+# hc keybind $Mod-x       spawn xkill
 # hc keybind $Mod-i       spawn ~/.config/herbstluftwm/info.sh
 
 # locking
@@ -44,9 +44,7 @@ hc keybind $Mod-Shift-Right shift right
 # splitting frames
 # create an empty frame at the specified direction
 bindsplit() {
-    hc keybind "$Mod-$1" and \
-        . compare tags.focus.floating = false \
-        . split "$2" 0.5
+    hc keybind "$Mod-$1" split "$2" 0.5
 }
 
 bindsplit u bottom

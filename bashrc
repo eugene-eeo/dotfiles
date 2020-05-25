@@ -32,8 +32,8 @@ alias u='pdetach st'
 alias hc='herbstclient'
 alias sudo='sudo '
 
-# Use ag to pipe to FZF, so we respect .gitignore
-export FZF_DEFAULT_COMMAND='ag -g ""'
+# Use rg to pipe to FZF, so we respect .gitignore
+export FZF_DEFAULT_COMMAND='rg --files'
 
 v() {
     if [ "$1" ]; then
@@ -41,7 +41,7 @@ v() {
         return
     fi
     local _FZF
-    if _FZF=$(fzf --preview='cat {} | head -n 100'); then
+    if _FZF=$(fzf --preview='head -100 {}'); then
         vim "$_FZF"
     fi
 }

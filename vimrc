@@ -94,7 +94,10 @@ hi Comment      ctermbg=none
 hi link NeomakeVirtualtextWarning MoreMsg
 hi link cPreCondit mailQuoted2
 
-set grepprg=ag\ --nogroup\ --nocolor
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 
 " Statusline
 hi Statusline   ctermbg=234 ctermfg=255 cterm=bold
@@ -195,6 +198,7 @@ let g:gundo_right = 1
 
 " mhinz/vim-grepper
 let g:grepper = {}
+let g:grepper.quickfix = 0
 let g:grepper.tools = ['rg', 'ag', 'git', 'grep']
 let g:grepper.operator = {}
 let g:grepper.operator.side = 1
@@ -237,8 +241,8 @@ noremap c "_c
 noremap C "_C
 
 " loclist and quickfix
-nnoremap <c-j> <Esc>:lprev<CR>
-nnoremap <c-k> <Esc>:lnext<CR>
+nnoremap <c-j> <Esc>:try<bar>lprev<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>llast<bar>endtry<cr>
+nnoremap <c-k> <Esc>:try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>lfirst<bar>endtry<cr>
 
 " mhinz/vim-grepper
 nmap <leader>ss <Esc>:Grepper -side -cword -noprompt<CR>
