@@ -8,7 +8,7 @@ Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
-Plug 'deoplete-plugins/deoplete-clang'
+Plug 'deoplete-plugins/deoplete-clang', { 'for': ['c', 'cpp'] }
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
@@ -163,8 +163,7 @@ let g:gutentags_file_list_command = 'rg --files'
 
 " deoplete-jedi
 let g:deoplete#sources#jedi#ignore_errors = 1
-let g:deoplete#sources#jedi#enable_typeinfo = 0
-let g:deoplete#sources#jedi#python_path = "python"
+let g:deoplete#sources#jedi#enable_typeinfo = 1
 
 " fatih/vim-go
 let g:go_def_mapping_enabled = 0
@@ -227,7 +226,6 @@ nnoremap <Leader>R <Esc>:NeomakeClean<CR>
 
 nnoremap <leader>m <Esc>:GitGutterNextHunk<CR>
 nnoremap <leader>n <Esc>:GitGutterPrevHunk<CR>
-nnoremap <Space> @q
 
 " Use x and X for cut
 noremap x d
