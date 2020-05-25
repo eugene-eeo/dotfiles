@@ -22,10 +22,10 @@ Plug 'tpope/vim-commentary'
 Plug 'rstacruz/vim-closer'
 Plug 'wellle/targets.vim'
 
-Plug 'hail2u/vim-css3-syntax',  {'for': 'css'}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'othree/html5.vim',        {'for': 'html'}
-Plug 'vim-python/python-syntax'
+Plug 'hail2u/vim-css3-syntax',   {'for': 'css'}
+Plug 'pangloss/vim-javascript',  {'for': 'javascript'}
+Plug 'othree/html5.vim',         {'for': 'html'}
+Plug 'vim-python/python-syntax', {'for': 'python'}
 call plug#end()
 
 set backspace=2
@@ -212,17 +212,15 @@ augroup vimrc
     autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
     autocmd Filetype css      setlocal ts=2 sts=2 sw=2
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
-    " autocmd Filetype c        setlocal sts=0 sw=2 ts=2
-    " autocmd BufNewFile,BufRead *.c   set ft=cpp
 augroup END
 
 " key mappings
 map <C-a> <Nop>
-nnoremap <Leader>d <Esc>:nohl<CR>
+nnoremap <leader>d <Esc>:nohl<CR>
 nnoremap <F5> <Esc>:bp<bar>bd#<CR>
 nnoremap <F6> <Esc>:GundoToggle<CR>
-nnoremap <Leader>r <Esc>:NeomakeFile<CR>
-nnoremap <Leader>R <Esc>:NeomakeClean<CR>
+nnoremap <leader>r <Esc>:NeomakeFile<CR>
+nnoremap <leader>R <Esc>:NeomakeClean<CR>
 
 nnoremap <leader>m <Esc>:GitGutterNextHunk<CR>
 nnoremap <leader>n <Esc>:GitGutterPrevHunk<CR>
@@ -259,9 +257,9 @@ nnoremap <C-f> <ESC>:BTags<CR>
 nnoremap <C-o> <ESC>:Commands<CR>
 nnoremap <C-Space> <ESC>:Tags<CR>
 
-nnoremap <Leader>\| <Esc>:vsplit %<CR>
-nnoremap <Leader>- <Esc>:split %<CR>
-nnoremap <Leader>A <Esc>:Autoformat<CR>
+nnoremap <leader>\| <Esc>:vsplit %<CR>
+nnoremap <leader>- <Esc>:split %<CR>
+nnoremap <leader>A <Esc>:Autoformat<CR>
 
 let g:python_host_prog  = expand('~/.pyenv/versions/neovim2.7.17/bin/python')
 let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.8.2/bin/python')
