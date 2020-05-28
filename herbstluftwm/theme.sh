@@ -14,7 +14,7 @@ hc set frame_border_width 0
 hc set always_show_frame 1 #true
 hc set frame_bg_transparent 1 #true
 hc set frame_transparent_width 3
-hc set frame_gap 2
+hc set frame_gap 0
 
 hc attr theme.active.color '#cccccc'
 hc attr theme.normal.color '#454545'
@@ -25,6 +25,7 @@ hc attr theme.border_width 2
 hc attr theme.floating.border_width 2
 hc attr theme.floating.outer_width 0
 hc attr theme.background_color '#141414'
+hc attr theme.tight_decoration 1
 
 hc set window_gap 0
 hc set frame_padding 0

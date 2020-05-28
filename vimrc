@@ -6,9 +6,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-gutentags'
 
+Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete-clangx',          { 'for': ['c', 'cpp'] }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
-Plug 'deoplete-plugins/deoplete-clang', { 'for': ['c', 'cpp'] }
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
@@ -33,17 +34,16 @@ set encoding=utf8
 set ffs=unix,dos,mac        " use unix as default filetype
 set number                  " enable display of line numbers
 set cursorline              " show cursor line
-set scrolloff=3
 
 set wildmenu
 set wildmode=longest:full,full
 set ignorecase              " ignore case when searching
+set smartcase
 set hlsearch                " highlight searches
 set noshowmode              " don't show -- INSERT --
 
 set showmatch               " show matching brackets
 set laststatus=2
-set ttyfast
 set lazyredraw
 set visualbell
 
@@ -110,7 +110,6 @@ set statusline+=%=
 set statusline+=\ %y
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\[%{&fileformat}\]
-set statusline+=\ 
 
 set listchars=tab:▸\ ,trail:·
 set list
@@ -119,10 +118,11 @@ let g:is_bash = 1
 
 " davidhalter/jedi-vim
 let g:jedi#goto_command = ""
+let g:jedi#goto_stubs_command = ""
 let g:jedi#goto_assignments_command = ""
 let g:jedi#goto_definitions_command = "gd"
 let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = ""
+let g:jedi#usages_command = "<leader>u"
 let g:jedi#rename_command = "<Leader>rn"
 let g:jedi#auto_initialization = 1
 let g:jedi#completions_enabled = 0
@@ -130,13 +130,17 @@ let g:jedi#auto_vim_configuration = 0
 let g:jedi#smart_auto_mappings = 0
 let g:jedi#popup_on_dot = 0
 let g:jedi#completions_command = ""
-let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures = 0
+
+" echodoc
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'floating'
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('max_list', 100)
 call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-call deoplete#custom#option('num_processes', 2)
+call deoplete#custom#option('num_processes', 1)
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#manual_complete()
@@ -147,17 +151,6 @@ function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
-
-function g:Multiple_cursors_before()
-    call deoplete#custom#buffer_option('auto_complete', v:false)
-endfunction
-function g:Multiple_cursors_after()
-    call deoplete#custom#buffer_option('auto_complete', v:true)
-endfunction
-
-" deoplete-clang
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-9/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-9/'
 
 " gutentags
 let g:gutentags_cache_dir = expand('~/.cache/tags')
@@ -183,6 +176,7 @@ let g:gitgutter_map_keys=0
 
 " neomake/neomake
 let g:neomake_open_list = 2
+let g:neomake_go_enabled_makers = ['go']
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_cwd = $PWD
@@ -199,7 +193,7 @@ let g:gundo_right = 1
 " mhinz/vim-grepper
 let g:grepper = {}
 let g:grepper.quickfix = 0
-let g:grepper.tools = ['rg', 'ag', 'git', 'grep']
+let g:grepper.tools = ['rg', 'git', 'grep']
 let g:grepper.operator = {}
 let g:grepper.operator.side = 1
 let g:grepper.operator.prompt = 0
@@ -210,7 +204,7 @@ augroup vimrc
     autocmd VimEnter * call setreg('q', [])
     autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
     autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
-    autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+    autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
     autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
     autocmd Filetype html     setlocal ts=2 sts=2 sw=2
     autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
@@ -266,13 +260,4 @@ nnoremap <leader>- <Esc>:split %<CR>
 nnoremap <leader>A <Esc>:Autoformat<CR>
 
 let g:python_host_prog  = expand('~/.pyenv/versions/neovim2.7.17/bin/python')
-let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.8.2/bin/python')
-" Try to find a Python3 version that has pynvim installed
-"if executable("python3")
-"    let s:python3_local = substitute(system("pyenv which python3"), '\n\+$', '', '')
-"    " detect whether neovim package is installed
-"    let s:python3_neovim_path = substitute(system("python3 -c 'import pynvim; print(pynvim.__path__)' 2>/dev/null"), '\n\+$', '', '')
-"    if !empty(s:python3_neovim_path)
-"        let g:python3_host_prog = s:python3_local
-"    endif
-"endif
+let g:python3_host_prog = '/usr/bin/python3'  " ubuntu has installed python3-neovim for us

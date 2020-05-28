@@ -13,7 +13,7 @@ func main() {
 	out, _ := cmd.StdoutPipe()
 	cmd.Start()
 	r := bufio.NewScanner(out)
-	for r.Scan() {
+	if r.Scan() {
 		currentMethod := r.Text()
 		for i := 0; i < len(methods); i++ {
 			// Try to find and switch
@@ -23,6 +23,5 @@ func main() {
 				break
 			}
 		}
-		break
 	}
 }

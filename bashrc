@@ -1,5 +1,4 @@
 #!/usr/bin/bash
-#shellcheck disable=1090
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -12,7 +11,6 @@ export CLICOLOR=1
 export IGNOREEOF=1
 
 export LESS='-SR'
-export GREP_COLOR='1;32'
 
 RESET="\\[$(tput sgr0)\\]"
 GREEN="\\[$(tput setaf 2)\\]"
@@ -21,9 +19,7 @@ RED="\\[$(tput setaf 4)\\]"
 export PROMPT_DIRTRIM=3
 export PS1=" \\w\$(vcprompt -f '${RED}(%b${GREEN}%m${RED})')${RESET} ${RED}\$ ${RESET}"
 export PS2=" ${DIM}>${RESET} "
-#export PROMPT_COMMAND='echo -ne "\033]0;[st] ${USER}: $PWD\007"'
 
-alias t='tree -N -F -C'
 alias g='git'
 alias ls='ls --color=auto'
 alias pbcopy='xsel -ib'
@@ -50,10 +46,10 @@ open() {
     pdetach xdg-open "$@"
 }
 
-mux() {
-    local session="${1:-base}"
-    tmux attach -t "$session" || tmux new -s "$session"
-}
+# mux() {
+#     local session="${1:-base}"
+#     tmux attach -t "$session" || tmux new -s "$session"
+# }
 
 eval "$(pyenv init -)"
 
@@ -67,4 +63,5 @@ if ! shopt -oq posix; then
 fi
 
 # source fzf if it exists
+#shellcheck disable=1090
 [ -s "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"

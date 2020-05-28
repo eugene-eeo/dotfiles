@@ -22,8 +22,6 @@ hc keybind $Mod-w       spawn slouch window
 hc keybind $Mod-e       spawn slouch filter
 hc keybind $Mod-Shift-space   spawn slouch drun
 hc keybind $Mod-Shift-p       spawn ~/.config/herbstluftwm/open-latest-scrot.sh
-# hc keybind $Mod-x       spawn xkill
-# hc keybind $Mod-i       spawn ~/.config/herbstluftwm/info.sh
 
 # locking
 hc keybind $Mod-Shift-l spawn i3lock -fe -ti ~/Downloads/iu-yellow.png
@@ -68,8 +66,8 @@ for i in "${!tag_names[@]}" ; do
     hc add "${tag_names[$i]}"
     key="${tag_keys[$i]}"
     if [ -n "$key" ] ; then
-        hc keybind "$Mod-$key"       use_index "$i" #chain , use_index "$i"  , spawn ~/.config/herbstluftwm/tags.sh
-        hc keybind "$Mod-Shift-$key" move_index "$i" #chain , move_index "$i" , spawn ~/.config/herbstluftwm/tags.sh
+        hc keybind "$Mod-$key"       use_index "$i"
+        hc keybind "$Mod-Shift-$key" move_index "$i"
     fi
 done
 
@@ -83,6 +81,8 @@ hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-c spawn ~/.config/herbstluftwm/float-center.sh
 hc keybind $Mod-m spawn ~/.config/herbstluftwm/float-maximise.sh
+hc keybind $Mod-z spawn ~/.config/herbstluftwm/resize-region.sh
+
 # toggle clients.focus.floating attribute
 hc keybind $Mod-Shift-s or , \
     and + compare clients.focus.floating = true \
@@ -98,24 +98,20 @@ hc keybind Alt-grave spawn ibus-switch
 # hc keybind $Mod-t cycle_layout +1 vertical max grid
 
 # proprietary bindings
-# if we are in a gnome-flashback session then these are handled
-# by gnome-flashback. Otherwise we have to handle them ourselves:
-[ "$XDG_SESSION_DESKTOP" = 'herbstluftwm' ] && {
-    hc keybind XF86MonBrightnessUp   spawn xbacklight + 10
-    hc keybind XF86MonBrightnessDown spawn xbacklight - 10
-    hc keybind XF86AudioRaiseVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ +2%
-    hc keybind XF86AudioLowerVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ -2%
-    hc keybind XF86AudioMute         spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
-    # shellcheck disable=2016
-    hc keybind Print                 spawn scrot '%F-%s.png' -e 'mv $f ~/Pictures/'
+hc keybind XF86MonBrightnessUp   spawn xbacklight + 10
+hc keybind XF86MonBrightnessDown spawn xbacklight - 10
+hc keybind XF86AudioRaiseVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ +2%
+hc keybind XF86AudioLowerVolume  chain , spawn pactl set-sink-mute @DEFAULT_SINK@ 0 , spawn pactl set-sink-volume @DEFAULT_SINK@ -2%
+hc keybind XF86AudioMute         spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
+# shellcheck disable=2016
+hc keybind Print                 spawn scrot '%F-%s.png' -e 'mv $f ~/Pictures/'
 
-    # if we're not on gnome, then keychain is not ran automatically
-    # so we use hc to export these environment variables
-    env_vars=$(gnome-keyring-daemon --start --components=ssh,gpg,secrets,pkcs11)
-    for var in $env_vars ; do
-        hc setenv "$(echo "$var" | cut -d'=' -f1)" "$(echo "$var" | cut -d'=' -f2-)"
-    done
-}
+# if we're not on gnome, then keychain is not ran automatically
+# so we use hc to export these environment variables
+env_vars=$(gnome-keyring-daemon --start --components=ssh,gpg,secrets,pkcs11)
+for var in $env_vars ; do
+    hc setenv "$(echo "$var" | cut -d'=' -f1)" "$(echo "$var" | cut -d'=' -f2-)"
+done
 
 # mouse
 hc mouseunbind --all
@@ -150,9 +146,8 @@ hc set tree_style '╾│ ├└╼─┐'
 hc detect_monitors
 
 # panel things
-killall hydra # hydra_listener
+killall hydra
 pdetach hydra
-# pdetach hydra_listener
 for monitor in $(hc list_monitors | cut -d: -f1) ; do
     # start panel on each monitor
     ~/.config/herbstluftwm/panel.sh "$monitor" &
@@ -160,7 +155,6 @@ done
 
 # if this is our first startup then ...
 if hc silent new_attr bool my_not_first_autostart ; then
-    [ "$XDG_SESSION_DESKTOP" != 'herbstluftwm' ] && pdetach gnome-flashback
     gnome-keyring-daemon -rd
     st -e gnome_hc_startup
     pdetach compton

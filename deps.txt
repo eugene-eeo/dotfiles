@@ -8,3 +8,5 @@ golang
 compton
 pyenv
 arandr
+i3lock
+slop

@@ -18,7 +18,7 @@ panel_height=20
 font="Hack:weight=bold:pixelsize=14:autohint=true:antialias=true"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
-selfg='#000000'
+selfg="$bgcolor"
 separator="%{B-}%{F$selbg}|%{F-}"
 
 BATS=/sys/class/power_supply/BAT0/status

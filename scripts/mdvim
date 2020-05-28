@@ -1,2 +1,0 @@
-#!/bin/sh
-nvim -u ~/code/dotfiles/markdown-vimrc "$@"
