@@ -19,7 +19,7 @@ hc keybind $Mod-Return  spawn st -e choose_tmux_session
 hc keybind $Mod-Shift-Return  spawn st
 hc keybind $Mod-space   spawn slouch run
 hc keybind $Mod-w       spawn slouch window
-hc keybind $Mod-e       spawn slouch filter
+hc keybind $Mod-e       spawn slouch file
 hc keybind $Mod-Shift-space   spawn slouch drun
 hc keybind $Mod-Shift-p       spawn ~/.config/herbstluftwm/open-latest-scrot.sh
 

@@ -152,6 +152,14 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
+function! Multiple_cursors_before()
+    let b:deoplete_disable_auto_complete = 1
+endfunction
+
+function! Multiple_cursors_after()
+    let b:deoplete_disable_auto_complete = 0
+endfunction
+
 " gutentags
 let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_ctags_exclude = ["node_modules"]

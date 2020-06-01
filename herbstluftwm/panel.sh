@@ -41,7 +41,6 @@ proc_bat_info() {
 }
 
 hc pad "$monitor" $panel_height
-#hc pad "$monitor" 0 0 $panel_height 0
 
 {
     date +'date	%H:%M %%{F#909090}%a %d %b'
@@ -55,6 +54,7 @@ hc pad "$monitor" $panel_height
     # we get monitor-specific data here
     IFS=$'\t' read -ra tags <<< "$(hc tag_status "$monitor")"
     date=""
+    title=""
     network=""
     volume=""
     battery=""
@@ -84,7 +84,8 @@ hc pad "$monitor" $panel_height
             esac
             echo -n "%{A:herbstclient focus_monitor \"$monitor\" && herbstclient use \"${i:1}\":} ${i:1} %{A}"
         done
-        echo -n "$separator"
+        echo -n "$separator "
+        echo -n "$title"
         # small adjustments
         right="$separator $ibus $separator%{A:\"$HOME/.config/herbstluftwm/calendar.sh\":} $date %{A}$separator $network $separator %{F#909090}V:%{F-}$volume $separator %{F#909090}B:%{F-}${battery}%"
         echo -n "%{r}$right"
@@ -96,6 +97,9 @@ hc pad "$monitor" $panel_height
         case "${cmd[0]}" in
             tag*)
                 IFS=$'\t' read -ra tags <<< "$(hc tag_status "$monitor")"
+                ;;
+            window_title_changed|focus_changed)
+                title="${cmd[2]}"
                 ;;
             ibus)
                 case "$(ibus engine)" in
@@ -118,7 +122,7 @@ hc pad "$monitor" $panel_height
                 proc_bat_info "$bat_level" "$prev_bat"
                 prev_bat=$bat_level
                 ;;
-            reload)
+            quit|reload)
                 exit
                 ;;
         esac

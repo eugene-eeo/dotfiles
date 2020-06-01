@@ -1,5 +1,4 @@
 [general]
-version='1.5.19'
 preload-engines=['xkb:us::eng', 'pinyin']
 engines-order=['xkb:us::eng', 'pinyin']
 
