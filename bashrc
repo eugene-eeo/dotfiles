@@ -20,6 +20,7 @@ export PROMPT_DIRTRIM=3
 export PS1=" \\w\$(vcprompt -f '${RED}(%b${GREEN}%m${RED})')${RESET} ${RED}\$ ${RESET}"
 export PS2=" ${DIM}>${RESET} "
 
+alias t='tree -v -a -I .git'
 alias g='git'
 alias ls='ls --color=auto'
 alias pbcopy='xsel -ib'
@@ -51,8 +52,6 @@ open() {
 #     tmux attach -t "$session" || tmux new -s "$session"
 # }
 
-eval "$(pyenv init -)"
-
 # enable bash completion in interactive shells
 if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -65,3 +64,5 @@ fi
 # source fzf if it exists
 #shellcheck disable=1090
 [ -s "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"
+
+eval "$(pyenv init -)"

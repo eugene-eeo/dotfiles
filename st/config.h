@@ -7,7 +7,9 @@
  */
 /* static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true"; */
 /* static char *font = "Iosevka Term:weight=semibold:pixelsize=18:autohint=true:antialias=true"; */
-static char *font = "Hack:pixelsize=17:autohint=true:antialias=true";
+/* static char *font = "Hack:pixelsize=17:autohint=true:antialias=true"; */
+static char *font = "Consolas:pixelsize=18:autohint=true:antialias=true";
+/* static char *font = "Monaco:pixelsize=16:autohint=true:antialias=true"; */
 static int borderpx = 2;
 
 /*

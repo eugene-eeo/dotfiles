@@ -5,8 +5,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegu
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'fatih/molokai'
 
-Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-clangx',          { 'for': ['c', 'cpp'] }
 Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
@@ -131,10 +131,6 @@ let g:jedi#smart_auto_mappings = 0
 let g:jedi#popup_on_dot = 0
 let g:jedi#completions_command = ""
 let g:jedi#show_call_signatures = 0
-
-" echodoc
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'floating'
 
 " deoplete
 let g:deoplete#enable_at_startup = 1

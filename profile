@@ -8,7 +8,6 @@ export GOPATH="$HOME/go"
 export PYTHONIOENCODING='utf-8'
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 export PYTHONDONTWRITEBYTECODE=1
-export VIRTUAL_ENV_DISABLE_PROMPT=0
 
 # Use neovim as editor
 export EDITOR='nvim'
