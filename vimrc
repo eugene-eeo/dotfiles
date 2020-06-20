@@ -5,7 +5,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegu
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'fatih/molokai'
 
 Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-clangx',          { 'for': ['c', 'cpp'] }
@@ -148,13 +147,20 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-function! Multiple_cursors_before()
-    let b:deoplete_disable_auto_complete = 1
-endfunction
+func! Multiple_cursors_before()
+  if deoplete#is_enabled()
+    call deoplete#disable()
+    let g:deoplete_is_enable_before_multi_cursors = 1
+  else
+    let g:deoplete_is_enable_before_multi_cursors = 0
+  endif
+endfunc
 
-function! Multiple_cursors_after()
-    let b:deoplete_disable_auto_complete = 0
-endfunction
+func! Multiple_cursors_after()
+  if g:deoplete_is_enable_before_multi_cursors
+    call deoplete#enable()
+  endif
+endfunc
 
 " gutentags
 let g:gutentags_cache_dir = expand('~/.cache/tags')
@@ -214,6 +220,7 @@ augroup vimrc
     autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
     autocmd Filetype css      setlocal ts=2 sts=2 sw=2
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 augroup END
 
 " key mappings
