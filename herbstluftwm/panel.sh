@@ -15,7 +15,8 @@ x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=20
-font="Hack:weight=bold:pixelsize=14:autohint=true:antialias=true"
+# font="Hack:weight=bold:pixelsize=14:autohint=true:antialias=true"
+font="Consolas:weight=bold:pixelsize=15:autohint=true:antialias=true"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
 selfg="$bgcolor"

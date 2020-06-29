@@ -33,10 +33,9 @@ clean:
 	rm -f st $(OBJ)
 
 install: st
-	cp -f st $(DESTDIR)
-	chmod 755 $(DESTDIR)/st
+	cp -f st $(DESTDIR)/st
 
 uninstall:
-	rm -f $(DESTDIR)/st
+	rm -f $(DESTDIR)$(PREFIX)/st
 
-.PHONY: all options clean dist install uninstall
+.PHONY: all options clean install uninstall
