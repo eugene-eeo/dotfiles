@@ -92,7 +92,7 @@ hc keybind $Mod-Shift-s or , \
 # ibus
 # Really hacky: just intercept the keypress for input method
 # switching, and switch it manually
-hc keybind Alt-grave spawn ibus-switch
+# hc keybind Alt-grave spawn ibus-switch
 
 # toggle layout
 # hc keybind $Mod-t cycle_layout +1 vertical max grid

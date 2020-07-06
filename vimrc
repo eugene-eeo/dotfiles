@@ -22,6 +22,7 @@ Plug 'tpope/vim-commentary'
 Plug 'rstacruz/vim-closer'
 Plug 'wellle/targets.vim'
 
+Plug 'justinmk/vim-syntax-extra'
 Plug 'hail2u/vim-css3-syntax',   {'for': 'css'}
 Plug 'pangloss/vim-javascript',  {'for': 'javascript'}
 Plug 'othree/html5.vim',         {'for': 'html'}
@@ -85,13 +86,15 @@ colo goodwolf
 hi NonText      ctermbg=none
 hi Normal       ctermbg=none
 hi LineNr       ctermbg=232 ctermfg=239
-hi DiffChange   ctermbg=232 ctermfg=220
-hi DiffAdd      ctermbg=232 ctermfg=64
-hi DiffDelete   ctermbg=232 ctermfg=196
+hi clear SignColumn
+hi DiffChange   ctermfg=220
+hi DiffAdd      ctermfg=64
+hi DiffDelete   ctermfg=196
 hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
 hi Comment      ctermbg=none
 hi link NeomakeVirtualtextWarning MoreMsg
 hi link cPreCondit mailQuoted2
+hi link cDefine mailQuoted2
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading
@@ -221,6 +224,7 @@ augroup vimrc
     autocmd Filetype css      setlocal ts=2 sts=2 sw=2
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c
 augroup END
 
 " key mappings

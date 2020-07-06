@@ -18,8 +18,12 @@ func main() {
 		for i := 0; i < len(methods); i++ {
 			// Try to find and switch
 			if currentMethod == methods[i] {
-				exec.Command("ibus", "engine", methods[(i+1)%len(methods)]).Run()
-				exec.Command("herbstclient", "emit_hook", "ibus").Run()
+				cmd1 := exec.Command("ibus", "engine", methods[(i+1)%len(methods)])
+				cmd2 := exec.Command("herbstclient", "emit_hook", "ibus")
+				cmd1.Run()
+				cmd2.Run()
+				cmd1.Wait()
+				cmd2.Wait()
 				break
 			}
 		}

@@ -3,7 +3,7 @@
   "procs": [
       {"proc": "hydra-timer '15:04 %{F#909090}Mon 2 Jan'"},
       {"proc": "hydra-watch-battery"},
-      {"proc": "herbstclient --idle '^(tag|reload|ibus|window_title_changed|focus_changed)'"},
+      {"proc": "herbstclient --idle '^(tag|reload|ibus)'"},
       {"proc": "pactl subscribe",
        "match": [
            ["pactl", "^Event 'change' on sink #\\d+$"]

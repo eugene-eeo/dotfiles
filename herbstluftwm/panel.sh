@@ -16,7 +16,8 @@ y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=20
 # font="Hack:weight=bold:pixelsize=14:autohint=true:antialias=true"
-font="Consolas:weight=bold:pixelsize=15:autohint=true:antialias=true"
+# font="Consolas:weight=bold:pixelsize=15:autohint=true:antialias=true"
+font="Cascadia Mono:weight=bold:pixelsize=15:autohint=true:antialias=true"
 bgcolor='#000000'
 selbg=$(hc get window_border_active_color)
 selfg="$bgcolor"
@@ -45,7 +46,7 @@ hc pad "$monitor" $panel_height
 
 {
     date +'date	%H:%M %%{F#909090}%a %d %b'
-    echo ibus
+    # echo ibus
     echo nmcli
     echo pactl
     echo battery
@@ -55,11 +56,10 @@ hc pad "$monitor" $panel_height
     # we get monitor-specific data here
     IFS=$'\t' read -ra tags <<< "$(hc tag_status "$monitor")"
     date=""
-    title=""
     network=""
     volume=""
     battery=""
-    ibus=""
+    # ibus=""
     while true ; do
         # draw tags
         for i in "${tags[@]}" ; do
@@ -86,9 +86,9 @@ hc pad "$monitor" $panel_height
             echo -n "%{A:herbstclient focus_monitor \"$monitor\" && herbstclient use \"${i:1}\":} ${i:1} %{A}"
         done
         echo -n "$separator "
-        echo -n "$title"
+        # echo -n "$title"
         # small adjustments
-        right="$separator $ibus $separator%{A:\"$HOME/.config/herbstluftwm/calendar.sh\":} $date %{A}$separator $network $separator %{F#909090}V:%{F-}$volume $separator %{F#909090}B:%{F-}${battery}%"
+        right="$separator%{A:\"$HOME/.config/herbstluftwm/calendar.sh\":} $date %{A}$separator $network $separator %{F#909090}V:%{F-}$volume $separator %{F#909090}B:%{F-}${battery}%"
         echo -n "%{r}$right"
         echo
 
@@ -99,15 +99,15 @@ hc pad "$monitor" $panel_height
             tag*)
                 IFS=$'\t' read -ra tags <<< "$(hc tag_status "$monitor")"
                 ;;
-            window_title_changed|focus_changed)
-                title="${cmd[2]}"
-                ;;
-            ibus)
-                case "$(ibus engine)" in
-                    'pinyin')  ibus="zh" ;;
-                    *)         ibus="en" ;;
-                esac
-                ;;
+            # window_title_changed|focus_changed)
+            #     title="${cmd[2]}"
+            #     ;;
+            # ibus)
+            #     case "$(ibus engine)" in
+            #         'pinyin')  ibus="zh" ;;
+            #         *)         ibus="en" ;;
+            #     esac
+            #     ;;
             date)
                 date="${cmd[*]:1}"
                 ;;
