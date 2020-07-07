@@ -274,5 +274,5 @@ nnoremap <leader>\| <Esc>:vsplit %<CR>
 nnoremap <leader>- <Esc>:split %<CR>
 nnoremap <leader>A <Esc>:Autoformat<CR>
 
-let g:python_host_prog  = expand('~/.pyenv/versions/neovim2.7.17/bin/python')
-let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.8.2/bin/python')
+let g:python_host_prog  = expand('~/.pyenv/versions/neovim2.7.18/bin/python')
+let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.8.3/bin/python')
