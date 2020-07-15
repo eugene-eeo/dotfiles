@@ -19,7 +19,7 @@ sync:
 bins:
 	cd st && make DESTDIR=~/.scripts/ clean install
 	cd get-volume && make
-	cd ibus-switch && make
+	# cd ibus-switch && make
 
 slouch:
 	touch ~/.config/slouch/hooks

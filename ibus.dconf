@@ -1,6 +1,0 @@
-[general]
-preload-engines=['xkb:us::eng', 'pinyin']
-engines-order=['xkb:us::eng', 'pinyin']
-
-[general/hotkey]
-triggers=['<Alt>grave']
