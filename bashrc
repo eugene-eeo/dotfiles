@@ -13,11 +13,27 @@ export IGNOREEOF=1
 export LESS='-SR'
 
 RESET="\\[$(tput sgr0)\\]"
+DIM="\\[$(tput dim)\\]"
 GREEN="\\[$(tput setaf 2)\\]"
 RED="\\[$(tput setaf 4)\\]"
 
+# Prompt function
+set_bash_prompt() {
+    local vc
+    local py
+    vc=$(vcprompt -f "${RED}(%b${GREEN}%m${RED})${RESET}")
+    py=$PYENV_VERSION
+    if [ -n "$py" ] && [ "$py" != "system" ]; then
+        py="${DIM}($py)${RESET} "
+    else
+        py=""
+    fi
+    PS1="${RESET} $py\\w${vc} ${RED}\$${RESET} "
+}
+
 export PROMPT_DIRTRIM=3
-export PS1=" \\w\$(vcprompt -f '${RED}(%b${GREEN}%m${RED})')${RESET} ${RED}\$ ${RESET}"
+# export PS1=" \\w\$(vcprompt -f '${RED}(%b${GREEN}%m${RED})')${RESET} ${RED}\$${RESET} "
+export PROMPT_COMMAND=set_bash_prompt
 export PS2=" ${DIM}>${RESET} "
 
 alias t='tree -v -a -I .git'
