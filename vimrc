@@ -17,7 +17,7 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'junegunn/vim-easy-align'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
 Plug 'tpope/vim-commentary'
 Plug 'rstacruz/vim-closer'
 Plug 'wellle/targets.vim'
@@ -150,7 +150,7 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-func! Multiple_cursors_before()
+func! VM_Start()
   if deoplete#is_enabled()
     call deoplete#disable()
     let g:deoplete_is_enable_before_multi_cursors = 1
@@ -159,7 +159,7 @@ func! Multiple_cursors_before()
   endif
 endfunc
 
-func! Multiple_cursors_after()
+func! VM_Exit()
   if g:deoplete_is_enable_before_multi_cursors
     call deoplete#enable()
   endif
