@@ -6,9 +6,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-gutentags'
 
-Plug 'Shougo/deoplete.nvim',            { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-clangx',          { 'for': ['c', 'cpp'] }
-Plug 'deoplete-plugins/deoplete-jedi',  { 'for': 'python' }
+Plug 'Shougo/deoplete.nvim',           { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete-clangx',         { 'for': ['c', 'cpp'] }
+Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
