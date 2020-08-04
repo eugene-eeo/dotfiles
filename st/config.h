@@ -8,7 +8,7 @@
 /* static char *font = "Iosevka Term:pixelsize=18:autohint=true:antialias=true"; */
 /* static char *font = "Consolas:pixelsize=18:autohint=true:antialias=true"; */
 static char *font = "Consolas:size=12:autohint=true:antialias=true";
-/* static char *font = "Cascadia Mono PL:pixelsize=17:autohint=true:antialias=true"; */
+/* static char *font = "Cascadia Mono PL:size=12:autohint=true:antialias=true"; */
 static int borderpx = 2;
 
 /*
