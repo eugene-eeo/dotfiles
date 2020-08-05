@@ -90,11 +90,10 @@ hi clear SignColumn
 hi DiffChange   ctermfg=220
 hi DiffAdd      ctermfg=64
 hi DiffDelete   ctermfg=196
-hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=241 ctermfg=233
+hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=235 ctermfg=253
 hi Comment      ctermbg=none
 hi link NeomakeVirtualtextWarning MoreMsg
 hi link cPreCondit mailQuoted2
-hi link cDefine mailQuoted2
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading
@@ -119,19 +118,19 @@ set list
 let g:is_bash = 1
 
 " davidhalter/jedi-vim
-let g:jedi#goto_command = ""
-let g:jedi#goto_stubs_command = ""
-let g:jedi#goto_assignments_command = ""
-let g:jedi#goto_definitions_command = "gd"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>u"
-let g:jedi#rename_command = "<Leader>rn"
+let g:jedi#goto_command = ''
+let g:jedi#goto_stubs_command = ''
+let g:jedi#goto_assignments_command = ''
+let g:jedi#goto_definitions_command = 'gd'
+let g:jedi#documentation_command = 'K'
+let g:jedi#usages_command = '<Leader>u'
+let g:jedi#rename_command = '<Leader>rn'
 let g:jedi#auto_initialization = 1
 let g:jedi#completions_enabled = 0
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#smart_auto_mappings = 0
 let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = ""
+let g:jedi#completions_command = ''
 let g:jedi#show_call_signatures = 0
 
 " deoplete
@@ -147,7 +146,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-V><Tab>"
 
 function! s:check_back_space() abort
     let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
+    return !col || getline('.')[col - 1] =~ '\s'
 endfunction
 
 func! VM_Start()
@@ -167,7 +166,7 @@ endfunc
 
 " gutentags
 let g:gutentags_cache_dir = expand('~/.cache/tags')
-let g:gutentags_ctags_exclude = ["node_modules"]
+let g:gutentags_ctags_exclude = ['node_modules']
 let g:gutentags_file_list_command = 'rg --files'
 
 " deoplete-jedi
@@ -185,7 +184,7 @@ let g:sneak#label = 1
 let g:python_highlight_all = 1
 
 " airblade/vim-gitgutter
-let g:gitgutter_map_keys=0
+let g:gitgutter_map_keys = 0
 
 " neomake/neomake
 let g:neomake_open_list = 2
@@ -197,7 +196,7 @@ let g:neomake_error_sign   = {'text': '◆', 'texthl': 'DiffDelete'}
 let g:neomake_warning_sign = {'text': '◆', 'texthl': 'DiffChange'}
 call neomake#configure#automake('w', 1000)
 
-" autoformat
+" Chiel92/vim-autoformat
 let g:formatters_python = ['autopep8']
 
 " sjl/gundo.vim
@@ -214,65 +213,69 @@ let g:grepper.operator.prompt = 0
 " tabstop, softtabstop, shiftwidth
 augroup vimrc
     autocmd!
-    autocmd VimEnter * call setreg('q', [])
-    autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+    autocmd WinEnter * if winnr('$') == 1 && &buftype == 'quickfix'|q|endif
     autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
     autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
     autocmd Filetype markdown setlocal ts=4 sts=4 sw=4
     autocmd Filetype html     setlocal ts=2 sts=2 sw=2
-    autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
     autocmd Filetype css      setlocal ts=2 sts=2 sw=2
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+    autocmd FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
 " key mappings
 map <C-a> <Nop>
-nnoremap <leader>d <Esc>:nohl<CR>
-nnoremap <F5> <Esc>:bp<bar>bd#<CR>
-nnoremap <F6> <Esc>:GundoToggle<CR>
-nnoremap <leader>r <Esc>:NeomakeFile<CR>
-nnoremap <leader>R <Esc>:NeomakeClean<CR>
+nnoremap <leader>d :nohl<cr>
+nnoremap <F5>      :bp<bar>bd#<cr>
+nnoremap <F6>      :GundoToggle<cr>
+nnoremap <leader>r :NeomakeFile<cr>
+nnoremap <leader>R :NeomakeClean<cr>
 
-nnoremap <leader>m <Esc>:GitGutterNextHunk<CR>
-nnoremap <leader>n <Esc>:GitGutterPrevHunk<CR>
+" gitgutter
+nmap ]h  <Plug>(GitGutterNextHunk)
+nmap [h  <Plug>(GitGutterPrevHunk)
+nmap ghp <Plug>(GitGutterPreviewHunk)
 
 " Use x and X for cut
-noremap x d
-noremap X D
+noremap  x  d
+noremap  X  D
 nnoremap dd "_dd
-vnoremap p "_d"+P
-vnoremap d "_d
-noremap d "_d
-noremap D "_D
-noremap c "_c
-noremap C "_C
+vnoremap p  "_d"+P
+vnoremap d  "_d
+noremap  d  "_d
+noremap  D  "_D
+noremap  c  "_c
+noremap  C  "_C
 
 " loclist and quickfix
-nnoremap <c-j> <Esc>:try<bar>lprev<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>llast<bar>endtry<cr>
-nnoremap <c-k> <Esc>:try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>lfirst<bar>endtry<cr>
+nnoremap <c-j> :lprev<cr>
+nnoremap <c-k> :lnext<cr>
 
 " mhinz/vim-grepper
-nmap <leader>ss <Esc>:Grepper -side -cword -noprompt<CR>
-xmap <leader>ss <plug>(GrepperOperator)
-nnoremap <leader>/ :Grepper<cr>
-nnoremap <leader>? :Grepper -side<cr>
+nmap <Leader>ss    :Grepper -side -cword -noprompt<cr>
+xmap <Leader>ss    <Plug>(GrepperOperator)
+nnoremap <Leader>/ :Grepper<cr>
+nnoremap <Leader>? :Grepper -side<cr>
 
 " junegunn/vim-easy-align.vim
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 
 " junegunn/fzf.vim
-nnoremap <C-p> <ESC>:Files<CR>
-nnoremap <C-t> <ESC>:Buffers<CR>
-nnoremap <C-f> <ESC>:BTags<CR>
-nnoremap <C-o> <ESC>:Commands<CR>
-nnoremap <C-Space> <ESC>:Tags<CR>
+nnoremap <C-p>     :Files<cr>
+nnoremap <C-t>     :Buffers<cr>
+nnoremap <C-f>     :BTags<cr>
+nnoremap <C-o>     :Commands<cr>
+nnoremap <C-Space> :Tags<cr>
 
-nnoremap <leader>\| <Esc>:vsplit %<CR>
-nnoremap <leader>- <Esc>:split %<CR>
-nnoremap <leader>A <Esc>:Autoformat<CR>
+" Chiel92/vim-autoformat
+nnoremap <Leader>A :Autoformat<cr>
+
+nnoremap <Leader>\| :vsplit %<cr>
+nnoremap <Leader>-  :split %<cr>
 
 let g:python_host_prog  = expand('~/.pyenv/versions/neovim2.7.18/bin/python')
 let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.8.5/bin/python')
