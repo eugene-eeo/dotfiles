@@ -69,9 +69,8 @@ set matchtime=0
 set cinkeys-=0#             " don't put line in col 1 when it starts with '#'
 
 set shortmess+=c
-set completeopt-=preview
-set completeopt+=menu,menuone,noinsert,noselect
-set pumheight=25            " Limit height to 25 at max
+set completeopt=menuone,noinsert,noselect
+set pumheight=20
 set clipboard^=unnamedplus
 set updatetime=750
 
@@ -138,7 +137,9 @@ call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 call deoplete#custom#option('num_processes', 1)
 
 inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#manual_complete()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ deoplete#manual_complete()
 " Actually insert a tab
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-V><Tab>"
 
@@ -148,18 +149,18 @@ function! s:check_back_space() abort
 endfunction
 
 func! VM_Start()
-  if deoplete#is_enabled()
-    call deoplete#disable()
-    let g:deoplete_is_enable_before_multi_cursors = 1
-  else
-    let g:deoplete_is_enable_before_multi_cursors = 0
-  endif
+    if deoplete#is_enabled()
+        call deoplete#disable()
+        let g:deoplete_is_enable_before_multi_cursors = 1
+    else
+        let g:deoplete_is_enable_before_multi_cursors = 0
+    endif
 endfunc
 
 func! VM_Exit()
-  if g:deoplete_is_enable_before_multi_cursors
-    call deoplete#enable()
-  endif
+    if g:deoplete_is_enable_before_multi_cursors
+        call deoplete#enable()
+    endif
 endfunc
 
 " gutentags
@@ -201,6 +202,8 @@ call neomake#configure#automake('w', 1000)
 
 " Chiel92/vim-autoformat
 let g:formatters_python = ['autopep8']
+let g:formatters_c = ['astyle_c']
+let g:formatdef_astyle_c = '"astyle --mode=c"'
 
 " sjl/gundo.vim
 let g:gundo_right = 1
@@ -226,18 +229,19 @@ augroup vimrc
     autocmd FileType yaml     setlocal ts=2 sts=2 sw=2 expandtab
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
     autocmd FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+                \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
 " key mappings
 map <C-a> <Nop>
-" nmap     <C-]>     :tag<cr>
-nmap     <C-[>     :pop<cr>
-nnoremap <Leader>d :nohl<cr>
-nnoremap <F5>      :bp<bar>bd#<cr>
-nnoremap <F6>      :GundoToggle<cr>
-nnoremap <Leader>r :NeomakeFile<cr>
-nnoremap <Leader>R :NeomakeClean<cr>
+nnoremap g[         :pop<cr>
+nnoremap <Leader>d  :nohl<cr>
+nnoremap <Leader>\| :vsplit %<cr>
+nnoremap <Leader>-  :split %<cr>
+nnoremap <F5>       :bp<bar>bd#<cr>
+nnoremap <F6>       :GundoToggle<cr>
+nnoremap <Leader>r  :NeomakeFile<cr>
+nnoremap <Leader>R  :NeomakeClean<cr>
 
 " gitgutter
 nmap ]h  <Plug>(GitGutterNextHunk)
@@ -278,9 +282,6 @@ nnoremap <C-Space> :Tags<cr>
 
 " Chiel92/vim-autoformat
 nnoremap <Leader>A :Autoformat<cr>
-
-nnoremap <Leader>\| :vsplit %<cr>
-nnoremap <Leader>-  :split %<cr>
 
 let g:python_host_prog  = expand('~/.pyenv/versions/neovim2.7.18/bin/python')
 let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.8.5/bin/python')
