@@ -51,8 +51,6 @@ set undofile                " persistent undo
 set undolevels=1000
 set noswapfile
 set nobackup
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 let g:mapleader=","
 
@@ -86,13 +84,12 @@ colo goodwolf
 hi NonText      ctermbg=none
 hi Normal       ctermbg=none
 hi LineNr       ctermbg=232 ctermfg=239
+hi CursorLineNr ctermbg=235 ctermfg=253
+hi DiffChange   ctermfg=220 ctermbg=none
+hi DiffAdd      ctermfg=64 ctermbg=none
+hi DiffDelete   ctermfg=196 ctermbg=none
 hi clear SignColumn
-hi DiffChange   ctermfg=220
-hi DiffAdd      ctermfg=64
-hi DiffDelete   ctermfg=196
-hi CursorLineNr guifg=#000000 guibg=#666462 ctermbg=235 ctermfg=253
 hi Comment      ctermbg=none
-hi link NeomakeVirtualtextWarning MoreMsg
 hi link cPreCondit mailQuoted2
 
 if executable("rg")
@@ -118,10 +115,11 @@ set list
 let g:is_bash = 1
 
 " davidhalter/jedi-vim
-let g:jedi#goto_command = ''
+let g:jedi#use_tag_stack = 1
+let g:jedi#goto_command = '<C-]>'
 let g:jedi#goto_stubs_command = ''
 let g:jedi#goto_assignments_command = ''
-let g:jedi#goto_definitions_command = 'gd'
+let g:jedi#goto_definitions_command = ''
 let g:jedi#documentation_command = 'K'
 let g:jedi#usages_command = '<Leader>u'
 let g:jedi#rename_command = '<Leader>rn'
@@ -192,8 +190,13 @@ let g:neomake_go_enabled_makers = ['go']
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_cwd = $PWD
-let g:neomake_error_sign   = {'text': '◆', 'texthl': 'DiffDelete'}
-let g:neomake_warning_sign = {'text': '◆', 'texthl': 'DiffChange'}
+hi link NeomakeErrorSign   DiffDelete
+hi link NeomakeWarningSign DiffChange
+hi link NeomakeMessageSign DiffChange
+hi link NeomakeInfoSign    DiffChange
+hi link NeomakeVirtualtextInfo    DiffChange
+hi link NeomakeVirtualtextWarning DiffChange
+hi link NeomakeVirtualtextError   DiffDelete
 call neomake#configure#automake('w', 1000)
 
 " Chiel92/vim-autoformat
@@ -220,7 +223,7 @@ augroup vimrc
     autocmd Filetype html     setlocal ts=2 sts=2 sw=2
     autocmd Filetype css      setlocal ts=2 sts=2 sw=2
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType yaml     setlocal ts=2 sts=2 sw=2 expandtab
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
     autocmd FileType fzf set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
@@ -228,11 +231,13 @@ augroup END
 
 " key mappings
 map <C-a> <Nop>
-nnoremap <leader>d :nohl<cr>
+" nmap     <C-]>     :tag<cr>
+nmap     <C-[>     :pop<cr>
+nnoremap <Leader>d :nohl<cr>
 nnoremap <F5>      :bp<bar>bd#<cr>
 nnoremap <F6>      :GundoToggle<cr>
-nnoremap <leader>r :NeomakeFile<cr>
-nnoremap <leader>R :NeomakeClean<cr>
+nnoremap <Leader>r :NeomakeFile<cr>
+nnoremap <Leader>R :NeomakeClean<cr>
 
 " gitgutter
 nmap ]h  <Plug>(GitGutterNextHunk)
