@@ -22,7 +22,6 @@ Plug 'tpope/vim-commentary'
 Plug 'rstacruz/vim-closer'
 Plug 'wellle/targets.vim'
 
-Plug 'justinmk/vim-syntax-extra'
 Plug 'hail2u/vim-css3-syntax',   {'for': 'css'}
 Plug 'pangloss/vim-javascript',  {'for': 'javascript'}
 Plug 'othree/html5.vim',         {'for': 'html'}
@@ -171,6 +170,7 @@ let g:gutentags_file_list_command = 'rg --files'
 " deoplete-jedi
 let g:deoplete#sources#jedi#ignore_errors = 1
 let g:deoplete#sources#jedi#enable_typeinfo = 1
+let g:deoplete#sources#jedi#enable_short_types = 1
 
 " fatih/vim-go
 let g:go_def_mapping_enabled = 0

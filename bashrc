@@ -63,10 +63,19 @@ open() {
     pdetach xdg-open "$@"
 }
 
-# mux() {
-#     local session="${1:-base}"
-#     tmux attach -t "$session" || tmux new -s "$session"
-# }
+mux() {
+    if [[ -z "$TMUX" ]] ;then
+        # recycle tmux sessions here
+        ID=$(tmux list-sessions | grep -vm1 '(attached)$' | cut -d: -f1) # get the id of a deattached session
+        if [[ -z "$ID" ]]; then # if not available create a new one
+            tmux new
+        else
+            tmux attach-session -t "$ID"
+        fi
+    else
+        tmux new
+    fi
+}
 
 # enable bash completion in interactive shells
 if ! shopt -oq posix; then
