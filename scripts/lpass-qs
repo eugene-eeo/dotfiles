@@ -1,2 +1,2 @@
 #!/bin/bash
-lpass show -c --password "$(lpass ls | slouch pipe lpass | awk '{print $(NF)}' | sed 's/\]//g')"
+lpass show -c --password "$(lpass ls | slouch pipe -- --prompt='lpass: ' | awk '{print $(NF)}' | sed 's/\]//g')"
