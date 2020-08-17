@@ -191,10 +191,10 @@ let g:neomake_go_enabled_makers = ['go']
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_cwd = $PWD
-hi link NeomakeErrorSign   DiffDelete
-hi link NeomakeWarningSign DiffChange
-hi link NeomakeMessageSign DiffChange
-hi link NeomakeInfoSign    DiffChange
+hi link NeomakeErrorSign          DiffDelete
+hi link NeomakeWarningSign        DiffChange
+hi link NeomakeMessageSign        DiffChange
+hi link NeomakeInfoSign           DiffChange
 hi link NeomakeVirtualtextInfo    DiffChange
 hi link NeomakeVirtualtextWarning DiffChange
 hi link NeomakeVirtualtextError   DiffDelete
@@ -228,17 +228,15 @@ augroup vimrc
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
     autocmd FileType yaml     setlocal ts=2 sts=2 sw=2 expandtab
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
-    autocmd FileType fzf set laststatus=0 noshowmode noruler
-                \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
 " key mappings
 map <C-a> <Nop>
 nnoremap g[         :pop<cr>
 nnoremap <Leader>d  :nohl<cr>
-nnoremap <Leader>\| :vsplit %<cr>
-nnoremap <Leader>-  :split %<cr>
-nnoremap <F5>       :bp<bar>bd#<cr>
+nnoremap <Leader>\| :vsplit<cr>
+nnoremap <Leader>-  :split<cr>
+nnoremap <F5>       :bp<bar>bw#<cr>
 nnoremap <F6>       :GundoToggle<cr>
 nnoremap <Leader>r  :NeomakeFile<cr>
 nnoremap <Leader>R  :NeomakeClean<cr>
@@ -260,8 +258,8 @@ noremap  c  "_c
 noremap  C  "_C
 
 " loclist and quickfix
-nnoremap <c-j> :lprev<cr>
-nnoremap <c-k> :lnext<cr>
+nnoremap <C-j> :lprev<cr>
+nnoremap <C-k> :lnext<cr>
 
 " mhinz/vim-grepper
 nmap <Leader>ss    :Grepper -side -cword -noprompt<cr>
