@@ -77,6 +77,11 @@ mux() {
     fi
 }
 
+tclear() {
+    tmux clear
+    clear
+}
+
 # enable bash completion in interactive shells
 if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -91,3 +96,10 @@ fi
 [ -s "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"
 
 eval "$(pyenv init -)"
+
+#shellcheck disable=2015
+test -r /home/eeojun/.opam/opam-init/init.sh && . /home/eeojun/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

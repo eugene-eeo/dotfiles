@@ -114,7 +114,7 @@ let g:is_bash = 1
 
 " davidhalter/jedi-vim
 let g:jedi#use_tag_stack = 1
-let g:jedi#goto_command = '<C-]>'
+let g:jedi#goto_command = 'g]'
 let g:jedi#goto_stubs_command = ''
 let g:jedi#goto_assignments_command = ''
 let g:jedi#goto_definitions_command = ''
