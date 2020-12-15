@@ -10,8 +10,6 @@ stolen from other dotfiles.
 $ sudo cp ./systemd/i3lock@.service /etc/systemd/system/i3lock@.service
 $ systemctl enable "i3lock@$(whoami)"
 $ make all
-$ cd hc-gnome
-$ sudo make install
 ```
 
 This repo is meant as a single source of truth for the

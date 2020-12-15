@@ -112,6 +112,10 @@ set list
 
 let g:is_bash = 1
 
+" python versions
+let g:python_host_prog  = expand('~/.pyenv/versions/neovim2.7.18/bin/python')
+let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.9.1/bin/python')
+
 " davidhalter/jedi-vim
 let g:jedi#use_tag_stack = 1
 let g:jedi#goto_command = 'g]'
@@ -280,6 +284,3 @@ nnoremap <C-Space> :Tags<cr>
 
 " Chiel92/vim-autoformat
 nnoremap <Leader>A :Autoformat<cr>
-
-let g:python_host_prog  = expand('~/.pyenv/versions/neovim2.7.18/bin/python')
-let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.8.5/bin/python')
