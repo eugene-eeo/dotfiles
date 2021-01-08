@@ -9,6 +9,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'Shougo/deoplete.nvim',           { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-clangx',         { 'for': ['c', 'cpp'] }
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
+Plug 'carlitux/deoplete-ternjs',       { 'do': 'npm install -g tern' }
+Plug 'ternjs/tern_for_vim'
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
@@ -137,7 +139,7 @@ let g:jedi#show_call_signatures = 0
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('max_list', 100)
 call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-call deoplete#custom#option('num_processes', 1)
+call deoplete#custom#option('num_processes', 2)
 
 inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :
@@ -165,6 +167,17 @@ func! VM_Exit()
         call deoplete#enable()
     endif
 endfunc
+
+" tern_for_vim.
+let g:tern#command = ["/home/eeojun/.nvm/versions/node/v15.0.1/bin/tern"]
+let g:tern#arguments = ["--persistent"]
+
+" deoplete-ternjs
+" let g:deoplete#sources#ternjs#tern_bin = '/home/eeojun/.nvm/versions/node/v15.0.1/bin/tern'
+let g:deoplete#sources#ternjs#types = 1
+let g:deoplete#sources#ternjs#docs = 1
+let g:deoplete#sources#ternjs#case_insensitive = 1
+let g:deoplete#sources#ternjs#include_keywords = 0
 
 " gutentags
 let g:gutentags_cache_dir = expand('~/.cache/tags')
