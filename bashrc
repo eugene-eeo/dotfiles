@@ -82,6 +82,10 @@ tclear() {
     clear
 }
 
+camhpc() {
+    ssh -i ~/cam-hpc 'je437@login.hpc.cam.ac.uk'
+}
+
 # enable bash completion in interactive shells
 if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then

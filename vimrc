@@ -81,6 +81,7 @@ syntax enable
 
 set background=dark
 colo goodwolf
+hi clear SignColumn
 hi NonText      ctermbg=none
 hi Normal       ctermbg=none
 hi LineNr       ctermbg=232 ctermfg=239
@@ -88,7 +89,6 @@ hi CursorLineNr ctermbg=235 ctermfg=253
 hi DiffChange   ctermfg=220 ctermbg=none
 hi DiffAdd      ctermfg=64 ctermbg=none
 hi DiffDelete   ctermfg=196 ctermbg=none
-hi clear SignColumn
 hi Comment      ctermbg=none
 hi link cPreCondit mailQuoted2
 
