@@ -18,7 +18,7 @@ sync:
 
 bins:
 	cd st && make DESTDIR=~/.scripts/ clean install
-	cd get-volume && make
+	# cd get-volume && make
 
 slouch:
 	touch ~/.config/slouch/hooks

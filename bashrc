@@ -83,7 +83,7 @@ tclear() {
 }
 
 camhpc() {
-    ssh -i ~/cam-hpc 'je437@login.hpc.cam.ac.uk'
+    ssh -i ~/cam-hpc 'je437@login-e-16.hpc.cam.ac.uk'
 }
 
 # enable bash completion in interactive shells
@@ -99,10 +99,8 @@ fi
 #shellcheck disable=1090
 [ -s "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"
 
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
-
-#shellcheck disable=2015
-test -r /home/eeojun/.opam/opam-init/init.sh && . /home/eeojun/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
