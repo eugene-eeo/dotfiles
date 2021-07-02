@@ -11,6 +11,7 @@ Plug 'Shougo/deoplete-clangx',         { 'for': ['c', 'cpp'] }
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
 Plug 'carlitux/deoplete-ternjs',       { 'do': 'npm install -g tern' }
 Plug 'ternjs/tern_for_vim'
+Plug 'ncm2/float-preview.nvim'
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
@@ -133,7 +134,7 @@ let g:jedi#auto_vim_configuration = 0
 let g:jedi#smart_auto_mappings = 0
 let g:jedi#popup_on_dot = 0
 let g:jedi#completions_command = ''
-let g:jedi#show_call_signatures = 0
+let g:jedi#show_call_signatures = 1
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -188,6 +189,12 @@ let g:gutentags_file_list_command = 'rg --files'
 let g:deoplete#sources#jedi#ignore_errors = 1
 let g:deoplete#sources#jedi#enable_typeinfo = 1
 let g:deoplete#sources#jedi#enable_short_types = 1
+let g:deoplete#sources#jedi#show_docstring = 1
+
+" ncm2/float-preview.nvim
+hi xFloatPreview ctermfg=222 ctermbg=236
+let g:float_preview#docked = 0
+let g:float_preview#winhl = 'Normal:xFloatPreview'
 
 " fatih/vim-go
 let g:go_def_mapping_enabled = 0
