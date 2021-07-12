@@ -1,15 +1,16 @@
 call plug#begin('~/.vim/plugged')
 Plug 'sjl/badwolf'
 Plug 'sjl/gundo.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-gutentags'
 
-Plug 'Shougo/deoplete.nvim',           { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-clangx',         { 'for': ['c', 'cpp'] }
-Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
-Plug 'carlitux/deoplete-ternjs',       { 'do': 'npm install -g tern' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete-clangx'
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 Plug 'ternjs/tern_for_vim'
 Plug 'ncm2/float-preview.nvim'
 
@@ -94,7 +95,7 @@ hi Comment      ctermbg=none
 hi link cPreCondit mailQuoted2
 
 if executable("rg")
-    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
     set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
@@ -172,9 +173,10 @@ func! VM_Exit()
     endif
 endfunc
 
-" tern_for_vim.
+" ternjs/tern_for_vim
 let g:tern#command = ["/home/eeojun/.nvm/versions/node/v15.0.1/bin/tern"]
 let g:tern#arguments = ["--persistent"]
+let g:tern_map_keys = 0
 
 " deoplete-ternjs
 " let g:deoplete#sources#ternjs#tern_bin = '/home/eeojun/.nvm/versions/node/v15.0.1/bin/tern'
@@ -297,9 +299,10 @@ noremap  D  "_D
 noremap  c  "_c
 noremap  C  "_C
 
-" loclist and quickfix
-nnoremap <C-j> :lprev<cr>
-nnoremap <C-k> :lnext<cr>
+" loclist navigation
+nnoremap <silent> <C-j> :lprev<cr>
+nnoremap <silent> <C-k> :lnext<cr>
+nnoremap <silent> <C-g> :lclose<cr>
 
 " mhinz/vim-grepper
 nmap <Leader>ss    :Grepper -side -cword -noprompt<cr>
