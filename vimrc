@@ -87,9 +87,9 @@ hi NonText      ctermbg=none
 hi Normal       ctermbg=none
 hi LineNr       ctermbg=232 ctermfg=239
 hi CursorLineNr ctermbg=235 ctermfg=253
-hi DiffChange   ctermfg=220 ctermbg=none
-hi DiffAdd      ctermfg=64 ctermbg=none
-hi DiffDelete   ctermfg=196 ctermbg=none
+hi DiffChange   ctermfg=220 ctermbg=none cterm=none
+hi DiffAdd      ctermfg=64 ctermbg=none cterm=none
+hi DiffDelete   ctermfg=196 ctermbg=none cterm=none
 hi Comment      ctermbg=none
 hi link cPreCondit mailQuoted2
 
@@ -101,11 +101,13 @@ endif
 " Statusline
 hi Statusline   ctermbg=234 ctermfg=255 cterm=bold
 hi StatuslineNC ctermbg=234 ctermfg=243
+hi MyStatuslinePath ctermbg=234 ctermfg=243
 
 set statusline=
-set statusline+=%f
-set statusline+=\ %m
+set statusline+=%f%m
+set statusline+=\ ››\ %#MyStatuslinePath#%F%*
 set statusline+=%=
+set statusline+=\ ‹‹
 set statusline+=\ %y
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\[%{&fileformat}\]
@@ -117,7 +119,7 @@ let g:is_bash = 1
 
 " python versions
 let g:python_host_prog  = expand('~/.pyenv/versions/neovim2.7.18/bin/python')
-let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.9.1/bin/python')
+let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.9.6/bin/python')
 
 " davidhalter/jedi-vim
 let g:jedi#use_tag_stack = 1
@@ -154,6 +156,7 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1] =~ '\s'
 endfunction
 
+" vim-visual-multi
 func! VM_Start()
     if deoplete#is_enabled()
         call deoplete#disable()
@@ -213,12 +216,25 @@ let g:gitgutter_map_keys = 0
 let g:neomake_open_list = 2
 let g:neomake_go_enabled_makers = ['go']
 let g:neomake_python_enabled_makers = ['flake8']
+" Check if we have mypy
+let output = system('mypy --version')
+if v:shell_error == 0
+    call add(g:neomake_python_enabled_makers, 'mypy')
+    let g:neomake_python_mypy_cwd = $PWD
+    let g:neomake_python_mypy_args = ['--check-untyped-defs', '--show-column-numbers', '--show-error-codes']
+    let g:neomake_python_flake8_cwd = $PWD
+endif
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_cwd = $PWD
+" hi NeomakeStatColorTypeE     ctermbg=196 cterm=bold
+" hi NeomakeStatColorTypeW     ctermbg=220 cterm=bold
+" hi link NeomakeStatColorQuickfixTypeE     NeomakeStatColorTypeE
+" hi link NeomakeStatColorQuickfixTypeW     NeomakeStatColorTypeW
 hi link NeomakeErrorSign          DiffDelete
 hi link NeomakeWarningSign        DiffChange
 hi link NeomakeMessageSign        DiffChange
 hi link NeomakeInfoSign           DiffChange
+hi link NeomakeVirtualtextMessage DiffChange
 hi link NeomakeVirtualtextInfo    DiffChange
 hi link NeomakeVirtualtextWarning DiffChange
 hi link NeomakeVirtualtextError   DiffDelete
