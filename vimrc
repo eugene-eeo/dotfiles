@@ -102,13 +102,19 @@ endif
 " Statusline
 hi Statusline   ctermbg=234 ctermfg=255 cterm=bold
 hi StatuslineNC ctermbg=234 ctermfg=243
-hi MyStatuslinePath ctermbg=234 ctermfg=243
+
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  if (a == 0) && (m == 0) && (r == 0)
+      return ''
+  endif
+  return printf('[+%d ~%d -%d]', a, m, r)
+endfunction
 
 set statusline=
 set statusline+=%f%m
-set statusline+=\ ››\ %#MyStatuslinePath#%F%*
-set statusline+=%=
-set statusline+=\ ‹‹
+set statusline+=\ %{GitStatus()}
+set statusline+=%=%<
 set statusline+=\ %y
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\[%{&fileformat}\]
@@ -213,6 +219,7 @@ let g:python_highlight_all = 1
 
 " airblade/vim-gitgutter
 let g:gitgutter_map_keys = 0
+let g:gitgutter_use_location_list = 1
 
 " neomake/neomake
 let g:neomake_open_list = 2
@@ -287,6 +294,8 @@ nnoremap <Leader>R  :NeomakeClean<cr>
 nmap ]h  <Plug>(GitGutterNextHunk)
 nmap [h  <Plug>(GitGutterPrevHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
+nmap <Leader>g :GitGutterQuickFixCurrentFile<bar>lopen<cr>
+nmap <Leader>G :GitGutterQuickFix<bar>lopen<cr>
 
 " Use x and X for cut
 noremap  x  d
