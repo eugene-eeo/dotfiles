@@ -30,6 +30,7 @@ Plug 'hail2u/vim-css3-syntax',   {'for': 'css'}
 Plug 'pangloss/vim-javascript',  {'for': 'javascript'}
 Plug 'othree/html5.vim',         {'for': 'html'}
 Plug 'vim-python/python-syntax', {'for': 'python'}
+Plug 'cespare/vim-toml'
 call plug#end()
 
 set backspace=2

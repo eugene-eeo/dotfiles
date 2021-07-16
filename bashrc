@@ -22,7 +22,7 @@ set_bash_prompt() {
     local vc
     local py
     vc=$(vcprompt -f "${RED}(%b${GREEN}%m${RED})${RESET}")
-    py=$PYENV_VERSION
+    py=$(pyenv version-name)
     if [ -n "$py" ] && [ "$py" != "system" ]; then
         py="${DIM}($py)${RESET} "
     else
