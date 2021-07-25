@@ -36,7 +36,7 @@ export PROMPT_DIRTRIM=3
 export PROMPT_COMMAND=set_bash_prompt
 export PS2=" ${DIM}>${RESET} "
 
-alias t='tree -v -a -I .git'
+alias t='rg --ignore --files | tree'
 alias g='git'
 alias ls='ls --color=auto'
 alias pbcopy='xsel -ib'
@@ -50,12 +50,12 @@ export FZF_DEFAULT_COMMAND='rg --files'
 
 v() {
     if [ "$1" ]; then
-        vim "$@"
+        nvim "$@"
         return
     fi
     local _FZF
     if _FZF=$(fzf --preview='head -100 {}'); then
-        vim "$_FZF"
+        nvim "$_FZF"
     fi
 }
 
@@ -105,3 +105,6 @@ eval "$(pyenv init -)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Direnv
+eval "$(direnv hook bash)"

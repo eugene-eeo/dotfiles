@@ -1,4 +1,6 @@
 # This is Git's per-user configuration file.
+[init]
+    defaultBranch = "master"
 [user]
     name = Eeo Jun
     email = 141bytes@gmail.com

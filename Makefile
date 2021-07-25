@@ -8,8 +8,9 @@ sync:
 	cp    ./bash_profile   ~/.bash_profile
 	cp    ./pythonrc.py    ~/.pythonrc.py
 	cp    ./inputrc        ~/.inputrc
-	cp    ./vimrc          ~/.config/nvim/init.vim
-	cp -a ./dotvim/.       ~/.config/nvim/
+	# cp    ./vimrc          ~/.config/nvim/init.vim
+	cp    ./init.lua       ~/.config/nvim/init.lua
+	# cp -a ./dotvim/.       ~/.config/nvim/
 	cp -a ./scripts/.      ~/.scripts/
 	cp    ./herbstluftwm/* ~/.config/herbstluftwm
 	cp    ./dunstrc        ~/.config/dunst/dunstrc

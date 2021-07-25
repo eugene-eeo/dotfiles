@@ -209,8 +209,10 @@ let g:float_preview#docked = 0
 let g:float_preview#winhl = 'Normal:xFloatPreview'
 
 " fatih/vim-go
+let g:go_gopls_complete_unimported = 0
 let g:go_def_mapping_enabled = 0
 let g:go_auto_type_info = 0
+let g:go_imports_autosave = 0
 
 " justinmk/vim-sneak
 let g:sneak#label = 1
@@ -251,6 +253,7 @@ hi link NeomakeVirtualtextError   DiffDelete
 call neomake#configure#automake('w', 1000)
 
 " Chiel92/vim-autoformat
+let g:formatters_go = []  " vim-go already has these
 let g:formatters_python = ['autopep8']
 let g:formatters_c = ['astyle_c']
 let g:formatdef_astyle_c = '"astyle --mode=c"'

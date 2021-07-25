@@ -5,12 +5,13 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-/* static char *font = "Iosevka Term:pixelsize=18:autohint=true:antialias=true"; */
-/* static char *font = "Consolas:pixelsize=18:autohint=true:antialias=true"; */
+/* static char *font = "Iosevka Term:size=13:autohint=true:antialias=true"; */
 /* static char *font = "Consolas:size=13:autohint=true:antialias=true"; */
 /* static char *font = "Ubuntu Mono:size=13:autohint=true:antialias=true"; */
-/* static char *font = "Menlo:size=11:autohint=true:antialias=true"; */
-static char *font = "Fira Mono:size=12:weight=medium:autohint=true:antialias=true";
+/* static char *font = "Source Code Pro:weight=semibold:size=11:autohint=true:antialias=true"; */
+static char *font = "Menlo:size=11:autohint=true:antialias=true";
+/* static char *font = "Hack:size=11:autohint=true:antialias=true"; */
+/* static char *font = "Fira Mono:size=12:weight=medium:autohint=true:antialias=true"; */
 /* static char *font = "SF Mono:weight=semibold:size=12:autohint=true:antialias=true"; */
 /* static char *font = "Cascadia Mono PL:size=12:autohint=true:antialias=true"; */
 static int borderpx = 2;
