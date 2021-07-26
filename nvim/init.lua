@@ -81,7 +81,7 @@ opt.foldenable = false
 opt.hidden = true
 opt.splitright = true
 
-opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
+opt.completeopt = { 'menuone', 'noselect' }
 opt.pumheight = 20
 opt.clipboard = { 'unnamedplus' }
 opt.updatetime = 750
@@ -119,8 +119,10 @@ vim.cmd [[
     hi DiffChange   ctermfg=220  guifg=#f2ce00 guibg=none    gui=none
     hi StatusLine   ctermfg=255  ctermbg=234   cterm=bold    guifg=#eeeeee guibg=#1c1c1c gui=bold
     hi StatusLineNC ctermfg=243  ctermbg=234   cterm=none    guifg=#767676 guibg=#1c1c1c gui=none
-    hi link NormalFloat Normal
-    hi link FloatBorder Normal
+    hi Pmenu        ctermfg=15   ctermbg=234   cterm=none    guifg=#ffffff guibg=#1c1c1c gui=none
+    hi PmenuSbar    ctermbg=234  guibg=#1c1c1c
+    hi link NormalFloat Pmenu
+    hi link FloatBorder Pmenu
 ]]
 opt.statusline = (
     "%f%m" ..
@@ -195,27 +197,12 @@ g.gutentags_ctags_exclude = {'node_modules'}
 g.gutentags_file_list_command = 'rg --files'
 
 -- nvim-compe
-require('compe').setup {
-    enabled = true,
-    autocomplete = true,
-    min_length = 1,
-    documentation = {
-        border = {"┌","─","┐","│","┘","─","└","│",},
-        winhighlight = "NormalFloat:Normal,FloatBorder:Normal",
-    },
-    source = {path=true, buffer=true, nvim_lsp=true, nvim_lua=true},
-}
+require("plugins/nvim-compe")
 
 
 --------------
 -- MAPPINGS --
 --------------
-
--- Completion bindings:
--- <Tab>: go to the next completion entry if possible.
--- <S-Tab>: go to the previous completion entry, or insert an actual tab (\t).
-map('i', '<Tab>',   'pumvisible() ? "\\<C-n>" : "\\<Tab>"',      {expr=true, silent=true})
-map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<C-v><Tab>"', {expr=true, silent=true})
 
 -- Use x and X for cut (delete + place in clipboard)
 map('', 'x', 'd')
@@ -305,7 +292,6 @@ local on_attach = function(client, bufnr)
       vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, options)
     end
 
-    vim.api.nvim_echo({{"loaded language server."}}, true, {})
     lset('omnifunc', 'v:lua.vim.lsp.omnifunc')
     lmap('K', '<cmd>lua vim.lsp.buf.hover()<cr>')
     -- goto definitions

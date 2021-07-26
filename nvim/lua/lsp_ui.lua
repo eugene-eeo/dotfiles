@@ -1,20 +1,20 @@
 local M = {}
 
 -- Icons
-M.icons = {
-  Class = " ",
+local icons = {
+  Class = " ",
   Color = " ",
-  Constant = " ",
+  Constant = "π ",
   Constructor = " ",
   Enum = "了 ",
   EnumMember = " ",
   Field = " ",
   File = " ",
   Folder = " ",
-  Function = " ",
+  Function = "ƒ ",
   Interface = "ﰮ ",
   Keyword = " ",
-  Method = "ƒ ",
+  Method = " ",
   Module = " ",
   Property = " ",
   Snippet = "﬌ ",
@@ -22,12 +22,14 @@ M.icons = {
   Text = " ",
   Unit = " ",
   Value = " ",
-  Variable = " ",
+  Variable = "𝒙 ",
 }
 
 local kinds = vim.lsp.protocol.CompletionItemKind
 for i, kind in ipairs(kinds) do
-    kinds[i] = M.icons[kind] or kind
+    local icon = icons[kind] or kind
+    -- kinds[i] = icon .. ' [' .. kind .. ']'
+    kinds[i] = icon
 end
 
 -- Signs (signcolumn)
@@ -44,9 +46,8 @@ for type, icon in pairs(signs) do
 end
 
 -- Set a nice border
-local border = {"┌","─","┐","│","┘","─","└","│"}
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {border=border})
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.hover, {border=border})
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {border="single"})
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.hover, {border="single"})
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
         virtual_text = true,
