@@ -23,8 +23,7 @@ require('paq-nvim') {
     {'nvim-treesitter/nvim-treesitter-textobjects'},
     {'junegunn/fzf.vim'},
     {'junegunn/vim-easy-align'},
-    {'Shougo/deoplete.nvim', run=fn['remote#host#UpdateRemotePlugins']},
-    {'deoplete-plugins/deoplete-lsp'},
+    {'hrsh7th/nvim-compe'},
     {'mhinz/vim-grepper'},
     {'junegunn/vim-easy-align'},
     {'tpope/vim-commentary'},
@@ -120,6 +119,8 @@ vim.cmd [[
     hi DiffChange   ctermfg=220  guifg=#f2ce00 guibg=none    gui=none
     hi StatusLine   ctermfg=255  ctermbg=234   cterm=bold    guifg=#eeeeee guibg=#1c1c1c gui=bold
     hi StatusLineNC ctermfg=243  ctermbg=234   cterm=none    guifg=#767676 guibg=#1c1c1c gui=none
+    hi link NormalFloat Normal
+    hi link FloatBorder Normal
 ]]
 opt.statusline = (
     "%f%m" ..
@@ -135,12 +136,6 @@ opt.statusline = (
 -------------------
 -- PLUGIN CONFIG --
 -------------------
--- deoplete
-g['deoplete#enable_at_startup'] = true
-fn['deoplete#custom#option']('max_list', 50)
-fn['deoplete#custom#option']('num_processes', 1)
--- deoplete-lsp
-g['deoplete#lsp#use_icons_for_candidates'] = true
 -- sjl/gundo.vim
 g['gundo_right'] = 1
 -- mhinz/vim-grepper
@@ -199,9 +194,17 @@ g.gutentags_cache_dir = fn.expand('~/.cache/tags')
 g.gutentags_ctags_exclude = {'node_modules'}
 g.gutentags_file_list_command = 'rg --files'
 
--- -- vim-visual-multi
--- local VM_before() fn['deoplete#custom#buffer_option']('auto_complete', false) done
--- local VM_after() fn['deoplete#custom#buffer_option']('auto_complete', false) done
+-- nvim-compe
+require('compe').setup {
+    enabled = true,
+    autocomplete = true,
+    min_length = 1,
+    documentation = {
+        border = {"┌","─","┐","│","┘","─","└","│",},
+        winhighlight = "NormalFloat:Normal,FloatBorder:Normal",
+    },
+    source = {path=true, buffer=true, nvim_lsp=true, nvim_lua=true},
+}
 
 
 --------------
@@ -229,7 +232,7 @@ map('', 'C', '"_C')
 map('', '<C-a>', '<Nop>')
 
 -- force of habits
-map('n', 'g[',        ':pop',        {silent = true})
+map('n', 'g[',        ':pop<cr>',    {silent = true})
 map('n', '<leader>d', ':nohl<cr>',   {silent = true})
 map('n', '<leader>|', ':vsplit<cr>', {silent = true})
 map('n', '<leader>-', ':split<cr>',  {silent = true})
@@ -331,6 +334,7 @@ for _, server_name in ipairs(servers) do
         }
     }
 end
+require('lsp_ui')
 
 ----------------
 -- IDENTATION --
