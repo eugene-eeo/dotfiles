@@ -6,9 +6,9 @@ local fn = vim.fn
 local g = vim.g
 local opt = vim.opt
 local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
-  if opts then options = vim.tbl_extend('force', options, opts) end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    local options = {noremap = true}
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 
@@ -20,14 +20,14 @@ require('paq-nvim') {
     {'savq/paq-nvim'},
     {'neovim/nvim-lspconfig'},
     {'nvim-treesitter/nvim-treesitter'},
-    {'nvim-treesitter/nvim-treesitter-textobjects'},
+    {'wellle/targets.vim'},
+    {'junegunn/fzf', fn=function() fn['fzf#install']() end},
     {'junegunn/fzf.vim'},
     {'junegunn/vim-easy-align'},
+    {'mg979/vim-visual-multi', branch='master'},
     {'hrsh7th/nvim-compe'},
     {'mhinz/vim-grepper'},
-    {'junegunn/vim-easy-align'},
     {'tpope/vim-commentary'},
-    {'rstacruz/vim-closer'},
     {'sjl/gundo.vim'},
     {'sjl/badwolf'},
     {'neomake/neomake'},
@@ -35,15 +35,30 @@ require('paq-nvim') {
     {'nvim-lua/plenary.nvim'},
     {'lewis6991/gitsigns.nvim'}, -- depends on plenary.nvim
     {'ludovicchabant/vim-gutentags'},
-    {'mg979/vim-visual-multi', branch='master'},
+    {'andymass/vim-matchup'},
 }
 
+------------------------------
+-- Disable some vim plugins --
+------------------------------
+g.loaded_matchparen        = 1
+g.loaded_matchit           = 1
+g.loaded_logiPat           = 1
+g.loaded_rrhelper          = 1
+g.loaded_tarPlugin         = 1
+g.loaded_gzip              = 1
+g.loaded_zipPlugin         = 1
+g.loaded_2html_plugin      = 1
+g.loaded_shada_plugin      = 1
+g.loaded_spellfile_plugin  = 1
+g.loaded_tutor_mode_plugin = 1
 
 -------------
 -- OPTIONS --
 -------------
 g.mapleader = ','
 
+vim.cmd [[ set shada = "NONE" ]]
 opt.backspace = '2'
 opt.encoding = 'utf8'
 opt.ffs = { 'unix', 'dos', 'mac' }
@@ -82,6 +97,7 @@ opt.hidden = true
 opt.splitright = true
 
 opt.completeopt = { 'menuone', 'noselect' }
+opt.shortmess:append('c')
 opt.pumheight = 20
 opt.clipboard = { 'unnamedplus' }
 opt.updatetime = 750
@@ -91,6 +107,12 @@ opt.pastetoggle = '<F2>'
 opt.listchars = {tab="▸ ", trail="·"}
 opt.list = true
 g.is_bash = true
+
+-- jumplist
+opt.jumpoptions:append('stack')
+
+-- makeprg --
+opt.makeprg = ''
 
 -------- Grep ---------
 if fn.executable("rg") then
@@ -123,10 +145,11 @@ vim.cmd [[
     hi PmenuSbar    ctermbg=234  guibg=#1c1c1c
     hi link NormalFloat Pmenu
     hi link FloatBorder Pmenu
+    hi MatchParen   ctermbg=31  guibg=#0087af ctermfg=none guifg=none
+    hi PmenuSel     ctermbg=31  guibg=#0087af ctermfg=15   guifg=#FFFFFF gui=bold
 ]]
 opt.statusline = (
     "%f%m" ..
-    " %{get(b:,'gitsigns_status','')}" ..
     "%=%<" ..
     " %y" ..
     " %{&fileencoding?&fileencoding:&encoding}" ..
@@ -139,11 +162,11 @@ opt.statusline = (
 -- PLUGIN CONFIG --
 -------------------
 -- sjl/gundo.vim
-g['gundo_right'] = 1
+g.gundo_right = 1
 -- mhinz/vim-grepper
-g['grepper'] = {quickfix=1,
-                tools={'rg', 'git', 'grep'},
-                operator={side=1, prompt=1}}
+g.grepper = {quickfix=1,
+             tools={'rg', 'git', 'grep'},
+             operator={side=1, prompt=1}}
 -- neomake/neomake
 local CWD = vim.fn.getcwd()
 g.neomake_open_list = 2
@@ -172,17 +195,22 @@ hi link NeomakeVirtualtextError   DiffDelete
 ]]
 
 -- vim-autoformat/vim-autoformat
-g.formatters_go = {'goimports', 'gofmt_2'}
+g.autoformat_autoindent = 0 -- ugly!
+g.autoformat_retab = 0
+g.formatters_go = {'goimports', 'gofmt'}
+g.formatdef_gofmt = '"gofmt"'
+g.formatdef_goimports = '"goimports --format-only"'
 g.formatters_python = {'autopep8'}
 g.formatters_c = {'astyle_c'}
 g.formatdef_astyle_c = '"astyle --mode=c"'
 
 -- lewis6991/gitsigns.nvim
 require('gitsigns').setup {
+    update_debounce = 500,
     keymaps={
         noremap=true,
-        ['n ]]h'] = '<cmd>lua require("gitsigns.actions").next_hunk()<CR>',
-        ['n [[h'] = '<cmd>lua require("gitsigns.actions").prev_hunk()<CR>',
+        ['n ]h'] = '<cmd>lua require("gitsigns.actions").next_hunk()<CR>',
+        ['n [h'] = '<cmd>lua require("gitsigns.actions").prev_hunk()<CR>',
         ['n ghp'] = '<cmd>lua require("gitsigns").preview_hunk()<CR>',
     },
 }
@@ -195,9 +223,18 @@ vim.cmd [[
 g.gutentags_cache_dir = fn.expand('~/.cache/tags')
 g.gutentags_ctags_exclude = {'node_modules'}
 g.gutentags_file_list_command = 'rg --files'
-
 -- nvim-compe
-require("plugins/nvim-compe")
+require('extra/nvim-compe')
+-- matchup
+g.matchup_matchparen_enabled = 1
+g.matchup_matchparen_offscreen = {}
+g.matchup_mappings_enabled = 0
+map('n', '%', '<plug>(matchup-%)', {noremap=false})
+map('x', '%', '<plug>(matchup-%)', {noremap=false})
+map('x', 'a%', '<plug>(matchup-%)', {noremap=false})
+map('x', 'i%', '<plug>(matchup-%)', {noremap=false})
+map('o', 'a%', '<plug>(matchup-%)', {noremap=false})
+map('o', 'i%', '<plug>(matchup-%)', {noremap=false})
 
 
 --------------
@@ -215,6 +252,10 @@ map('', 'D', '"_D')
 map('', 'c', '"_c')
 map('', 'C', '"_C')
 
+-- indent many times
+map('v', '<', '<gv')
+map('v', '>', '>gv')
+
 -- tmux
 map('', '<C-a>', '<Nop>')
 
@@ -226,10 +267,14 @@ map('n', '<leader>-', ':split<cr>',  {silent = true})
 map('n', '<F5>',      ':bp<bar>bw#<cr>')
 map('n', '<F6>',      ':GundoToggle<cr>')
 
--- quickfix list
+-- {jump,loc,quick}fix list
+map('n', '[[',    '<C-o>',       {silent = true})
+map('n', ']]',    '<C-i>',       {silent = true})
+map('n', ']l',    ':lprev<cr>',  {silent = true})
+map('n', '[l',    ':lnext<cr>',  {silent = true})
+map('n', 'lc',    ':lclose<cr>', {silent = true})
 map('n', '<C-j>', ':cprev<cr>',  {silent = true})
 map('n', '<C-k>', ':cnext<cr>',  {silent = true})
-map('n', '<C-g>', ':cclose<cr>', {silent = true})
 
 -- mhinz/vim-grepper
 map('n', '<leader>ss', ':Grepper -side -cword -noprompt<cr>')
@@ -246,13 +291,10 @@ map('n', '<C-o>',     ':Commands<cr>')
 map('n', '<C-f>',     ':BTags<cr>')
 map('n', '<C-Space>', ':Tags<cr>')
 -- neomake/neomake
-map('n', '<leader>r', ':Neomake<cr>')
+map('n', '<leader>r', ':windo if &buftype == "quickfix" | lclose | endif<cr>:Neomake<cr>')
 map('n', '<leader>R', ':NeomakeClean<cr>')
 -- vim-autoformat/vim-autoformat
 map('n', '<leader>A', ':Autoformat<cr>')
-vim.cmd [[
-    au BufWrite *.go :Autoformat
-]]
 
 
 -----------------
@@ -261,66 +303,15 @@ vim.cmd [[
 require('nvim-treesitter.configs').setup {
     ensure_installed = 'maintained',
     highlight = { enable = true },
-    -- this requires nvim-treesitter/nvim-treesitter-textobjects
-    -- we're building our own targets.vim!
-    textobjects = {
-        select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-                ["ia"] = "@parameter.inner",
-                ["aa"] = "@parameter.outer",
-                ["ac"] = "@comment.outer",
-                ["if"] = "@function.inner",
-                ["af"] = "@function.outer",
-            },
-        }
-    }
+    matchup = { enable = true },
 }
 
 
 -----------------
 -- LSP CONFIGS --
 -----------------
-local lsp = require 'lspconfig'
-
-local on_attach = function(client, bufnr)
-    local function lset(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-    local function lmap(lhs, rhs, opts)
-      local options = {noremap = true}
-      if opts then options = vim.tbl_extend('force', options, opts) end
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, options)
-    end
-
-    lset('omnifunc', 'v:lua.vim.lsp.omnifunc')
-    lmap('K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-    -- goto definitions
-    lmap('g]', '<cmd>lua vim.lsp.buf.definition()<cr>')
-    lmap('gT', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
-    lmap('gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
-    -- quickfix
-    lmap('gr', '<cmd>lua vim.lsp.buf.references()<cr>')
-    lmap('gI', '<cmd>lua vim.lsp.buf.incoming_calls()<cr>')
-    lmap('gO', '<cmd>lua vim.lsp.buf.outgoing_calls()<cr>')
-    -- refactoring
-    lmap('<leader>f', '<cmd>lua vim.lsp.buf.code_action()<cr>')
-    lmap('<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>')
-    -- errors :'(
-    lmap('[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>')
-    lmap(']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>')
-    lmap('<leader>q', '<cmd>lua vim.lsp.diagnostic.set_qflist()<cr>')
-end
-
-local servers = { "gopls", "jedi_language_server" }
-for _, server_name in ipairs(servers) do
-    lsp[server_name].setup {
-        on_attach = on_attach,
-        flags = {
-            debounce_text_changes = 250,
-        }
-    }
-end
-require('lsp_ui')
+require('extra/lsp_config').setup()
+require('extra/lsp_ui').setup()
 
 ----------------
 -- IDENTATION --

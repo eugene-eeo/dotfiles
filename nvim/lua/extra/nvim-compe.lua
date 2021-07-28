@@ -1,8 +1,7 @@
-require('compe').setup {
+local CONFIG = {
     enabled = true,
-    min_length = 1,
+    debug = true,
     autocomplete = true,
-    throttle_time = 80,
     documentation = {
         border = "single",
         winhighlight = "NormalFloat:Pmenu,FloatBorder:Pmenu",
@@ -17,8 +16,12 @@ local t = function(str)
 end
 
 local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+  local col = vim.fn.col '.' - 1
+  if col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' then
+    return true
+  else
+    return false
+  end
 end
 
 -- Use (s-)Tab to:
@@ -32,7 +35,7 @@ _G.tab_complete = function()
     elseif check_back_space() then
         return t "<Tab>"
     else
-        return vim.fn["compe#complete"]()
+        return vim.fn['compe#complete']()
     end
 end
 
@@ -44,13 +47,20 @@ _G.s_tab_complete = function()
     end
 end
 
+
 local function map(...) vim.api.nvim_set_keymap(...) end
 
-map("i", "<Tab>", "v:lua.tab_complete()", {expr = true, silent = true, noremap = true})
-map("s", "<Tab>", "v:lua.tab_complete()", {expr = true, silent = true, noremap = true})
-map("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true, silent = true, noremap = true})
-map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true, silent = true, noremap = true})
+map('i', '<Tab>', 'v:lua.tab_complete()', {expr = true, silent = true, noremap = true})
+map('i', '<S-Tab>', 'v:lua.s_tab_complete()', {expr = true, silent = true, noremap = true})
+map('i', '<cr>', 'compe#confirm("<CR>")', {expr = true, noremap=true})
 
--- Need to disable for vim-visual-multi.
-vim.g.VM_Start = function() require'compe'.setup{enabled = false} end
-vim.g.VM_End   = function() require'compe'.setup{enabled = true} end
+_G.compe_cfg = CONFIG
+require('compe').setup(CONFIG)
+vim.cmd [[
+func! VM_Start()
+    lua require'compe'.setup({enabled=false})
+endfunc
+func! VM_Exit()
+    lua require'compe'.setup(_G.compe_cfg)
+endfunc
+]]
