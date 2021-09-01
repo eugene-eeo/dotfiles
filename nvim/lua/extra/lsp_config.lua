@@ -2,10 +2,6 @@
 -- LSP configuration (global) --
 --------------------------------
 local lsp = require 'lspconfig'
-local global_settings = {
-    -- Global settings for every language server.
-    gopls={analyses={composites=false}},
-}
 
 -- Define some autocommands -- these will be helpful when we want
 -- to use FZF to search them (:Commands). vim.lsp.(...) seems to
@@ -26,6 +22,14 @@ for _, cmd in ipairs(commands) do
     vim.cmd(":command! " .. cmd[1] .. " :lua " .. cmd[2] .. "<cr>")
 end
 
+-- Autocmd for Golang
+vim.cmd[[
+augroup lsp
+    autocmd!
+    autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync()
+augroup END
+]]
+
 -- Common mappings
 local on_attach = function(client, bufnr)
     local function lset(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -41,15 +45,20 @@ local on_attach = function(client, bufnr)
     lmap('<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>')
     lmap('[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
     lmap(']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+    lmap('<leader>A', '<cmd>lua vim.lsp.buf.formatting_sync()<CR>')
 end
 
 return {
     setup = function()
-        local servers = {"gopls", "jedi_language_server"}
-        for _, srv in ipairs(servers) do
+        local servers = {
+            ["gopls"] = {gopls={analyses={composites=false}}},
+            ["jedi_language_server"] = {},
+            ["clangd"] = {},
+        }
+        for srv, settings in pairs(servers) do
             lsp[srv].setup({
                 on_attach=on_attach,
-                settings=global_settings,
+                settings=settings,
                 flags={
                     debounce_text_changes=200,
                 },

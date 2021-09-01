@@ -1,7 +1,6 @@
 -------------
 -- HELPERS --
 -------------
-local cmd = vim.cmd
 local fn = vim.fn
 local g = vim.g
 local opt = vim.opt
@@ -15,11 +14,11 @@ end
 -------------
 -- PLUGINS --
 -------------
-cmd 'packadd paq-nvim'
+vim.cmd 'packadd paq-nvim'
 require('paq-nvim') {
     {'savq/paq-nvim'},
     {'neovim/nvim-lspconfig'},
-    {'nvim-treesitter/nvim-treesitter'},
+    -- {'nvim-treesitter/nvim-treesitter'},
     {'wellle/targets.vim'},
     {'junegunn/fzf', fn=function() fn['fzf#install']() end},
     {'junegunn/fzf.vim'},
@@ -30,8 +29,6 @@ require('paq-nvim') {
     {'tpope/vim-commentary'},
     {'sjl/gundo.vim'},
     {'sjl/badwolf'},
-    {'neomake/neomake'},
-    {'vim-autoformat/vim-autoformat'},
     {'nvim-lua/plenary.nvim'},
     {'lewis6991/gitsigns.nvim'}, -- depends on plenary.nvim
     {'ludovicchabant/vim-gutentags'},
@@ -126,7 +123,6 @@ g.python3_host_prog = fn.expand("~/.pyenv/versions/neovim3.9.6/bin/python")
 
 -------- Colors --------
 g.background = 'dark'
-opt.termguicolors = true
 vim.cmd [[
     colorscheme goodwolf
     hi Normal       ctermbg=0    guibg=#000000
@@ -143,11 +139,13 @@ vim.cmd [[
     hi StatusLineNC ctermfg=243  ctermbg=234   cterm=none    guifg=#767676 guibg=#1c1c1c gui=none
     hi Pmenu        ctermfg=15   ctermbg=234   cterm=none    guifg=#ffffff guibg=#1c1c1c gui=none
     hi PmenuSbar    ctermbg=234  guibg=#1c1c1c
+    hi MatchParen   ctermbg=31   guibg=#0087af ctermfg=none  guifg=fg
+    hi PmenuSel     ctermbg=31   guibg=#0087af ctermfg=15    guifg=#FFFFFF gui=bold
     hi link NormalFloat Pmenu
     hi link FloatBorder Pmenu
-    hi MatchParen   ctermbg=31  guibg=#0087af ctermfg=none guifg=none
-    hi PmenuSel     ctermbg=31  guibg=#0087af ctermfg=15   guifg=#FFFFFF gui=bold
+    hi link cPreCondit  Directory
 ]]
+opt.termguicolors = true
 opt.statusline = (
     "%f%m" ..
     "%=%<" ..
@@ -167,43 +165,6 @@ g.gundo_right = 1
 g.grepper = {quickfix=1,
              tools={'rg', 'git', 'grep'},
              operator={side=1, prompt=1}}
--- neomake/neomake
-local CWD = vim.fn.getcwd()
-g.neomake_open_list = 2
-g.neomake_go_enabled_makers = {'go'}
-g.neomake_python_enabled_makers = {'flake8'}
-g.neomake_python_flake8_cwd = CWD
--- check if we have mypy
-fn.system('mypy --version')
-if vim.v.shell_error == 0 then
-    g.neomake_python_enabled_makers:append('mypy')
-    g.neomake_python_mypy_cwd = CWD
-    g.neomake_python_mypy_args = {'--check-untyped-defs', '--show-column-numbers', '--show-error-codes'}
-end
-g.neomake_javascript_enabled_makers = {'eslint'}
-g.neomake_javascript_eslint_cwd = CWD
-fn['neomake#configure#automake']('w', 1000)
-vim.cmd [[
-hi link NeomakeErrorSign          DiffDelete
-hi link NeomakeWarningSign        DiffChange
-hi link NeomakeMessageSign        DiffChange
-hi link NeomakeInfoSign           DiffChange
-hi link NeomakeVirtualtextMessage DiffChange
-hi link NeomakeVirtualtextInfo    DiffChange
-hi link NeomakeVirtualtextWarning DiffChange
-hi link NeomakeVirtualtextError   DiffDelete
-]]
-
--- vim-autoformat/vim-autoformat
-g.autoformat_autoindent = 0 -- ugly!
-g.autoformat_retab = 0
-g.formatters_go = {'goimports', 'gofmt'}
-g.formatdef_gofmt = '"gofmt"'
-g.formatdef_goimports = '"goimports --format-only"'
-g.formatters_python = {'autopep8'}
-g.formatters_c = {'astyle_c'}
-g.formatdef_astyle_c = '"astyle --mode=c"'
-
 -- lewis6991/gitsigns.nvim
 require('gitsigns').setup {
     update_debounce = 500,
@@ -270,9 +231,6 @@ map('n', '<F6>',      ':GundoToggle<cr>')
 -- {jump,loc,quick}fix list
 map('n', '[[',    '<C-o>',       {silent = true})
 map('n', ']]',    '<C-i>',       {silent = true})
-map('n', ']l',    ':lprev<cr>',  {silent = true})
-map('n', '[l',    ':lnext<cr>',  {silent = true})
-map('n', 'lc',    ':lclose<cr>', {silent = true})
 map('n', '<C-j>', ':cprev<cr>',  {silent = true})
 map('n', '<C-k>', ':cnext<cr>',  {silent = true})
 
@@ -290,26 +248,18 @@ map('n', '<C-t>',     ':Buffers<cr>')
 map('n', '<C-o>',     ':Commands<cr>')
 map('n', '<C-f>',     ':BTags<cr>')
 map('n', '<C-Space>', ':Tags<cr>')
--- neomake/neomake
-map('n', '<leader>r', ':windo if &buftype == "quickfix" | lclose | endif<cr>:Neomake<cr>')
-map('n', '<leader>R', ':NeomakeClean<cr>')
--- vim-autoformat/vim-autoformat
-map('n', '<leader>A', ':Autoformat<cr>')
 
+-------------------
+---- TREE-SITTER --
+-------------------
+--require('nvim-treesitter.configs').setup {
+--    ensure_installed = 'maintained',
+--    highlight = { enable = true },
+--}
 
------------------
--- TREE-SITTER --
------------------
-require('nvim-treesitter.configs').setup {
-    ensure_installed = 'maintained',
-    highlight = { enable = true },
-    matchup = { enable = true },
-}
-
-
------------------
--- LSP CONFIGS --
------------------
+-------------------
+---- LSP CONFIGS --
+-------------------
 require('extra/lsp_config').setup()
 require('extra/lsp_ui').setup()
 

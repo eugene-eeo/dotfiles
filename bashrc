@@ -22,7 +22,7 @@ set_bash_prompt() {
     local vc
     local py
     vc=$(vcprompt -f "${RED}(%b${GREEN}%m${RED})${RESET}")
-    py=$(pyenv version-name)
+    py=$PYENV_VERSION
     if [ -n "$py" ] && [ "$py" != "system" ]; then
         py="${DIM}($py)${RESET} "
     else
@@ -32,7 +32,6 @@ set_bash_prompt() {
 }
 
 export PROMPT_DIRTRIM=3
-# export PS1=" \\w\$(vcprompt -f '${RED}(%b${GREEN}%m${RED})')${RESET} ${RED}\$${RESET} "
 export PROMPT_COMMAND=set_bash_prompt
 export PS2=" ${DIM}>${RESET} "
 
@@ -41,7 +40,6 @@ alias g='git'
 alias ls='ls --color=auto'
 alias pbcopy='xsel -ib'
 alias pbpaste='xsel -ob'
-alias u='pdetach st'
 alias hc='herbstclient'
 alias sudo='sudo '
 
@@ -80,10 +78,6 @@ mux() {
 tclear() {
     tmux clear
     clear
-}
-
-camhpc() {
-    ssh -i ~/cam-hpc 'je437@login-e-16.hpc.cam.ac.uk'
 }
 
 # enable bash completion in interactive shells

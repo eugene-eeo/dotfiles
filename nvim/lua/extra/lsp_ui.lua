@@ -1,36 +1,8 @@
 local M = {}
 
--- Icons
--- local icons = {
---   Class = " ",
---   Color = " ",
---   Constant = "π ",
---   Constructor = " ",
---   Enum = "了 ",
---   EnumMember = " ",
---   Field = " ",
---   File = " ",
---   Folder = " ",
---   Function = "ƒ ",
---   Interface = "ﰮ ",
---   Keyword = " ",
---   Method = " ",
---   Module = " ",
---   Property = " ",
---   Snippet = "﬌ ",
---   Struct = " ",
---   Text = " ",
---   Unit = " ",
---   Value = " ",
---   Variable = "𝒙 ",
--- }
-
 function M:setup()
-    -- Change the icons for completion
     local kinds = vim.lsp.protocol.CompletionItemKind
     for i, kind in ipairs(kinds) do
-        -- local icon = icons[kind] or kind
-        -- kinds[i] = icon
         kinds[i] = '[' .. kind .. ']'
     end
 

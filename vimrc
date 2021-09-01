@@ -1,18 +1,14 @@
-call plug#begin('~/.vim/plugged')
+call plug#begin(stdpath('data') . '/plugged')
 Plug 'sjl/badwolf'
 Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'justinmk/vim-sneak'
 Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-clangx'
 Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-Plug 'ternjs/tern_for_vim'
-Plug 'ncm2/float-preview.nvim'
 
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
@@ -83,16 +79,25 @@ filetype plugin indent on
 syntax enable
 
 set background=dark
+set termguicolors
 colo goodwolf
 hi clear SignColumn
-hi NonText      ctermbg=none
-hi Normal       ctermbg=none
-hi LineNr       ctermbg=232 ctermfg=239
-hi CursorLineNr ctermbg=235 ctermfg=253
-hi DiffChange   ctermfg=220 ctermbg=none cterm=none
-hi DiffAdd      ctermfg=64 ctermbg=none cterm=none
-hi DiffDelete   ctermfg=196 ctermbg=none cterm=none
-hi Comment      ctermbg=none
+hi Normal       ctermbg=none guibg=none
+hi NonText      ctermbg=none guibg=none
+hi Comment      ctermbg=none guibg=none
+hi SignColumn   ctermbg=232  guibg=#080808
+hi LineNr       ctermfg=237  ctermbg=232   guibg=#080808 guifg=#3a3a3a
+hi CursorLine   guibg=#262626
+hi CursorLineNr ctermfg=253  ctermbg=235   guibg=#262626 guifg=#dadada
+hi DiffAdd      ctermfg=64   guifg=green   guibg=none    gui=none
+hi DiffDelete   ctermfg=196  guifg=red     guibg=none    gui=none
+hi DiffChange   ctermfg=220  guifg=orange  guibg=none    gui=none
+hi StatusLine   ctermfg=255  ctermbg=234   cterm=bold    guifg=#eeeeee guibg=#1c1c1c gui=bold
+hi StatusLineNC ctermfg=243  ctermbg=234   cterm=none    guifg=#767676 guibg=#1c1c1c gui=none
+hi Pmenu        ctermfg=15   ctermbg=234   cterm=none    guifg=#ffffff guibg=#1c1c1c gui=none
+hi PmenuSbar    ctermbg=234  guibg=#1c1c1c
+hi MatchParen   ctermbg=31   guibg=#0087af ctermfg=none  guifg=fg
+hi PmenuSel     ctermbg=31   guibg=#0087af ctermfg=15    guifg=#FFFFFF gui=bold
 hi link cPreCondit mailQuoted2
 
 if executable("rg")
@@ -161,36 +166,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-V><Tab>"
 
 function! s:check_back_space() abort
     let col = col('.') - 1
-    return !col || getline('.')[col - 1] =~ '\s'
+    return !col || getline('.')[col - 1] =~# '\s'
 endfunction
-
-" vim-visual-multi
-func! VM_Start()
-    if deoplete#is_enabled()
-        call deoplete#disable()
-        let g:deoplete_is_enable_before_multi_cursors = 1
-    else
-        let g:deoplete_is_enable_before_multi_cursors = 0
-    endif
-endfunc
-
-func! VM_Exit()
-    if g:deoplete_is_enable_before_multi_cursors
-        call deoplete#enable()
-    endif
-endfunc
-
-" ternjs/tern_for_vim
-let g:tern#command = ["/home/eeojun/.nvm/versions/node/v15.0.1/bin/tern"]
-let g:tern#arguments = ["--persistent"]
-let g:tern_map_keys = 0
-
-" deoplete-ternjs
-" let g:deoplete#sources#ternjs#tern_bin = '/home/eeojun/.nvm/versions/node/v15.0.1/bin/tern'
-let g:deoplete#sources#ternjs#types = 1
-let g:deoplete#sources#ternjs#docs = 1
-let g:deoplete#sources#ternjs#case_insensitive = 1
-let g:deoplete#sources#ternjs#include_keywords = 0
 
 " gutentags
 let g:gutentags_cache_dir = expand('~/.cache/tags')
@@ -203,19 +180,11 @@ let g:deoplete#sources#jedi#enable_typeinfo = 1
 let g:deoplete#sources#jedi#enable_short_types = 1
 let g:deoplete#sources#jedi#show_docstring = 1
 
-" ncm2/float-preview.nvim
-hi xFloatPreview ctermfg=222 ctermbg=236
-let g:float_preview#docked = 0
-let g:float_preview#winhl = 'Normal:xFloatPreview'
-
 " fatih/vim-go
 let g:go_gopls_complete_unimported = 0
 let g:go_def_mapping_enabled = 0
 let g:go_auto_type_info = 0
 let g:go_imports_autosave = 0
-
-" justinmk/vim-sneak
-let g:sneak#label = 1
 
 " vim-python/python-syntax
 let g:python_highlight_all = 1
@@ -228,20 +197,18 @@ let g:gitgutter_use_location_list = 1
 let g:neomake_open_list = 2
 let g:neomake_go_enabled_makers = ['go']
 let g:neomake_python_enabled_makers = ['flake8']
+let g:neomake_python_flake8_cwd = $PWD
 " Check if we have mypy
 let output = system('mypy --version')
 if v:shell_error == 0
     call add(g:neomake_python_enabled_makers, 'mypy')
     let g:neomake_python_mypy_cwd = $PWD
     let g:neomake_python_mypy_args = ['--check-untyped-defs', '--show-column-numbers', '--show-error-codes']
-    let g:neomake_python_flake8_cwd = $PWD
 endif
+let g:neomake_c_enabled_makers = ['gcc']
+let g:neomake_c_gcc_args = ['-fsyntax-only', '-Wall', '-I./']
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_cwd = $PWD
-" hi NeomakeStatColorTypeE     ctermbg=196 cterm=bold
-" hi NeomakeStatColorTypeW     ctermbg=220 cterm=bold
-" hi link NeomakeStatColorQuickfixTypeE     NeomakeStatColorTypeE
-" hi link NeomakeStatColorQuickfixTypeW     NeomakeStatColorTypeW
 hi link NeomakeErrorSign          DiffDelete
 hi link NeomakeWarningSign        DiffChange
 hi link NeomakeMessageSign        DiffChange
@@ -255,8 +222,7 @@ call neomake#configure#automake('w', 1000)
 " Chiel92/vim-autoformat
 let g:formatters_go = []  " vim-go already has these
 let g:formatters_python = ['autopep8']
-let g:formatters_c = ['astyle_c']
-let g:formatdef_astyle_c = '"astyle --mode=c"'
+let g:formatters_c = []
 
 " sjl/gundo.vim
 let g:gundo_right = 1
@@ -313,6 +279,8 @@ noremap  c  "_c
 noremap  C  "_C
 
 " loclist navigation
+nnoremap <silent> [[ <C-o>
+nnoremap <silent> ]] <C-i>
 nnoremap <silent> <C-j> :lprev<cr>
 nnoremap <silent> <C-k> :lnext<cr>
 nnoremap <silent> <C-g> :lclose<cr>
