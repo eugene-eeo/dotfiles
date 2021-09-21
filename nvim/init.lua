@@ -18,7 +18,7 @@ vim.cmd 'packadd paq-nvim'
 require('paq-nvim') {
     {'savq/paq-nvim'},
     {'neovim/nvim-lspconfig'},
-    -- {'nvim-treesitter/nvim-treesitter'},
+    {'nvim-treesitter/nvim-treesitter'},
     {'wellle/targets.vim'},
     {'junegunn/fzf', fn=function() fn['fzf#install']() end},
     {'junegunn/fzf.vim'},
@@ -252,10 +252,10 @@ map('n', '<C-Space>', ':Tags<cr>')
 -------------------
 ---- TREE-SITTER --
 -------------------
---require('nvim-treesitter.configs').setup {
---    ensure_installed = 'maintained',
---    highlight = { enable = true },
---}
+require('nvim-treesitter.configs').setup {
+    ensure_installed = 'maintained',
+    highlight = { enable = true },
+}
 
 -------------------
 ---- LSP CONFIGS --
