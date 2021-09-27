@@ -143,7 +143,6 @@ vim.cmd [[
     hi PmenuSel     ctermbg=31   guibg=#0087af ctermfg=15    guifg=#FFFFFF gui=bold
     hi link NormalFloat Pmenu
     hi link FloatBorder Pmenu
-    hi link cPreCondit  Directory
 ]]
 opt.termguicolors = true
 opt.statusline = (
