@@ -134,6 +134,10 @@ let g:is_bash = 1
 let g:python_host_prog  = expand('~/.pyenv/versions/neovim2.7.18/bin/python')
 let g:python3_host_prog = expand('~/.pyenv/versions/neovim3.9.6/bin/python')
 
+
+
+
+
 " davidhalter/jedi-vim
 let g:jedi#use_tag_stack = 1
 let g:jedi#goto_command = 'g]'
