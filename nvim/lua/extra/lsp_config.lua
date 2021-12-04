@@ -22,14 +22,6 @@ for _, cmd in ipairs(commands) do
     vim.cmd(":command! " .. cmd[1] .. " :lua " .. cmd[2] .. "<cr>")
 end
 
--- Autocmd for Golang
-vim.cmd[[
-augroup lsp
-    autocmd!
-    autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync()
-augroup END
-]]
-
 -- Common mappings
 local on_attach = function(client, bufnr)
     local function lset(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -43,13 +35,11 @@ local on_attach = function(client, bufnr)
     lmap('g]', '<cmd>lua vim.lsp.buf.definition()<cr>')
     lmap('<leader>f', '<cmd>lua vim.lsp.buf.code_action()<cr>')
     lmap('<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>')
-    lmap('[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-    lmap(']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
     lmap('<leader>A', '<cmd>lua vim.lsp.buf.formatting_sync()<CR>')
 end
 
 return {
-    setup = function()
+    setup = function(capabilities)
         local servers = {
             ["gopls"] = {gopls={analyses={composites=false}}},
             ["jedi_language_server"] = {},
@@ -58,6 +48,7 @@ return {
         for srv, settings in pairs(servers) do
             lsp[srv].setup({
                 on_attach=on_attach,
+                capabilities=capabilities,
                 settings=settings,
                 flags={
                     debounce_text_changes=200,

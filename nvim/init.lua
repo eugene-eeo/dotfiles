@@ -17,14 +17,18 @@ end
 vim.cmd 'packadd paq-nvim'
 require('paq-nvim') {
     {'savq/paq-nvim'},
-    {'neovim/nvim-lspconfig'},
     {'nvim-treesitter/nvim-treesitter'},
+    {'neovim/nvim-lspconfig'},
+    {'hrsh7th/nvim-cmp'},
+    {'hrsh7th/cmp-nvim-lsp'},
+    {'hrsh7th/cmp-buffer'},
+    {'hrsh7th/cmp-vsnip'},
+    {'hrsh7th/vim-vsnip'},
     {'wellle/targets.vim'},
     {'junegunn/fzf', fn=function() fn['fzf#install']() end},
     {'junegunn/fzf.vim'},
     {'junegunn/vim-easy-align'},
     {'mg979/vim-visual-multi', branch='master'},
-    {'hrsh7th/nvim-compe'},
     {'mhinz/vim-grepper'},
     {'tpope/vim-commentary'},
     {'sjl/gundo.vim'},
@@ -33,6 +37,7 @@ require('paq-nvim') {
     {'lewis6991/gitsigns.nvim'}, -- depends on plenary.nvim
     {'ludovicchabant/vim-gutentags'},
     {'andymass/vim-matchup'},
+    {'mfussenegger/nvim-lint'},
 }
 
 ------------------------------
@@ -66,7 +71,6 @@ opt.wildmode = { 'longest:full', 'full' }
 opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = true
--- opt.showmode = false  -- hide -- INSERT -- in the cmd line
 opt.showmatch = true   -- show matching brackets
 opt.matchtime = 0
 opt.laststatus = 2
@@ -98,7 +102,6 @@ opt.shortmess:append('c')
 opt.pumheight = 20
 opt.clipboard = { 'unnamedplus' }
 opt.updatetime = 750
-opt.background = 'dark'
 opt.pastetoggle = '<F2>'
 
 opt.listchars = {tab="▸ ", trail="·"}
@@ -183,8 +186,8 @@ vim.cmd [[
 g.gutentags_cache_dir = fn.expand('~/.cache/tags')
 g.gutentags_ctags_exclude = {'node_modules'}
 g.gutentags_file_list_command = 'rg --files'
--- nvim-compe
-require('extra/nvim-compe')
+-- nvim-cmp
+require('extra/nvim-cmp')
 -- matchup
 g.matchup_matchparen_enabled = 1
 g.matchup_matchparen_offscreen = {}
@@ -195,6 +198,12 @@ map('x', 'a%', '<plug>(matchup-%)', {noremap=false})
 map('x', 'i%', '<plug>(matchup-%)', {noremap=false})
 map('o', 'a%', '<plug>(matchup-%)', {noremap=false})
 map('o', 'i%', '<plug>(matchup-%)', {noremap=false})
+-- nvim-lint
+require('lint').linters_by_ft = {
+    sh = {'shellcheck',},
+    go = {'golangcilint',},
+    python = {'flake8', 'pylint'},
+}
 
 
 --------------
@@ -233,6 +242,10 @@ map('n', ']]',    '<C-i>',       {silent = true})
 map('n', '<C-j>', ':cprev<cr>',  {silent = true})
 map('n', '<C-k>', ':cnext<cr>',  {silent = true})
 
+-- jump to diagnostics
+map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {silent = true})
+map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', {silent = true})
+
 -- mhinz/vim-grepper
 map('n', '<leader>ss', ':Grepper -side -cword -noprompt<cr>')
 map('x', '<leader>ss', '<Plug>(GrepperOperator)')
@@ -259,7 +272,9 @@ require('nvim-treesitter.configs').setup {
 -------------------
 ---- LSP CONFIGS --
 -------------------
-require('extra/lsp_config').setup()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+require('extra/lsp_config').setup(capabilities)
 require('extra/lsp_ui').setup()
 
 ----------------
@@ -277,5 +292,6 @@ augroup vimrc
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
     autocmd FileType yaml     setlocal ts=2 sts=2 sw=2 expandtab
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+    autocmd BufWritePost       * lua require('lint').try_lint()
 augroup END
 ]]
