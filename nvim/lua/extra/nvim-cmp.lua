@@ -49,9 +49,10 @@ cmp.setup {
     }, {
         { name = 'buffer' },
     }),
+    experimental = { native_menu = true },
     documentation = {
         border = "single",
-        winhighlight = "NormalFloat:Pmenu,FloatBorder:Pmenu",
+        -- winhighlight = "NormalFloat:Pmenu,FloatBorder:Pmenu",
         min_height = 1,
         max_height = 10,
     },

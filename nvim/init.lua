@@ -22,6 +22,7 @@ require('paq-nvim') {
     {'hrsh7th/nvim-cmp'},
     {'hrsh7th/cmp-nvim-lsp'},
     {'hrsh7th/cmp-buffer'},
+    {'hrsh7th/cmp-path'},
     {'hrsh7th/cmp-vsnip'},
     {'hrsh7th/vim-vsnip'},
     {'wellle/targets.vim'},
@@ -144,8 +145,8 @@ vim.cmd [[
     hi PmenuSbar    ctermbg=234  guibg=#1c1c1c
     hi MatchParen   ctermbg=31   guibg=#0087af ctermfg=none  guifg=fg
     hi PmenuSel     ctermbg=31   guibg=#0087af ctermfg=15    guifg=#FFFFFF gui=bold
-    hi link NormalFloat Pmenu
-    hi link FloatBorder Pmenu
+    hi NormalFloat  ctermfg=15   ctermbg=233   cterm=none    guifg=#ffffff guibg=#111111 gui=none
+    hi FloatBorder  ctermfg=15   ctermbg=233   cterm=none    guifg=#cccccc guibg=#111111 gui=bold
 ]]
 opt.termguicolors = true
 opt.statusline = (
