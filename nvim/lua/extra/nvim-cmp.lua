@@ -48,6 +48,7 @@ cmp.setup {
         { name = 'vsnip' }, -- For vsnip users.
     }, {
         { name = 'buffer' },
+        { name = 'path' },
     }),
     experimental = { native_menu = true },
     documentation = {
