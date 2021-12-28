@@ -15,7 +15,7 @@ end
 -- PLUGINS --
 -------------
 vim.cmd 'packadd paq-nvim'
-require('paq-nvim') {
+require('paq') {
     {'savq/paq-nvim'},
     {'nvim-treesitter/nvim-treesitter'},
     {'neovim/nvim-lspconfig'},
@@ -27,7 +27,7 @@ require('paq-nvim') {
     {'hrsh7th/vim-vsnip'},
     {'wellle/targets.vim'},
     {'junegunn/fzf', fn=function() fn['fzf#install']() end},
-    {'junegunn/fzf.vim'},
+    {'nvim-telescope/telescope.nvim'},
     {'junegunn/vim-easy-align'},
     {'mg979/vim-visual-multi', branch='master'},
     {'mhinz/vim-grepper'},
@@ -205,6 +205,15 @@ require('lint').linters_by_ft = {
     go = {'golangcilint',},
     python = {'flake8', 'pylint'},
 }
+-- nvim-telescope/telescope
+require('telescope').setup {
+    defaults = {
+        layout_config = {
+            horizontal = { preview_width = 0.5 },
+        },
+        borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+    },
+}
 
 
 --------------
@@ -255,12 +264,12 @@ map('n', '<leader>?',  ':Grepper -side<cr>')
 -- junegunn/vim-easy-align
 map('n', 'ga', '<Plug>(EasyAlign)', {noremap=false})
 map('x', 'ga', '<Plug>(EasyAlign)', {noremap=false})
--- junegunn/fzf.vim
-map('n', '<C-p>',     ':Files<cr>')
-map('n', '<C-t>',     ':Buffers<cr>')
-map('n', '<C-o>',     ':Commands<cr>')
-map('n', '<C-f>',     ':BTags<cr>')
-map('n', '<C-Space>', ':Tags<cr>')
+-- nvim-telescope/telescope
+map('n', '<C-p>',     ':Telescope find_files find_command=rg,--hidden,--glob=!.git/,--files<cr>')
+map('n', '<C-t>',     ':Telescope buffers<cr>')
+map('n', '<C-o>',     ':Telescope commands<cr>')
+map('n', '<C-f>',     ':Telescope lsp_document_symbols<cr>')
+map('n', '<C-Space>', ':Telescope tags<cr>')
 
 -------------------
 ---- TREE-SITTER --
