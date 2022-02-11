@@ -15,6 +15,7 @@ local commands = {
     {"LSPCodeAction",      "vim.lsp.buf.code_action()"},
     {"LSPQuickfix",        "vim.diagnostic.setqflist()"},
     {"LSPHover",           "vim.lsp.buf.hover()"},
+    {"LSPDocumentSymbol",  "vim.lsp.buf.document_symbol()"},
     {"LSPWorkspaceSymbol", "vim.lsp.buf.workspace_symbol()"},
     {"LSPAddWorkspace",    "vim.lsp.buf.add_workspace_folder()"},
     {"LSPRemoveWorkspace", "vim.lsp.buf.remove_workspace_folder()"},

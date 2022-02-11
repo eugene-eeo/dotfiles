@@ -50,7 +50,6 @@ cmp.setup {
         { name = 'buffer' },
         { name = 'path' },
     }),
-    experimental = { native_menu = true },
     documentation = {
         border = "single",
         -- winhighlight = "NormalFloat:Pmenu,FloatBorder:Pmenu",

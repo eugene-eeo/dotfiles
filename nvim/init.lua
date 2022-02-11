@@ -27,7 +27,7 @@ require('paq') {
     {'hrsh7th/vim-vsnip'},
     {'wellle/targets.vim'},
     {'junegunn/fzf', fn=function() fn['fzf#install']() end},
-    {'nvim-telescope/telescope.nvim'},
+    {'junegunn/fzf.vim'},
     {'junegunn/vim-easy-align'},
     {'mg979/vim-visual-multi', branch='master'},
     {'mhinz/vim-grepper'},
@@ -205,15 +205,6 @@ require('lint').linters_by_ft = {
     go = {'golangcilint',},
     python = {'flake8', 'pylint'},
 }
--- nvim-telescope/telescope
-require('telescope').setup {
-    defaults = {
-        layout_config = {
-            horizontal = { preview_width = 0.5 },
-        },
-        borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
-    },
-}
 
 
 --------------
@@ -255,6 +246,7 @@ map('n', '<C-k>', ':cnext<cr>',  {silent = true})
 -- jump to diagnostics
 map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {silent = true})
 map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', {silent = true})
+map('n', '<leader>q', '<cmd>lua vim.diagnostic.setqflist()<CR>')
 
 -- mhinz/vim-grepper
 map('n', '<leader>ss', ':Grepper -side -cword -noprompt<cr>')
@@ -264,12 +256,12 @@ map('n', '<leader>?',  ':Grepper -side<cr>')
 -- junegunn/vim-easy-align
 map('n', 'ga', '<Plug>(EasyAlign)', {noremap=false})
 map('x', 'ga', '<Plug>(EasyAlign)', {noremap=false})
--- nvim-telescope/telescope
-map('n', '<C-p>',     ':Telescope find_files find_command=rg,--hidden,--glob=!.git/,--files<cr>')
-map('n', '<C-t>',     ':Telescope buffers<cr>')
-map('n', '<C-o>',     ':Telescope commands<cr>')
-map('n', '<C-f>',     ':Telescope lsp_document_symbols<cr>')
-map('n', '<C-Space>', ':Telescope tags<cr>')
+-- fzf.vim
+map('n', '<C-p>',     ':Files<cr>')
+map('n', '<C-t>',     ':Buffers<cr>')
+map('n', '<C-o>',     ':Commands<cr>')
+map('n', '<C-f>',     ':BTags<cr>')
+map('n', '<C-Space>', ':Tags<cr>')
 
 -------------------
 ---- TREE-SITTER --

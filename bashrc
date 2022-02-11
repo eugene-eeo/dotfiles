@@ -44,7 +44,7 @@ alias hc='herbstclient'
 alias sudo='sudo '
 
 # Use rg to pipe to FZF, so we respect .gitignore
-export FZF_DEFAULT_COMMAND='rg --files'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git/'
 
 v() {
     if [ "$1" ]; then
