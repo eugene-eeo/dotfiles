@@ -1,6 +1,6 @@
 local has_words_before = function()
-  local col = vim.fn.col '.' - 1
-  return col ~= 0 and vim.fn.getline('.'):sub(col, col):match('%s') == nil
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local feedkey = function(key, mode)
@@ -42,19 +42,31 @@ cmp.setup {
                 feedkey("<C-V><Tab>", "")
             end
         end, { "i", "s" }),
+        ['<Down>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then cmp.select_next_item() else fallback() end
+        end, { "i", "s" }),
+        ['<Up>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then cmp.select_prev_item() else fallback() end
+        end, { "i", "s" }),
     },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
+        { name = 'nvim_lsp_signature_help' },
         { name = 'vsnip' }, -- For vsnip users.
     }, {
         { name = 'buffer' },
         { name = 'path' },
     }),
-    documentation = {
-        border = "single",
-        -- winhighlight = "NormalFloat:Pmenu,FloatBorder:Pmenu",
-        min_height = 1,
-        max_height = 10,
+    window = {
+        completion = {
+            winhighlight = "NormalFloat:Pmenu,FloatBorder:Pmenu"
+        },
+        documentation = {
+            border = 'single',
+            winhighlight = "NormalFloat:Pmenu,FloatBorder:Pmenu",
+            min_height = 1,
+            max_height = 10,
+        },
     },
 }
 

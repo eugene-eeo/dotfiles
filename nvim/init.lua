@@ -21,6 +21,7 @@ require('paq') {
     {'neovim/nvim-lspconfig'},
     {'hrsh7th/nvim-cmp'},
     {'hrsh7th/cmp-nvim-lsp'},
+    {'hrsh7th/cmp-nvim-lsp-signature-help'},
     {'hrsh7th/cmp-buffer'},
     {'hrsh7th/cmp-path'},
     {'hrsh7th/cmp-vsnip'},
@@ -98,7 +99,7 @@ opt.foldenable = false
 opt.hidden = true
 opt.splitright = true
 
-opt.completeopt = { 'menuone', 'noselect' }
+opt.completeopt = { 'menu', 'menuone', 'noselect' }
 opt.shortmess:append('c')
 opt.pumheight = 20
 opt.clipboard = { 'unnamedplus' }
@@ -267,7 +268,7 @@ map('n', '<C-Space>', ':Tags<cr>')
 ---- TREE-SITTER --
 -------------------
 require('nvim-treesitter.configs').setup {
-    ensure_installed = 'maintained',
+    ensure_installed = 'all',
     highlight = { enable = true },
 }
 
