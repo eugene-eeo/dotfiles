@@ -23,7 +23,7 @@
     gpgsign = true
 [core]
     excludesfile = ~/.gitignore_global
-    editor = vim.tiny
+    editor = nvim
 [diff]
     algorithm = histogram
 [pager]

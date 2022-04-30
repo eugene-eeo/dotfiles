@@ -4,11 +4,7 @@
 local fn = vim.fn
 local g = vim.g
 local opt = vim.opt
-local function map(mode, lhs, rhs, opts)
-    local options = {noremap = true}
-    if opts then options = vim.tbl_extend('force', options, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
+local map = vim.keymap.set
 
 
 -------------
@@ -194,12 +190,12 @@ require('extra/nvim-cmp')
 g.matchup_matchparen_enabled = 1
 g.matchup_matchparen_offscreen = {}
 g.matchup_mappings_enabled = 0
-map('n', '%', '<plug>(matchup-%)', {noremap=false})
-map('x', '%', '<plug>(matchup-%)', {noremap=false})
-map('x', 'a%', '<plug>(matchup-%)', {noremap=false})
-map('x', 'i%', '<plug>(matchup-%)', {noremap=false})
-map('o', 'a%', '<plug>(matchup-%)', {noremap=false})
-map('o', 'i%', '<plug>(matchup-%)', {noremap=false})
+map('n', '%', '<plug>(matchup-%)', {remap=true})
+map('x', '%', '<plug>(matchup-%)', {remap=true})
+map('x', 'a%', '<plug>(matchup-%)', {remap=true})
+map('x', 'i%', '<plug>(matchup-%)', {remap=true})
+map('o', 'a%', '<plug>(matchup-%)', {remap=true})
+map('o', 'i%', '<plug>(matchup-%)', {remap=true})
 -- nvim-lint
 require('lint').linters_by_ft = {
     sh = {'shellcheck',},
@@ -245,9 +241,9 @@ map('n', '<C-j>', ':cprev<cr>',  {silent = true})
 map('n', '<C-k>', ':cnext<cr>',  {silent = true})
 
 -- jump to diagnostics
-map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {silent = true})
-map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', {silent = true})
-map('n', '<leader>q', '<cmd>lua vim.diagnostic.setqflist()<CR>')
+map('n', '[d', vim.diagnostic.goto_prev, {silent = true})
+map('n', ']d', vim.diagnostic.goto_next, {silent = true})
+map('n', '<leader>q', vim.diagnostic.setqflist)
 
 -- mhinz/vim-grepper
 map('n', '<leader>ss', ':Grepper -side -cword -noprompt<cr>')
@@ -255,8 +251,8 @@ map('x', '<leader>ss', '<Plug>(GrepperOperator)')
 map('n', '<leader>/',  ':Grepper<cr>')
 map('n', '<leader>?',  ':Grepper -side<cr>')
 -- junegunn/vim-easy-align
-map('n', 'ga', '<Plug>(EasyAlign)', {noremap=false})
-map('x', 'ga', '<Plug>(EasyAlign)', {noremap=false})
+map('n', 'ga', '<Plug>(EasyAlign)', {remap=true})
+map('x', 'ga', '<Plug>(EasyAlign)', {remap=true})
 -- fzf.vim
 map('n', '<C-p>',     ':Files<cr>')
 map('n', '<C-t>',     ':Buffers<cr>')
