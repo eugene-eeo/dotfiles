@@ -202,6 +202,7 @@ require('lint').linters_by_ft = {
     go = {'golangcilint',},
     python = {'flake8', 'pylint'},
 }
+map('n', '<Leader>r', require('lint').try_lint)
 
 
 --------------
@@ -244,6 +245,7 @@ map('n', '<C-k>', ':cnext<cr>',  {silent = true})
 map('n', '[d', vim.diagnostic.goto_prev, {silent = true})
 map('n', ']d', vim.diagnostic.goto_next, {silent = true})
 map('n', '<leader>q', vim.diagnostic.setqflist)
+map('n', '<leader>e', vim.diagnostic.open_float)
 
 -- mhinz/vim-grepper
 map('n', '<leader>ss', ':Grepper -side -cword -noprompt<cr>')
@@ -291,6 +293,5 @@ augroup vimrc
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
     autocmd FileType yaml     setlocal ts=2 sts=2 sw=2 expandtab
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
-    autocmd BufWritePost       * lua require('lint').try_lint()
 augroup END
 ]]

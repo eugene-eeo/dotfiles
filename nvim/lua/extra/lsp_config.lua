@@ -8,36 +8,35 @@ local lsp = require 'lspconfig'
 -- check if there are any LSP servers attached before executing,
 -- so this seems to be ok.
 local commands = {
-    {"LSPReferences",      vim.lsp.buf.references},
-    {"LSPDefinition",      vim.lsp.buf.definition},
-    {"LSPImplementation",  vim.lsp.buf.implementation},
-    {"LSPCallers",         vim.lsp.buf.incoming_calls},
-    {"LSPCallees",         vim.lsp.buf.outgoing_calls},
-    {"LSPRename",          vim.lsp.buf.rename},
-    {"LSPCodeAction",      vim.lsp.buf.code_action},
-    {"LSPQuickfix",        vim.diagnostic.setqflist},
-    {"LSPHover",           vim.lsp.buf.hover},
-    {"LSPDocumentSymbol",  vim.lsp.buf.document_symbol},
-    {"LSPWorkspaceSymbol", vim.lsp.buf.workspace_symbol},
-    {"LSPAddWorkspace",    vim.lsp.buf.add_workspace_folder},
-    {"LSPRemoveWorkspace", vim.lsp.buf.remove_workspace_folder},
-    {"LSPWorkspaces",      function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end},
-    {"LSPFormat",          vim.lsp.buf.formatting},
+    {"LSPReferences",      "vim.lsp.buf.references()"},
+    {"LSPCallers",         "vim.lsp.buf.incoming_calls()"},
+    {"LSPCallees",         "vim.lsp.buf.outgoing_calls()"},
+    {"LSPRename",          "vim.lsp.buf.rename()"},
+    {"LSPCodeAction",      "vim.lsp.buf.code_action()"},
+    {"LSPQuickfix",        "vim.diagnostic.setqflist()"},
+    {"LSPHover",           "vim.lsp.buf.hover()"},
+    {"LSPDocumentSymbol",  "vim.lsp.buf.document_symbol()"},
+    {"LSPWorkspaceSymbol", "vim.lsp.buf.workspace_symbol()"},
+    {"LSPAddWorkspace",    "vim.lsp.buf.add_workspace_folder()"},
+    {"LSPRemoveWorkspace", "vim.lsp.buf.remove_workspace_folder()"},
+    {"LSPWorkspaces",      "print(vim.inspect(vim.lsp.buf.list_workspace_folders()))"},
+    {"LSPFormat",          "vim.lsp.buf.formatting()"},
 }
 for _, cmd in ipairs(commands) do
-    vim.api.nvim_create_user_command(cmd[1], cmd[2], {})
+    vim.cmd(":command! " .. cmd[1] .. " :lua " .. cmd[2] .. "<cr>")
 end
 
 -- Common mappings
 local on_attach = function(client, bufnr)
+    local opts = { buffer = bufnr }
     local function buf_set(...) vim.api.nvim_buf_set_option(bufnr, ...) end
     buf_set('omnifunc', 'v:lua.vim.lsp.omnifunc')
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover)
-    vim.keymap.set('n', 'g]', vim.lsp.buf.definition)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation)
-    vim.keymap.set('n', '<leader>f', vim.lsp.buf.code_action)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
-    vim.keymap.set('n', '<leader>A', vim.lsp.buf.formatting_sync)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'g]', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<leader>f', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>A', vim.lsp.buf.formatting_sync, opts)
 end
 
 return {
