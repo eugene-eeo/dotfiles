@@ -14,6 +14,7 @@ vim.cmd 'packadd paq-nvim'
 require('paq') {
     {'savq/paq-nvim'},
     {'nvim-treesitter/nvim-treesitter'},
+    {'nvim-treesitter/nvim-treesitter-textobjects'},
     {'neovim/nvim-lspconfig'},
     {'hrsh7th/nvim-cmp'},
     {'hrsh7th/cmp-nvim-lsp'},
@@ -22,7 +23,6 @@ require('paq') {
     {'hrsh7th/cmp-path'},
     {'hrsh7th/cmp-vsnip'},
     {'hrsh7th/vim-vsnip'},
-    {'wellle/targets.vim'},
     {'junegunn/fzf', fn=function() fn['fzf#install']() end},
     {'junegunn/fzf.vim'},
     {'junegunn/vim-easy-align'},
@@ -235,7 +235,7 @@ map('n', '<leader>-', ':split<cr>',  {silent = true})
 map('n', '<F5>',      ':bp<bar>bw#<cr>')
 map('n', '<F6>',      ':GundoToggle<cr>')
 
--- {jump,loc,quick}fix list
+-- jumps/quickfix list
 map('n', '[[',    '<C-o>',       {silent = true})
 map('n', ']]',    '<C-i>',       {silent = true})
 map('n', '<C-j>', ':cprev<cr>',  {silent = true})
@@ -245,7 +245,6 @@ map('n', '<C-k>', ':cnext<cr>',  {silent = true})
 map('n', '[d', vim.diagnostic.goto_prev, {silent = true})
 map('n', ']d', vim.diagnostic.goto_next, {silent = true})
 map('n', '<leader>q', vim.diagnostic.setqflist)
-map('n', '<leader>e', vim.diagnostic.open_float)
 
 -- mhinz/vim-grepper
 map('n', '<leader>ss', ':Grepper -side -cword -noprompt<cr>')
@@ -262,17 +261,28 @@ map('n', '<C-o>',     ':Commands<cr>')
 map('n', '<C-f>',     ':BTags<cr>')
 map('n', '<C-Space>', ':Tags<cr>')
 
--------------------
----- TREE-SITTER --
--------------------
+-----------------
+-- TREE-SITTER --
+-----------------
 require('nvim-treesitter.configs').setup {
     ensure_installed = 'all',
     highlight = { enable = true },
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true, -- similar to targets.vim
+            keymaps = {
+                ['aa'] = '@parameter.outer',
+                ['ia'] = '@parameter.inner',
+                ['ac'] = '@comment.outer',
+            },
+        },
+    },
 }
 
--------------------
----- LSP CONFIGS --
--------------------
+-----------------
+-- LSP CONFIGS --
+-----------------
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 require('extra/lsp_config').setup(capabilities)
