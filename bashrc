@@ -40,11 +40,12 @@ alias g='git'
 alias ls='ls --color=auto'
 alias pbcopy='xsel -ib'
 alias pbpaste='xsel -ob'
-alias hc='herbstclient'
+# alias hc='herbstclient'
 alias sudo='sudo '
 
 # Use rg to pipe to FZF, so we respect .gitignore
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git/'
+export FZF_DEFAULT_OPTS='--preview-window=border-sharp'
 
 v() {
     if [ "$1" ]; then

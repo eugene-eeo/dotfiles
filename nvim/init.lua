@@ -23,7 +23,7 @@ require('paq') {
     {'hrsh7th/cmp-path'},
     {'hrsh7th/cmp-vsnip'},
     {'hrsh7th/vim-vsnip'},
-    {'junegunn/fzf', fn=function() fn['fzf#install']() end},
+    {'junegunn/fzf', run='./install --no-key-bindings --no-completion --no-update-rc'},
     {'junegunn/fzf.vim'},
     {'junegunn/vim-easy-align'},
     {'mg979/vim-visual-multi', branch='master'},
@@ -99,7 +99,7 @@ opt.completeopt = { 'menu', 'menuone', 'noselect' }
 opt.shortmess:append('c')
 opt.pumheight = 20
 opt.clipboard = { 'unnamedplus' }
-opt.updatetime = 750
+opt.updatetime = 500
 opt.pastetoggle = '<F2>'
 
 opt.listchars = {tab="▸ ", trail="·"}
@@ -202,7 +202,7 @@ require('lint').linters_by_ft = {
     go = {'golangcilint',},
     python = {'flake8', 'pylint'},
 }
-map('n', '<Leader>r', require('lint').try_lint)
+map('n', '<leader>r', require('lint').try_lint)
 
 
 --------------
@@ -255,6 +255,7 @@ map('n', '<leader>?',  ':Grepper -side<cr>')
 map('n', 'ga', '<Plug>(EasyAlign)', {remap=true})
 map('x', 'ga', '<Plug>(EasyAlign)', {remap=true})
 -- fzf.vim
+vim.g.fzf_layout = { window = { width = 0.9, height = 0.6, highlight = 'Todo', border = 'sharp', relative = true } }
 map('n', '<C-p>',     ':Files<cr>')
 map('n', '<C-t>',     ':Buffers<cr>')
 map('n', '<C-o>',     ':Commands<cr>')

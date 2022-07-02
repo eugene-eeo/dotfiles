@@ -17,8 +17,6 @@ export PYENV_ROOT="$HOME/.pyenv/"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.scripts:$PATH"
-export PATH="$HOME/.fzf/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.pyenv/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
 eval "$(pyenv init --path)"
