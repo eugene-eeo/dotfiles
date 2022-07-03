@@ -42,7 +42,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>f', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>A', vim.lsp.buf.formatting_sync, opts)
+    vim.keymap.set('n', '<leader>A', vim.lsp.buf.format, opts)
 end
 
 return {

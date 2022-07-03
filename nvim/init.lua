@@ -23,7 +23,7 @@ require('paq') {
     {'hrsh7th/cmp-path'},
     {'hrsh7th/cmp-vsnip'},
     {'hrsh7th/vim-vsnip'},
-    {'junegunn/fzf', run='./install --no-key-bindings --no-completion --no-update-rc'},
+    {'junegunn/fzf', run='./install --all'},
     {'junegunn/fzf.vim'},
     {'junegunn/vim-easy-align'},
     {'mg979/vim-visual-multi', branch='master'},
@@ -125,6 +125,7 @@ g.python3_host_prog = fn.expand("~/.pyenv/versions/neovim3.9.6/bin/python")
 
 -------- Colors --------
 g.background = 'dark'
+opt.termguicolors = true
 vim.cmd [[
     colorscheme goodwolf
     hi Normal       ctermbg=0    guibg=#000000
@@ -146,7 +147,6 @@ vim.cmd [[
     hi NormalFloat  ctermfg=15   ctermbg=233   cterm=none    guifg=#ffffff guibg=#111111 gui=none
     hi FloatBorder  ctermfg=15   ctermbg=233   cterm=none    guifg=#cccccc guibg=#111111 gui=bold
 ]]
-opt.termguicolors = true
 opt.statusline = (
     "%f%m" ..
     "%=%<" ..
@@ -167,15 +167,13 @@ g.grepper = {quickfix=1,
              tools={'rg', 'git', 'grep'},
              operator={side=1, prompt=1}}
 -- lewis6991/gitsigns.nvim
-require('gitsigns').setup {
-    update_debounce = 500,
-    keymaps={
-        noremap=true,
-        ['n ]h'] = '<cmd>lua require("gitsigns.actions").next_hunk()<CR>',
-        ['n [h'] = '<cmd>lua require("gitsigns.actions").prev_hunk()<CR>',
-        ['n ghp'] = '<cmd>lua require("gitsigns").preview_hunk()<CR>',
-    },
-}
+require('gitsigns').setup { update_debounce = 250 }
+map('n', ']h',  require('gitsigns.actions').next_hunk, {silent = true})
+map('n', '[h',  require('gitsigns.actions').prev_hunk, {silent = true})
+map('n', 'ghp', require('gitsigns.actions').preview_hunk, {silent = true})
+map({'n', 'v'}, 'gsh', ':Gitsigns stage_hunk<CR>', {silent = true})
+map({'n', 'v'}, 'grh', ':Gitsigns reset_hunk<CR>', {silent = true})
+map('n', 'guh', require('gitsigns.actions').undo_stage_hunk, {silent = true})
 vim.cmd [[
     hi link GitSignsAdd    DiffAdd
     hi link GitSignsChange DiffChange
@@ -191,12 +189,12 @@ require('extra/nvim-cmp')
 g.matchup_matchparen_enabled = 1
 g.matchup_matchparen_offscreen = {}
 g.matchup_mappings_enabled = 0
-map('n', '%', '<plug>(matchup-%)', {remap=true})
-map('x', '%', '<plug>(matchup-%)', {remap=true})
-map('x', 'a%', '<plug>(matchup-%)', {remap=true})
-map('x', 'i%', '<plug>(matchup-%)', {remap=true})
-map('o', 'a%', '<plug>(matchup-%)', {remap=true})
-map('o', 'i%', '<plug>(matchup-%)', {remap=true})
+map('n', '%',  '<plug>(matchup-%)', {remap = true})
+map('x', '%',  '<plug>(matchup-%)', {remap = true})
+map('x', 'a%', '<plug>(matchup-%)', {remap = true})
+map('x', 'i%', '<plug>(matchup-%)', {remap = true})
+map('o', 'a%', '<plug>(matchup-%)', {remap = true})
+map('o', 'i%', '<plug>(matchup-%)', {remap = true})
 -- nvim-lint
 require('lint').linters_by_ft = {
     sh = {'shellcheck',},
@@ -237,10 +235,10 @@ map('n', '<F5>',      ':bp<bar>bw#<cr>')
 map('n', '<F6>',      ':GundoToggle<cr>')
 
 -- jumps/quickfix list
-map('n', '[[',    '<C-o>',       {silent = true})
-map('n', ']]',    '<C-i>',       {silent = true})
-map('n', '<C-j>', ':cprev<cr>',  {silent = true})
-map('n', '<C-k>', ':cnext<cr>',  {silent = true})
+map('n', '[[',    '<C-o>',      {silent = true})
+map('n', ']]',    '<C-i>',      {silent = true})
+map('n', '<C-j>', ':cprev<cr>', {silent = true})
+map('n', '<C-k>', ':cnext<cr>', {silent = true})
 
 -- jump to diagnostics
 map('n', '[d', vim.diagnostic.goto_prev, {silent = true})
@@ -253,10 +251,10 @@ map('x', '<leader>ss', '<Plug>(GrepperOperator)')
 map('n', '<leader>/',  ':Grepper<cr>')
 map('n', '<leader>?',  ':Grepper -side<cr>')
 -- junegunn/vim-easy-align
-map('n', 'ga', '<Plug>(EasyAlign)', {remap=true})
-map('x', 'ga', '<Plug>(EasyAlign)', {remap=true})
+map('n', 'ga', '<Plug>(EasyAlign)', {remap = true})
+map('x', 'ga', '<Plug>(EasyAlign)', {remap = true})
 -- fzf.vim
-vim.g.fzf_layout = { window = { width = 0.9, height = 0.6, highlight = 'Normal', border = 'sharp', relative = true } }
+vim.g.fzf_layout = { window = { width = 0.9, height = 0.6, highlight = 'Normal', border = 'sharp' } }
 map('n', '<C-p>',     ':Files<cr>')
 map('n', '<C-t>',     ':Buffers<cr>')
 map('n', '<C-o>',     ':Commands<cr>')
