@@ -255,7 +255,7 @@ map('n', '<leader>?',  ':Grepper -side<cr>')
 map('n', 'ga', '<Plug>(EasyAlign)', {remap=true})
 map('x', 'ga', '<Plug>(EasyAlign)', {remap=true})
 -- fzf.vim
-vim.g.fzf_layout = { window = { width = 0.9, height = 0.6, highlight = 'Todo', border = 'sharp', relative = true } }
+vim.g.fzf_layout = { window = { width = 0.9, height = 0.6, highlight = 'Normal', border = 'sharp', relative = true } }
 map('n', '<C-p>',     ':Files<cr>')
 map('n', '<C-t>',     ':Buffers<cr>')
 map('n', '<C-o>',     ':Commands<cr>')
