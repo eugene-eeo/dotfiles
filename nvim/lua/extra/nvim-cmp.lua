@@ -59,7 +59,7 @@ cmp.setup {
     }),
     window = {
         completion = {
-            winhighlight = "NormalFloat:Pmenu,FloatBorder:Pmenu"
+            winhighlight = "NormalFloat:Pmenu,CursorLine:PmenuSel",
         },
         documentation = {
             border = 'single',

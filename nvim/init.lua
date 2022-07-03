@@ -36,6 +36,7 @@ require('paq') {
     {'ludovicchabant/vim-gutentags'},
     {'andymass/vim-matchup'},
     {'mfussenegger/nvim-lint'},
+    {'j-hui/fidget.nvim'},
 }
 
 ------------------------------
@@ -288,6 +289,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 require('extra/lsp_config').setup(capabilities)
 require('extra/lsp_ui').setup()
+require('fidget').setup({})
 
 ----------------
 -- IDENTATION --
