@@ -133,6 +133,7 @@ vim.cmd [[
     hi Comment      ctermbg=none guibg=none
     hi SignColumn   ctermbg=232  guibg=#090808
     hi LineNr       ctermfg=237  ctermbg=232   guibg=#090808 guifg=#3a3a3a
+    hi VertSplit    guifg=#3a3a3a
     hi CursorLine   guibg=#171616
     hi CursorLineNr ctermfg=253  ctermbg=235   guibg=#161515 guifg=#dadada
     hi diffAdded    ctermfg=64   guifg=#5ccc96 guibg=none    gui=none
