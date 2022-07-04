@@ -133,19 +133,19 @@ vim.cmd [[
     hi Comment      ctermbg=none guibg=none
     hi SignColumn   ctermbg=232  guibg=#090808
     hi LineNr       ctermfg=237  ctermbg=232   guibg=#090808 guifg=#3a3a3a
-    hi CursorLine   guibg=#161515
+    hi CursorLine   guibg=#171616
     hi CursorLineNr ctermfg=253  ctermbg=235   guibg=#161515 guifg=#dadada
     hi diffAdded    ctermfg=64   guifg=#5ccc96 guibg=none    gui=none
     hi diffRemoved  ctermfg=196  guifg=#e33400 guibg=none    gui=none
     hi DiffChange   ctermfg=220  guifg=#f2ce00 guibg=none    gui=none
-    hi StatusLine   ctermfg=255  ctermbg=234   cterm=bold    guifg=#eeeeee guibg=#1d1c1c gui=bold
-    hi StatusLineNC ctermfg=243  ctermbg=234   cterm=none    guifg=#767676 guibg=#1d1c1c gui=none
-    hi Pmenu        ctermfg=15   ctermbg=234   cterm=none    guifg=#ffffff guibg=#1d1c1c gui=none
+    hi StatusLine   ctermfg=255  ctermbg=234   cterm=bold    guifg=#eeeeee guibg=#171616 gui=bold
+    hi StatusLineNC ctermfg=243  ctermbg=234   cterm=none    guifg=#767676 guibg=#171616 gui=none
+    hi Pmenu        ctermfg=15   ctermbg=234   cterm=none    guifg=#ffffff guibg=#171616 gui=none
     hi PmenuSbar    ctermbg=234  guibg=#1d1c1c
     hi MatchParen   ctermbg=31   guibg=#0087af ctermfg=none  guifg=fg
     hi PmenuSel     ctermbg=31   guibg=#0087af ctermfg=15    guifg=#FFFFFF gui=bold
-    hi NormalFloat  ctermfg=15   ctermbg=233   cterm=none    guifg=#ffffff guibg=#111111 gui=none
-    hi FloatBorder  ctermfg=15   ctermbg=233   cterm=none    guifg=#cccccc guibg=#111111 gui=bold
+    hi NormalFloat  ctermfg=15   ctermbg=233   cterm=none    guifg=#ffffff guibg=#171716 gui=none
+    hi FloatBorder  ctermfg=15   ctermbg=233   cterm=none    guifg=#cccccc guibg=#171716 gui=none
 ]]
 opt.statusline = (
     "%f%m" ..
