@@ -128,20 +128,20 @@ g.background = 'dark'
 opt.termguicolors = true
 vim.cmd [[
     colorscheme goodwolf
-    hi Normal       ctermbg=0    guibg=#000000
+    hi Normal       ctermbg=0    guibg=#090808
     hi NonText      ctermbg=none guibg=none
     hi Comment      ctermbg=none guibg=none
-    hi SignColumn   ctermbg=232  guibg=#080808
-    hi LineNr       ctermfg=237  ctermbg=232   guibg=#080808 guifg=#3a3a3a
-    hi CursorLine   guibg=#262626
-    hi CursorLineNr ctermfg=253  ctermbg=235   guibg=#262626 guifg=#dadada
-    hi DiffAdd      ctermfg=64   guifg=#5ccc96 guibg=none    gui=none
-    hi DiffDelete   ctermfg=196  guifg=#e33400 guibg=none    gui=none
+    hi SignColumn   ctermbg=232  guibg=#090808
+    hi LineNr       ctermfg=237  ctermbg=232   guibg=#090808 guifg=#3a3a3a
+    hi CursorLine   guibg=#161515
+    hi CursorLineNr ctermfg=253  ctermbg=235   guibg=#161515 guifg=#dadada
+    hi diffAdded    ctermfg=64   guifg=#5ccc96 guibg=none    gui=none
+    hi diffRemoved  ctermfg=196  guifg=#e33400 guibg=none    gui=none
     hi DiffChange   ctermfg=220  guifg=#f2ce00 guibg=none    gui=none
-    hi StatusLine   ctermfg=255  ctermbg=234   cterm=bold    guifg=#eeeeee guibg=#1c1c1c gui=bold
-    hi StatusLineNC ctermfg=243  ctermbg=234   cterm=none    guifg=#767676 guibg=#1c1c1c gui=none
-    hi Pmenu        ctermfg=15   ctermbg=234   cterm=none    guifg=#ffffff guibg=#1c1c1c gui=none
-    hi PmenuSbar    ctermbg=234  guibg=#1c1c1c
+    hi StatusLine   ctermfg=255  ctermbg=234   cterm=bold    guifg=#eeeeee guibg=#1d1c1c gui=bold
+    hi StatusLineNC ctermfg=243  ctermbg=234   cterm=none    guifg=#767676 guibg=#1d1c1c gui=none
+    hi Pmenu        ctermfg=15   ctermbg=234   cterm=none    guifg=#ffffff guibg=#1d1c1c gui=none
+    hi PmenuSbar    ctermbg=234  guibg=#1d1c1c
     hi MatchParen   ctermbg=31   guibg=#0087af ctermfg=none  guifg=fg
     hi PmenuSel     ctermbg=31   guibg=#0087af ctermfg=15    guifg=#FFFFFF gui=bold
     hi NormalFloat  ctermfg=15   ctermbg=233   cterm=none    guifg=#ffffff guibg=#111111 gui=none
@@ -174,11 +174,6 @@ map('n', 'ghp', require('gitsigns.actions').preview_hunk, {silent = true})
 map({'n', 'v'}, 'gsh', ':Gitsigns stage_hunk<CR>', {silent = true})
 map({'n', 'v'}, 'grh', ':Gitsigns reset_hunk<CR>', {silent = true})
 map('n', 'guh', require('gitsigns.actions').undo_stage_hunk, {silent = true})
-vim.cmd [[
-    hi link GitSignsAdd    DiffAdd
-    hi link GitSignsChange DiffChange
-    hi link GitSignsDelete DiffDelete
-]]
 -- gutentags
 g.gutentags_cache_dir = fn.expand('~/.cache/tags')
 g.gutentags_ctags_exclude = {'node_modules'}
@@ -254,7 +249,7 @@ map('n', '<leader>?',  ':Grepper -side<cr>')
 map('n', 'ga', '<Plug>(EasyAlign)', {remap = true})
 map('x', 'ga', '<Plug>(EasyAlign)', {remap = true})
 -- fzf.vim
-vim.g.fzf_layout = { window = { width = 0.9, height = 0.6, highlight = 'Normal', border = 'sharp' } }
+vim.g.fzf_layout = { window = { width = 0.9, height = 0.6, border = 'sharp' } }
 map('n', '<C-p>',     ':Files<cr>')
 map('n', '<C-t>',     ':Buffers<cr>')
 map('n', '<C-o>',     ':Commands<cr>')
