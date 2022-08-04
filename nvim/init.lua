@@ -146,7 +146,7 @@ vim.cmd [[
     hi MatchParen   ctermbg=31   guibg=#0087af ctermfg=none  guifg=fg
     hi PmenuSel     ctermbg=31   guibg=#0087af ctermfg=15    guifg=#FFFFFF gui=bold
     hi NormalFloat  ctermfg=15   ctermbg=233   cterm=none    guifg=#ffffff guibg=#171716 gui=none
-    hi FloatBorder  ctermfg=15   ctermbg=233   cterm=none    guifg=#cccccc guibg=#171716 gui=none
+    hi FloatBorder  ctermfg=15   ctermbg=233   cterm=none    guifg=#3a3a3a guibg=#171716 gui=none
 ]]
 opt.statusline = (
     "%f%m" ..
