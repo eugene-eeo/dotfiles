@@ -9,7 +9,6 @@ sync:
 	cp    ./inputrc        ~/.inputrc
 	cp -a ./scripts/.      ~/.scripts
 	cp -R ./nvim           ~/.config
-	# cp    ./vimrc          ~/.config/nvim/init.vim
 
 bins:
 	cd st && make DESTDIR=~/.scripts/ clean install
