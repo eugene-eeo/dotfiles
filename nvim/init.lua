@@ -120,8 +120,7 @@ if fn.executable("rg") then
 end
 
 -------- Python runtimes ---------
-g.python_host_prog = fn.expand("~/.pyenv/versions/neovim2.7.18/bin/python")
-g.python3_host_prog = fn.expand("~/.pyenv/versions/neovim3.9.6/bin/python")
+g.python3_host_prog = fn.expand("~/.pyenv/versions/neovim3.10.4/bin/python")
 
 -------- Colors --------
 g.background = 'dark'
@@ -163,6 +162,7 @@ opt.statusline = (
 -------------------
 -- sjl/gundo.vim
 g.gundo_right = 1
+g.gundo_prefer_python3 = 1
 -- mhinz/vim-grepper
 g.grepper = {quickfix=1,
              tools={'rg', 'git', 'grep'},
