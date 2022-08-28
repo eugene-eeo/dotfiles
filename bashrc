@@ -90,10 +90,6 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# source fzf if it exists
-#shellcheck disable=1090
-[ -s "$HOME/.fzf.bash" ] && \. "$HOME/.fzf.bash"
-
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
@@ -103,3 +99,5 @@ export NVM_DIR="$HOME/.nvm"
 
 # Direnv
 eval "$(direnv hook bash)"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
