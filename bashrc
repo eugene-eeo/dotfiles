@@ -28,7 +28,7 @@ set_bash_prompt() {
     else
         py=""
     fi
-    PS1="${RESET} $py\\w${vc} ${RED}\$${RESET} "
+    PS1="${RESET} ${py}\\w${vc} ${RED}\$${RESET} "
 }
 
 export PROMPT_DIRTRIM=3

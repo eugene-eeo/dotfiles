@@ -263,6 +263,7 @@ map('n', '<C-Space>', ':Tags<cr>')
 require('nvim-treesitter.configs').setup {
     ensure_installed = 'all',
     highlight = { enable = true },
+    matchup = { enable = true },
     textobjects = {
         select = {
             enable = true,
