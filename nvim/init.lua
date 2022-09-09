@@ -36,7 +36,6 @@ require('paq') {
     {'ludovicchabant/vim-gutentags'},
     {'andymass/vim-matchup'},
     {'mfussenegger/nvim-lint'},
-    {'j-hui/fidget.nvim'},
 }
 
 ------------------------------
@@ -103,7 +102,7 @@ opt.clipboard = { 'unnamedplus' }
 opt.updatetime = 500
 opt.pastetoggle = '<F2>'
 
-opt.listchars = {tab="▸ ", trail="·"}
+opt.listchars = {tab='▸ ', trail='·'}
 opt.list = true
 g.is_bash = true
 
@@ -114,13 +113,13 @@ opt.jumpoptions:append('stack')
 opt.makeprg = ''
 
 -------- Grep ---------
-if fn.executable("rg") then
-    opt.grepprg = "rg --vimgrep --no-heading --smart-case --follow"
+if fn.executable('rg') then
+    opt.grepprg = 'rg --vimgrep --no-heading --smart-case --follow'
     opt.grepformat = {'%f:%l:%c:%m', '%f:%l:%m'}
 end
 
 -------- Python runtimes ---------
-g.python3_host_prog = fn.expand("~/.pyenv/versions/neovim3.10.4/bin/python")
+g.python3_host_prog = fn.expand('~/.pyenv/versions/neovim3.10.4/bin/python')
 
 -------- Colors --------
 g.background = 'dark'
@@ -148,12 +147,12 @@ vim.cmd [[
     hi FloatBorder  ctermfg=15   ctermbg=233   cterm=none    guifg=#3a3a3a guibg=#171716 gui=none
 ]]
 opt.statusline = (
-    "%f%m" ..
-    "%=%<" ..
-    " %y" ..
-    " %{&fileencoding?&fileencoding:&encoding}" ..
-    " [%{&fileformat}]" ..
-    ""
+    '%f%m' ..
+    '%=%<' ..
+    ' %y' ..
+    ' %{&fileencoding?&fileencoding:&encoding}' ..
+    ' [%{&fileformat}]' ..
+    ''
 )
 
 
@@ -269,6 +268,8 @@ require('nvim-treesitter.configs').setup {
             enable = true,
             lookahead = true, -- similar to targets.vim
             keymaps = {
+                ['af'] = '@function.outer',
+                ['if'] = '@function.inner',
                 ['aa'] = '@parameter.outer',
                 ['ia'] = '@parameter.inner',
                 ['ac'] = '@comment.outer',
@@ -284,7 +285,6 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 require('extra/lsp_config').setup(capabilities)
 require('extra/lsp_ui').setup()
-require('fidget').setup({})
 
 ----------------
 -- IDENTATION --
