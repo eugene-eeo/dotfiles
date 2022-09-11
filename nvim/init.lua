@@ -27,7 +27,7 @@ require('paq') {
     {'junegunn/vim-easy-align'},
     {'mg979/vim-visual-multi', branch='master'},
     {'mhinz/vim-grepper'},
-    {'tpope/vim-commentary'},
+    {'terrortylor/nvim-comment'},
     {'sjl/gundo.vim'},
     {'sjl/badwolf'},
     {'nvim-lua/plenary.nvim'},
@@ -196,6 +196,8 @@ require('lint').linters_by_ft = {
     python = {'flake8', 'pylint'},
 }
 map('n', '<leader>r', require('lint').try_lint)
+-- nvim-comment
+require('nvim_comment').setup()
 
 
 --------------
