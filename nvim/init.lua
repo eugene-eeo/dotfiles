@@ -100,6 +100,7 @@ opt.pumheight = 20
 opt.clipboard = { 'unnamedplus' }
 opt.updatetime = 500
 opt.pastetoggle = '<F2>'
+opt.mouse = false
 
 opt.listchars = {tab='▸ ', trail='·'}
 opt.list = true
