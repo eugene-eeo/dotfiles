@@ -62,7 +62,7 @@ cmp.setup {
             winhighlight = "NormalFloat:Pmenu,CursorLine:PmenuSel",
         },
         documentation = {
-            border = 'single',
+            border = false,
             winhighlight = "NormalFloat:Pmenu,FloatBorder:Pmenu",
             min_height = 1,
             max_height = 10,
