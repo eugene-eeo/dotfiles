@@ -23,7 +23,7 @@ local commands = {
     {"LspAddWorkspace",    vim.lsp.buf.add_workspace_folder},
     {"LspRemoveWorkspace", vim.lsp.buf.remove_workspace_folder},
     {"LspWorkspaces",      function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end},
-    {"LspFormat",          vim.lsp.buf.format},
+    {"LspFormat",          vim.lsp.buf.format or vim.lsp.buf.formatting},
 }
 for _, cmd in ipairs(commands) do
     vim.api.nvim_create_user_command(cmd[1], cmd[2], {})
@@ -42,7 +42,8 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>f', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>A', vim.lsp.buf.format, opts)
+    vim.keymap.set('n', '<leader>A', vim.lsp.buf.format or vim.lsp.buf.formatting, opts)
+    vim.keymap.set('n', 'gs', function() vim.lsp.buf.workspace_symbol() end, opts)
 end
 
 return {

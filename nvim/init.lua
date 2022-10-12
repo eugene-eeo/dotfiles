@@ -101,7 +101,6 @@ opt.clipboard = { 'unnamedplus' }
 opt.updatetime = 500
 opt.pastetoggle = '<F2>'
 opt.mouse = {}
-opt.cmdheight = 0
 
 opt.listchars = {tab='▸ ', trail='·'}
 opt.list = true
@@ -177,7 +176,7 @@ map({'n', 'v'}, 'grh', ':Gitsigns reset_hunk<CR>', {silent = true})
 map('n', 'guh', require('gitsigns.actions').undo_stage_hunk, {silent = true})
 -- gutentags
 g.gutentags_cache_dir = fn.expand('~/.cache/tags')
-g.gutentags_ctags_exclude = {'node_modules'}
+g.gutentags_ctags_exclude = {'node_modules','.cache'}
 g.gutentags_file_list_command = 'rg --files'
 -- nvim-cmp
 require('extra/nvim-cmp')
