@@ -20,8 +20,8 @@ require('paq') {
     {'hrsh7th/cmp-nvim-lsp-signature-help'},
     {'hrsh7th/cmp-buffer'},
     {'hrsh7th/cmp-path'},
-    {'hrsh7th/cmp-vsnip'},
-    {'hrsh7th/vim-vsnip'},
+    {'L3MON4D3/LuaSnip'},
+    {'saadparwaiz1/cmp_luasnip'},
     {'junegunn/fzf', run='./install --all'},
     {'junegunn/fzf.vim'},
     {'junegunn/vim-easy-align'},
@@ -96,7 +96,7 @@ opt.splitright = true
 
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
 opt.shortmess:append('c')
-opt.pumheight = 20
+opt.pumheight = 15
 opt.clipboard = { 'unnamedplus' }
 opt.updatetime = 500
 opt.pastetoggle = '<F2>'
@@ -134,8 +134,10 @@ vim.cmd [[
     hi VertSplit    guifg=#3a3a3a
     hi CursorLine   guibg=#171616
     hi CursorLineNr ctermfg=253  ctermbg=235   guibg=#161515 guifg=#dadada
+    hi diffAdd      ctermfg=64   guifg=#5ccc96 guibg=none    gui=none
     hi diffAdded    ctermfg=64   guifg=#5ccc96 guibg=none    gui=none
     hi diffRemoved  ctermfg=196  guifg=#e33400 guibg=none    gui=none
+    hi diffDelete   ctermfg=196  guifg=#e33400 guibg=none    gui=none
     hi DiffChange   ctermfg=220  guifg=#f2ce00 guibg=none    gui=none
     hi StatusLine   ctermfg=255  ctermbg=234   cterm=bold    guifg=#eeeeee guibg=#171616 gui=bold
     hi StatusLineNC ctermfg=243  ctermbg=234   cterm=none    guifg=#767676 guibg=#171616 gui=none
@@ -165,7 +167,7 @@ g.gundo_prefer_python3 = 1
 -- mhinz/vim-grepper
 g.grepper = {quickfix=1,
              tools={'rg', 'git', 'grep'},
-             operator={side=1, prompt=1}}
+             operator={side=1, prompt=0}}
 -- lewis6991/gitsigns.nvim
 require('gitsigns').setup { update_debounce = 250 }
 map('n', ']h',  require('gitsigns.actions').next_hunk, {silent = true})
@@ -291,8 +293,7 @@ require('nvim-treesitter.configs').setup {
 -----------------
 -- LSP CONFIGS --
 -----------------
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('extra/lsp_config').setup(capabilities)
 require('extra/lsp_ui').setup()
 

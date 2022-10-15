@@ -8,22 +8,22 @@ local lsp = require 'lspconfig'
 -- check if there are any LSP servers attached before executing,
 -- so this seems to be ok.
 local commands = {
-    {"LspReferences",      vim.lsp.buf.references},
-    {"LspDeclaration",     vim.lsp.buf.declaration},
-    {"LspDefiniton",       vim.lsp.buf.definition},
-    {"LspTypeDefiniton",   vim.lsp.buf.type_definition},
-    {"LspCallers",         vim.lsp.buf.incoming_calls},
-    {"LspCallees",         vim.lsp.buf.outgoing_calls},
-    {"LspRename",          vim.lsp.buf.rename},
-    {"LspCodeAction",      vim.lsp.buf.code_action},
-    {"LspQuickfix",        vim.diagnostic.setqflist},
-    {"LspHover",           vim.lsp.buf.hover},
-    {"LspDocumentSymbol",  vim.lsp.buf.document_symbol},
-    {"LspWorkspaceSymbol", function() vim.lsp.buf.workspace_symbol() end},
-    {"LspAddWorkspace",    vim.lsp.buf.add_workspace_folder},
-    {"LspRemoveWorkspace", vim.lsp.buf.remove_workspace_folder},
-    {"LspWorkspaces",      function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end},
-    {"LspFormat",          vim.lsp.buf.format or vim.lsp.buf.formatting},
+    {'LspReferences',      vim.lsp.buf.references},
+    {'LspDeclaration',     vim.lsp.buf.declaration},
+    {'LspDefiniton',       vim.lsp.buf.definition},
+    {'LspTypeDefiniton',   vim.lsp.buf.type_definition},
+    {'LspCallers',         vim.lsp.buf.incoming_calls},
+    {'LspCallees',         vim.lsp.buf.outgoing_calls},
+    {'LspRename',          vim.lsp.buf.rename},
+    {'LspCodeAction',      vim.lsp.buf.code_action},
+    {'LspQuickfix',        vim.diagnostic.setqflist},
+    {'LspHover',           vim.lsp.buf.hover},
+    {'LspDocumentSymbol',  vim.lsp.buf.document_symbol},
+    {'LspWorkspaceSymbol', function() vim.lsp.buf.workspace_symbol() end},
+    {'LspAddWorkspace',    vim.lsp.buf.add_workspace_folder},
+    {'LspRemoveWorkspace', vim.lsp.buf.remove_workspace_folder},
+    {'LspWorkspaces',      function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end},
+    {'LspFormat',          vim.lsp.buf.format or vim.lsp.buf.formatting},
 }
 for _, cmd in ipairs(commands) do
     vim.api.nvim_create_user_command(cmd[1], cmd[2], {})
@@ -49,9 +49,9 @@ end
 return {
     setup = function(capabilities)
         local servers = {
-            ["gopls"] = {gopls={analyses={composites=false}}},
-            ["jedi_language_server"] = {},
-            ["clangd"] = {},
+            ['gopls'] = {gopls={analyses={composites=false}}},
+            ['jedi_language_server'] = {},
+            ['clangd'] = {},
         }
         for srv, settings in pairs(servers) do
             lsp[srv].setup({
