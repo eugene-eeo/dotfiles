@@ -35,6 +35,7 @@ require('paq') {
     {'ludovicchabant/vim-gutentags'},
     {'andymass/vim-matchup'},
     {'mfussenegger/nvim-lint'},
+    {'lewis6991/impatient.nvim'},
 }
 
 ------------------------------
@@ -51,6 +52,8 @@ g.loaded_2html_plugin      = 1
 g.loaded_shada_plugin      = 1
 g.loaded_spellfile_plugin  = 1
 g.loaded_tutor_mode_plugin = 1
+g.did_load_filetypes = 0
+g.do_filetype_lua = 1
 
 -------------
 -- OPTIONS --
@@ -147,6 +150,7 @@ vim.cmd [[
     hi PmenuSel     ctermbg=31   guibg=#0087af ctermfg=15    guifg=#FFFFFF gui=bold
     hi NormalFloat  ctermfg=15   ctermbg=233   cterm=none    guifg=#ffffff guibg=#171716 gui=none
     hi FloatBorder  ctermfg=15   ctermbg=233   cterm=none    guifg=#3a3a3a guibg=#171716 gui=none
+    hi cError       ctermbg=none guibg=none
 ]]
 opt.statusline = (
     '%f%m' ..
@@ -186,6 +190,7 @@ require('extra/nvim-cmp')
 g.matchup_matchparen_enabled = 1
 g.matchup_matchparen_offscreen = {}
 g.matchup_mappings_enabled = 0
+g.matchup_matchparen_deferred = 1
 map('n', '%',  '<plug>(matchup-%)', {remap = true})
 map('x', '%',  '<plug>(matchup-%)', {remap = true})
 map('x', 'a%', '<plug>(matchup-%)', {remap = true})
@@ -201,6 +206,7 @@ require('lint').linters_by_ft = {
 map('n', '<leader>r', require('lint').try_lint)
 -- nvim-comment
 require('nvim_comment').setup()
+require('impatient')
 
 
 --------------
@@ -224,6 +230,9 @@ map('v', '>', '>gv')
 
 -- tmux
 map('', '<C-a>', '<Nop>')
+
+-- raw tabs
+map('i', '<S-Tab>', '<C-V><Tab>')
 
 -- force of habits
 map('n', 'g[',        ':pop<cr>',    {silent = true})
@@ -284,7 +293,7 @@ require('nvim-treesitter.configs').setup {
         enable = true,
         keymaps = {
             init_selection = '@',
-            node_incremental = '.',
+            node_incremental = '@',
             node_decremental = ';',
         },
     },

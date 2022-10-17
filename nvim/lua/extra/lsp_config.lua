@@ -44,6 +44,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<leader>A', vim.lsp.buf.format or vim.lsp.buf.formatting, opts)
     vim.keymap.set('n', 'gs', function() vim.lsp.buf.workspace_symbol() end, opts)
+    vim.keymap.set('i', '<c-s>', function() vim.lsp.buf.signature_help() end, opts)
 end
 
 return {
