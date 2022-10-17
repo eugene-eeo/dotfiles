@@ -305,6 +305,7 @@ require('nvim-treesitter.configs').setup {
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('extra/lsp_config').setup(capabilities)
 require('extra/lsp_ui').setup()
+require('extra/ts-fix')
 
 ----------------
 -- IDENTATION --
