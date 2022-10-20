@@ -130,27 +130,26 @@ opt.termguicolors = true
 vim.cmd [[
     colorscheme goodwolf
     hi Normal       ctermbg=0    guibg=#090808
-    hi NonText      ctermbg=none guibg=none
+    hi NonText      ctermbg=none guibg=none guifg=#393838
     hi Comment      ctermbg=none guibg=none
     hi SignColumn   ctermbg=232  guibg=#090808
-    hi LineNr       ctermfg=237  ctermbg=232   guibg=#090808 guifg=#3a3a3a
+    hi LineNr       ctermfg=237  ctermbg=232   guibg=#090808 guifg=#393838
     hi VertSplit    guifg=#3a3a3a
     hi CursorLine   guibg=#171616
-    hi CursorLineNr ctermfg=253  ctermbg=235   guibg=#161515 guifg=#dadada
-    hi diffAdd      ctermfg=64   guifg=#5ccc96 guibg=none    gui=none
-    hi diffAdded    ctermfg=64   guifg=#5ccc96 guibg=none    gui=none
-    hi diffRemoved  ctermfg=196  guifg=#e33400 guibg=none    gui=none
-    hi diffDelete   ctermfg=196  guifg=#e33400 guibg=none    gui=none
-    hi DiffChange   ctermfg=220  guifg=#f2ce00 guibg=none    gui=none
+    hi CursorLineNr ctermfg=253  ctermbg=235   guibg=#171616 guifg=#dadada
     hi StatusLine   ctermfg=255  ctermbg=234   cterm=bold    guifg=#eeeeee guibg=#171616 gui=bold
     hi StatusLineNC ctermfg=243  ctermbg=234   cterm=none    guifg=#767676 guibg=#171616 gui=none
     hi Pmenu        ctermfg=15   ctermbg=234   cterm=none    guifg=#ffffff guibg=#171616 gui=none
     hi PmenuSbar    ctermbg=234  guibg=#1d1c1c
-    hi MatchParen   ctermbg=31   guibg=#0087af ctermfg=none  guifg=fg
-    hi PmenuSel     ctermbg=31   guibg=#0087af ctermfg=15    guifg=#FFFFFF gui=bold
+    hi PmenuSel     ctermbg=31   guibg=#0085ad ctermfg=15    guifg=#FFFFFF gui=bold
+    hi MatchParen   ctermbg=31   guibg=#0085ad ctermfg=none  guifg=fg
     hi NormalFloat  ctermfg=15   ctermbg=233   cterm=none    guifg=#ffffff guibg=#171716 gui=none
-    hi FloatBorder  ctermfg=15   ctermbg=233   cterm=none    guifg=#3a3a3a guibg=#171716 gui=none
-    hi cError       ctermbg=none guibg=none
+    hi FloatBorder  ctermfg=none ctermbg=233   cterm=none    guifg=none    guibg=#171716 gui=none
+    hi DiffAdd      ctermfg=64   guifg=#547019 guibg=none    gui=none
+    hi DiffAdded    ctermfg=64   guifg=#547019 guibg=none    gui=none
+    hi DiffRemoved  ctermfg=196  guifg=#e33400 guibg=none    gui=none
+    hi DiffDelete   ctermfg=196  guifg=#e33400 guibg=none    gui=none
+    hi DiffChange   ctermfg=220  guifg=#ffa724 guibg=none    gui=none
 ]]
 opt.statusline = (
     '%f%m' ..
