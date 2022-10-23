@@ -141,8 +141,8 @@ vim.cmd [[
     hi StatusLineNC ctermfg=243  ctermbg=234   cterm=none    guifg=#767676 guibg=#171616 gui=none
     hi Pmenu        ctermfg=15   ctermbg=234   cterm=none    guifg=#ffffff guibg=#171616 gui=none
     hi PmenuSbar    ctermbg=234  guibg=#1d1c1c
-    hi PmenuSel     ctermbg=31   guibg=#0085ad ctermfg=15    guifg=#FFFFFF gui=bold
-    hi MatchParen   ctermbg=31   guibg=#0085ad ctermfg=none  guifg=fg
+    hi PmenuSel     ctermbg=31   guibg=#0087af ctermfg=15    guifg=#FFFFFF gui=bold
+    hi MatchParen   ctermbg=31   guibg=#0087af ctermfg=none  guifg=fg
     hi NormalFloat  ctermfg=15   ctermbg=233   cterm=none    guifg=#ffffff guibg=#171716 gui=none
     hi FloatBorder  ctermfg=none ctermbg=233   cterm=none    guifg=none    guibg=#171716 gui=none
     hi DiffAdd      ctermfg=64   guifg=#547019 guibg=none    gui=none
