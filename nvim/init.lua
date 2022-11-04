@@ -122,7 +122,7 @@ if fn.executable('rg') then
 end
 
 -------- Python runtimes ---------
-g.python3_host_prog = fn.expand('~/.pyenv/versions/neovim3.10.4/bin/python')
+g.python3_host_prog = fn.expand('~/.pyenv/versions/neovim3.11.0/bin/python')
 
 -------- Colors --------
 g.background = 'dark'
