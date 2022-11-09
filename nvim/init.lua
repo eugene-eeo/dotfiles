@@ -26,7 +26,6 @@ require('paq') {
     {'junegunn/fzf.vim'},
     {'junegunn/vim-easy-align'},
     {'mg979/vim-visual-multi', branch='master'},
-    {'mhinz/vim-grepper'},
     {'terrortylor/nvim-comment'},
     {'sjl/gundo.vim'},
     {'sjl/badwolf'},
@@ -117,7 +116,7 @@ opt.makeprg = ''
 
 -------- Grep ---------
 if fn.executable('rg') then
-    opt.grepprg = 'rg --vimgrep --no-heading --smart-case --follow'
+    opt.grepprg = 'rg --vimgrep --no-heading --smart-case --follow $*'
     opt.grepformat = {'%f:%l:%c:%m', '%f:%l:%m'}
 end
 
@@ -167,10 +166,6 @@ opt.statusline = (
 -- sjl/gundo.vim
 g.gundo_right = 1
 g.gundo_prefer_python3 = 1
--- mhinz/vim-grepper
-g.grepper = {quickfix=1,
-             tools={'rg', 'git', 'grep'},
-             operator={side=1, prompt=0}}
 -- lewis6991/gitsigns.nvim
 require('gitsigns').setup { update_debounce = 250 }
 map('n', ']h',  require('gitsigns.actions').next_hunk, {silent = true})
@@ -252,11 +247,6 @@ map('n', '[d', vim.diagnostic.goto_prev, {silent = true})
 map('n', ']d', vim.diagnostic.goto_next, {silent = true})
 map('n', '<leader>q', vim.diagnostic.setqflist)
 
--- mhinz/vim-grepper
-map('n', '<leader>ss', ':Grepper -side -cword -noprompt<cr>')
-map('x', '<leader>ss', '<Plug>(GrepperOperator)')
-map('n', '<leader>/',  ':Grepper<cr>')
-map('n', '<leader>?',  ':Grepper -side<cr>')
 -- junegunn/vim-easy-align
 map('n', 'ga', '<Plug>(EasyAlign)', {remap = true})
 map('x', 'ga', '<Plug>(EasyAlign)', {remap = true})
@@ -288,15 +278,10 @@ require('nvim-treesitter.configs').setup {
             },
         },
     },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = '@',
-            node_incremental = '@',
-            node_decremental = ';',
-        },
-    },
 }
+
+vim.api.nvim_create_user_command('MyGrep', 'silent grep! <args> | cw', {bar=true, nargs='+'})
+map('n', '<leader>/', ':MyGrep<space>')
 
 -----------------
 -- LSP CONFIGS --
