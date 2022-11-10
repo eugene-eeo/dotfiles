@@ -285,7 +285,8 @@ vim.api.nvim_create_user_command('MyGrepRange', function(opts)
     local p1 = vim.api.nvim_buf_get_mark(0, '<')
     local p2 = vim.api.nvim_buf_get_mark(0, '>')
     if p1[1] ~= p2[1] then
-        error("cannot do multiline searches")
+        vim.api.nvim_err_writeln("cannot do multiline searches")
+        return
     end
     local lineno = p1[1]
     local query = vim.api.nvim_buf_get_lines(0, lineno - 1, lineno, true)[1]
