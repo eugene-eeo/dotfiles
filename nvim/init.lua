@@ -280,8 +280,21 @@ require('nvim-treesitter.configs').setup {
     },
 }
 
-vim.api.nvim_create_user_command('MyGrep', 'silent grep! <args> | cw', {bar=true, nargs='+'})
-map('n', '<leader>/', ':MyGrep<space>')
+vim.api.nvim_create_user_command('MyGrep', 'silent grep! <args>|cw|redraw!', {bar=true, nargs='+'})
+vim.api.nvim_create_user_command('MyGrepRange', function(opts)
+    local p1 = vim.api.nvim_buf_get_mark(0, '<')
+    local p2 = vim.api.nvim_buf_get_mark(0, '>')
+    if p1[1] ~= p2[1] then
+        error("cannot do multiline searches")
+    end
+    local lineno = p1[1]
+    local query = vim.api.nvim_buf_get_lines(0, lineno - 1, lineno, true)[1]
+    query = string.sub(query, p1[2], p2[2] + 1)
+    vim.cmd(":silent exec \"grep! -F " .. vim.fn.shellescape(query, 1) .. "|cw|redraw!\"")
+end, {bar=true, nargs='*', range=true})
+map('n', '<leader>/',  ':MyGrep<space>')
+map('n', '<leader>ss', ":exec 'MyGrep -F '.shellescape(expand('<cword>'), 1)<cr>")
+map('x', '<leader>ss', ":MyGrepRange<cr>")
 
 -----------------
 -- LSP CONFIGS --
