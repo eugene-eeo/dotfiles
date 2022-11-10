@@ -289,11 +289,11 @@ vim.api.nvim_create_user_command('MyGrepRange', function(opts)
     end
     local lineno = p1[1]
     local query = vim.api.nvim_buf_get_lines(0, lineno - 1, lineno, true)[1]
-    query = string.sub(query, p1[2], p2[2] + 1)
-    vim.cmd(":silent exec \"grep! -F " .. vim.fn.shellescape(query, 1) .. "|cw|redraw!\"")
+    query = string.sub(query, p1[2] + 1, p2[2] + 1)
+    vim.cmd("MyGrep -F " .. vim.fn.shellescape(query))
 end, {bar=true, nargs='*', range=true})
 map('n', '<leader>/',  ':MyGrep<space>')
-map('n', '<leader>ss', ":exec 'MyGrep -F '.shellescape(expand('<cword>'), 1)<cr>")
+map('n', '<leader>ss', ":exec 'MyGrep -F ' . shellescape(expand('<cword>'))<cr>")
 map('x', '<leader>ss', ":MyGrepRange<cr>")
 
 -----------------
