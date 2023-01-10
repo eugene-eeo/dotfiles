@@ -51,8 +51,6 @@ g.loaded_2html_plugin      = 1
 g.loaded_shada_plugin      = 1
 g.loaded_spellfile_plugin  = 1
 g.loaded_tutor_mode_plugin = 1
-g.did_load_filetypes = 0
-g.do_filetype_lua = 1
 
 -------------
 -- OPTIONS --
