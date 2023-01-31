@@ -50,19 +50,18 @@ end
 return {
     setup = function(capabilities)
         local servers = {
-            ['gopls'] = {gopls={analyses={composites=false}}},
+            ['gopls'] = {settings={gopls={analyses={composites=false}}}},
             ['jedi_language_server'] = {},
             ['clangd'] = {},
         }
-        for srv, settings in pairs(servers) do
-            lsp[srv].setup({
+        for srv, opts in pairs(servers) do
+            lsp[srv].setup(vim.tbl_deep_extend("keep", opts, {
                 on_attach=on_attach,
                 capabilities=capabilities,
-                settings=settings,
                 flags={
                     debounce_text_changes=200,
                 },
-            })
+            }))
         end
     end
 }

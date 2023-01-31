@@ -166,12 +166,12 @@ g.gundo_right = 1
 g.gundo_prefer_python3 = 1
 -- lewis6991/gitsigns.nvim
 require('gitsigns').setup { update_debounce = 250 }
-map('n', ']h',  require('gitsigns.actions').next_hunk, {silent = true})
-map('n', '[h',  require('gitsigns.actions').prev_hunk, {silent = true})
-map('n', 'ghp', require('gitsigns.actions').preview_hunk, {silent = true})
+map('n', ']h',  require('gitsigns').next_hunk, {silent = true})
+map('n', '[h',  require('gitsigns').prev_hunk, {silent = true})
+map('n', 'ghp', require('gitsigns').preview_hunk, {silent = true})
 map({'n', 'v'}, 'gsh', ':Gitsigns stage_hunk<CR>', {silent = true})
 map({'n', 'v'}, 'grh', ':Gitsigns reset_hunk<CR>', {silent = true})
-map('n', 'guh', require('gitsigns.actions').undo_stage_hunk, {silent = true})
+map('n', 'guh', require('gitsigns').undo_stage_hunk, {silent = true})
 -- gutentags
 g.gutentags_cache_dir = fn.expand('~/.cache/tags')
 g.gutentags_ctags_exclude = {'node_modules','.cache'}
@@ -301,7 +301,7 @@ map('x', '<leader>ss', ":MyGrepRange<cr>")
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('extra/lsp_config').setup(capabilities)
 require('extra/lsp_ui').setup()
-require('extra/ts-fix')
+-- require('extra/ts-fix')
 
 ----------------
 -- IDENTATION --
