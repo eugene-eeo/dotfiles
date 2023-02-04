@@ -35,6 +35,8 @@ require('paq') {
     {'andymass/vim-matchup'},
     {'mfussenegger/nvim-lint'},
     {'lewis6991/impatient.nvim'},
+    {'kevinhwang91/promise-async'},
+    {'kevinhwang91/nvim-ufo'}
 }
 
 ------------------------------
@@ -147,6 +149,7 @@ vim.cmd [[
     hi DiffRemoved  ctermfg=196  guifg=#e33400 guibg=none    gui=none
     hi DiffDelete   ctermfg=196  guifg=#e33400 guibg=none    gui=none
     hi DiffChange   ctermfg=220  guifg=#ffa724 guibg=none    gui=none
+    hi Folded       guibg=#171616
 ]]
 opt.statusline = (
     '%f%m' ..
@@ -200,6 +203,18 @@ map('n', '<leader>r', require('lint').try_lint)
 require('nvim_comment').setup()
 require('impatient')
 
+-- nvim-ufo
+opt.foldcolumn = '0'
+opt.foldlevel = 99
+opt.foldlevelstart = -1
+opt.foldenable = true
+require('ufo').setup({
+    provider_selector = function(bufnr, filetype, buftype)
+        return {'treesitter', 'indent'}
+    end
+})
+map('n', 'zR', require('ufo').openAllFolds)
+map('n', 'zM', require('ufo').closeAllFolds)
 
 --------------
 -- MAPPINGS --
