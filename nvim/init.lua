@@ -36,7 +36,7 @@ require('paq') {
     {'mfussenegger/nvim-lint'},
     {'lewis6991/impatient.nvim'},
     {'kevinhwang91/promise-async'},
-    {'kevinhwang91/nvim-ufo'}
+    {'kevinhwang91/nvim-ufo'},
 }
 
 ------------------------------
