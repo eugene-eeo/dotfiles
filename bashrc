@@ -42,6 +42,7 @@ alias pbcopy='xsel -ib'
 alias pbpaste='xsel -ob'
 # alias hc='herbstclient'
 alias sudo='sudo '
+alias vim='nvim'
 
 # Use rg to pipe to FZF, so we respect .gitignore
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git/'

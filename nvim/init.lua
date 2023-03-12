@@ -100,7 +100,7 @@ opt.completeopt = { 'menu', 'menuone', 'noselect' }
 opt.shortmess:append('c')
 opt.pumheight = 15
 opt.clipboard = { 'unnamedplus' }
-opt.updatetime = 500
+opt.updatetime = 300
 opt.pastetoggle = '<F2>'
 opt.mouse = {}
 
@@ -172,9 +172,9 @@ require('gitsigns').setup { update_debounce = 250 }
 map('n', ']h',  require('gitsigns').next_hunk, {silent = true})
 map('n', '[h',  require('gitsigns').prev_hunk, {silent = true})
 map('n', 'ghp', require('gitsigns').preview_hunk, {silent = true})
+map('n', 'guh', require('gitsigns').undo_stage_hunk, {silent = true})
 map({'n', 'v'}, 'gsh', ':Gitsigns stage_hunk<CR>', {silent = true})
 map({'n', 'v'}, 'grh', ':Gitsigns reset_hunk<CR>', {silent = true})
-map('n', 'guh', require('gitsigns').undo_stage_hunk, {silent = true})
 -- gutentags
 g.gutentags_cache_dir = fn.expand('~/.cache/tags')
 g.gutentags_ctags_exclude = {'node_modules','.cache'}

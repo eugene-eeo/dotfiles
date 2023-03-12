@@ -23,7 +23,7 @@ local commands = {
     {'LspAddWorkspace',    vim.lsp.buf.add_workspace_folder},
     {'LspRemoveWorkspace', vim.lsp.buf.remove_workspace_folder},
     {'LspWorkspaces',      function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end},
-    {'LspFormat',          vim.lsp.buf.format or vim.lsp.buf.formatting},
+    {'LspFormat',          vim.lsp.buf.format},
 }
 for _, cmd in ipairs(commands) do
     vim.api.nvim_create_user_command(cmd[1], cmd[2], {})
@@ -33,7 +33,7 @@ end
 local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    local opts = { buffer = bufnr, remap = false, silent = true }
+    local opts = { buffer = bufnr, noremap = true, silent = true }
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'g]', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.declaration, opts)
@@ -42,7 +42,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>f', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>A', vim.lsp.buf.format or vim.lsp.buf.formatting, opts)
+    vim.keymap.set('n', '<leader>A', vim.lsp.buf.format, opts)
     vim.keymap.set('n', 'gs', function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set('i', '<c-s>', function() vim.lsp.buf.signature_help() end, opts)
 end
@@ -50,7 +50,7 @@ end
 return {
     setup = function(capabilities)
         local servers = {
-            ['gopls'] = {settings={gopls={analyses={composites=false}}}},
+            ['gopls'] = {},
             ['jedi_language_server'] = {},
             ['clangd'] = {},
         }
