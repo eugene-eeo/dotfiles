@@ -21,7 +21,7 @@ cmp.setup {
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item(select_behavior)
-            elseif luasnip.expand_or_jumpable() then
+            elseif luasnip.expand_or_locally_jumpable() then
                 luasnip.expand_or_jump()
             elseif has_words_before() then
                 cmp.complete()
@@ -52,5 +52,13 @@ cmp.setup {
             border = 'single',
             winhighlight = 'FloatBorder:FloatBorder',
         },
+    },
+    formatting = {
+        format = function(entry, vim_item)
+            if string.len(vim_item.abbr) > 55 then
+                vim_item.abbr = string.sub(vim_item.abbr, 1, 54) .. '…'
+            end
+            return vim_item
+        end,
     },
 }
