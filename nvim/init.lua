@@ -101,7 +101,6 @@ opt.shortmess:append('c')
 opt.pumheight = 15
 opt.clipboard = { 'unnamedplus' }
 opt.updatetime = 300
-opt.pastetoggle = '<F2>'
 opt.mouse = {}
 
 opt.listchars = {tab='▸ ', trail='·'}
