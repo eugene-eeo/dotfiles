@@ -91,7 +91,7 @@ if ! shopt -oq posix; then
     fi
 fi
 
-eval "$(pyenv init --path)"
+# eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
 export NVM_DIR="$HOME/.nvm"
