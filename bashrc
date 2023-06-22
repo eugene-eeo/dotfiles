@@ -3,6 +3,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+HISTSIZE=11000
 HISTCONTROL=ignoreboth
 shopt -s histappend
 shopt -s checkwinsize
