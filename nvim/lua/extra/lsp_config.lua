@@ -45,6 +45,10 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>A', vim.lsp.buf.format, opts)
     vim.keymap.set('n', 'gs', function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set('i', '<c-s>', function() vim.lsp.buf.signature_help() end, opts)
+
+    -- if client.server_capabilities.inlayHintProvider then
+    --     vim.lsp.inlay_hint(bufnr, true)
+    -- end
 end
 
 return {

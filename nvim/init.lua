@@ -22,7 +22,7 @@ require('paq') {
     {'hrsh7th/cmp-path'},
     {'L3MON4D3/LuaSnip'},
     {'saadparwaiz1/cmp_luasnip'},
-    {'junegunn/fzf', run='./install --all'},
+    {'junegunn/fzf', build='./install --all'},
     {'junegunn/fzf.vim'},
     {'junegunn/vim-easy-align'},
     {'mg979/vim-visual-multi', branch='master'},
@@ -34,9 +34,9 @@ require('paq') {
     {'ludovicchabant/vim-gutentags'},
     {'andymass/vim-matchup'},
     {'mfussenegger/nvim-lint'},
-    {'lewis6991/impatient.nvim'},
     {'kevinhwang91/promise-async'},
     {'kevinhwang91/nvim-ufo'},
+    {'preservim/nerdtree'},
 }
 
 ------------------------------
@@ -132,6 +132,7 @@ vim.cmd [[
     hi Comment      ctermbg=none guibg=none
     hi SignColumn   ctermbg=232  guibg=#090808
     hi LineNr       ctermfg=237  ctermbg=232   guibg=#090808 guifg=#393838
+    hi WinSeparator guifg=#3a3a3a
     hi VertSplit    guifg=#3a3a3a
     hi CursorLine   guibg=#171616
     hi CursorLineNr ctermfg=253  ctermbg=235   guibg=#171616 guifg=#dadada
@@ -200,7 +201,7 @@ require('lint').linters_by_ft = {
 map('n', '<leader>r', require('lint').try_lint)
 -- nvim-comment
 require('nvim_comment').setup()
-require('impatient')
+vim.loader.enable()
 
 -- nvim-ufo
 opt.foldcolumn = '0'
@@ -270,6 +271,9 @@ map('n', '<C-o>',     ':Commands<cr>')
 map('n', '<C-f>',     ':BTags<cr>')
 map('n', '<C-Space>', ':Tags<cr>')
 
+-- nerdtree
+map('n', '<leader>tt', ':NERDTreeToggle<cr>')
+
 -----------------
 -- TREE-SITTER --
 -----------------
@@ -297,7 +301,7 @@ vim.api.nvim_create_user_command('MyGrepRange', function(opts)
     local p1 = vim.api.nvim_buf_get_mark(0, '<')
     local p2 = vim.api.nvim_buf_get_mark(0, '>')
     if p1[1] ~= p2[1] then
-        vim.api.nvim_err_writeln("cannot do multiline searches")
+        vim.api.nvim_err_writeln('cannot do multiline searches')
         return
     end
     local lineno = p1[1]
@@ -307,7 +311,7 @@ vim.api.nvim_create_user_command('MyGrepRange', function(opts)
 end, {bar=true, nargs='*', range=true})
 map('n', '<leader>/',  ':MyGrep<space>')
 map('n', '<leader>ss', ":exec 'MyGrep -F ' . shellescape(expand('<cword>'))<cr>")
-map('x', '<leader>ss', ":MyGrepRange<cr>")
+map('x', '<leader>ss', ':MyGrepRange<cr>')
 
 -----------------
 -- LSP CONFIGS --
