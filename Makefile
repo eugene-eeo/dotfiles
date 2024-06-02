@@ -13,16 +13,7 @@ sync:
 bins:
 	cd st && make DESTDIR=~/.scripts/ clean install
 
-# slouch:
-# 	touch ~/.config/slouch/hooks
-# 	cp ~/code/slouch/slouch ./scripts/
-
-# reload: slouch sync
-# 	-killall dunst
-# 	-herbstclient reload
-
 push:
 	git push origin
 
-# all: sync bins slouch
 all: sync bins

@@ -271,8 +271,8 @@ require('nvim-treesitter.configs').setup {
 }
 
 require('extra/grep').setup()
-map('n', '<leader>/',  ':MyGrep<space>')
-map('n', '<leader>ss', ":exec 'MyGrep -F ' . shellescape(expand('<cword>'))<cr>")
+map('n', '<leader>/',  ':silent grep!<space>')
+map('n', '<leader>ss', ":exec 'grep -F ' . shellescape(expand('<cword>'))<cr>")
 map('x', '<leader>ss', ':MyGrepRange<cr>')
 
 -----------------
@@ -298,5 +298,6 @@ augroup vimrc
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
     autocmd FileType yaml     setlocal ts=2 sts=2 sw=2 expandtab
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+    autocmd QuickFixCmdPost grep cwindow|redraw
 augroup END
 ]]
