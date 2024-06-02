@@ -4,13 +4,12 @@ local has_words_before = function()
 end
 
 local cmp = require 'cmp'
-local luasnip = require 'luasnip'
 local select_behavior = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup {
     snippet = {
         expand = function(args)
-            luasnip.lsp_expand(args.body)
+            vim.snippet.expand(args.body)
         end,
     },
     mapping = {
@@ -21,8 +20,8 @@ cmp.setup {
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item(select_behavior)
-            elseif luasnip.expand_or_locally_jumpable() then
-                luasnip.expand_or_jump()
+            elseif vim.snippet.active({ direction = 1 }) then
+                vim.snippet.jump(1)
             elseif has_words_before() then
                 cmp.complete()
             else
@@ -32,8 +31,8 @@ cmp.setup {
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item(select_behavior)
-            elseif luasnip.locally_jumpable(-1) then
-                luasnip.jump(-1)
+            elseif vim.snippet.active({ direction = -1 }) then
+                vim.snippet.jump(-1)
             else
                 fallback()
             end
@@ -44,7 +43,6 @@ cmp.setup {
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'luasnip' },
     }, {
         { name = 'buffer' },
         { name = 'path' },

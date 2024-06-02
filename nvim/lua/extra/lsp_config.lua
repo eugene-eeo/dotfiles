@@ -47,7 +47,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('i', '<c-s>', function() vim.lsp.buf.signature_help() end, opts)
 
     -- if client.server_capabilities.inlayHintProvider then
-    --     vim.lsp.inlay_hint(bufnr, true)
+    --     vim.lsp.inlay_hint.enable(true, {bufnr = bufnr})
     -- end
 end
 

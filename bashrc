@@ -41,7 +41,6 @@ alias g='git'
 alias ls='ls --color=auto'
 alias pbcopy='xsel -ib'
 alias pbpaste='xsel -ob'
-# alias hc='herbstclient'
 alias sudo='sudo '
 alias vim='nvim'
 
@@ -64,20 +63,6 @@ open() {
     pdetach xdg-open "$@"
 }
 
-mux() {
-    if [[ -z "$TMUX" ]] ;then
-        # recycle tmux sessions here
-        ID=$(tmux list-sessions | grep -vm1 '(attached)$' | cut -d: -f1) # get the id of a deattached session
-        if [[ -z "$ID" ]]; then # if not available create a new one
-            tmux new
-        else
-            tmux attach-session -t "$ID"
-        fi
-    else
-        tmux new
-    fi
-}
-
 tclear() {
     tmux clear
     clear
@@ -94,10 +79,6 @@ fi
 
 # eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Direnv
 eval "$(direnv hook bash)"
