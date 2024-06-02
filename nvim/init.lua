@@ -57,7 +57,7 @@ g.loaded_tutor_mode_plugin = 1
 g.mapleader = ','
 
 vim.cmd [[ set shada = "NONE" ]]
-opt.backspace = '2'
+opt.backspace = 'indent,eol,start'
 opt.encoding = 'utf8'
 opt.ffs = { 'unix', 'dos', 'mac' }
 opt.number = true
@@ -69,8 +69,8 @@ opt.smartcase = true
 opt.hlsearch = true
 opt.showmatch = true   -- show matching brackets
 opt.matchtime = 0
-opt.laststatus = 2
-opt.lazyredraw = true
+opt.laststatus = 3
+-- opt.lazyredraw = true
 opt.visualbell = true
 
 -- undo files
@@ -97,7 +97,7 @@ opt.completeopt = { 'menu', 'menuone', 'noselect' }
 opt.shortmess:append('c')
 opt.pumheight = 15
 opt.clipboard = { 'unnamedplus' }
-opt.updatetime = 300
+opt.updatetime = 250
 opt.mouse = {}
 
 opt.listchars = {tab='▸ ', trail='·'}
