@@ -2,7 +2,7 @@
 import os
 import sys
 import atexit
-from pprint import pprint as pp
+from pprint import pprint
 
 try:
     import readline
@@ -14,11 +14,11 @@ else:
     readline.parse_and_bind("tab: complete")
 
 
-def display_hook(value):
+def display_hook(value, pprint=pprint):
     if value is not None:
         global _
         _ = value
-        pp(value)
+        pprint(value)
 
 
 sys.displayhook = display_hook
@@ -44,3 +44,4 @@ del save_history
 del history_path
 del sys
 del os
+del pprint

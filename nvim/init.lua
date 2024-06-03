@@ -41,12 +41,9 @@ require('paq') {
 ------------------------------
 g.loaded_matchparen        = 1
 g.loaded_matchit           = 1
-g.loaded_logiPat           = 1
-g.loaded_rrhelper          = 1
 g.loaded_tarPlugin         = 1
 g.loaded_gzip              = 1
 g.loaded_zipPlugin         = 1
-g.loaded_2html_plugin      = 1
 g.loaded_shada_plugin      = 1
 g.loaded_spellfile_plugin  = 1
 g.loaded_tutor_mode_plugin = 1
@@ -56,7 +53,7 @@ g.loaded_tutor_mode_plugin = 1
 -------------
 g.mapleader = ','
 
-vim.cmd [[ set shada = "NONE" ]]
+opt.shadafile = 'NONE'
 opt.backspace = 'indent,eol,start'
 opt.encoding = 'utf8'
 opt.ffs = { 'unix', 'dos', 'mac' }
@@ -67,10 +64,7 @@ opt.wildmode = { 'longest:full', 'full' }
 opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = true
-opt.showmatch = true   -- show matching brackets
-opt.matchtime = 0
-opt.laststatus = 2
--- opt.lazyredraw = true
+opt.showmatch = false
 opt.visualbell = true
 
 -- undo files
@@ -227,8 +221,6 @@ map('n', '[[',    '<C-o>',      {silent = true})
 map('n', ']]',    '<C-i>',      {silent = true})
 map('n', '<C-j>', ':cprev<cr>', {silent = true})
 map('n', '<C-k>', ':cnext<cr>', {silent = true})
-
--- jump to diagnostics
 map('n', '[d', vim.diagnostic.goto_prev, {silent = true})
 map('n', ']d', vim.diagnostic.goto_next, {silent = true})
 map('n', '<leader>q', vim.diagnostic.setqflist)

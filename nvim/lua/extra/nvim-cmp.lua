@@ -50,7 +50,6 @@ cmp.setup {
     window = {
         documentation = {
             border = 'single',
-            winhighlight = 'FloatBorder:FloatBorder',
         },
     },
     formatting = {
