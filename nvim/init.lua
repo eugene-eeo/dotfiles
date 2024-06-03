@@ -1,3 +1,4 @@
+vim.loader.enable()
 -------------
 -- HELPERS --
 -------------
@@ -25,7 +26,6 @@ require('paq') {
     {'junegunn/vim-easy-align'},
     {'mg979/vim-visual-multi', branch='master'},
     {'sjl/gundo.vim'},
-    -- {'sjl/badwolf'},
     {'nvim-lua/plenary.nvim'},
     {'lewis6991/gitsigns.nvim'}, -- depends on plenary.nvim
     {'ludovicchabant/vim-gutentags'},
@@ -69,7 +69,7 @@ opt.smartcase = true
 opt.hlsearch = true
 opt.showmatch = true   -- show matching brackets
 opt.matchtime = 0
-opt.laststatus = 3
+opt.laststatus = 2
 -- opt.lazyredraw = true
 opt.visualbell = true
 
@@ -148,8 +148,8 @@ g.gundo_right = 1
 g.gundo_prefer_python3 = 1
 -- lewis6991/gitsigns.nvim
 require('gitsigns').setup { update_debounce = 250 }
-map('n', ']h',  require('gitsigns').next_hunk, {silent = true})
-map('n', '[h',  require('gitsigns').prev_hunk, {silent = true})
+map('n', ']h',  function() require('gitsigns').nav_hunk('next') end, {silent = true})
+map('n', '[h',  function() require('gitsigns').nav_hunk('prev') end, {silent = true})
 map('n', 'ghp', require('gitsigns').preview_hunk, {silent = true})
 -- gutentags
 g.gutentags_cache_dir = fn.expand('~/.cache/tags')
@@ -175,7 +175,6 @@ require('lint').linters_by_ft = {
     python = {'ruff',},
 }
 map('n', '<leader>r', require('lint').try_lint)
-vim.loader.enable()
 
 -- nvim-ufo
 opt.foldcolumn = '0'
@@ -272,7 +271,7 @@ require('nvim-treesitter.configs').setup {
 
 require('extra/grep').setup()
 map('n', '<leader>/',  ':silent grep!<space>')
-map('n', '<leader>ss', ":exec 'grep -F ' . shellescape(expand('<cword>'))<cr>")
+map('n', '<leader>ss', ":exec 'silent grep! -F ' . shellescape(expand('<cword>'))<cr>")
 map('x', '<leader>ss', ':MyGrepRange<cr>')
 
 -----------------
