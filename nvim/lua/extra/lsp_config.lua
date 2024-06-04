@@ -31,8 +31,6 @@ end
 
 -- Common mappings
 local on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
     local opts = { buffer = bufnr, noremap = true, silent = true }
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'g]', vim.lsp.buf.definition, opts)

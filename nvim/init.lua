@@ -97,6 +97,7 @@ opt.mouse = {}
 opt.listchars = {tab='▸ ', trail='·'}
 opt.list = true
 g.is_bash = true
+g.no_plugin_maps = true
 
 -- jumplist
 opt.jumpoptions:append('stack')
@@ -207,6 +208,7 @@ map('', '<C-a>', '<Nop>')
 
 -- raw tabs
 map('i', '<S-Tab>', '<C-V><Tab>')
+-- require('extra/complete')
 
 -- force of habits
 map('n', 'g[',        ':pop<cr>',    {silent = true})
@@ -288,6 +290,7 @@ augroup vimrc
     autocmd Filetype css      setlocal ts=2 sts=2 sw=2
     autocmd Filetype go       setlocal noet ci pi sts=0 sw=4 ts=4
     autocmd FileType yaml     setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType sh setlocal keywordprg=:Man
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
     autocmd QuickFixCmdPost grep cwindow|redraw
 augroup END
