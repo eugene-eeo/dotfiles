@@ -208,7 +208,6 @@ map('', '<C-a>', '<Nop>')
 
 -- raw tabs
 map('i', '<S-Tab>', '<C-V><Tab>')
--- require('extra/complete')
 
 -- force of habits
 map('n', 'g[',        ':pop<cr>',    {silent = true})

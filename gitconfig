@@ -26,3 +26,6 @@
     editor = nvim
 [diff]
     algorithm = histogram
+    tool = nvimdiff
+[difftool]
+    prompt = false

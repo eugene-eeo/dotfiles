@@ -48,23 +48,12 @@ alias vim='nvim'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git/'
 export FZF_DEFAULT_OPTS='--preview-window=border-sharp'
 
-v() {
-    if [ "$1" ]; then
-        nvim "$@"
-        return
-    fi
-    local _FZF
-    if _FZF=$(fzf --preview='head -100 {}'); then
-        nvim "$_FZF"
-    fi
-}
-
 open() {
     pdetach xdg-open "$@"
 }
 
 tclear() {
-    tmux clear
+    tmux clear-history
     clear
 }
 
