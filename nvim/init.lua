@@ -224,13 +224,13 @@ map('n', '<C-j>', ':cprev<cr>', {silent = true})
 map('n', '<C-k>', ':cnext<cr>', {silent = true})
 map('n', '[d', vim.diagnostic.goto_prev, {silent = true})
 map('n', ']d', vim.diagnostic.goto_next, {silent = true})
-map('n', '<leader>q', vim.diagnostic.setqflist)
+map('n', '<leader>q', vim.diagnostic.setqflist, {silent = true})
 
 -- junegunn/vim-easy-align
 map('n', 'ga', '<Plug>(EasyAlign)', {remap = true})
 map('x', 'ga', '<Plug>(EasyAlign)', {remap = true})
 -- fzf.vim
-vim.g.fzf_layout = { window = { width = 0.9, height = 0.6, border = 'sharp' } }
+g.fzf_layout = { window = { width = 0.9, height = 0.6, border = 'sharp' } }
 map('n', '<C-p>',     ':Files<cr>')
 map('n', '<C-t>',     ':Buffers<cr>')
 map('n', '<C-o>',     ':Commands<cr>')
