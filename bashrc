@@ -48,6 +48,10 @@ alias vim='nvim'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git/'
 export FZF_DEFAULT_OPTS='--preview-window=border-sharp'
 
+pdetach() {
+    prlimit --nofile=1024:1024 -- /usr/bin/pdetach "$@"
+}
+
 open() {
     pdetach xdg-open "$@"
 }
