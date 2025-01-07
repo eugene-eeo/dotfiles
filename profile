@@ -16,6 +16,9 @@ export VISUAL='nvim'
 export PYENV_ROOT="$HOME/.pyenv/"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PATH="$GOPATH/bin:$PATH"
+if [ "$(hostname)" = box ]; then
+    export PATH="/usr/lib/go-1.23/bin:$PATH"
+fi
 export PATH="$HOME/.scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.pyenv/bin:$PATH"
