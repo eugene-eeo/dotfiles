@@ -197,6 +197,7 @@ static Shortcut shortcuts[] = {
     { TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
     { TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
     { TERMMOD,              XK_V,           clippaste,      {.i =  0} },
+    { XK_NO_MOD,            XK_F11,         fullscreen,     {.i =  0} },
 };
 
 /*
