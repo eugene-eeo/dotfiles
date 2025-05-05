@@ -120,6 +120,7 @@ opt.termguicolors = true
 vim.cmd [[
     colorscheme default
     hi Normal       guibg=#090808
+    hi NormalFloat  guibg=#090808
     hi CursorLineNr guibg=NvimDarkGrey3
     hi StatusLine   guifg=#ffffff guibg=NvimDarkGrey3 gui=bold
     hi StatusLineNC guifg=#767676 guibg=NvimDarkGrey3 gui=none

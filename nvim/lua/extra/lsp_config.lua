@@ -32,7 +32,7 @@ end
 -- Common mappings
 local on_attach = function(client, bufnr)
     local opts = { buffer = bufnr, noremap = true, silent = true }
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'K',  function() vim.lsp.buf.hover({ border = 'single', max_width = 80 }) end, opts)
     vim.keymap.set('n', 'g]', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
