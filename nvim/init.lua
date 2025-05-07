@@ -185,6 +185,22 @@ require('ufo').setup({
 map('n', 'zR', require('ufo').openAllFolds)
 map('n', 'zM', require('ufo').closeAllFolds)
 
+-- diagnostics
+vim.diagnostic.config({
+    virtual_text = false,
+    float = {
+        scope = 'line',
+        source = true,
+        border = 'single',
+        header = '',
+        -- width = 50,
+    },
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
+})
+
 --------------
 -- MAPPINGS --
 --------------
@@ -274,7 +290,6 @@ map('x', '<leader>ss', ':MyGrepRange<cr>')
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 require('extra/lsp_config').setup(capabilities)
-require('extra/lsp_ui').setup()
 
 ----------------
 -- IDENTATION --
