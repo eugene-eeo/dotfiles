@@ -1,4 +1,4 @@
-vim.loader.enable()
+vim.loader.enable({ enable = true })
 -------------
 -- HELPERS --
 -------------
