@@ -1,7 +1,6 @@
 --------------------------------
 -- LSP configuration (global) --
 --------------------------------
-local lsp = require 'lspconfig'
 
 -- Define some autocommands -- these will be helpful when we want
 -- to use FZF to search them (:Commands). vim.lsp.(...) seems to
@@ -51,19 +50,15 @@ end
 
 return {
     setup = function(capabilities)
-        local servers = {
-            ['gopls'] = {},
-            ['jedi_language_server'] = {},
-            ['clangd'] = {},
-        }
-        for srv, opts in pairs(servers) do
-            lsp[srv].setup(vim.tbl_deep_extend("keep", opts, {
-                on_attach=on_attach,
-                capabilities=capabilities,
-                flags={
-                    debounce_text_changes=200,
-                },
-            }))
-        end
+        vim.lsp.config('*', {
+            capabilities=capabilities,
+            on_attach=on_attach,
+            flags={
+                debounce_text_changes=200,
+            }
+        })
+        vim.lsp.enable('gopls')
+        vim.lsp.enable('jedi_language_server')
+        vim.lsp.enable('clangd')
     end
 }
