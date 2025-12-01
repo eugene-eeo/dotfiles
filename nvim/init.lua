@@ -261,7 +261,7 @@ map('n', '<leader>tt', ':NERDTreeToggle<cr>')
 -- TREE-SITTER --
 -----------------
 require('nvim-treesitter.configs').setup {
-    ensure_installed = 'all',
+    ensure_installed = { 'go', 'c', 'bash', 'ssh_config', 'lua', 'markdown', 'make', 'python' },
     highlight = { enable = true },
     matchup = { enable = true },
     textobjects = {
@@ -287,8 +287,7 @@ map('x', '<leader>ss', ':MyGrepRange<cr>')
 -----------------
 -- LSP CONFIGS --
 -----------------
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('extra/lsp_config').setup(capabilities)
 
 ----------------
