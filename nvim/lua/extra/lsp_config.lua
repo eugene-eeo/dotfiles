@@ -30,7 +30,7 @@ end
 
 -- Common mappings
 local on_attach = function(args)
-    local opts = { buffer = bufnr, noremap = true, silent = true }
+    local opts = { buffer = args.buf, noremap = true, silent = true }
 
     vim.keymap.del('n', 'K', { buffer = args.buf })
     vim.keymap.set('n', 'K',  function() vim.lsp.buf.hover({ border = 'single', max_width = 80 }) end, opts)
@@ -44,10 +44,6 @@ local on_attach = function(args)
     vim.keymap.set('n', '<leader>A', vim.lsp.buf.format, opts)
     vim.keymap.set('n', 'gs', function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set('i', '<c-s>', function() vim.lsp.buf.signature_help() end, opts)
-
-    -- if client.server_capabilities.inlayHintProvider then
-    --     vim.lsp.inlay_hint.enable(true, {bufnr = bufnr})
-    -- end
 end
 
 -- also unmap all of the strange LSP defaults (:help lsp-defaults)
@@ -66,6 +62,7 @@ return {
         })
         vim.lsp.enable('gopls')
         vim.lsp.enable('jedi_language_server')
+        -- vim.lsp.enable('zuban')
         vim.lsp.enable('clangd')
     end
 }
