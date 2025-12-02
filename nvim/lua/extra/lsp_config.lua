@@ -29,8 +29,10 @@ for _, cmd in ipairs(commands) do
 end
 
 -- Common mappings
-local on_attach = function(client, bufnr)
+local on_attach = function(args)
     local opts = { buffer = bufnr, noremap = true, silent = true }
+
+    vim.keymap.del('n', 'K', { buffer = args.buf })
     vim.keymap.set('n', 'K',  function() vim.lsp.buf.hover({ border = 'single', max_width = 80 }) end, opts)
     vim.keymap.set('n', 'g]', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.declaration, opts)
@@ -48,11 +50,16 @@ local on_attach = function(client, bufnr)
     -- end
 end
 
+-- also unmap all of the strange LSP defaults (:help lsp-defaults)
+for _, key in ipairs({ 'grn', 'gra', 'grr', 'gri', 'grt', 'gO' }) do
+    vim.keymap.del('n', key)
+end
+
 return {
     setup = function(capabilities)
+        vim.api.nvim_create_autocmd('LspAttach', { callback = on_attach })
         vim.lsp.config('*', {
             capabilities=capabilities,
-            on_attach=on_attach,
             flags={
                 debounce_text_changes=200,
             }
