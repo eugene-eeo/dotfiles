@@ -7,6 +7,7 @@ sync:
 	cp    ./bash_profile   ~/.bash_profile
 	cp    ./pythonrc.py    ~/.pythonrc.py
 	cp    ./inputrc        ~/.inputrc
+	cp    ./ripgreprc      ~/.ripgreprc
 	cp -a ./scripts/.      ~/.scripts
 	cp -R ./nvim           ~/.config
 
