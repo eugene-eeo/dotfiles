@@ -13,21 +13,15 @@ local map = vim.keymap.set
 vim.cmd 'packadd paq-nvim'
 require('paq') {
     {'savq/paq-nvim'},
-    {'nvim-treesitter/nvim-treesitter'},
-    {'nvim-treesitter/nvim-treesitter-textobjects'},
+    {'nvim-treesitter/nvim-treesitter', branch = 'main'},
+    {'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main'},
     {'neovim/nvim-lspconfig'},
-    {'hrsh7th/nvim-cmp'},
-    {'hrsh7th/cmp-nvim-lsp'},
-    {'hrsh7th/cmp-nvim-lsp-signature-help'},
-    {'hrsh7th/cmp-buffer'},
-    {'hrsh7th/cmp-path'},
     {'junegunn/fzf', build='./install --all'},
     {'junegunn/fzf.vim'},
     {'junegunn/vim-easy-align'},
     {'mg979/vim-visual-multi', branch='master'},
     {'sjl/gundo.vim'},
-    {'nvim-lua/plenary.nvim'},
-    {'lewis6991/gitsigns.nvim'}, -- depends on plenary.nvim
+    {'lewis6991/gitsigns.nvim'},
     {'ludovicchabant/vim-gutentags'},
     {'andymass/vim-matchup'},
     {'mfussenegger/nvim-lint'},
@@ -87,7 +81,9 @@ opt.foldenable = false
 opt.hidden = true
 opt.splitright = true
 
-opt.completeopt = { 'menu', 'menuone', 'noselect' }
+opt.completeopt = { 'menu', 'menuone', 'noselect', 'popup' }
+opt.pumborder = 'single'
+opt.pummaxwidth = 55
 opt.shortmess:append('c')
 opt.pumheight = 15
 opt.clipboard = { 'unnamedplus' }
@@ -152,8 +148,6 @@ map('n', 'ghp', require('gitsigns').preview_hunk, {silent = true})
 g.gutentags_cache_dir = fn.expand('~/.cache/tags')
 g.gutentags_ctags_exclude = {'node_modules','.cache'}
 g.gutentags_file_list_command = 'rg --files'
--- nvim-cmp
-require('extra/nvim-cmp')
 -- matchup
 g.matchup_matchparen_enabled = 1
 g.matchup_matchparen_offscreen = {}
@@ -167,9 +161,9 @@ map('o', 'a%', '<plug>(matchup-%)', {remap = true})
 map('o', 'i%', '<plug>(matchup-%)', {remap = true})
 -- nvim-lint
 require('lint').linters_by_ft = {
-    sh = {'shellcheck',},
-    go = {'golangcilint',},
-    python = {'ruff',},
+    sh = { 'shellcheck', },
+    go = { 'golangcilint', },
+    python = { 'ruff', },
 }
 map('n', '<leader>r', require('lint').try_lint)
 
@@ -240,8 +234,8 @@ map('n', '[[',    '<C-o>',      {silent = true})
 map('n', ']]',    '<C-i>',      {silent = true})
 map('n', '<C-j>', ':cprev<cr>', {silent = true})
 map('n', '<C-k>', ':cnext<cr>', {silent = true})
-map('n', '[d', vim.diagnostic.goto_prev, {silent = true})
-map('n', ']d', vim.diagnostic.goto_next, {silent = true})
+map('n', '[d', function() vim.diagnostic.jump({count= 1, float=true}) end, {silent = true})
+map('n', ']d', function() vim.diagnostic.jump({count=-1, float=true}) end, {silent = true})
 map('n', '<leader>q', vim.diagnostic.setqflist, {silent = true})
 
 -- junegunn/vim-easy-align
@@ -261,24 +255,20 @@ map('n', '<leader>tt', ':NERDTreeToggle<cr>')
 -----------------
 -- TREE-SITTER --
 -----------------
-require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'go', 'c', 'bash', 'ssh_config', 'lua', 'markdown', 'make', 'python' },
-    highlight = { enable = true },
-    matchup = { enable = true },
-    textobjects = {
-        select = {
-            enable = true,
-            lookahead = true, -- similar to targets.vim
-            keymaps = {
-                ['af'] = '@function.outer',
-                ['if'] = '@function.inner',
-                ['aa'] = '@parameter.outer',
-                ['ia'] = '@parameter.inner',
-                ['ac'] = '@comment.outer',
-            },
-        },
-    },
-}
+require('nvim-treesitter').install({ 'go', 'bash', 'c', 'ssh_config', 'make', 'python' })
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { '*' },
+    callback = function(ev)
+        -- syntax highlighting
+        local ts = require('nvim-treesitter')
+        local ft = vim.bo[ev.buf].ft
+        local lang = vim.treesitter.language.get_lang(ft)
+        if vim.list_contains(ts.get_installed(), lang) then
+            vim.treesitter.start(ev.buf, lang)
+        end
+    end,
+})
+require('extra/treesitter-textobjects').setup()
 
 require('extra/grep').setup()
 map('n', '<leader>/',  ':silent grep!<space>')
@@ -288,8 +278,8 @@ map('x', '<leader>ss', ':MyGrepRange<cr>')
 -----------------
 -- LSP CONFIGS --
 -----------------
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-require('extra/lsp_config').setup(capabilities)
+require('extra/lsp_config').setup()
+require('extra/completion').setup()
 
 ----------------
 -- IDENTATION --

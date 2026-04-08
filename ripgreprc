@@ -2,3 +2,5 @@
 kconfig:Kconfig
 --type-add
 kconfig:Kconfig.*
+--type-add
+apkbuild:APKBUILD

@@ -29,10 +29,11 @@ for _, cmd in ipairs(commands) do
 end
 
 -- Common mappings
-local on_attach = function(args)
-    local opts = { buffer = args.buf, noremap = true, silent = true }
+local on_attach = function(ev)
+    local opts = { buffer = ev.buf, noremap = true, silent = true }
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-    vim.keymap.del('n', 'K', { buffer = args.buf })
+    vim.keymap.del('n', 'K', { buffer = ev.buf })
     vim.keymap.set('n', 'K',  function() vim.lsp.buf.hover({ border = 'single', max_width = 80 }) end, opts)
     vim.keymap.set('n', 'g]', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.declaration, opts)
@@ -44,10 +45,14 @@ local on_attach = function(args)
     vim.keymap.set('n', '<leader>A', vim.lsp.buf.format, opts)
     vim.keymap.set('n', 'gs', function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set('i', '<c-s>', function() vim.lsp.buf.signature_help() end, opts)
+
+    if client:supports_method('textDocument/completion') then
+        vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = false })
+    end
 end
 
 -- also unmap all of the strange LSP defaults (:help lsp-defaults)
-for _, key in ipairs({ 'grn', 'gra', 'grr', 'gri', 'grt', 'gO' }) do
+for _, key in ipairs({ 'grn', 'gra', 'grr', 'gri', 'grt', 'gO', 'grx', 'gx' }) do
     vim.keymap.del('n', key)
 end
 
