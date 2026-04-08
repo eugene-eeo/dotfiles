@@ -10,25 +10,31 @@ local map = vim.keymap.set
 -------------
 -- PLUGINS --
 -------------
-vim.cmd 'packadd paq-nvim'
-require('paq') {
-    {'savq/paq-nvim'},
-    {'nvim-treesitter/nvim-treesitter', branch = 'main'},
-    {'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main'},
-    {'neovim/nvim-lspconfig'},
-    {'junegunn/fzf', build='./install --all'},
-    {'junegunn/fzf.vim'},
-    {'junegunn/vim-easy-align'},
-    {'mg979/vim-visual-multi', branch='master'},
-    {'sjl/gundo.vim'},
-    {'lewis6991/gitsigns.nvim'},
-    {'ludovicchabant/vim-gutentags'},
-    {'andymass/vim-matchup'},
-    {'mfussenegger/nvim-lint'},
-    {'kevinhwang91/promise-async'},
-    {'kevinhwang91/nvim-ufo'},
-    {'preservim/nerdtree'},
-}
+local gh = function(x) return 'https://github.com/' .. x end
+vim.api.nvim_create_user_command('PackUpdate', function() vim.pack.update() end, {})
+vim.api.nvim_create_autocmd('PackChanged', { callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if name == 'fzf' and (kind == 'install' or kind == 'update') then
+        vim.system({ './install', '--all' }, { cwd = ev.data.path })
+    end
+end })
+vim.pack.add({
+    { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' },
+    { src = gh 'nvim-treesitter/nvim-treesitter-textobjects', version = 'main' },
+    { src = gh 'neovim/nvim-lspconfig' },
+    { src = gh 'junegunn/fzf' },
+    { src = gh 'junegunn/fzf.vim' },
+    { src = gh 'junegunn/vim-easy-align' },
+    { src = gh 'mg979/vim-visual-multi', version = 'master' },
+    { src = gh 'sjl/gundo.vim' },
+    { src = gh 'lewis6991/gitsigns.nvim' },
+    { src = gh 'ludovicchabant/vim-gutentags' },
+    { src = gh 'andymass/vim-matchup' },
+    { src = gh 'mfussenegger/nvim-lint' },
+    { src = gh 'kevinhwang91/promise-async' },
+    { src = gh 'kevinhwang91/nvim-ufo' },
+    { src = gh 'preservim/nerdtree' },
+})
 
 ------------------------------
 -- Disable some vim plugins --
