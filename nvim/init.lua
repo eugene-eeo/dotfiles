@@ -12,6 +12,13 @@ local map = vim.keymap.set
 -------------
 local gh = function(x) return 'https://github.com/' .. x end
 vim.api.nvim_create_user_command('PackUpdate', function() vim.pack.update() end, {})
+vim.api.nvim_create_user_command('PackClean', function()
+    local to_delete = vim.iter(vim.pack.get())
+      :filter(function(x) return not x.active end)
+      :map(function(x) return x.spec.name end)
+      :totable()
+    vim.pack.del(to_delete)
+end, {})
 vim.api.nvim_create_autocmd('PackChanged', { callback = function(ev)
     local name, kind = ev.data.spec.name, ev.data.kind
     if name == 'fzf' and (kind == 'install' or kind == 'update') then
@@ -25,14 +32,11 @@ vim.pack.add({
     { src = gh 'junegunn/fzf' },
     { src = gh 'junegunn/fzf.vim' },
     { src = gh 'junegunn/vim-easy-align' },
-    { src = gh 'mg979/vim-visual-multi', version = 'master' },
     { src = gh 'sjl/gundo.vim' },
     { src = gh 'lewis6991/gitsigns.nvim' },
     { src = gh 'ludovicchabant/vim-gutentags' },
     { src = gh 'andymass/vim-matchup' },
     { src = gh 'mfussenegger/nvim-lint' },
-    { src = gh 'kevinhwang91/promise-async' },
-    { src = gh 'kevinhwang91/nvim-ufo' },
     { src = gh 'preservim/nerdtree' },
 })
 
@@ -88,7 +92,6 @@ opt.hidden = true
 opt.splitright = true
 
 opt.completeopt = { 'menu', 'menuone', 'noselect', 'popup' }
-opt.pumborder = 'single'
 opt.pummaxwidth = 55
 opt.shortmess:append('c')
 opt.pumheight = 15
@@ -122,7 +125,7 @@ opt.termguicolors = true
 vim.cmd [[
     colorscheme default
     hi Normal         guibg=none  " #090808
-    hi NormalFloat    guibg=none  " #090808
+    "hi NormalFloat    guibg=none  " #090808
     hi CursorLineNr   guibg=NvimDarkGrey3
     hi CursorLineSign guibg=NvimDarkGrey3
     hi StatusLine     guifg=#ffffff guibg=NvimDarkGrey3 gui=bold
@@ -172,19 +175,9 @@ require('lint').linters_by_ft = {
     python = { 'ruff', },
 }
 map('n', '<leader>r', require('lint').try_lint)
-
--- nvim-ufo
-opt.foldcolumn = '0'
+-- folding
 opt.foldlevel = 99
 opt.foldlevelstart = -1
-opt.foldenable = true
-require('ufo').setup({
-    provider_selector = function(bufnr, filetype, buftype)
-        return {'treesitter', 'indent'}
-    end
-})
-map('n', 'zR', require('ufo').openAllFolds)
-map('n', 'zM', require('ufo').closeAllFolds)
 
 -- diagnostics
 vim.diagnostic.config({
@@ -200,6 +193,10 @@ vim.diagnostic.config({
     underline = true,
     update_in_insert = false,
     severity_sort = true,
+    jump = { on_jump = function(diag, bufnr)
+        if not diag then return end
+        vim.diagnostic.open_float({ bufnr = bufnr })
+    end },
 })
 
 --------------
@@ -240,8 +237,8 @@ map('n', '[[',    '<C-o>',      {silent = true})
 map('n', ']]',    '<C-i>',      {silent = true})
 map('n', '<C-j>', ':cprev<cr>', {silent = true})
 map('n', '<C-k>', ':cnext<cr>', {silent = true})
-map('n', '[d', function() vim.diagnostic.jump({count= 1, float=true}) end, {silent = true})
-map('n', ']d', function() vim.diagnostic.jump({count=-1, float=true}) end, {silent = true})
+-- map('n', '[d', function() vim.diagnostic.jump({count= 1}) end, {silent = true})
+-- map('n', ']d', function() vim.diagnostic.jump({count=-1}) end, {silent = true})
 map('n', '<leader>q', vim.diagnostic.setqflist, {silent = true})
 
 -- junegunn/vim-easy-align
@@ -261,16 +258,19 @@ map('n', '<leader>tt', ':NERDTreeToggle<cr>')
 -----------------
 -- TREE-SITTER --
 -----------------
-require('nvim-treesitter').install({ 'go', 'bash', 'c', 'ssh_config', 'make', 'python' })
+vim.schedule(function ()
+    require('nvim-treesitter').install({ 'go', 'bash', 'c', 'ssh_config', 'make', 'python' })
+end)
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { '*' },
     callback = function(ev)
         -- syntax highlighting
-        local ts = require('nvim-treesitter')
         local ft = vim.bo[ev.buf].ft
         local lang = vim.treesitter.language.get_lang(ft)
-        if vim.list_contains(ts.get_installed(), lang) then
+        if vim.treesitter.language.add(lang) then
             vim.treesitter.start(ev.buf, lang)
+            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+            vim.wo.foldmethod = 'expr'
         end
     end,
 })
