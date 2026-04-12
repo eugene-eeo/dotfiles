@@ -26,3 +26,4 @@ set convert-meta off
 
 set keymap vi-insert
 "p": self-insert
+Control-l: clear-screen
