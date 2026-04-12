@@ -1,8 +1,4 @@
-dotvim/undo
-dotvim/plugged
-dotvim/.netrwhist
+/st/compile_commands.json
+/st/.cache/
 /st/st
 /st/*.o
-/get-volume/get-volume
-/xftwidth/xftwidth
-/ibus-switch/ibus-switch
