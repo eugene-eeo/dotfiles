@@ -73,7 +73,4 @@ fi
 # eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
-# Direnv
-eval "$(direnv hook bash)"
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
