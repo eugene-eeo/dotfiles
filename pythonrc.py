@@ -16,7 +16,7 @@ else:
 
 def display_hook(value, pprint=pprint):
     if value is not None:
-        global _
+        global _  # type: ignore
         _ = value
         pprint(value)
 
